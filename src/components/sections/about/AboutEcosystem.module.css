@@ -1,0 +1,289 @@
+/* Figma 2515:59783 "Desktop - 110" — 1440 x 824: padding 100 around a
+   centred stack spaced 38 apart. */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.8rem;
+  padding: 10rem;
+  background: var(--bg-main);
+}
+
+.title {
+  width: 83.7rem;
+  height: 6.8rem;
+  font-size: 4rem;
+  font-weight: 500;
+  color: var(--primary);
+  text-align: center;
+  word-break: break-word;
+}
+
+.lead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 87.9rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  text-align: center;
+  word-break: break-word;
+}
+
+/* Each text box is centred vertically on its fixed artboard height. */
+.leadIntro,
+.leadBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.leadIntro {
+  height: 3.4rem;
+}
+
+.leadBody {
+  height: 11.2rem;
+}
+
+.leadJoin {
+  display: none;
+}
+
+/* Two rows of two 604 cells, 32 apart. The track is 1240 wide inside a 1223
+   frame, so it starts 8.5px right of the content box and spills 17px past
+   its right edge — the artboard's own overhang. Rows sit 8 + 24 + 8 apart. */
+.grid {
+  position: relative;
+  left: 0.85rem;
+  display: grid;
+  grid-template-columns: repeat(2, 60.4rem);
+  column-gap: 3.2rem;
+  row-gap: 4rem;
+  width: 124rem;
+  margin: 0;
+  padding: 0.8rem 0;
+  list-style: none;
+}
+
+/* Marker then card; the 1px of slack in each 604 cell falls on the right. */
+.item {
+  grid-column: var(--column);
+  grid-row: var(--row);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 2.1rem;
+}
+
+.marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.2rem;
+  height: 4.2rem;
+  border-radius: 50%;
+  background: var(--primary);
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.badgeIcon {
+  width: var(--w);
+  height: var(--h);
+}
+
+.stem {
+  width: 0.175rem;
+  height: 5.6rem;
+  margin-top: 1.4rem;
+  background: #e5e7eb;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+  width: 54rem;
+  /* 21px inside a 0.5px rim. The rim is painted rather than laid out, since
+     Chrome rounds sub-pixel borders up to a whole device pixel. */
+  padding: 2.15rem;
+  background: var(--bg-main);
+  box-shadow: inset 0 0 0 0.05rem var(--primary);
+  border-radius: 1.275rem;
+  transition:
+    transform var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.cardTitle {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.cardText {
+  width: 100%;
+  padding-top: 1.6rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  text-align: right;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.cardTextMuted {
+  color: var(--text-secondary);
+}
+
+.item:hover .card {
+  transform: translateY(-0.4rem);
+  box-shadow:
+    inset 0 0 0 0.05rem var(--primary),
+    0 1.6rem 3.2rem -2rem rgba(21, 51, 115, 0.35);
+}
+
+.item:hover .badge {
+  transform: scale(1.08);
+}
+
+@media (max-width: 1024px) {
+  .section {
+    padding: 8rem 2.4rem;
+  }
+
+  .title,
+  .lead {
+    width: min(87.9rem, 100%);
+  }
+
+  .title,
+  .leadIntro,
+  .leadBody {
+    height: auto;
+  }
+
+  .grid {
+    left: 0;
+    grid-template-columns: minmax(0, 60.4rem);
+    justify-content: center;
+    row-gap: 2.4rem;
+    width: 100%;
+  }
+
+  .item {
+    grid-column: auto;
+    grid-row: auto;
+    justify-content: flex-start;
+  }
+
+  .card {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+  }
+
+  .cardTitle {
+    white-space: normal;
+  }
+}
+
+/* Figma 2519:66494 (375). The heading block is 291.1 wide and, like the rest
+   of the column, 2.5px left of centre; the hero band above already carries
+   the 56px lead-in. The card list is 310.33 wide: a 277.9 card, a 10.8 gap
+   and a 21.6 marker, stacked 26.15 apart. Line boxes are pinned to the
+   heights the artboard reports, which run 1–2px under Chrome's `normal`. */
+@media (max-width: 640px) {
+  .section {
+    gap: 0;
+    padding: 0;
+  }
+
+  .title,
+  .lead {
+    position: relative;
+    left: -0.25rem;
+    width: min(29.11rem, calc(100% - 3.2rem));
+  }
+
+  .title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 2.9rem;
+  }
+
+  .lead {
+    display: block;
+    height: 17rem;
+    margin-top: 1.6rem;
+    font-size: 1.2rem;
+    white-space: pre-wrap;
+  }
+
+  .leadIntro,
+  .leadBody,
+  .leadJoin {
+    display: inline;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 31.033rem);
+    row-gap: 2.6146rem;
+    margin-top: 3.2rem;
+    padding: 0;
+  }
+
+  .item {
+    gap: 1.0807rem;
+  }
+
+  .badge {
+    width: 2.1615rem;
+    height: 2.1615rem;
+  }
+
+  .badgeIcon {
+    width: calc(var(--w) * 0.5146);
+    height: calc(var(--h) * 0.5146);
+  }
+
+  .stem {
+    width: 0.0901rem;
+    height: 2.882rem;
+    margin-top: 0.7205rem;
+  }
+
+  .card {
+    padding: 1.1064rem;
+    border-radius: 0.6562rem;
+    box-shadow: inset 0 0 0 0.0257rem var(--primary);
+  }
+
+  .cardTitle {
+    font-size: 1.3557rem;
+    line-height: 2.6rem;
+    white-space: nowrap;
+  }
+
+  .cardTitleCompact {
+    font-size: 1.2351rem;
+    line-height: 2.3rem;
+  }
+
+  .cardText {
+    padding-top: 0.8234rem;
+    font-size: 0.9684rem;
+    line-height: 1.8rem;
+  }
+}

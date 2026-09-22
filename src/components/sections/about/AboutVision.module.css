@@ -1,0 +1,352 @@
+/* Figma 2515:59851 "Desktop - 138" — 1440 x 731, absolutely composed. The
+   heading and the illustration are centred on x 696 on the artboard, not on
+   the page centre, and the heading starts 2px above the band. */
+.section {
+  position: relative;
+  height: 73.1rem;
+  background: var(--bg-main);
+}
+
+.stage {
+  position: relative;
+  width: 144rem;
+  max-width: 100%;
+  height: 100%;
+  margin-inline: auto;
+}
+
+.title {
+  position: absolute;
+  left: 26.7rem;
+  top: -0.2rem;
+  width: 85.8rem;
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* "image 202" — the square render is 102.12% of the 380 frame tall, so its
+   bottom 8px are cropped. */
+.figure {
+  position: absolute;
+  left: 50.2rem;
+  top: 7.4rem;
+  width: 38.7rem;
+  height: 38rem;
+  overflow: hidden;
+}
+
+.figureImage {
+  width: 100%;
+  height: 102.12%;
+  max-width: none;
+}
+
+/* Two 604 cards 59 apart, centred in a 1250 row — 17px wider than the row,
+   so each overhangs it by 8.5px. */
+.cards {
+  position: absolute;
+  left: 8.4rem;
+  top: 47.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5.9rem;
+  width: 125rem;
+  height: 17.2rem;
+}
+
+.card {
+  display: flex;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 60.4rem;
+  border-radius: 2.4rem;
+  background: var(--primary);
+  color: var(--text-inverse);
+  transition:
+    transform var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.card:hover {
+  transform: translateY(-0.4rem);
+  box-shadow: 0 2rem 4rem -2.4rem rgba(21, 51, 115, 0.55);
+}
+
+.cardInner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.cardHead {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.iconBox {
+  position: relative;
+  flex-shrink: 0;
+  width: 4rem;
+  height: 4rem;
+  overflow: hidden;
+  border-radius: 0.8rem;
+  background: var(--bg-main);
+}
+
+.icon {
+  position: absolute;
+  left: 0.8rem;
+  top: 0.8rem;
+}
+
+.iconMobile {
+  display: none;
+}
+
+.cardTitle {
+  font-size: 2.4rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cardBody {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 1.6rem;
+}
+
+.cardText {
+  font-size: 1.8rem;
+  font-weight: 400;
+  text-align: right;
+  word-break: break-word;
+}
+
+/* رؤيتنا — "Container" 2515:59868: 24px side padding around a 580 card that
+   overhangs it on the left; no right padding inside. */
+.vision {
+  align-items: center;
+  padding-inline: 2.4rem;
+}
+
+.vision .cardInner {
+  width: 58rem;
+  padding: 2.1rem 0 2.1rem 2.1rem;
+}
+
+.vision .cardHead {
+  align-items: center;
+  gap: 0.8rem;
+  width: 55.8rem;
+}
+
+.vision .icon {
+  width: 2.7rem;
+  height: 2.4rem;
+}
+
+.vision .cardBody {
+  width: 50.3rem;
+}
+
+.vision .cardText {
+  width: 43.4rem;
+}
+
+/* رسالتنا — "Card" 2515:59856: a 0.5px same-colour rim (kept as padding so
+   the card is 167.4 tall at any pixel density) and a 573 content column held
+   against the right edge. */
+.mission {
+  padding: 0.05rem;
+}
+
+.mission .cardInner {
+  width: 57.3rem;
+  padding: 2.1rem 2.4rem 2.1rem 2.1rem;
+}
+
+.mission .cardHead {
+  align-items: flex-start;
+  gap: 1.6rem;
+  width: 100%;
+  height: 4rem;
+}
+
+.mission .icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.mission .cardBody {
+  width: 48.5rem;
+}
+
+.mission .cardText {
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .section {
+    height: auto;
+    padding: 8rem 2.4rem;
+  }
+
+  .stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+  }
+
+  .title,
+  .figure,
+  .cards {
+    position: static;
+  }
+
+  .title {
+    width: min(85.8rem, 100%);
+    font-size: 3.2rem;
+    white-space: normal;
+  }
+
+  .figure {
+    margin-top: 2.4rem;
+  }
+
+  .cards {
+    flex-direction: column;
+    gap: 2.4rem;
+    width: min(60.4rem, 100%);
+    height: auto;
+    margin-top: 2.4rem;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .vision,
+  .mission {
+    padding-inline: 0;
+  }
+
+  .vision .cardInner,
+  .mission .cardInner {
+    width: 100%;
+    padding: 2.1rem 2.4rem;
+  }
+
+  .vision .cardHead,
+  .vision .cardBody,
+  .vision .cardText,
+  .mission .cardBody {
+    width: 100%;
+  }
+}
+
+/* Figma 2519:66543 (375): heading, illustration, then two 316 x 100 cards 24
+   apart — 60 below the card list above and 81.3 above the process band. Both
+   375 cards carry the eye glyph. */
+@media (max-width: 640px) {
+  .section {
+    padding: 6rem 0 8.13rem;
+  }
+
+  .stage {
+    position: relative;
+    left: -0.25rem;
+    width: min(31.6rem, calc(100% - 2.4rem));
+    margin-inline: auto;
+  }
+
+  .title {
+    width: 27rem;
+    max-width: 100%;
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: 3rem;
+    color: var(--primary);
+  }
+
+  .figure {
+    width: 23.2rem;
+    height: 22.7177rem;
+    margin-top: 0;
+  }
+
+  .cards {
+    width: 100%;
+    margin-top: 4rem;
+  }
+
+  .card,
+  .card:hover {
+    align-items: center;
+    height: 10rem;
+    padding: 0 1.4rem;
+    border-radius: 1.2397rem;
+  }
+
+  /* 299.6 wide: it overhangs the card's 288 content box by 11.6 on the left,
+     so it is sized off that box and keeps the overhang on narrower phones. */
+  .vision .cardInner,
+  .mission .cardInner {
+    width: calc(100% + 1.1603rem);
+    padding: 1.0848rem 0 1.0848rem 1.0848rem;
+  }
+
+  .vision .cardHead,
+  .mission .cardHead {
+    align-items: center;
+    gap: 0.8rem;
+    width: 28.8238rem;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .iconBox {
+    width: 2.0782rem;
+    height: 2.0544rem;
+    border-radius: 0.4133rem;
+  }
+
+  .icon {
+    display: none;
+  }
+
+  .iconMobile {
+    display: block;
+    position: absolute;
+    left: 0.413rem;
+    top: 0.413rem;
+    width: 1.3861rem;
+    height: 1.2475rem;
+  }
+
+  .cardTitle {
+    font-size: 1.2397rem;
+    line-height: 2.4rem;
+  }
+
+  .vision .cardBody,
+  .mission .cardBody {
+    width: 25.9828rem;
+    max-width: 100%;
+    padding-top: 0.8265rem;
+    padding-right: 3rem;
+  }
+
+  .vision .cardText,
+  .mission .cardText {
+    width: 21.1rem;
+    font-size: 1rem;
+    line-height: 1.9rem;
+  }
+}

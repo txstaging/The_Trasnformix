@@ -9,6 +9,7 @@ import { Navbar } from "@/components/sections/Navbar";
 import { Partners } from "@/components/sections/Partners";
 import { Process } from "@/components/sections/Process";
 import { ServicesTabs } from "@/components/sections/ServicesTabs";
+import { Testimonials } from "@/components/sections/Testimonials";
 import { Works } from "@/components/sections/Works";
 
 /* Section order follows the artboard top-to-bottom (Figma node 2096:4497). */
@@ -28,6 +29,7 @@ export default function Home() {
         <Faq />
         <Partners />
         <CtaChallenge />
+        <Testimonials />
       </main>
       <Footer />
     </>

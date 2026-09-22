@@ -2,11 +2,17 @@
    Resting look is the `Frame 3` variant. Hover adds a hard drop shadow beneath
    the pill (gradient and top highlight unchanged); press swaps in the artboard's
    `Variant4`: deeper gradient, dark inset shadow, no border, dimmed label. */
+/* The contact pills render as <button>; the rest stay links. Both start from
+   the same clean box. */
 .root {
   position: relative;
   display: block;
   width: 21.8328rem;
   height: 6.1rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
   cursor: pointer;
   flex-shrink: 0;
   /* No overflow clip: the pill's bottom edge sits on the frame's bottom edge,
@@ -75,17 +81,17 @@
 }
 
 @media (max-width: 520px) {
-  .root {
+  .root:not(.fixed) {
     width: 20.4rem;
     height: 5.8rem;
   }
 
-  .pill {
+  .root:not(.fixed) .pill {
     width: 20.4rem;
     height: 5rem;
   }
 
-  .label {
+  .root:not(.fixed) .label {
     font-size: 1.6rem;
   }
 }

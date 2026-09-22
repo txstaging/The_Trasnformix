@@ -44,15 +44,20 @@
   height: 5.4355rem;
 }
 
-.logoCompact {
+.logoCompact,
+.logoBar {
   display: none;
 }
 
-/* The list is not centred on the artboard — it starts 555.33px from the left. */
+/* The list is centred in a 672 wide container that starts 500.33px from the
+   left — not on the page — so it re-centres there as items come and go. */
 .nav {
   position: absolute;
-  left: 55.533rem;
+  left: 50.0328rem;
   top: 50%;
+  display: flex;
+  justify-content: center;
+  width: 67.2rem;
   transform: translateY(-50%);
 }
 
@@ -156,7 +161,9 @@
   padding: 0.8rem;
   list-style: none;
   background: var(--bg-main);
-  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+  /* Figma leaves the 1px stroke out of the layout: the rows are 194 wide. */
+  outline: 0.1rem solid rgba(0, 0, 0, 0.1);
+  outline-offset: -0.1rem;
   border-radius: 1.2rem;
   box-shadow:
     0 10rem 4rem rgba(0, 0, 0, 0.07),
@@ -172,10 +179,19 @@
   padding: 0.8rem 1.2rem;
   border-radius: 0.8rem;
   font-size: 1.2rem;
+  line-height: 2.3rem;
   color: var(--menu-text);
   transition:
     background-color var(--dur-fast) var(--ease-out),
     color var(--dur-fast) var(--ease-out);
+}
+
+/* The first label sits in a 180-wide box pinned to the row's left padding, so
+   it runs 10px into the right padding on one line instead of wrapping. */
+.menu > li:first-child > .menuLink,
+.menu > .menuLink:first-child {
+  padding-right: 0.2rem;
+  white-space: nowrap;
 }
 
 /* The artboard draws the second row in this state — it is the hover, not a
@@ -239,6 +255,10 @@
   height: 2.4rem;
 }
 
+.burgerBars {
+  display: none;
+}
+
 .sheet {
   display: none;
 }
@@ -284,6 +304,12 @@
   .header {
     background-color: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(1.2rem);
+  }
+
+  /* A backdrop-filter makes the header the containing block of everything
+     inside it, which would pin the fixed sheet to the 96px bar. */
+  .header:has(.sheetOpen) {
+    backdrop-filter: none;
   }
 
   /* Figma 2164:28439 "Navbar 9" — a white panel with a 20px gutter and a 30px
@@ -366,6 +392,13 @@
     transition: color var(--dur-fast) var(--ease-out);
   }
 
+  /* "تواصل معنا" is a button (it opens the contact form); keep it flush right
+     like the link rows. */
+  .sheetButton {
+    width: 100%;
+    text-align: right;
+  }
+
   .sheetActive,
   .sheetLink:hover {
     color: var(--ocean-blue);
@@ -405,7 +438,6 @@
     margin-top: 0;
     margin-inline-end: auto; /* RTL: hold it against the right edge. */
     padding-block: 0;
-    border-width: 0;
     opacity: 0;
     transition:
       max-height var(--dur) var(--ease-out),
@@ -418,11 +450,61 @@
     max-height: 24rem;
     margin-top: 1.2rem;
     padding-block: 0.8rem;
-    border-width: 0.1rem;
     opacity: 1;
   }
 
   .sheetCtaItem {
     display: flex; /* RTL: flex-start keeps the pill flush right. */
+  }
+}
+
+/* --------------------------------------------------------------------------
+   `slim` — Figma 2515:60114, the bar of the 375 about screen: 72 tall, white,
+   with a 1px #f3f4f6 hairline drawn inside it. The 21 x 24 bars glyph sits at
+   (32, 18.5) and the 60 x 53 lockup at (284, 9), i.e. 31px from the right.
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .slim,
+  .slim.scrolled {
+    background-color: var(--bg-main);
+    backdrop-filter: none;
+    box-shadow: inset 0 -0.1rem 0 #f3f4f6;
+  }
+
+  .slim .inner {
+    height: 7.2rem;
+  }
+
+  /* The 44px target stays centred on the glyph. */
+  .slim .burger {
+    left: 2.05rem;
+    top: 0.85rem;
+  }
+
+  .slim .burgerGlyph {
+    display: none;
+  }
+
+  .slim .burgerBars {
+    display: block;
+    width: 2.1rem;
+    height: 2.4rem;
+  }
+
+  .slim .logo {
+    right: 3.1rem;
+    top: 0.9rem;
+    width: 6rem;
+    height: 5.3rem;
+  }
+
+  .slim .logoCompact {
+    display: none;
+  }
+
+  .slim .logoBar {
+    display: block;
+    width: 6rem;
+    height: 5.3rem;
   }
 }

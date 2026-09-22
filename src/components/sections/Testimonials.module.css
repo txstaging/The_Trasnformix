@@ -1,0 +1,265 @@
+/* Figma 2150:25508 "Frame 1618871200" — 1440 x 719: the title 49px from the
+   top, the cards 73px under it. */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7.3rem;
+  height: 71.9rem;
+  padding: 4.9rem 0;
+  overflow: hidden;
+  background: var(--bg-main);
+}
+
+.title {
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 4.2rem;
+  font-weight: 700;
+  line-height: 4.8rem;
+  color: #18181b;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* "Group 1321314317" — 1311.68 x 468, centred. */
+.stage {
+  position: relative;
+  flex-shrink: 0;
+  width: 131.168rem;
+  height: 46.8rem;
+}
+
+/* "Shadow" — the brand plate behind the middle of the row. */
+.plate {
+  position: absolute;
+  left: 25.184rem;
+  top: 0;
+  width: 80.2rem;
+  height: 41.7rem;
+  background: var(--primary);
+}
+
+/* Three cards 37 apart, 29px down the plate; the first lands on the right. */
+.cards {
+  position: absolute;
+  left: 0;
+  top: 2.9rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 3.7rem;
+  width: 100%;
+}
+
+.card {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--card-w);
+  height: 33.6rem;
+  margin: 0;
+  border-radius: var(--radius);
+  background: var(--bg-main);
+  transition:
+    transform var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.raised {
+  box-shadow: 0 4.2444rem 6.1308rem rgba(0, 0, 0, 0.08);
+}
+
+.card:hover {
+  transform: translateY(-0.6rem);
+}
+
+.stars {
+  position: absolute;
+  right: var(--stars-r);
+  top: var(--stars-t);
+  width: var(--stars-w);
+  height: var(--stars-h);
+}
+
+.quote {
+  position: absolute;
+  right: var(--q-r);
+  top: var(--q-t);
+  width: var(--q-w);
+  height: var(--q-h);
+  margin: 0;
+  font-size: var(--q-size);
+  font-weight: 400;
+  color: #18181b;
+  text-align: right;
+  word-break: break-word;
+}
+
+/* The caption spans the card so its parts keep their artboard offsets. */
+.caption {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.avatar {
+  position: absolute;
+  right: var(--av-r);
+  top: var(--av-t);
+  width: var(--av-w);
+  height: var(--av-h);
+  object-fit: cover;
+}
+
+.round {
+  border-radius: 50%;
+}
+
+.name {
+  position: absolute;
+  right: var(--name-r);
+  top: var(--name-t);
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #18181b;
+  white-space: nowrap;
+}
+
+.meta {
+  position: absolute;
+  right: var(--meta-r);
+  top: var(--meta-t);
+  font-size: var(--meta-size);
+  font-weight: 400;
+  color: #52525b;
+  white-space: nowrap;
+}
+
+/* "BTN" — 183 wide, its 1.5px rule along the foot. */
+.more {
+  position: absolute;
+  left: 56.084rem;
+  top: 43.4rem;
+  width: 18.3rem;
+  height: 3.4rem;
+  border-bottom: 0.15rem solid #18181b;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.8rem;
+  color: #18181b;
+  text-align: center;
+  white-space: nowrap;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.more:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+/* Below the artboard width the plate becomes a blue panel holding the cards
+   in a column, and each card lays its parts out in flow. */
+@media (max-width: 1024px) {
+  .section {
+    gap: 4rem;
+    height: auto;
+    padding: 8rem 2.4rem;
+  }
+
+  .title {
+    font-size: 3.2rem;
+    line-height: 4rem;
+    white-space: normal;
+  }
+
+  .stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.2rem;
+    width: min(60rem, 100%);
+    height: auto;
+  }
+
+  .plate {
+    display: none;
+  }
+
+  .cards {
+    position: static;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.6rem;
+    padding: 2.4rem;
+    border-radius: 1.6rem;
+    background: var(--primary);
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    width: 100%;
+    height: auto;
+    padding: 2.8rem;
+  }
+
+  .stars,
+  .quote,
+  .caption,
+  .avatar,
+  .name,
+  .meta {
+    position: static;
+  }
+
+  .stars {
+    align-self: flex-start;
+  }
+
+  .quote {
+    width: auto;
+    height: auto;
+  }
+
+  .caption {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 1.2rem;
+  }
+
+  .avatar {
+    grid-row: 1 / span 2;
+  }
+
+  .name,
+  .meta {
+    grid-column: 2;
+    white-space: normal;
+  }
+
+  .more {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 6.4rem 2.4rem;
+  }
+
+  .title {
+    font-size: 2.4rem;
+    line-height: 3.2rem;
+  }
+
+  .cards {
+    padding: 1.6rem;
+  }
+
+  .card {
+    padding: 2rem;
+  }
+}

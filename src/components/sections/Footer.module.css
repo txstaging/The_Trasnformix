@@ -112,6 +112,12 @@
   color: var(--yellow-light);
 }
 
+/* The linked rows wrap their text in an <a>; without this its inherited 16px
+   strut sets the line box and drops the 14px text 3px below the plain rows. */
+.contactRow > a {
+  font-size: 1.4rem;
+}
+
 .contactLink {
   text-decoration: underline;
   text-underline-position: from-font;
@@ -262,5 +268,187 @@
 
   .copyright {
     font-size: 1.4rem;
+  }
+}
+
+/* ==========================================================================
+   `navy` — the about artboards. At 1440 (Figma 2515:60030) only the ground
+   and the lockup change. At 375 (Figma 2524:3054) the footer is one stacked
+   column set in Tajawal: lockup, تواصل معنا / الشركة / الخدمات, the social row
+   and the legal line, 32px apart.
+   ========================================================================== */
+.navy {
+  background: #0a1836;
+}
+
+/* The about artboard keeps the tagline's leading space, which nudges the
+   right-aligned line 4px inwards. */
+.navy .tagline {
+  white-space: pre;
+}
+
+.brandLogoMobile,
+.contactIconMobile {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  /* The artboard's footer frame is fixed at 950, which trims its 32px bottom
+     padding to 19. */
+  .navy {
+    align-items: stretch;
+    padding-bottom: 1.9rem;
+  }
+
+  /* The brand and main wrappers dissolve so their children can be re-ordered
+     into the artboard's single column. */
+  .navy .top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3.2rem;
+  }
+
+  .navy .brand,
+  .navy .main {
+    display: contents;
+  }
+
+  .navy .brandTop {
+    order: 1;
+    align-items: center;
+    gap: 0;
+  }
+
+  .navy .brandLogo {
+    display: none;
+  }
+
+  .navy .brandLogoMobile {
+    display: block;
+    width: 14rem;
+    height: 9rem;
+    margin-bottom: 2.4rem;
+  }
+
+  .navy .tagline {
+    width: auto;
+    height: auto;
+    font-family: var(--font-tajawal), sans-serif;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    letter-spacing: 0.00273rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .navy .columns {
+    order: 2;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 3.2rem;
+    padding-top: 1.6rem;
+  }
+
+  /* The columns carry their 1440 widths inline. */
+  .navy .column {
+    width: 100% !important;
+    gap: 2.4rem;
+  }
+
+  .navy .contact {
+    order: -1;
+    gap: 1.6rem;
+  }
+
+  .navy .contact .columnTitle {
+    margin-bottom: 0.8rem;
+  }
+
+  .navy .columnTitle {
+    height: auto;
+    font-family: var(--font-tajawal), sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 2.8rem;
+  }
+
+  .navy .columnList {
+    gap: 1.2rem;
+  }
+
+  .navy .columnLink {
+    height: auto;
+    font-family: var(--font-tajawal), sans-serif;
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
+
+  .navy .contactRow {
+    align-items: center;
+    gap: 1.2rem;
+    height: 2rem;
+  }
+
+  .navy .contactIcon {
+    display: none;
+  }
+
+  .navy .contactIconMobile {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .navy .contactText {
+    font-family: var(--font-tajawal), sans-serif;
+    line-height: 2rem;
+    color: var(--yellow-light);
+    white-space: nowrap;
+  }
+
+  .navy .contactLink {
+    text-decoration: none;
+  }
+
+  /* The linked rows' <a> must share the text's face and line box, or its
+     taller Kufi strut drops the line below the plain rows. */
+  .navy .contactRow > a {
+    font-family: var(--font-tajawal), sans-serif;
+    line-height: 2rem;
+  }
+
+  /* Facebook sits on the left of this row, the mirror of the 1440 order. */
+  .navy .social {
+    order: 3;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 1.6rem;
+    padding-top: 1.6rem;
+  }
+
+  .navy .legal {
+    order: 4;
+    padding-top: 3.2rem;
+    border-top: 0.1rem solid rgba(255, 255, 255, 0.1);
+  }
+
+  .navy .rule {
+    display: none;
+  }
+
+  .navy .phoneHidden {
+    display: none;
+  }
+
+  .navy .phoneLast {
+    order: 1;
+  }
+
+  .navy .copyright {
+    height: auto;
+    font-family: var(--font-tajawal), sans-serif;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    letter-spacing: 0.00137rem;
+    color: rgba(255, 255, 255, 0.4);
   }
 }

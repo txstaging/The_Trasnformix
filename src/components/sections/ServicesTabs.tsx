@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { CompMedia } from "@/components/ui/CompMedia";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import styles from "./ServicesTabs.module.css";
@@ -43,18 +43,11 @@ type ServiceTab = {
    opens by default. */
 const TABS: ServiceTab[] = [
   {
+    /* The card shows the project gallery in place of a motion comp. */
     id: "data-ai",
     label: "البيانات والذكاء الاصطناعي",
     icon: "/icons/lucide-brain-circuit.svg",
-    media: {
-      video: "services-brain",
-      image: "/images/services-brain.png",
-      alt: "رسم توضيحي لدارة إلكترونية على شكل ورقة شجر",
-      width: 1280,
-      height: 720,
-      left: -360.15,
-      top: -0.15,
-    },
+    media: null,
     items: [
       {
         title: "تحليل البيانات",
@@ -80,18 +73,11 @@ const TABS: ServiceTab[] = [
     ],
   },
   {
+    /* The card shows the project gallery in place of a motion comp. */
     id: "web",
     label: "تطوير المواقع",
     icon: "/icons/lucide-globe.svg",
-    media: {
-      video: "services-web",
-      image: "/images/services-web.png",
-      alt: "جهاز لوحي على مكتب يعرض موقعًا إلكترونيًا",
-      width: 530,
-      height: 1012,
-      left: -0.15,
-      top: -326.15,
-    },
+    media: null,
     items: [
       {
         title: "إنشاء المتاجر الإلكترونية",
@@ -150,19 +136,12 @@ const TABS: ServiceTab[] = [
     /* HEADS UP: Desktop-82 keeps the ERP headings but still carries the studio
        variant's body copy and its monitor / megaphone / play glyphs — the three
        paragraphs below describe design and marketing work, not ERP. Reproduced
-       as drawn; swap `text` and `icon` here once the ERP copy is written. */
+       as drawn; swap `text` and `icon` here once the ERP copy is written.
+       The card shows the Odoo gallery in place of a motion comp. */
     id: "erp",
     label: " ERP",
     icon: "/icons/lucide-chart-no-axes-combined.svg",
-    media: {
-      video: "services-erp",
-      image: "/images/services-erp.png",
-      alt: "ألواح شبكية زرقاء متراكبة",
-      width: 529,
-      height: 939,
-      left: -0.15,
-      top: -127.15,
-    },
+    media: null,
     items: [
       {
         title: "تطبيق وتخصيص Odoo",
@@ -191,10 +170,139 @@ const TABS: ServiceTab[] = [
 
 const rem = (px: number) => `${px / 10}rem`;
 
+type GalleryFrame = {
+  /** One image fills the card; two stack as a collage. */
+  images: readonly string[];
+  alt: string;
+  /** Overrides the gallery's crop anchor for this frame alone. */
+  position?: string;
+};
+
+type Gallery = {
+  label: string;
+  frames: readonly GalleryFrame[];
+  /** Where the crop anchors once the card turns wider than the frames. */
+  position?: string;
+};
+
+/* Hover galleries, cross-fading every 2.2s while the pointer stays on the card. */
+const GALLERIES: Partial<Record<string, Gallery>> = {
+  "data-ai": {
+    label: "معرض أعمال البيانات والذكاء الاصطناعي",
+    frames: [
+      {
+        images: ["/images/services-ai-law-agent.jpg"],
+        alt: "واجهة المساعد القانوني Law Agent على حاسوب محمول",
+        /* Centring the wide artwork would cut the Law Agent lockup. */
+        position: "left center",
+      },
+      {
+        images: ["/images/services-ai-al-hamra.jpg"],
+        alt: "لوحة مؤشرات مشروع الحمراء مع خريطة تفاعلية ومساعد ذكي",
+      },
+      {
+        images: ["/images/services-ai-cooperative.jpg"],
+        alt: "فريق مشروع التعاونية أمام لوحة بيانات ومجسم أرضي رقمي",
+      },
+    ],
+  },
+  web: {
+    label: "معرض أعمال تطوير المواقع",
+    /* The client lockups sit in the bottom corner of each mockup. */
+    position: "center bottom",
+    frames: [
+      {
+        images: ["/images/services-web-future-experts.png"],
+        alt: "صفحات موقع Future Experts معروضة بشكل مائل",
+      },
+      {
+        images: ["/images/services-web-diomedea.png"],
+        alt: "موقع Diomedea التعليمي على شاشة حاسوب محمول",
+      },
+      {
+        images: ["/images/services-web-tafahom.png"],
+        alt: "موقع تفاهم للاستشارات القانونية على شاشة حاسوب محمول",
+      },
+    ],
+  },
+  studio: {
+    label: "معرض أعمال استديو الإبداع",
+    frames: [
+      {
+        images: ["/images/services-studio-rozana.jpg"],
+        alt: "تصميم هوية روزانا البخاري مطبق على ذاكرة USB",
+      },
+      {
+        images: [
+          "/images/services-studio-future-coffee.jpg",
+          "/images/services-studio-future-merch.jpg",
+        ],
+        alt: "تطبيقات هوية Future Experts على كوب وساعة وملابس",
+      },
+      {
+        images: ["/images/services-studio-kun.jpg"],
+        alt: "تصميم هوية كن مطبق على لوحة عرض",
+      },
+      {
+        images: ["/images/services-studio-reem.jpg"],
+        alt: "شعار ريم بخيت مطرز على القماش",
+      },
+    ],
+  },
+  erp: {
+    label: "معرض أعمال أنظمة ERP",
+    frames: [
+      {
+        images: ["/images/services-erp-work-orders.jpg"],
+        alt: "أوامر العمل في تطبيق التصنيع على Odoo معروضة على حاسوب محمول",
+      },
+      {
+        images: ["/images/services-erp-apps.jpg"],
+        alt: "شاشة تطبيقات Odoo على شاشة مكتبية",
+      },
+      {
+        images: ["/images/services-erp-manufacturing-orders.jpg"],
+        alt: "لوحة أوامر التصنيع في Odoo مقسمة حسب الحالة على حاسوب محمول",
+      },
+    ],
+  },
+};
+
 export function ServicesTabs() {
   const [activeId, setActiveId] = useState(TABS[0].id);
+  const [galleryFrame, setGalleryFrame] = useState(0);
+  const [galleryPlaying, setGalleryPlaying] = useState(false);
   const active = TABS.find((tab) => tab.id === activeId) ?? TABS[0];
   const media = active.media;
+  const gallery = GALLERIES[active.id];
+
+  useEffect(() => {
+    if (!galleryPlaying || !gallery) return;
+
+    const intervalId = window.setInterval(() => {
+      setGalleryFrame((current) => (current + 1) % gallery.frames.length);
+    }, 2200);
+
+    return () => window.clearInterval(intervalId);
+  }, [gallery, galleryPlaying]);
+
+  const selectTab = (tabId: string) => {
+    setGalleryPlaying(false);
+    setGalleryFrame(0);
+    setActiveId(tabId);
+  };
+
+  const startGallery = () => {
+    if (!gallery || galleryPlaying) return;
+
+    setGalleryFrame(1);
+    setGalleryPlaying(true);
+  };
+
+  const stopGallery = () => {
+    setGalleryPlaying(false);
+    setGalleryFrame(0);
+  };
 
   return (
     <section id="services" className={styles.section}>
@@ -213,7 +321,7 @@ export function ServicesTabs() {
                 className={[styles.tab, isActive && styles.tabActive]
                   .filter(Boolean)
                   .join(" ")}
-                onClick={() => setActiveId(tab.id)}
+                onClick={() => selectTab(tab.id)}
               >
                 <Image
                   className={styles.tabIcon}
@@ -233,6 +341,12 @@ export function ServicesTabs() {
             box travels with the tab rather than living in the stylesheet. */}
         <div
           className={styles.media}
+          tabIndex={gallery ? 0 : undefined}
+          aria-label={gallery?.label}
+          onPointerEnter={startGallery}
+          onPointerLeave={stopGallery}
+          onFocus={startGallery}
+          onBlur={stopGallery}
           style={
             media
               ? ({
@@ -255,6 +369,47 @@ export function ServicesTabs() {
               label={media.alt}
             />
           )}
+          {gallery?.frames.map((frame, index) => (
+            <div
+              key={frame.images[0]}
+              className={[
+                styles.gallerySlide,
+                index === galleryFrame && styles.gallerySlideActive,
+              ]
+                .filter(Boolean)
+                .join(" ")}
+              aria-hidden={index !== galleryFrame}
+            >
+              {frame.images.length === 1 ? (
+                <Image
+                  className={styles.galleryImage}
+                  style={{ objectPosition: frame.position ?? gallery.position }}
+                  src={frame.images[0]}
+                  alt={index === galleryFrame ? frame.alt : ""}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 530px"
+                />
+              ) : (
+                <div className={styles.galleryCollage}>
+                  {frame.images.map((image) => (
+                    <div key={image} className={styles.galleryCollagePanel}>
+                      <Image
+                        className={styles.galleryImage}
+                        style={{ objectPosition: frame.position ?? gallery.position }}
+                        src={image}
+                        alt=""
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 530px"
+                      />
+                    </div>
+                  ))}
+                  {index === galleryFrame && (
+                    <span className={styles.srOnly}>{frame.alt}</span>
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
 
         <div

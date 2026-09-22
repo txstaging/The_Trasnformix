@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Noto_Kufi_Arabic } from "next/font/google";
+import { ContactModalProvider } from "@/components/contact/ContactModal";
 import "./globals.css";
 
 const notoKufiArabic = Noto_Kufi_Arabic({
@@ -41,7 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <noscript>
           <style>{`[data-reveal]{opacity:1;transform:none}`}</style>
         </noscript>
-        {children}
+        <ContactModalProvider>{children}</ContactModalProvider>
       </body>
     </html>
   );

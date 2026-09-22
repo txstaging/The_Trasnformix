@@ -109,8 +109,14 @@
     aspect-ratio: 452 / 295;
   }
 
+  /* Kept in flow but stacked above the ornaments, which would otherwise
+     paint over the copy. The artboard's `top` arrives inline, hence the
+     override. */
   .content {
-    position: static;
+    position: relative;
+    left: auto;
+    top: 0 !important;
+    z-index: 1;
     width: 100%;
   }
 

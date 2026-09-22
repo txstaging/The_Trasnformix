@@ -27,13 +27,13 @@ const ROWS: WorkRow[] = [
       {
         name: "د. ريم بخيت",
         src: "/images/work-reem.png",
-        href: "#works",
+        href: "/works",
         crop: { left: 0, top: 0, width: 604, height: 494 },
       },
       {
         name: "KUN | كُـنْ",
         src: "/images/work-kun.png",
-        href: "#works",
+        href: "/works",
         crop: { left: 1, top: -102, width: 602, height: 493 },
       },
     ],
@@ -45,13 +45,13 @@ const ROWS: WorkRow[] = [
       {
         name: "أكاديمية الإلهام الاجتماعي",
         src: "/images/work-ilham.png",
-        href: "#works",
+        href: "/works",
         crop: { left: -27, top: 0, width: 631, height: 631 },
       },
       {
         name: "ميرماتس | Mermates",
         src: "/images/work-mermates-marketing.png",
-        href: "#works",
+        href: "/works",
         crop: { left: 0, top: -65, width: 604, height: 495 },
       },
     ],
@@ -63,13 +63,13 @@ const ROWS: WorkRow[] = [
       {
         name: "رزانا البخاري",
         src: "/images/work-razana.png",
-        href: "#works",
+        href: "/works",
         crop: { left: -21, top: -26, width: 625, height: 469 },
       },
       {
         name: "ميرماتس | Mermates",
         src: "/images/work-mermates-web.png",
-        href: "#works",
+        href: "/works",
         crop: { left: 0, top: 2, width: 604, height: 494 },
       },
     ],
@@ -94,7 +94,7 @@ export function Works() {
           >
             <div className={styles.rowHead}>
               <h3 className={styles.rowTitle}>{row.category}</h3>
-              <ArrowLink href="#works" size="lg" icon="/icons/arrow-more.svg">
+              <ArrowLink href="https://www.behance.net/Futureexperts" size="lg" icon="/icons/arrow-more.svg">
                 عرض المزيد
               </ArrowLink>
             </div>

@@ -1,35 +1,50 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { useContactModal } from "@/components/contact/ContactModal";
 import { Button8 } from "@/components/ui/Button8";
 import styles from "./Navbar.module.css";
 
-/** Right-to-left reading order, so the first entry renders furthest right. */
+/** Right-to-left reading order, so the first entry renders furthest right.
+    Section links are rooted at "/" so they resolve from every page; the item
+    whose href matches the current route is drawn in its active state. */
 const NAV_ITEMS = [
-  { label: "الرئيسية", href: "#", active: true },
-  { label: "من نحن", href: "#about" },
-  { label: "الخدمات", href: "#services", hasMenu: true },
-  { label: "الصناعات", href: "#industries" },
-  { label: "أعمالنا", href: "#works" },
-  { label: "تواصل معنا", href: "#contact" },
+  { label: "الرئيسية", href: "/" },
+  { label: "من نحن", href: "/about" },
+  { label: "الخدمات", href: "/#services", hasMenu: true },
+  { label: "أعمالنا", href: "/works" },
+  /* Opens the contact form (Figma 2551:7944) rather than navigating. */
+  { label: "تواصل معنا", href: "/#contact", contact: true },
 ];
 
-/* Figma 2166:28462 "Links container" — the الخدمات drop-down. The artboard
-   draws no targets for the rows, so each one lands on the services section. */
+/* Figma 2166:28462 "Links container" — the الخدمات drop-down. Each row leaves
+   for the service's own site on its thetransformix.com subdomain. */
 const SERVICE_LINKS = [
-  "تحليل البيانات و الذكاء الاصطناعي",
-  "تطوير المواقع الالكترونية",
-  "استديو الابداع",
-  "انظمة ERP",
+  {
+    label: "تحليل البيانات و الذكاء الاصطناعي",
+    href: "https://ai.thetransformix.com/data-lap",
+  },
+  { label: "تطوير المواقع الالكترونية", href: "https://web.thetransformix.com/" },
+  { label: "استديو الابداع", href: "https://creative.thetransformix.com/" },
+  { label: "انظمة ERP", href: "https://ai.thetransformix.com/erp" },
 ];
-
-const SERVICES_HREF = "#services";
 
 const cx = (...names: (string | false | undefined)[]) =>
   names.filter(Boolean).join(" ");
 
-export function Navbar() {
+type NavbarProps = {
+  /** `slim` is the 72px small-screen bar of the about artboard (Figma
+      2515:60114): a white bar with a hairline, a 60 x 53 lockup and a 21 x 24
+      bars glyph. The desktop bar is identical in both variants. */
+  variant?: "default" | "slim";
+};
+
+export function Navbar({ variant = "default" }: NavbarProps) {
+  const pathname = usePathname();
+  const { open: openContact } = useContactModal();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -95,9 +110,9 @@ export function Navbar() {
   /** The 210 x 184 card, shared by the desktop pop-over and the sheet. */
   const renderServiceMenu = (id: string, className: string) => (
     <ul id={id} className={className}>
-      {SERVICE_LINKS.map((label) => (
+      {SERVICE_LINKS.map(({ label, href }) => (
         <li key={label}>
-          <a href={SERVICES_HREF} className={styles.menuLink} onClick={closeAll}>
+          <a href={href} className={styles.menuLink} onClick={closeAll}>
             {label}
           </a>
         </li>
@@ -106,11 +121,18 @@ export function Navbar() {
   );
 
   return (
-    <header className={cx(styles.header, scrolled && styles.scrolled)}>
+    <header
+      className={cx(
+        styles.header,
+        variant === "slim" && styles.slim,
+        scrolled && styles.scrolled,
+      )}
+    >
       <div className={styles.inner}>
-        {/* Two lockups: the artboard draws 85.14 x 54.36 on desktop and a
-            differently proportioned 46.99 x 35 on the 390 screen. */}
-        <a href="#" className={styles.logo} aria-label="Transformix">
+        {/* Three lockups: the artboard draws 85.14 x 54.36 on desktop, a
+            differently proportioned 46.99 x 35 on the 390 screen and 60 x 53
+            on the 375 about screen. */}
+        <Link href="/" className={styles.logo} aria-label="Transformix">
           <Image
             className={styles.logoWide}
             src="/icons/logo.svg"
@@ -127,7 +149,17 @@ export function Navbar() {
             height={35}
             priority
           />
-        </a>
+          {variant === "slim" && (
+            <Image
+              className={styles.logoBar}
+              src="/icons/logo-bar.svg"
+              alt=""
+              width={60}
+              height={53}
+              priority
+            />
+          )}
+        </Link>
 
         <nav className={styles.nav} aria-label="التنقل الرئيسي">
           <ul className={styles.list}>
@@ -167,15 +199,29 @@ export function Navbar() {
                     ),
                   )}
                 </li>
-              ) : (
+              ) : item.contact ? (
                 <li key={item.label} className={styles.item}>
-                  <a
-                    href={item.href}
-                    className={cx(styles.link, item.active && styles.active)}
-                    aria-current={item.active ? "page" : undefined}
+                  <button
+                    type="button"
+                    className={styles.link}
+                    aria-haspopup="dialog"
+                    onClick={openContact}
                   >
                     {item.label}
-                  </a>
+                  </button>
+                </li>
+              ) : (
+                <li key={item.label} className={styles.item}>
+                  <Link
+                    href={item.href}
+                    className={cx(
+                      styles.link,
+                      item.href === pathname && styles.active,
+                    )}
+                    aria-current={item.href === pathname ? "page" : undefined}
+                  >
+                    {item.label}
+                  </Link>
                 </li>
               ),
             )}
@@ -195,12 +241,23 @@ export function Navbar() {
           onClick={() => setMenuOpen(true)}
         >
           <Image
+            className={styles.burgerGlyph}
             src="/icons/lucide-menu.svg"
             alt=""
             width={24}
             height={24}
             aria-hidden
           />
+          {variant === "slim" && (
+            <Image
+              className={styles.burgerBars}
+              src="/icons/menu-bars.svg"
+              alt=""
+              width={21}
+              height={24}
+              aria-hidden
+            />
+          )}
         </button>
 
         {/* Figma 2164:28439 "Navbar 9" — the small-screen menu. */}
@@ -248,19 +305,33 @@ export function Navbar() {
                     ),
                   )}
                 </li>
+              ) : item.contact ? (
+                <li key={item.label} className={styles.sheetItem}>
+                  <button
+                    type="button"
+                    className={cx(styles.sheetLink, styles.sheetButton)}
+                    aria-haspopup="dialog"
+                    onClick={() => {
+                      closeAll();
+                      openContact();
+                    }}
+                  >
+                    {item.label}
+                  </button>
+                </li>
               ) : (
                 <li key={item.label} className={styles.sheetItem}>
-                  <a
+                  <Link
                     href={item.href}
                     className={cx(
                       styles.sheetLink,
-                      item.active && styles.sheetActive,
+                      item.href === pathname && styles.sheetActive,
                     )}
-                    aria-current={item.active ? "page" : undefined}
+                    aria-current={item.href === pathname ? "page" : undefined}
                     onClick={closeAll}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ),
             )}

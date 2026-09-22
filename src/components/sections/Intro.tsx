@@ -59,7 +59,7 @@ export function Intro() {
               البيانات إلى قرارات، نصمم كل حل حول احتياج حقيقي وهدف واضح.
             </p>
             <div className={styles.leadLink}>
-              <ArrowLink href="#about">اعرف أكثر عن Transformix</ArrowLink>
+              <ArrowLink href="/about">اعرف أكثر عن Transformix</ArrowLink>
             </div>
           </Reveal>
         </div>
