@@ -1,0 +1,165 @@
+/* Figma 2789:11760 "Section - STATS" — 1160 wide, 25 above and 90 below,
+   the heading block and the four cards 60 apart. */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6rem;
+  width: 116rem;
+  max-width: 100%;
+  padding: 2.5rem 0 9rem;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  width: 70rem;
+  padding-top: 0.53rem;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 1.8rem;
+  color: var(--sector-blue);
+}
+
+.title {
+  padding: 0.34rem 0 0.06rem;
+  font-size: 4.8rem;
+  font-weight: 700;
+  color: var(--sector-ink);
+  white-space: nowrap;
+}
+
+.sub {
+  font-size: 2.4rem;
+  color: var(--sector-muted);
+  white-space: nowrap;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.81rem;
+  min-width: 0;
+  padding: 2.58rem 2.58rem 2.91rem;
+  border: 1px solid var(--sector-line);
+  border-radius: 1.8rem;
+  background: var(--bg-main);
+  transition:
+    border-color var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.card:hover {
+  border-color: var(--blue-light-active);
+  box-shadow: 0 1.8rem 3.6rem -2.4rem rgba(18, 43, 84, 0.3);
+}
+
+.fixed {
+  height: 17rem;
+}
+
+.value {
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--sector-blue);
+  white-space: nowrap;
+}
+
+.segoe {
+  font-family: "Segoe UI", var(--font-kufi), sans-serif;
+  font-size: 2.7rem;
+  line-height: 5.13rem;
+}
+
+.label {
+  font-size: 2.4rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .section {
+    gap: 4rem;
+    width: 100%;
+    padding: 2.4rem var(--gutter) 6.4rem;
+  }
+
+  .head {
+    width: 100%;
+  }
+
+  .title {
+    font-size: 3.6rem;
+    white-space: normal;
+  }
+
+  .sub {
+    font-size: 2rem;
+    white-space: normal;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fixed {
+    height: auto;
+  }
+
+  .label {
+    font-size: 2rem;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    gap: 3.2rem;
+    padding: 1.6rem var(--gutter) 4.8rem;
+  }
+
+  .eyebrow {
+    font-size: 1.6rem;
+  }
+
+  .title {
+    font-size: 2.8rem;
+  }
+
+  .sub {
+    font-size: 1.7rem;
+  }
+
+  .card {
+    padding: 2rem 1.2rem 2.2rem;
+  }
+
+  .value {
+    font-size: 2.6rem;
+  }
+
+  .segoe {
+    font-size: 2.4rem;
+    line-height: 4.4rem;
+  }
+
+  .label {
+    font-size: 1.6rem;
+  }
+}

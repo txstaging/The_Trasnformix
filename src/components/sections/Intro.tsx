@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import { Reveal } from "@/components/ui/Reveal";
 import styles from "./Intro.module.css";
@@ -84,12 +85,14 @@ export function Intro() {
                 <div className={styles.figure}>
                   <Image
                     className={styles.figureNumber}
-                    style={{
-                      left: rem(stat.number.left),
-                      top: rem(stat.number.top),
-                      width: rem(stat.number.width),
-                      height: rem(stat.number.height),
-                    }}
+                    style={
+                      {
+                        "--x": rem(stat.number.left),
+                        "--y": rem(stat.number.top),
+                        "--w": rem(stat.number.width),
+                        "--h": rem(stat.number.height),
+                      } as CSSProperties
+                    }
                     src={stat.number.src}
                     alt=""
                     width={stat.number.width}
@@ -98,12 +101,14 @@ export function Intro() {
                   />
                   <Image
                     className={styles.figurePlus}
-                    style={{
-                      left: rem(stat.plus.left),
-                      top: rem(stat.plus.top),
-                      width: rem(stat.plus.width),
-                      height: rem(stat.plus.height),
-                    }}
+                    style={
+                      {
+                        "--x": rem(stat.plus.left),
+                        "--y": rem(stat.plus.top),
+                        "--w": rem(stat.plus.width),
+                        "--h": rem(stat.plus.height),
+                      } as CSSProperties
+                    }
                     src={stat.plus.src}
                     alt=""
                     width={stat.plus.width}

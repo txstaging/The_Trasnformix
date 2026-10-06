@@ -15,6 +15,8 @@ const NAV_ITEMS = [
   { label: "الرئيسية", href: "/" },
   { label: "من نحن", href: "/about" },
   { label: "الخدمات", href: "/#services", hasMenu: true },
+  /* Figma 2794:12691 — added with the القطاعات page (2789:11500). */
+  { label: "القطاعات", href: "/sectors" },
   { label: "أعمالنا", href: "/works" },
   /* Opens the contact form (Figma 2551:7944) rather than navigating. */
   { label: "تواصل معنا", href: "/#contact", contact: true },

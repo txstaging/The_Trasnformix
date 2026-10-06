@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import styles from "./Clients.module.css";
 
@@ -53,13 +54,18 @@ export function Clients() {
             <div
               key={`${logo.src}-${index}`}
               className={styles.cell}
-              style={{ minWidth: rem(logo.cell) }}
+              style={{ "--cell": rem(logo.cell) } as CSSProperties}
             >
               <div
                 className={[styles.logo, logo.cropped && styles.cropped]
                   .filter(Boolean)
                   .join(" ")}
-                style={{ width: rem(logo.width), height: rem(logo.height) }}
+                style={
+                  {
+                    "--logo-w": rem(logo.width),
+                    "--logo-h": rem(logo.height),
+                  } as CSSProperties
+                }
               >
                 <Image
                   src={logo.src}

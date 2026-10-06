@@ -8,11 +8,15 @@
   overflow: hidden;
 }
 
+/* Centred on the page rather than pinned at the artboard's x, so the copy
+   stays on the centre line at any viewport width. */
 .content {
   position: absolute;
-  left: 23.2rem;
+  left: 0;
+  right: 0;
   top: 11.2rem;
   width: 100rem;
+  margin-inline: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,7 +83,7 @@
     position: static;
     width: min(100rem, 100%);
     margin-inline: auto;
-    padding-inline: 2.4rem;
+    padding-inline: var(--gutter);
   }
 
   .copy {
@@ -92,7 +96,7 @@
     position: relative;
     left: auto;
     top: auto;
-    width: calc(100% - 4.8rem);
+    width: calc(100% - 2 * var(--gutter));
     height: auto;
     transform: none;
     aspect-ratio: 1440 / 524;
@@ -101,22 +105,39 @@
 
 }
 
+/* Figma 2836:26813 (phone, 362 wide) — a 321 copy column, 16 / 12 type and
+   the 121 x 39 pill; the film slot is 346 x 184, 40px under the button. */
 @media (max-width: 640px) {
   .hero {
-    padding-top: 4.8rem;
+    padding-top: 2.4rem;
+  }
+
+  .content {
+    gap: 1.6rem;
+    padding-inline: var(--gutter);
+    --btn8-w: 12.1rem;
+    --btn8-h: 3.9rem;
+    --btn8-pill-h: 3.9rem;
+    --btn8-top: 0rem;
+    --btn8-size: 1.2rem;
+  }
+
+  .copy {
+    gap: 0.8rem;
   }
 
   .title {
-    font-size: 2.8rem;
+    font-size: 1.6rem;
   }
 
   .subtitle {
     width: 100%;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
   }
 
   .video {
-    aspect-ratio: 16 / 10;
-    margin-top: 8rem;
+    width: calc(100% - 2 * var(--gutter));
+    aspect-ratio: 346 / 184;
+    margin-top: 4rem;
   }
 }

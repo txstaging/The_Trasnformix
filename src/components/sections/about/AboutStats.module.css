@@ -4,14 +4,12 @@
   background: var(--bg-main);
 }
 
-/* Figma 2515:59912 "Desktop - 113" — 1440 x 260, drawn *below* the counters
-   on the 1440 artboard, hence `order: 2`. */
+/* Figma 2515:59912 "Desktop - 113" — sits above the counters at every width.
+   No bottom padding: the counters band's 100px top padding is the gap. */
 .headBand {
-  order: 2;
   display: flex;
   justify-content: center;
-  height: 26rem;
-  padding: 10rem 7.5rem;
+  padding: 10rem 7.5rem 0;
 }
 
 .heading {
@@ -26,7 +24,6 @@
 
 /* Figma 2519:67017 "Desktop - 139" — 1440 x 568, padding 100 / 75. */
 .cardsBand {
-  order: 1;
   padding: 10rem 7.5rem;
 }
 
@@ -159,9 +156,7 @@
    centred. Tablets use the same cards, wrapped in a row. */
 @media (max-width: 1024px) {
   .headBand {
-    order: 0;
-    height: auto;
-    padding: 6.4rem 2.4rem 0;
+    padding: 6.4rem var(--gutter) 0;
   }
 
   .heading {
@@ -173,7 +168,7 @@
   /* Each counter row is wider than its card on the artboard (373 in a 263
      box); the overhang is empty, so it is clipped rather than scrolled. */
   .cardsBand {
-    padding: 4rem 2.4rem 6.4rem;
+    padding: 4rem var(--gutter) 6.4rem;
     overflow-x: clip;
   }
 
@@ -258,7 +253,7 @@
    inside a 1108 container. */
 @media (max-width: 640px) {
   .headBand {
-    padding: 3.3rem 0 0;
+    padding: 3.3rem var(--gutter) 0;
   }
 
   .heading {
@@ -269,7 +264,7 @@
   }
 
   .cardsBand {
-    padding: 4rem 3.2rem 2.5rem;
+    padding: 4rem var(--gutter) 2.5rem;
   }
 
   .cards {

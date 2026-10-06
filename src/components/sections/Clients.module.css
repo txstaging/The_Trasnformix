@@ -63,18 +63,24 @@
   }
 }
 
+/* --cell-scale narrows every cell alike on phones. */
 .cell {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  min-width: calc(var(--cell) * var(--cell-scale, 1));
   height: 7rem;
   padding-block: 2.4rem;
 }
 
+/* Each logo keeps its artboard frame; --logo-scale enlarges every frame
+   alike on smaller screens. */
 .logo {
   position: relative;
   flex-shrink: 0;
+  width: calc(var(--logo-w) * var(--logo-scale, 1));
+  height: calc(var(--logo-h) * var(--logo-scale, 1));
   transition: transform var(--dur) var(--ease-out);
 }
 
@@ -113,14 +119,49 @@
     height: auto;
     font-size: 3rem;
   }
-}
 
-@media (max-width: 640px) {
-  .title {
-    font-size: 2.4rem;
+  /* The tallest logo grows to ~117px, so the rail is heightened to match. */
+  .viewport {
+    --logo-scale: 1.5;
+    height: 14rem;
   }
 
+  .track,
+  .cell {
+    height: 12.4rem;
+  }
+
+  .cell {
+    padding-block: 0;
+  }
+}
+
+/* Figma 2836:26935 (phone) — a 12px title over a 54 tall rail of logos at
+   about three quarters of their desktop size, in cells ~120 wide. */
+@media (max-width: 640px) {
+  .section {
+    gap: 1.15rem;
+    padding: 1.3rem 0;
+  }
+
+  .title {
+    height: 2rem;
+    font-size: 1.2rem;
+  }
+
+  .viewport {
+    --logo-scale: 0.75;
+    --cell-scale: 0.42;
+    height: 5.4rem;
+  }
+
+  .track,
+  .cell {
+    height: 5.4rem;
+  }
+
+  /* A set is ~900px at this scale; 18s keeps the desktop's ~50px/s pace. */
   .track {
-    animation-duration: 26s;
+    animation-duration: 18s;
   }
 }

@@ -164,7 +164,7 @@
   .section {
     gap: 4rem;
     height: auto;
-    padding: 8rem 2.4rem;
+    padding: 8rem var(--gutter);
   }
 
   .title {
@@ -247,7 +247,7 @@
 
 @media (max-width: 640px) {
   .section {
-    padding: 6.4rem 2.4rem;
+    padding: 6.4rem var(--gutter);
   }
 
   .title {

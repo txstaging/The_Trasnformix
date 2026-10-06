@@ -3,9 +3,9 @@ import Link from "next/link";
 import { tajawal } from "@/lib/fonts";
 import styles from "./Footer.module.css";
 
-/* The 375 navy artboard (Figma 2524:3054) carries a shorter footer: no UAE
-   address and no استديو الابداع, with ERP listed last. Those entries are
-   flagged here and only dropped by the navy phone layout. */
+/* The 375 footer (Figma 2888:10856) is shorter: no UAE address and no
+   استديو الابداع, with ERP listed last and الشركة after الخدمات. Those entries
+   are flagged here and only moved or dropped by the phone layout. */
 type PhoneLayout = {
   phone?: "hidden" | "last";
 };
@@ -26,6 +26,7 @@ const COLUMNS: LinkColumn[] = [
   {
     title: "الشركة",
     width: 123,
+    phone: "last",
     links: [
       { label: "من نحن", href: "/about" },
       { label: "اعمالنا", href: "/works" },
@@ -45,11 +46,21 @@ const COLUMNS: LinkColumn[] = [
   },
 ];
 
+/* Figma 2796:12800 — the القطاعات footer adds this column left of الخدمات. */
+const INDUSTRIES: LinkColumn = {
+  title: "الصناعات",
+  width: 115,
+  links: [
+    { label: "السياحة", href: "/sectors" },
+    { label: "التعليم", href: "/sectors#education" },
+  ],
+};
+
 type Glyph = { src: string; width: number; height: number };
 
 type ContactRow = PhoneLayout & {
   icon: string;
-  /** The 375 navy footer (Figma 2524:3054) draws its own, smaller glyphs. */
+  /** The 375 footer (Figma 2888:10856) draws its own, smaller glyphs. */
   mobileIcon: Glyph;
   text: string;
   href?: string;
@@ -110,18 +121,21 @@ const phoneClass = (item: PhoneLayout) =>
       : undefined;
 
 type FooterProps = {
-  /** `navy` is the footer of the about artboards — Figma 2515:60030 (1440)
-      and 2524:3054 (375): a #0a1836 ground with the all-white lockup, and on
-      phones a single stacked column set in Tajawal. */
+  /** `navy` is the footer of the about artboards — Figma 2515:60030 (1440):
+      a #0a1836 ground with the all-white lockup. On phones every variant
+      takes the same single stacked column (Figma 2888:10856). */
   variant?: "default" | "navy";
+  /** Adds the الصناعات column (Figma 2796:12800). */
+  industries?: boolean;
 };
 
-export function Footer({ variant = "default" }: FooterProps) {
+export function Footer({ variant = "default", industries = false }: FooterProps) {
   const navy = variant === "navy";
+  const columns = industries ? [...COLUMNS, INDUSTRIES] : COLUMNS;
 
   return (
     <footer
-      className={[styles.footer, navy && styles.navy, navy && tajawal.variable]
+      className={[styles.footer, navy && styles.navy, tajawal.variable]
         .filter(Boolean)
         .join(" ")}
     >
@@ -135,15 +149,13 @@ export function Footer({ variant = "default" }: FooterProps) {
               width={173}
               height={111}
             />
-            {navy && (
-              <Image
-                className={styles.brandLogoMobile}
-                src="/icons/logo-footer-mobile.svg"
-                alt="Transformix"
-                width={140}
-                height={90}
-              />
-            )}
+            <Image
+              className={styles.brandLogoMobile}
+              src="/icons/logo-footer-mobile.svg"
+              alt="Transformix"
+              width={140}
+              height={90}
+            />
             <p className={styles.tagline}> حلول رقمية متكاملة تدعم نمو أعمالك</p>
           </div>
 
@@ -162,7 +174,7 @@ export function Footer({ variant = "default" }: FooterProps) {
         </div>
         <div className={styles.main}>
           <div className={styles.columns}>
-            {COLUMNS.map((column) => (
+            {columns.map((column) => (
               <div
                 key={column.title}
                 className={[styles.column, phoneClass(column)]
@@ -216,20 +228,18 @@ export function Footer({ variant = "default" }: FooterProps) {
                       height={24}
                       aria-hidden
                     />
-                    {navy && (
-                      <Image
-                        className={styles.contactIconMobile}
-                        style={{
-                          width: rem(row.mobileIcon.width),
-                          height: rem(row.mobileIcon.height),
-                        }}
-                        src={row.mobileIcon.src}
-                        alt=""
-                        width={row.mobileIcon.width}
-                        height={row.mobileIcon.height}
-                        aria-hidden
-                      />
-                    )}
+                    <Image
+                      className={styles.contactIconMobile}
+                      style={{
+                        width: rem(row.mobileIcon.width),
+                        height: rem(row.mobileIcon.height),
+                      }}
+                      src={row.mobileIcon.src}
+                      alt=""
+                      width={row.mobileIcon.width}
+                      height={row.mobileIcon.height}
+                      aria-hidden
+                    />
                     {row.href ? (
                       <a
                         className={row.plain ? undefined : styles.contactLink}

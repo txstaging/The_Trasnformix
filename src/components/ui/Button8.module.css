@@ -3,12 +3,14 @@
    the pill (gradient and top highlight unchanged); press swaps in the artboard's
    `Variant4`: deeper gradient, dark inset shadow, no border, dimmed label. */
 /* The contact pills render as <button>; the rest stay links. Both start from
-   the same clean box. */
+   the same clean box.
+   A parent section may resize the pill through --btn8-w / --btn8-h (frame),
+   --btn8-pill-h, --btn8-top (pill offset in the frame) and --btn8-size. */
 .root {
   position: relative;
   display: block;
-  width: 21.8328rem;
-  height: 6.1rem;
+  width: var(--btn8-w, 21.8328rem);
+  height: var(--btn8-h, 6.1rem);
   padding: 0;
   border: 0;
   background: none;
@@ -22,9 +24,9 @@
 .pill {
   position: absolute;
   left: 0;
-  top: 0.8rem;
-  width: 21.8328rem;
-  height: 5.3rem;
+  top: var(--btn8-top, 0.8rem);
+  width: var(--btn8-w, 21.8328rem);
+  height: var(--btn8-pill-h, 5.3rem);
   border: 0.2rem solid var(--primary);
   border-radius: 6.3rem;
   background-image: var(--btn-gradient);
@@ -51,10 +53,10 @@
   position: absolute;
   z-index: 1;
   left: calc(50% - 0.002rem);
-  top: calc(50% + 0.4rem);
+  top: calc(50% + var(--btn8-top, 0.8rem) / 2);
   transform: translate(-50%, -50%);
   white-space: nowrap;
-  font-size: 1.8rem;
+  font-size: var(--btn8-size, 1.8rem);
   font-weight: 400;
   color: var(--text-inverse);
   text-align: center;
@@ -82,17 +84,17 @@
 
 @media (max-width: 520px) {
   .root:not(.fixed) {
-    width: 20.4rem;
-    height: 5.8rem;
+    width: var(--btn8-w, 20.4rem);
+    height: var(--btn8-h, 5.8rem);
   }
 
   .root:not(.fixed) .pill {
-    width: 20.4rem;
-    height: 5rem;
+    width: var(--btn8-w, 20.4rem);
+    height: var(--btn8-pill-h, 5rem);
   }
 
   .root:not(.fixed) .label {
-    font-size: 1.6rem;
+    font-size: var(--btn8-size, 1.6rem);
   }
 }
 

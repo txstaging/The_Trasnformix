@@ -1,0 +1,147 @@
+/* Figma 2789:11785 "Section - CTA" — 70 above a 1160 banner. */
+.section {
+  width: 116rem;
+  max-width: 100%;
+  padding-top: 7rem;
+}
+
+/* 88 / 50 side padding: the content column sits 19px right of centre. */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6.5rem 5rem 6.5rem 8.8rem;
+  overflow: hidden;
+  border-radius: 3.2rem;
+  background: linear-gradient(119.4869deg, #0a1c3f 0%, #174aa9 100%);
+}
+
+.ring {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ringTop {
+  left: -17rem;
+  top: -18rem;
+  width: 43.16rem;
+  height: 43.16rem;
+}
+
+.ringBottom {
+  left: 97.84rem;
+  top: 21.8rem;
+  width: 30.16rem;
+  height: 30.16rem;
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.8rem;
+  width: 100%;
+  max-width: 72rem;
+  padding-top: 0.89rem;
+}
+
+/* Rule on the right of the label. */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-family: "Segoe UI", var(--font-kufi), sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 2.28rem;
+  color: #a9c5ff;
+  white-space: nowrap;
+}
+
+.rule {
+  flex-shrink: 0;
+  width: 2.8rem;
+  height: 0.2rem;
+  background: var(--sector-blue);
+}
+
+/* The 747 wide line is held to the column's right edge and runs past its
+   left one, as drawn. */
+.titleWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding-top: 0.3rem;
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--text-inverse);
+  white-space: nowrap;
+}
+
+.text {
+  width: 60rem;
+  max-width: 100%;
+  padding-bottom: 1.2rem;
+  font-size: 1.8rem;
+  color: #dce7fb;
+  text-align: center;
+}
+
+@media (max-width: 1024px) {
+  .section {
+    width: 100%;
+    padding: 4rem var(--gutter) 0;
+  }
+
+  .card {
+    padding: 5.6rem 3.2rem;
+  }
+
+  .ringBottom {
+    left: auto;
+    right: -10rem;
+    top: auto;
+    bottom: -14rem;
+  }
+
+  .titleWrap {
+    align-items: center;
+  }
+
+  .title {
+    font-size: 3.4rem;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 3.2rem var(--gutter) 0;
+  }
+
+  .card {
+    padding: 4.8rem 2rem;
+    border-radius: 2.4rem;
+  }
+
+  .eyebrow {
+    white-space: normal;
+  }
+
+  .title {
+    font-size: 2.6rem;
+  }
+
+  .text {
+    font-size: 1.6rem;
+  }
+}

@@ -1,0 +1,123 @@
+/* Figma 2789:11502 "Section - HERO" — a 1282 grid of 1.05fr / 0.95fr tracks
+   70 apart on one 410 row, 80 above and 70 below. The artboard's main column
+   starts at y 78.8, 3.2px under the 82px bar, so the top padding gives that
+   back. Right-to-left, the first (copy) track is the right-hand one. */
+.section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  grid-template-rows: 41rem;
+  column-gap: 7rem;
+  width: 128.2rem;
+  max-width: 100%;
+  min-height: 56rem;
+  padding: 7.68rem 0 7rem;
+}
+
+.copy {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.53rem;
+  padding-top: 0.89rem;
+}
+
+.title {
+  width: 57.6rem;
+  padding-bottom: 0.075rem;
+  font-size: 4.8rem;
+  font-weight: 600;
+  color: var(--sector-ink);
+}
+
+/* 598 wide in a 575.7 track — it runs 22px past the track's left edge. */
+.text {
+  flex-shrink: 0;
+  width: 59.8rem;
+  padding-top: 0.67rem;
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--sector-muted);
+}
+
+.actions {
+  display: flex;
+  padding-top: 1.27rem;
+}
+
+/* Figma 2901:6386 "Mask Group" — 672 wide, the full 410 row tall. It hugs
+   the track's outer (left) edge and overhangs 36px into the gap. */
+.visualWrap {
+  align-self: stretch;
+  justify-self: end;
+  width: 67.2rem;
+}
+
+.visual {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* No smaller artboard is drawn for this page: below 1024 the copy stacks
+   over the illustration, which keeps its proportions. */
+@media (max-width: 1024px) {
+  .section {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    row-gap: 4.8rem;
+    width: 100%;
+    min-height: 0;
+    padding: 5.6rem var(--gutter) 4.8rem;
+  }
+
+  .title {
+    width: auto;
+    font-size: 4rem;
+  }
+
+  .text {
+    flex-shrink: 1;
+    width: auto;
+    max-width: 61rem;
+    font-size: 2rem;
+  }
+
+  .visualWrap {
+    align-self: auto;
+    justify-self: center;
+    width: 100%;
+    max-width: 67.2rem;
+  }
+
+  .visual {
+    height: auto;
+    aspect-ratio: 672 / 410;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    row-gap: 3.2rem;
+    padding: 3.2rem var(--gutter) 4rem;
+  }
+
+  /* Phones centre the copy column: heading, paragraph and button. */
+  .copy {
+    align-items: center;
+    text-align: center;
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .text {
+    font-size: 1.7rem;
+  }
+
+  .actions {
+    justify-content: center;
+  }
+}

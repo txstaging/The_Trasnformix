@@ -115,9 +115,15 @@
   height: 10.8rem;
 }
 
+/* Box set per glyph by the component; --figure-scale shrinks every counter
+   alike on phones. */
 .figureNumber,
 .figurePlus {
   position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: calc(var(--w) * var(--figure-scale, 1));
+  height: calc(var(--h) * var(--figure-scale, 1));
   transform-origin: bottom right;
   transition: transform var(--dur-slow) var(--ease-out);
 }
@@ -163,7 +169,7 @@
 
 @media (max-width: 1024px) {
   .section {
-    padding: 8rem 2.4rem;
+    padding: 8rem var(--gutter);
   }
 
   .inner {
@@ -205,12 +211,24 @@
     width: 100%;
   }
 
+  /* Once the cards stack, icon, counter and copy share one centre line. */
+  .card,
+  .cardBody,
+  .cardTextWrap {
+    align-items: center;
+  }
+
+  .cardTitle,
+  .cardText {
+    text-align: center;
+  }
+
   /* Below the artboard width the counter stops being absolutely placed and
-     becomes a plain right-aligned row. */
+     becomes a plain centred row. */
   .figure {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     gap: 0.6rem;
     height: auto;
@@ -227,17 +245,89 @@
   }
 }
 
+/* Figma 2836:26820 (phone, 362 wide) — centred 14 / 12 copy, then the
+   counters stacked in a 204 column, 10+ on top. */
 @media (max-width: 640px) {
-  .heading {
-    font-size: 2.6rem;
+  .section {
+    padding: 4rem calc(var(--gutter) - 0.8rem) 1.6rem;
   }
 
+  .inner {
+    gap: 2.4rem;
+  }
+
+  .head {
+    align-items: center;
+    gap: 0;
+  }
+
+  .heading {
+    padding: 0.8rem 0.8rem 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: center;
+  }
+
+  .lead {
+    gap: 0;
+  }
+
+  .leadText {
+    padding: 0.8rem 0.8rem 0.8rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  .leadLink {
+    justify-content: center;
+    --arrow-link-gap: 0.4rem;
+    --arrow-link-icon: 1.5rem;
+    --arrow-link-size: 1.2rem;
+  }
+
+  /* The artboard reads the counters top-down from 10+, the reverse of the
+     desktop's right-to-left order. */
   .cards {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 1.5rem;
+    width: 20.4rem;
+    margin-inline: auto;
   }
 
   .card {
+    gap: 1.6rem;
     min-height: 0;
-    padding: 2rem 0;
+    padding: 1.2rem;
+  }
+
+  .cardIcon {
+    width: 2.7rem;
+    height: 2.7rem;
+  }
+
+  .cardBody {
+    gap: 0.8rem;
+  }
+
+  .figure {
+    --figure-scale: 0.47;
+    gap: 1.1rem;
+  }
+
+  .cardTitle {
+    padding-top: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .cardTextWrap {
+    min-height: 0;
+  }
+
+  .cardText {
+    width: 18.6rem;
+    font-size: 1rem;
   }
 }

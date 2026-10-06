@@ -14,13 +14,6 @@ type PartnerLogo = {
 /* Listed right-to-left: Google Cloud sits at the right edge of the artboard
    and Meta at the left. */
 const LOGOS: PartnerLogo[] = [
-  {
-    src: "/logos/partner-gcp.png",
-    alt: "Google Cloud",
-    width: 102,
-    height: 84,
-  },
-  { src: "/logos/partner-aws.png", alt: "AWS", width: 120, height: 108 },
   { src: "/logos/partner-4.png", alt: "Zoho", width: 150, height: 84 },
   { src: "/logos/partner-odoo.png", alt: "Odoo", width: 150, height: 48 },
   {
@@ -42,6 +35,13 @@ const LOGOS: PartnerLogo[] = [
     height: 46,
     crop: { left: "0", top: "-112.2%", width: "100%", height: "325.2%" },
   },
+  {
+    src: "/logos/partner-gcp.png",
+    alt: "Google Cloud",
+    width: 102,
+    height: 84,
+  },
+  { src: "/logos/partner-aws.png", alt: "AWS", width: 120, height: 108 },
 ];
 
 const rem = (px: number) => `${px / 10}rem`;

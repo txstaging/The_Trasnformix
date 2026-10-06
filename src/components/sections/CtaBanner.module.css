@@ -93,7 +93,7 @@
 @media (max-width: 1024px) {
   .section {
     height: auto !important;
-    padding: 8rem 2.4rem;
+    padding: 8rem var(--gutter);
   }
 
   .stage {
@@ -132,6 +132,13 @@
 
   .title {
     font-size: 2.8rem !important;
+  }
+
+  /* "مش متأكد من أين تبدأ؟" only; the inline artboard size needs the
+     !important. */
+  .start .title {
+    font-size: 2.2rem !important;
+    font-weight: 500 !important;
   }
 
   .text {

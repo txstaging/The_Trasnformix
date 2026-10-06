@@ -1,10 +1,12 @@
-/* Figma "Link" — arrow + label, right-aligned label with the arrow to its left. */
+/* Figma "Link" — arrow + label, right-aligned label with the arrow to its left.
+   A parent section may resize the small link through --arrow-link-gap,
+   --arrow-link-pad, --arrow-link-icon and --arrow-link-size. */
 .root {
   display: inline-flex;
   flex-direction: row-reverse;
   align-items: center;
-  gap: 0.8rem;
-  padding: 0.8933rem 0.1rem 0.8933rem 1.1578rem;
+  gap: var(--arrow-link-gap, 0.8rem);
+  padding: var(--arrow-link-pad, 0.8933rem 0.1rem 0.8933rem 1.1578rem);
   border: 1px solid transparent;
   border-radius: 0.7933rem;
   cursor: pointer;
@@ -13,8 +15,8 @@
 
 .icon {
   flex-shrink: 0;
-  width: 2.4rem;
-  height: 2.4rem;
+  width: var(--arrow-link-icon, 2.4rem);
+  height: var(--arrow-link-icon, 2.4rem);
   /* Figma flips the exported glyph on its Y axis and rotates it 180deg, which
      resolves to a plain horizontal mirror. */
   transform: scaleX(-1);
@@ -22,7 +24,7 @@
 }
 
 .label {
-  font-size: 1.8rem;
+  font-size: var(--arrow-link-size, 1.8rem);
   font-weight: 500;
   color: var(--primary-alt);
   text-align: center;

@@ -133,7 +133,7 @@
   .section {
     gap: 2.4rem;
     height: auto;
-    padding: 6.4rem 2.4rem;
+    padding: 6.4rem var(--gutter);
   }
 
   .title {
@@ -227,7 +227,7 @@
 @media (max-width: 640px) {
   .section {
     gap: 0;
-    padding: 4rem 2.4rem;
+    padding: 4rem var(--gutter);
   }
 
   /* "Header:margin" — a 56 tall box with the heading 5px from its top. */

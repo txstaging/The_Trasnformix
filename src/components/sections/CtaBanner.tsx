@@ -18,6 +18,8 @@ type Ornament = {
 
 type CtaBannerProps = {
   id?: string;
+  /** Extra class on the band, for per-banner tweaks. */
+  className?: string;
   /** Artboard height of the whole band. */
   height: number;
   title: string;
@@ -39,6 +41,7 @@ const rem = (px: number) => `${px / 10}rem`;
 
 export function CtaBanner({
   id,
+  className,
   height,
   title,
   titleSize,
@@ -53,7 +56,11 @@ export function CtaBanner({
   cta,
 }: CtaBannerProps) {
   return (
-    <section id={id} className={styles.section} style={{ height: rem(height) }}>
+    <section
+      id={id}
+      className={className ? `${styles.section} ${className}` : styles.section}
+      style={{ height: rem(height) }}
+    >
       <div className={styles.stage}>
         <div
           className={`${styles.ornament} ${styles.ornamentRight}`}
@@ -125,6 +132,7 @@ export function CtaBanner({
 export function CtaStart() {
   return (
     <CtaBanner
+      className={styles.start}
       height={481}
       contentTop={113}
       title="مش متأكد من أين تبدأ؟"

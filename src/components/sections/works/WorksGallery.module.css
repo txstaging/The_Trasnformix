@@ -247,17 +247,22 @@
   border: 0;
 }
 
-/* Below the artboard width: search on top at full width, the chips in a
+/* Below the artboard width: search on top as wide as the chips, the chips in a
    single swipeable row, and a fluid two-column grid. */
 @media (max-width: 1024px) {
   .section {
-    padding: 6.4rem 2.4rem 8rem;
+    padding: 6.4rem var(--gutter) 8rem;
   }
 
+  /* As wide as the chip row and centred, so the search above it spans the
+     same run of chips; it falls back to full width once the chips scroll. */
   .toolbar {
     flex-direction: column;
     align-items: stretch;
+    align-self: center;
     gap: 1.6rem;
+    width: fit-content;
+    max-width: 100%;
     height: auto;
   }
 
@@ -331,7 +336,7 @@
 
 @media (max-width: 640px) {
   .section {
-    padding: 4.8rem 2.4rem 6.4rem;
+    padding: 4.8rem var(--gutter) 6.4rem;
   }
 
   .searchInput {

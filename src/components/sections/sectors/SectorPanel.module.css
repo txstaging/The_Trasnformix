@@ -1,0 +1,390 @@
+/* The three sector bands — Figma 2819:1823 (الصناعة), 2819:1913 (التعاونيات)
+   and 2819:2136 (التعليم والتدريب). Each opens on a 0.8px rule, 85.8 above
+   and 85 below, with the copy column and the visual centred side by side. */
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8.58rem 0 8.5rem;
+  border-top: 0.08rem solid var(--sector-line);
+  scroll-margin-top: 8.2rem;
+}
+
+/* Copy on the left, dashboard on the right (row-reverse under RTL). */
+.industry {
+  flex-direction: row-reverse;
+  gap: 6.9rem;
+  width: 116rem;
+}
+
+/* A full-bleed 987 band: copy on the right, dashboard on the left. */
+.cooperatives {
+  gap: 7rem;
+  width: 100%;
+  height: 98.7rem;
+}
+
+/* A full-bleed band: copy on the left, dashboard on the right. */
+.education {
+  flex-direction: row-reverse;
+  gap: 7rem;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Copy column
+   -------------------------------------------------------------------------- */
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+  padding-top: 0.89rem;
+}
+
+.industry .column {
+  gap: 3.7rem;
+  width: 45.6rem;
+}
+
+.cooperatives .column {
+  gap: 1.09rem;
+  width: 47.8rem;
+  height: 71.8rem;
+}
+
+.education .column {
+  gap: 1.09rem;
+  width: 51.3rem;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: inherit;
+  width: 100%;
+}
+
+/* Rule on the right of the label. */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 1.8rem;
+  color: var(--sector-blue);
+  white-space: nowrap;
+}
+
+.rule {
+  flex-shrink: 0;
+  width: 2.8rem;
+  height: 0.2rem;
+  background: var(--sector-blue);
+}
+
+.title {
+  font-size: 4.8rem;
+  font-weight: 700;
+  color: var(--sector-ink);
+  white-space: nowrap;
+}
+
+.text {
+  padding-top: 0.645rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.industry .text {
+  width: 43.1rem;
+}
+
+.cooperatives .text,
+.education .text {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Numbered rows (tabs) — a one-column grid of 86.8 tracks. In الصناعة and
+   التعاونيات the 100px cards overhang their tracks, so the gaps read 15.8 and
+   10.8.
+   -------------------------------------------------------------------------- */
+.list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: 8.68rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.industry .list {
+  row-gap: 2.9rem;
+  height: 45.7rem;
+  padding-bottom: 2.11rem;
+}
+
+.cooperatives .list {
+  row-gap: 2.4rem;
+  height: 46.6rem;
+  padding-block: 1.71rem;
+}
+
+.education .list {
+  row-gap: 1.2rem;
+  padding-block: 1.71rem;
+}
+
+/* Badge on the right, text block beside it. */
+.row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1.2rem;
+  align-self: start;
+  width: 100%;
+  height: 10rem;
+  padding: 1.58rem 1.58rem 1.58rem 0;
+  border: 1px solid var(--sector-line);
+  border-radius: 1.5rem;
+  background: var(--bg-main);
+  text-align: right;
+  cursor: pointer;
+  transition:
+    background-color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.industry .row:first-child {
+  height: 9.9rem;
+}
+
+.education .row {
+  height: 8.68rem;
+}
+
+.row:hover:not(.active) {
+  border-color: var(--blue-light-active);
+  box-shadow: 0 1.2rem 2.4rem -1.8rem rgba(18, 43, 84, 0.35);
+}
+
+/* "Foundation/Blue/Light" — the selected row. */
+.active {
+  background: var(--blue-light);
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 1rem;
+  background: var(--sector-badge);
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--sector-blue);
+}
+
+.rowText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.11rem;
+  padding-bottom: 0.43rem;
+}
+
+.rowTitle {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--sector-ink);
+  white-space: nowrap;
+}
+
+.industry .rowTitle {
+  font-weight: 700;
+}
+
+.rowCaption {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--sector-muted);
+  white-space: nowrap;
+}
+
+.industry .rowCaption {
+  font-size: 1.4rem;
+}
+
+.actions {
+  display: flex;
+  width: 100%;
+}
+
+/* The hero's gradient pill, stretched across the column so the longer
+   labels ("تعرف علي منصتنا التعليمية") fit. */
+.cta {
+  --btn8-w: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Visual
+   -------------------------------------------------------------------------- */
+.visualSlot {
+  flex-shrink: 0;
+}
+
+.industry .visualSlot {
+  width: 63.3rem;
+}
+
+.cooperatives .visualSlot {
+  width: 61.2rem;
+}
+
+.education .visualSlot {
+  width: 56.4rem;
+}
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #e6edf8;
+  border-radius: 3.2rem;
+}
+
+/* Figma 2819:1863 — a 633 x 813 card. The dashboard layer is 20px taller and
+   hangs off its top, so the card shows it from y 20 down. */
+.industry .frame {
+  aspect-ratio: 633 / 813;
+  background: var(--bg-card);
+}
+
+/* Figma 2819:1914 — 612 x 710, filled by a 174%-wide crop of the render. */
+.cooperatives .frame {
+  aspect-ratio: 612 / 710;
+}
+
+/* Figma 2819:2007 — 564 x 669. */
+.education .frame {
+  aspect-ratio: 564 / 669;
+}
+
+.shot {
+  position: absolute;
+  max-width: none;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+
+.shotActive {
+  opacity: 1;
+}
+/* Each render's crop box arrives inline with its shot (SectorShot.crop). */
+
+/* --------------------------------------------------------------------------
+   Below 1024 the band becomes one column: heading, visual, rows, button —
+   so a tapped row's dashboard is in view right above it.
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3.2rem;
+    width: 100%;
+    height: auto;
+    padding: 6.4rem var(--gutter);
+  }
+
+  .column {
+    display: contents;
+  }
+
+  .head {
+    order: 1;
+    gap: 1.2rem;
+  }
+
+  .visualSlot {
+    order: 2;
+    align-self: center;
+    width: 100% !important;
+  }
+
+  .industry .visualSlot {
+    max-width: 63.3rem;
+  }
+
+  .cooperatives .visualSlot {
+    max-width: 61.2rem;
+  }
+
+  .education .visualSlot {
+    max-width: 56.4rem;
+  }
+
+  .list {
+    order: 3;
+    grid-auto-rows: auto;
+    row-gap: 1.2rem !important;
+    height: auto !important;
+    padding: 0 !important;
+  }
+
+  .actions {
+    order: 4;
+  }
+
+  .title {
+    font-size: 4rem;
+    white-space: normal;
+  }
+
+  .text {
+    width: auto !important;
+    max-width: 64rem;
+  }
+
+  .row,
+  .industry .row:first-child,
+  .education .row {
+    height: auto;
+    min-height: 8.68rem;
+  }
+
+  .rowCaption {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    gap: 2.4rem;
+    padding: 4.8rem var(--gutter);
+  }
+
+  .eyebrow {
+    font-size: 1.6rem;
+  }
+
+  .title {
+    font-size: 3.2rem;
+  }
+
+  .text {
+    font-size: 1.6rem;
+  }
+
+  .frame {
+    border-radius: 2.4rem;
+  }
+
+  .rowTitle {
+    white-space: normal;
+  }
+}

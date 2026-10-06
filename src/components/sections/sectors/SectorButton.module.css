@@ -1,0 +1,49 @@
+/* Figma 2789:11514 "Link" — 12px corners, 12 x 22 padding, 18px label. */
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 2.2rem;
+  border-radius: 1.2rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  transition:
+    transform var(--dur) var(--ease-out),
+    filter var(--dur) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.solid {
+  background: var(--sector-blue);
+  color: var(--text-inverse);
+  filter: drop-shadow(0 1rem 1.25rem rgba(29, 79, 183, 0.18));
+}
+
+.solid:hover {
+  background: var(--primary);
+  transform: translateY(-0.2rem);
+  filter: drop-shadow(0 1.4rem 1.6rem rgba(29, 79, 183, 0.28));
+}
+
+.light {
+  background: var(--bg-main);
+  color: #123b91;
+}
+
+.light:hover {
+  transform: translateY(-0.2rem);
+  background: var(--blue-light);
+}
+
+.root:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .root {
+    font-size: 1.6rem;
+    white-space: normal;
+  }
+}

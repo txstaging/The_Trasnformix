@@ -215,7 +215,7 @@
 
 @media (max-width: 1024px) {
   .footer {
-    padding: 6.4rem 2.4rem 3.2rem;
+    padding: 6.4rem var(--gutter) 3.2rem;
   }
 
   .top {
@@ -273,9 +273,10 @@
 
 /* ==========================================================================
    `navy` — the about artboards. At 1440 (Figma 2515:60030) only the ground
-   and the lockup change. At 375 (Figma 2524:3054) the footer is one stacked
-   column set in Tajawal: lockup, تواصل معنا / الشركة / الخدمات, the social row
-   and the legal line, 32px apart.
+   and the lockup change.
+   Phones — every variant (Figma 2888:10856, 375): one stacked column set in
+   Tajawal on the navy ground: lockup, الخدمات / الشركة / تواصل معنا, the
+   social row and the legal line, 32px apart.
    ========================================================================== */
 .navy {
   background: #0a1836;
@@ -293,44 +294,44 @@
 }
 
 @media (max-width: 640px) {
-  /* The artboard's footer frame is fixed at 950, which trims its 32px bottom
-     padding to 19. */
-  .navy {
+  /* Figma 2888:10856 draws every phone footer on the navy ground. */
+  .footer {
     align-items: stretch;
-    padding-bottom: 1.9rem;
+    padding-bottom: 3.2rem;
+    background: #0a1836;
   }
 
   /* The brand and main wrappers dissolve so their children can be re-ordered
      into the artboard's single column. */
-  .navy .top {
+  .footer .top {
     flex-direction: column;
     align-items: stretch;
     gap: 3.2rem;
   }
 
-  .navy .brand,
-  .navy .main {
+  .footer .brand,
+  .footer .main {
     display: contents;
   }
 
-  .navy .brandTop {
+  .footer .brandTop {
     order: 1;
     align-items: center;
     gap: 0;
   }
 
-  .navy .brandLogo {
+  .footer .brandLogo {
     display: none;
   }
 
-  .navy .brandLogoMobile {
+  .footer .brandLogoMobile {
     display: block;
     width: 14rem;
     height: 9rem;
     margin-bottom: 2.4rem;
   }
 
-  .navy .tagline {
+  .footer .tagline {
     width: auto;
     height: auto;
     font-family: var(--font-tajawal), sans-serif;
@@ -341,30 +342,33 @@
     white-space: nowrap;
   }
 
-  .navy .columns {
+  /* Inset from the right edge so the link columns don't hug the rim. */
+  .footer .columns {
     order: 2;
     flex-direction: column;
     flex-wrap: nowrap;
     gap: 3.2rem;
     padding-top: 1.6rem;
+    padding-right: 1.6rem;
   }
 
   /* The columns carry their 1440 widths inline. */
-  .navy .column {
+  .footer .column {
     width: 100% !important;
     gap: 2.4rem;
   }
 
-  .navy .contact {
-    order: -1;
+  /* الخدمات, الشركة, then تواصل معنا last. */
+  .footer .contact {
+    order: 2;
     gap: 1.6rem;
   }
 
-  .navy .contact .columnTitle {
+  .footer .contact .columnTitle {
     margin-bottom: 0.8rem;
   }
 
-  .navy .columnTitle {
+  .footer .columnTitle {
     height: auto;
     font-family: var(--font-tajawal), sans-serif;
     font-size: 1.8rem;
@@ -372,52 +376,52 @@
     line-height: 2.8rem;
   }
 
-  .navy .columnList {
+  .footer .columnList {
     gap: 1.2rem;
   }
 
-  .navy .columnLink {
+  .footer .columnLink {
     height: auto;
     font-family: var(--font-tajawal), sans-serif;
     font-size: 1.4rem;
     line-height: 2rem;
   }
 
-  .navy .contactRow {
+  .footer .contactRow {
     align-items: center;
     gap: 1.2rem;
     height: 2rem;
   }
 
-  .navy .contactIcon {
+  .footer .contactIcon {
     display: none;
   }
 
-  .navy .contactIconMobile {
+  .footer .contactIconMobile {
     display: block;
     flex-shrink: 0;
   }
 
-  .navy .contactText {
+  .footer .contactText {
     font-family: var(--font-tajawal), sans-serif;
     line-height: 2rem;
     color: var(--yellow-light);
     white-space: nowrap;
   }
 
-  .navy .contactLink {
+  .footer .contactLink {
     text-decoration: none;
   }
 
   /* The linked rows' <a> must share the text's face and line box, or its
      taller Kufi strut drops the line below the plain rows. */
-  .navy .contactRow > a {
+  .footer .contactRow > a {
     font-family: var(--font-tajawal), sans-serif;
     line-height: 2rem;
   }
 
   /* Facebook sits on the left of this row, the mirror of the 1440 order. */
-  .navy .social {
+  .footer .social {
     order: 3;
     flex-direction: row-reverse;
     justify-content: center;
@@ -425,25 +429,25 @@
     padding-top: 1.6rem;
   }
 
-  .navy .legal {
+  .footer .legal {
     order: 4;
     padding-top: 3.2rem;
     border-top: 0.1rem solid rgba(255, 255, 255, 0.1);
   }
 
-  .navy .rule {
+  .footer .rule {
     display: none;
   }
 
-  .navy .phoneHidden {
+  .footer .phoneHidden {
     display: none;
   }
 
-  .navy .phoneLast {
+  .footer .phoneLast {
     order: 1;
   }
 
-  .navy .copyright {
+  .footer .copyright {
     height: auto;
     font-family: var(--font-tajawal), sans-serif;
     font-size: 1.4rem;

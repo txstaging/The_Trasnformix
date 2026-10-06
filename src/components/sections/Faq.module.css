@@ -196,7 +196,7 @@
 @media (max-width: 1024px) {
   .panel {
     height: auto;
-    padding: 8rem 2.4rem;
+    padding: 8rem var(--gutter);
   }
 
   .container {

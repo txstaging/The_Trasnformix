@@ -193,7 +193,7 @@
 @media (max-width: 1024px) {
   .section {
     height: auto;
-    padding: 8rem 2.4rem;
+    padding: 8rem var(--gutter);
   }
 
   .stage {
@@ -256,13 +256,13 @@
    375 cards carry the eye glyph. */
 @media (max-width: 640px) {
   .section {
-    padding: 6rem 0 8.13rem;
+    padding: 6rem var(--gutter) 8.13rem;
   }
 
   .stage {
     position: relative;
     left: -0.25rem;
-    width: min(31.6rem, calc(100% - 2.4rem));
+    width: min(31.6rem, 100%);
     margin-inline: auto;
   }
 

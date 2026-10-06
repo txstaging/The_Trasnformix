@@ -69,8 +69,25 @@
   --dur: 320ms;
   --dur-slow: 620ms;
 
+  /* القطاعات page — Figma 2789:11500 draws in its own blue and ink. */
+  --sector-blue: #1d4fb7;
+  --sector-ink: #14213d;
+  --sector-muted: #667085;
+  --sector-line: #e8edf5;
+  --sector-badge: #edf3ff;
+
   /* Width of the vertical scrollbar, measured at runtime (see layout.tsx). */
   --sbw: 0px;
+
+  /* Side gutter every section keeps once the layout reflows (≤1024px);
+     the 1440 artboard sets its own margins above that. */
+  --gutter: 3.2rem;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gutter: 2rem;
+  }
 }
 
 /* 1rem = 10px, honouring the reader's own base size at full scale. */

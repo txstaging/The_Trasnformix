@@ -94,9 +94,6 @@ export function Works() {
           >
             <div className={styles.rowHead}>
               <h3 className={styles.rowTitle}>{row.category}</h3>
-              <ArrowLink href="https://www.behance.net/Futureexperts" size="lg" icon="/icons/arrow-more.svg">
-                عرض المزيد
-              </ArrowLink>
             </div>
 
             <div className={styles.cards}>
@@ -140,6 +137,15 @@ export function Works() {
                 </Reveal>
               ))}
             </div>
+
+            <ArrowLink
+              href="https://www.behance.net/Futureexperts"
+              size="lg"
+              icon="/icons/arrow-more.svg"
+              className={styles.more}
+            >
+              عرض المزيد
+            </ArrowLink>
           </div>
         ))}
       </div>

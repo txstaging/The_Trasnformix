@@ -112,7 +112,7 @@
 @media (max-width: 1024px) {
   .section {
     height: auto;
-    padding: 8rem 2.4rem;
+    padding: 8rem var(--gutter);
   }
 
   .stage {
@@ -142,7 +142,7 @@
    counters above and of the footer below. The CTA is "Button 8" at 0.4109. */
 @media (max-width: 640px) {
   .section {
-    padding: 7.1rem 0;
+    padding: 7.1rem var(--gutter);
   }
 
   .ornament {
@@ -154,7 +154,7 @@
     left: 0.3rem;
     top: auto;
     gap: 1.3149rem;
-    width: min(31.1rem, calc(100% - 3.2rem));
+    width: min(31.1rem, 100%);
   }
 
   .copy {

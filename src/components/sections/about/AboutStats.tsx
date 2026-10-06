@@ -135,9 +135,8 @@ function Counter({ glyph, mobile, className }: { glyph: Glyph; mobile: boolean; 
  * Figma 2519:67017 "Desktop - 139" (the counters) and 2515:59912
  * "Desktop - 113" (its heading); 2525:3123 on the 375 artboard.
  *
- * NOTE: the 1440 artboard stacks the heading band *under* the counters while
- * the 375 one puts it on top. The markup keeps the heading first and the
- * 1440 order is restored with `order`, so both match their artboards.
+ * NOTE: the 1440 artboard draws the heading band *under* the counters; it is
+ * moved above them on purpose so every width matches the 375 order.
  */
 export function AboutStats() {
   return (
