@@ -1,9 +1,6 @@
 type CompMediaProps = {
-  /** File name under public/videos, without extension. */
   name: string;
-  /** Still exported from Figma; the poster until the film is dropped in. */
   poster: string;
-  /** Artboard box, in artboard px. */
   width: number;
   height: number;
   /** Describes the motion for assistive tech; omit for pure decoration. */

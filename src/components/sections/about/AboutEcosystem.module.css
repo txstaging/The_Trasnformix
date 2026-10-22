@@ -1,5 +1,3 @@
-/* Figma 2515:59783 "Desktop - 110" — 1440 x 824: padding 100 around a
-   centred stack spaced 38 apart. */
 .section {
   display: flex;
   flex-direction: column;
@@ -31,7 +29,6 @@
   word-break: break-word;
 }
 
-/* Each text box is centred vertically on its fixed artboard height. */
 .leadIntro,
 .leadBody {
   display: flex;
@@ -52,9 +49,6 @@
   display: none;
 }
 
-/* Two rows of two 604 cells, 32 apart. The track is 1240 wide inside a 1223
-   frame, so it starts 8.5px right of the content box and spills 17px past
-   its right edge — the artboard's own overhang. Rows sit 8 + 24 + 8 apart. */
 .grid {
   position: relative;
   left: 0.85rem;
@@ -68,7 +62,6 @@
   list-style: none;
 }
 
-/* Marker then card; the 1px of slack in each 604 cell falls on the right. */
 .item {
   grid-column: var(--column);
   grid-row: var(--row);
@@ -199,11 +192,6 @@
   }
 }
 
-/* Figma 2519:66494 (375). The heading block is 291.1 wide and, like the rest
-   of the column, 2.5px left of centre; the hero band above already carries
-   the 56px lead-in. The card list is 310.33 wide: a 277.9 card, a 10.8 gap
-   and a 21.6 marker, stacked 26.15 apart. Line boxes are pinned to the
-   heights the artboard reports, which run 1–2px under Chrome's `normal`. */
 @media (max-width: 640px) {
   .section {
     gap: 0;

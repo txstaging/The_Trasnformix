@@ -1,0 +1,55 @@
+.trigger.trigger {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  width: 100%;
+  padding: 8px 0;
+  font-size: clamp(30px, 4.3vw, 64px);
+  line-height: 1.2;
+  text-align: start;
+}
+
+.trigger small {
+  min-width: 25px;
+  font: 11px monospace;
+  opacity: 0.5;
+}
+
+.trigger svg {
+  margin-inline-start: auto;
+  transition: transform 200ms;
+}
+
+.trigger[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  width: min(420px, calc(100% - 53px));
+  margin: 12px 53px 20px 0;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--bg-main);
+  box-shadow: 0 12px 25px #10254412;
+}
+
+.dropdown.dropdown a {
+  display: block;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 19px;
+  line-height: 1.85;
+}
+
+.dropdown a:hover,
+.dropdown a[aria-current="page"] {
+  color: var(--primary);
+  background: var(--menu-hover);
+}
+
+@media (max-width: 640px) {
+  .trigger.trigger { gap: 15px; }
+  .dropdown { width: calc(100% - 40px); margin-right: 40px; }
+  .dropdown.dropdown a { font-size: 17px; }
+}

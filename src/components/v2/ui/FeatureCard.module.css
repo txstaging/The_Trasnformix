@@ -1,0 +1,143 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  align-items: start;
+  gap: var(--row-gap, 2.4rem) 2.4rem;
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  min-height: 24rem;
+  padding: 2.8rem;
+  border: 0.1rem solid var(--v2-border);
+  border-radius: 1.6rem;
+  line-height: 1.95;
+  text-align: center;
+  overflow: hidden;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: var(--icon);
+  height: var(--icon);
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.95;
+}
+
+.text {
+  font-size: 1.6rem;
+}
+
+.blue {
+  background: var(--v2-surface-blue);
+}
+
+.blue .title {
+  color: var(--v2-navy);
+}
+
+.neutral {
+  background: var(--v2-surface-neutral);
+}
+
+.blue .text,
+.neutral .text {
+  color: var(--v2-text-muted);
+}
+
+.gradient,
+.service {
+  background: var(--v2-gradient);
+}
+
+.gradient-deep {
+  background: var(--v2-gradient-deep);
+}
+
+/* Sampled from the render: #f5f6f8 at 20% over the panel, solid rim. */
+.glass {
+  background: rgba(245, 246, 248, 0.2);
+}
+
+.gradient .title,
+.gradient-deep .title,
+.glass .title,
+.service .title {
+  color: var(--v2-text-inverse);
+}
+
+.gradient .text,
+.gradient-deep .text,
+.glass .text {
+  color: var(--v2-text-inverse-muted);
+}
+
+/* Figma 3733:8906 — 287 high, a primary rim and white copy. */
+.service {
+  height: 28.7rem;
+  border-color: var(--v2-primary);
+}
+
+.service .text {
+  color: var(--v2-text-inverse);
+}
+
+.link {
+  transition:
+    transform var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.link:hover,
+.link:focus-visible {
+  transform: translateY(-0.4rem);
+  box-shadow: 0 1.6rem 3.2rem rgba(0, 30, 74, 0.22);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* An odd last card spans the row instead of sitting alone on the right. */
+  .grid > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .card {
+    min-height: 0;
+  }
+
+  .service {
+    height: auto;
+    min-height: 24rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
+  }
+
+  .card {
+    padding: 2.4rem 2rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .service .icon {
+    width: 6.4rem;
+    height: 6.4rem;
+  }
+}

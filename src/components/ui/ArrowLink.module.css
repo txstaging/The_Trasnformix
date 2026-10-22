@@ -17,6 +17,7 @@
   flex-shrink: 0;
   width: var(--arrow-link-icon, 2.4rem);
   height: var(--arrow-link-icon, 2.4rem);
+  filter: var(--arrow-link-icon-filter, none);
   /* Figma flips the exported glyph on its Y axis and rotates it 180deg, which
      resolves to a plain horizontal mirror. */
   transform: scaleX(-1);
@@ -26,7 +27,7 @@
 .label {
   font-size: var(--arrow-link-size, 1.8rem);
   font-weight: 500;
-  color: var(--primary-alt);
+  color: var(--arrow-link-color, var(--primary-alt));
   text-align: center;
   white-space: nowrap;
   transition: color var(--dur-fast) var(--ease-out);
@@ -39,10 +40,9 @@
 
 .root:hover .label,
 .root:focus-visible .label {
-  color: var(--blue-dark);
+  color: var(--arrow-link-hover-color, var(--blue-dark));
 }
 
-/* Larger variant used by the "عرض المزيد" links in the portfolio section. */
 .lg {
   gap: 0.8rem;
   height: 4.7rem;

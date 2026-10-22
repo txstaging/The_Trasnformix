@@ -1,0 +1,11 @@
+/* Clears the sticky navbar when a service page links to #request. */
+.request {
+  width: 100%;
+  scroll-margin-top: 14rem;
+}
+
+@media (max-width: 1024px) {
+  .request {
+    scroll-margin-top: 10rem;
+  }
+}

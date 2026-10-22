@@ -1,35 +1,47 @@
 "use client";
 
 import Image from "next/image";
-import { useId, useRef, useState, type KeyboardEvent } from "react";
-import { Button8 } from "@/components/ui/Button8";
+import {
+  useId,
+  useRef,
+  useState,
+  type CSSProperties,
+  type KeyboardEvent,
+} from "react";
+import { PillButton } from "@/components/ui/PillButton";
 import { Reveal } from "@/components/ui/Reveal";
+import { ScrollTilt } from "@/components/ui/ScrollTilt";
 import styles from "./SectorPanel.module.css";
+
+type Box = { x: number; y: number; width: number; height: number };
 
 export type SectorShot = {
   src: string;
   width: number;
   height: number;
-  /** The render's box inside the frame, in % of the frame — Figma's crop. */
-  crop: { left: number; top: number; width: number; height: number };
+  /** The render's box on the band's frame (FRAME), in design px. */
+  box: Box;
+  /** The render inside its box, in % of the box — Figma's crop. Without one
+      it covers the box. */
+  crop?: { left: number; top: number; width: number; height: number };
+  radius?: number;
+  shadow?: boolean;
 };
 
 export type SectorItem = {
   number: string;
   title: string;
   text: string;
-  /** Per-row overrides the artboard carries, e.g. the 13px MCR caption. */
   textColor?: string;
   textSize?: number;
-  /** The dashboard this row brings up. */
   shot: SectorShot;
 };
 
+type Variant = "industry" | "cooperatives" | "education";
+
 type SectorPanelProps = {
   id: string;
-  /** `industry` — Figma 2813:10158; `cooperatives` — 2819:1959;
-      `education` — 2819:2136. */
-  variant: "industry" | "cooperatives" | "education";
+  variant: Variant;
   eyebrow: string;
   title: string;
   text: string;
@@ -42,16 +54,30 @@ const cx = (...names: (string | false | undefined)[]) =>
 
 const rem = (px: number) => `${px / 10}rem`;
 
-/* How wide the widest crop renders relative to the viewport, for `sizes`. */
-const SIZES: Record<SectorPanelProps["variant"], string> = {
-  industry: "(max-width: 1024px) 100vw, 44.5vw",
-  cooperatives: "(max-width: 1024px) 174vw, 74vw",
-  education: "(max-width: 1024px) 282vw, 111vw",
+const pct = (part: number, whole: number) => `${(part / whole) * 100}%`;
+
+/* The visual's frame per band, in design px. */
+const FRAME: Record<Variant, { width: number; height: number }> = {
+  industry: { width: 508, height: 813 },
+  cooperatives: { width: 509.64, height: 700 },
+  education: { width: 509.64, height: 669 },
 };
 
-/** One sector band: heading, numbered rows and a dashboard. Every row is a
-    tab that swaps the dashboard beside it, exactly as the four "Property 1"
-    frames of each Figma set draw it. */
+/* The widest crop is ~570 design px. */
+const SIZES = "(max-width: 1024px) 112vw, (max-width: 1440px) 40vw, 570px";
+
+/** The area every render of a band covers. Phones show only this, so the
+    tablet isn't wrapped in the frame's empty space. */
+function stageOf(shots: SectorShot[]): Box {
+  const x = Math.min(...shots.map((shot) => shot.box.x));
+  const y = Math.min(...shots.map((shot) => shot.box.y));
+  const right = Math.max(...shots.map((shot) => shot.box.x + shot.box.width));
+  const bottom = Math.max(...shots.map((shot) => shot.box.y + shot.box.height));
+  return { x, y, width: right - x, height: bottom - y };
+}
+
+/** One sector band: heading, numbered rows and a tablet render. Every row is
+    a tab that swaps the render beside it. */
 export function SectorPanel({
   id,
   variant,
@@ -67,9 +93,8 @@ export function SectorPanel({
   const panelId = `${uid}-panel`;
   const tabId = (index: number) => `${uid}-tab-${index}`;
 
-  /* Rows that share a dashboard share one <img>. */
-  const shots = [...new Map(items.map((item) => [item.shot.src, item.shot])).values()];
-  const activeSrc = items[active].shot.src;
+  const frame = FRAME[variant];
+  const stage = stageOf(items.map((item) => item.shot));
 
   const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
     const last = items.length - 1;
@@ -143,9 +168,9 @@ export function SectorPanel({
         </div>
 
         <div className={styles.actions}>
-          <Button8 href={cta.href} className={styles.cta}>
+          <PillButton href={cta.href} className={styles.cta}>
             {cta.label}
-          </Button8>
+          </PillButton>
         </div>
       </div>
 
@@ -155,26 +180,58 @@ export function SectorPanel({
           className={styles.frame}
           role="tabpanel"
           aria-labelledby={tabId(active)}
+          style={{ "--frame-ratio": `${frame.width} / ${frame.height}` } as CSSProperties}
         >
-          {shots.map((shot) => (
-            <Image
-              key={shot.src}
-              className={cx(styles.shot, shot.src === activeSrc && styles.shotActive)}
-              style={{
-                left: `${shot.crop.left}%`,
-                top: `${shot.crop.top}%`,
-                width: `${shot.crop.width}%`,
-                height: `${shot.crop.height}%`,
-              }}
-              src={shot.src}
-              alt={shot.src === activeSrc ? `${title} — ${items[active].title}` : ""}
-              aria-hidden={shot.src !== activeSrc}
-              width={shot.width}
-              height={shot.height}
-              quality={90}
-              sizes={SIZES[variant]}
-            />
-          ))}
+          <div
+            className={styles.stage}
+            style={
+              {
+                "--stage-x": pct(stage.x, frame.width),
+                "--stage-y": pct(stage.y, frame.height),
+                "--stage-w": pct(stage.width, frame.width),
+                aspectRatio: `${stage.width} / ${stage.height}`,
+              } as CSSProperties
+            }
+          >
+            <ScrollTilt className={styles.tilt}>
+              {items.map(({ number, shot }, index) => (
+                <div
+                  key={number}
+                  className={cx(
+                    styles.shot,
+                    shot.shadow && styles.shotShadow,
+                    index === active && styles.shotActive,
+                  )}
+                  style={{
+                    left: pct(shot.box.x - stage.x, stage.width),
+                    top: pct(shot.box.y - stage.y, stage.height),
+                    width: pct(shot.box.width, stage.width),
+                    height: pct(shot.box.height, stage.height),
+                    borderRadius: shot.radius ? rem(shot.radius) : undefined,
+                  }}
+                  aria-hidden={index !== active}
+                >
+                  <Image
+                    className={styles.shotImg}
+                    style={
+                      shot.crop && {
+                        left: `${shot.crop.left}%`,
+                        top: `${shot.crop.top}%`,
+                        width: `${shot.crop.width}%`,
+                        height: `${shot.crop.height}%`,
+                      }
+                    }
+                    src={shot.src}
+                    alt={index === active ? `${title} — ${items[index].title}` : ""}
+                    width={shot.width}
+                    height={shot.height}
+                    quality={90}
+                    sizes={SIZES}
+                  />
+                </div>
+              ))}
+            </ScrollTilt>
+          </div>
         </div>
       </Reveal>
     </section>

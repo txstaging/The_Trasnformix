@@ -1,0 +1,155 @@
+/* The panel's 1212 × 1009 inner box. Every orb is placed from its centre, so
+   on smaller screens the layer keeps that size and stays pinned to the
+   bottom centre of the panel. */
+.layer {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 121.2rem;
+  height: 100.9rem;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.slot {
+  position: absolute;
+  left: calc(50% + var(--x));
+  top: calc(50% + var(--y));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--box);
+  height: var(--box);
+  transform: translate(-50%, -50%);
+}
+
+/* Figma's mask group: the glow — shader output included — is clipped to the
+   572px sphere, placed from the glow's bounding box. */
+.tintSlot {
+  mix-blend-mode: color-burn;
+  -webkit-mask-image: var(--mask);
+  mask-image: var(--mask);
+  -webkit-mask-size: 57.2rem 57.2rem;
+  mask-size: 57.2rem 57.2rem;
+  -webkit-mask-position: var(--mask-x) var(--mask-y);
+  mask-position: var(--mask-x) var(--mask-y);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-mode: alpha;
+  mask-clip: no-clip;
+  mask-composite: intersect;
+}
+
+/* Figma's `-scale-y-100` + rotation on every orb layer. */
+.flip {
+  flex: none;
+  rotate: var(--rotate);
+  scale: 1 -1;
+}
+
+/* Figma draws the rays inside the sphere's own circle. */
+.orbCanvas {
+  position: relative;
+  width: 57.2rem;
+  height: 57.2rem;
+  border-radius: 28.6rem;
+}
+
+.orb {
+  position: relative;
+  width: 57.2rem;
+  height: 57.2rem;
+  border-radius: 28.6rem;
+  pointer-events: none;
+}
+
+.orbFill,
+.orbShade {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.orbFill {
+  background: rgba(28, 68, 153, 0.06);
+}
+
+.orbSolid .orbFill {
+  background: rgba(28, 68, 153, 0.93);
+}
+
+.orbShade {
+  box-shadow: inset 0 0.3397rem 6.7933rem 0 rgba(255, 255, 255, 0.8);
+}
+
+.tintCanvas {
+  position: relative;
+  width: 73rem;
+  height: 73rem;
+}
+
+/* Figma blurs the glow's shader canvas. The blur sits one level up so it
+   also softens the plain layer the runtime falls back to — blurring the
+   wrapper of a lone canvas draws the same pixels. */
+.tintSlot > .flip {
+  filter: blur(2.1675rem);
+}
+
+/* The 730px glow itself. */
+.tint {
+  position: relative;
+  width: 73rem;
+  height: 73rem;
+  border-radius: 36.5rem;
+  background: rgba(28, 68, 153, 0.06);
+}
+
+.tintSolid {
+  background: #1c4499;
+}
+
+/* ---- Without the shader runtime ------------------------------------------
+   Where the browser lacks HTML-in-Canvas, ShaderEffect renders its layers
+   plainly — straight inside .flip instead of inside a canvas. Painted as-is
+   they read nothing like the artboard: the rear sphere's rim draws a hard
+   white ring over the cards and the colour-burned glows muddy the front
+   sphere. These rules repaint only that plain path to the artboard's render
+   (measured off it): a soft lavender halo centred 105px below the panel,
+   behind a bright blue sphere with a pale rim. The shader input is left as
+   authored.
+   ------------------------------------------------------------------------ */
+.flip > .orbHalo .orbShade,
+.flip > .tint {
+  display: none;
+}
+
+/* The halo sits 105px below the rear sphere's centre and fades out over
+   about 600px. */
+.flip > .orbHalo .orbFill {
+  inset: auto;
+  top: calc(50% + 10.5rem);
+  left: 50%;
+  width: 120rem;
+  height: 120rem;
+  border-radius: 0;
+  translate: -50% -50%;
+  background: radial-gradient(
+    circle closest-side,
+    rgba(141, 145, 215, 0.75) 26.4rem,
+    rgba(141, 145, 215, 0.65) 29.1rem,
+    rgba(141, 145, 215, 0.54) 31.7rem,
+    rgba(141, 145, 215, 0.44) 34.7rem,
+    rgba(141, 145, 215, 0.35) 37.5rem,
+    rgba(141, 145, 215, 0.26) 40.5rem,
+    rgba(141, 145, 215, 0.19) 43.4rem,
+    rgba(141, 145, 215, 0.13) 46.3rem,
+    rgba(141, 145, 215, 0.08) 49.3rem,
+    rgba(141, 145, 215, 0.04) 52.2rem,
+    rgba(141, 145, 215, 0) 58rem
+  );
+}
+
+/* Brightest a little below the sphere's visible crown. */
+.flip > .orbSolid .orbFill {
+  background: radial-gradient(circle at 50% 45%, #3762ec 13rem, #3159d4 19rem);
+}

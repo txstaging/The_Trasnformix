@@ -7,10 +7,8 @@ type Step = {
   number: string;
   label: string;
   icon: string;
-  /** Glyph box inside the 154px disc at 1440 (the artboard nudges some 1px). */
   iconX: number;
   iconY: number;
-  /** Glyph box inside the 105px disc at 375, which sizes each glyph apart. */
   mobileIcon: { x: number; y: number; size: number };
 };
 
@@ -72,7 +70,6 @@ const MOBILE_ARROWS = [
 
 const rem = (px: number) => `${px / 10}rem`;
 
-/** Figma 2515:59882 "Desktop - 1" and 2525:3255 "Mobile Process Flow". */
 export function AboutProcess() {
   return (
     <section className={styles.section}>

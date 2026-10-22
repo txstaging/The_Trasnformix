@@ -1,0 +1,125 @@
+/* Figma motion (get_motion_context, every v2 artboard): the page introduction
+   — or a service page's whole narrative — fades in once. Opacity holds at 0
+   for the first 4% of a 2s timeline, then eases out to 1 by 37.5%:
+   an 80ms delay and a 670ms fade. Figma loops the timeline only to preview
+   it; on the page it plays a single time. Reduced motion is handled by the
+   global rule in app/globals.css. */
+.fadeIn {
+  animation: fade-in 670ms cubic-bezier(0, 0, 0.58, 1) 80ms both;
+}
+
+/* The home hero (3693:64516 / 3693:64520) runs a little quicker: the copy
+   from 80 to 650ms and its actions from 480 to 1050ms. */
+.heroCopy {
+  animation: fade-in 570ms cubic-bezier(0, 0, 0.58, 1) 80ms both;
+}
+
+.heroActions {
+  animation: fade-in 570ms cubic-bezier(0, 0, 0.58, 1) 480ms both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---- Scroll-driven motion -------------------------------------------------
+   Beyond the artboards' one-off fades, the page moves with the scroll:
+
+   .flow   (on <main>) — every section, straight inside <main> or inside the
+           page-body column, rises into place as it comes up from the bottom
+           of the viewport and recedes, a little smaller and fainter, as it
+           scrolls away off the top.
+   .rise   — introductions and cards drift up into place inside their
+           section; --rise-step (0, 1, 2…) staggers the cards along a row.
+   .settle — a photo eases from a slight zoom to rest as its frame passes.
+
+   Scroll-driven animations only, and none at all under reduced motion, so
+   every browser without them shows the page standing still. The global
+   reduced-motion rule cannot stand in here: shortening a scroll-linked
+   animation would leave it on its last keyframe. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .flow > section,
+    .flow > div > section {
+      animation: section-flow linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+
+    /* Done once the element is fully in view, so nothing visible on arrival
+       is left half-risen. */
+    .rise {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry calc(var(--rise-step, 0) * 12%) entry 100%;
+    }
+
+    .settle > img {
+      animation: settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 50%;
+    }
+  }
+}
+
+/* The intro is done by the time a tall section's top edge is 55% of the way
+   up the viewport (or a short one is nearly all in view). The outro pivots
+   on the section's bottom edge so the part still in view stays put while it
+   shrinks. */
+@keyframes section-flow {
+  entry 0% {
+    opacity: 0.2;
+    translate: 0 6rem;
+    scale: 0.97;
+    transform-origin: 50% 0;
+  }
+
+  entry 45% {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+    transform-origin: 50% 0;
+  }
+
+  exit 35% {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+    transform-origin: 50% 100%;
+  }
+
+  exit 100% {
+    opacity: 0.3;
+    translate: 0 0;
+    scale: 0.95;
+    transform-origin: 50% 100%;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 3.2rem;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes settle {
+  from {
+    scale: 1.08;
+  }
+
+  to {
+    scale: 1;
+  }
+}

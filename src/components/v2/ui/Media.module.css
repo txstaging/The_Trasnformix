@@ -1,0 +1,26 @@
+.frame {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--w);
+  max-width: 100%;
+  aspect-ratio: var(--ratio);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.cover {
+  object-fit: cover;
+}
+
+.contain {
+  object-fit: contain;
+}
+
+.cropped {
+  position: absolute;
+  left: var(--crop-left);
+  top: var(--crop-top);
+  width: var(--crop-w);
+  height: var(--crop-h);
+  max-width: none;
+}

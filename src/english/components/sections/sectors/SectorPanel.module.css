@@ -1,0 +1,389 @@
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8.58rem 0 8.5rem;
+  border-top: 0.08rem solid var(--sector-line);
+  scroll-margin-top: 8.2rem;
+}
+
+.industry {
+  flex-direction: row-reverse;
+  gap: 6.9rem;
+  width: 116rem;
+}
+
+.cooperatives {
+  gap: 7rem;
+  width: 100%;
+  height: 98.7rem;
+}
+
+.education {
+  flex-direction: row-reverse;
+  gap: 7rem;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Copy column
+   -------------------------------------------------------------------------- */
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+  padding-top: 0.89rem;
+}
+
+.industry .column {
+  gap: 3.7rem;
+  width: 58rem;
+}
+
+.cooperatives .column {
+  gap: 1.09rem;
+  width: 58rem;
+  height: 71.8rem;
+}
+
+.education .column {
+  gap: 1.09rem;
+  width: 58rem;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: inherit;
+  width: 100%;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 1.8rem;
+  color: var(--sector-blue);
+  white-space: nowrap;
+}
+
+.rule {
+  flex-shrink: 0;
+  width: 2.8rem;
+  height: 0.2rem;
+  background: var(--sector-blue);
+}
+
+.title {
+  font-size: 4.8rem;
+  font-weight: 700;
+  color: var(--sector-ink);
+  white-space: nowrap;
+}
+
+.text {
+  padding-top: 0.645rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.industry .text {
+  width: 43.1rem;
+}
+
+.cooperatives .text,
+.education .text {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Numbered rows (tabs) — a one-column grid of 86.8 tracks. In الصناعة and
+   التعاونيات the 100px cards overhang their tracks, so the gaps read 15.8 and
+   10.8.
+   -------------------------------------------------------------------------- */
+.list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: 8.68rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.industry .list {
+  row-gap: 2.9rem;
+  height: 45.7rem;
+  padding-bottom: 2.11rem;
+}
+
+.cooperatives .list {
+  row-gap: 2.4rem;
+  height: 46.6rem;
+  padding-block: 1.71rem;
+}
+
+.education .list {
+  row-gap: 1.2rem;
+  padding-block: 1.71rem;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1.2rem;
+  align-self: start;
+  width: 100%;
+  height: 10rem;
+  padding: 1.58rem 1.58rem 1.58rem 0;
+  border: 1px solid var(--sector-line);
+  border-radius: 1.5rem;
+  background: var(--bg-main);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.industry .row:first-child {
+  height: 9.9rem;
+}
+
+.education .row {
+  height: 8.68rem;
+}
+
+.row:hover:not(.active) {
+  border-color: var(--blue-light-active);
+  box-shadow: 0 1.2rem 2.4rem -1.8rem rgba(18, 43, 84, 0.35);
+}
+
+.active {
+  background: var(--blue-light);
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 1rem;
+  background: var(--sector-badge);
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--sector-blue);
+}
+
+.rowText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.11rem;
+  padding-bottom: 0.43rem;
+}
+
+.rowTitle {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--sector-ink);
+  white-space: nowrap;
+}
+
+.industry .rowTitle {
+  font-weight: 700;
+}
+
+.rowCaption {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--sector-muted);
+  white-space: nowrap;
+}
+
+.industry .rowCaption {
+  font-size: 1.4rem;
+}
+
+.actions {
+  display: flex;
+  width: 100%;
+}
+
+/* The hero's pill, stretched across the column so the longer labels
+   ("تعرف علي منصتنا التعليمية") fit. */
+.cta {
+  --pill-w: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Visual
+   -------------------------------------------------------------------------- */
+.visualSlot {
+  flex-shrink: 0;
+}
+
+.industry .visualSlot {
+  width: 50.8rem;
+}
+
+.cooperatives .visualSlot,
+.education .visualSlot {
+  width: 50.964rem;
+}
+
+/* The frame and stage geometry arrive inline from SectorPanel (FRAME and
+   each shot's box). Nothing clips the frame: the industry tablet runs a few
+   px past its right edge, as drawn. */
+.frame {
+  position: relative;
+  aspect-ratio: var(--frame-ratio);
+}
+
+.stage {
+  position: absolute;
+  left: var(--stage-x);
+  top: var(--stage-y);
+  width: var(--stage-w);
+}
+
+/* Match the academy dashboard's scroll tilt without changing shot geometry. */
+.tilt {
+  position: absolute;
+  inset: 0;
+}
+
+.shot {
+  position: absolute;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+
+.shotShadow {
+  filter: drop-shadow(0 2.5rem 2.5rem rgba(18, 43, 84, 0.1));
+}
+
+.shotActive {
+  opacity: 1;
+}
+
+/* No `right`: under RTL an over-constrained box drops `left`, not `right`,
+   and the inline crop sets left/top/width/height. */
+.shotImg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+/* --------------------------------------------------------------------------
+   Below 1024 the band becomes one column: heading, visual, rows, button —
+   so a tapped row's dashboard is in view right above it.
+   -------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3.2rem;
+    width: 100%;
+    height: auto;
+    padding: 6.4rem var(--gutter);
+  }
+
+  .column {
+    display: contents;
+  }
+
+  .head {
+    order: 1;
+    gap: 1.2rem;
+  }
+
+  .visualSlot {
+    order: 2;
+    align-self: center;
+    width: 100% !important;
+  }
+
+  .visualSlot {
+    max-width: 52rem;
+  }
+
+  .frame {
+    aspect-ratio: auto;
+  }
+
+  .stage {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+  }
+
+  .list {
+    order: 3;
+    grid-auto-rows: auto;
+    row-gap: 1.2rem !important;
+    height: auto !important;
+    padding: 0 !important;
+  }
+
+  .actions {
+    order: 4;
+  }
+
+  .title {
+    font-size: 4rem;
+    white-space: normal;
+  }
+
+  .text {
+    width: auto !important;
+    max-width: 64rem;
+  }
+
+  .row,
+  .industry .row:first-child,
+  .education .row {
+    height: auto;
+    min-height: 8.68rem;
+  }
+
+  .rowCaption {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    gap: 2.4rem;
+    padding: 4.8rem var(--gutter);
+  }
+
+  .eyebrow {
+    font-size: 1.6rem;
+  }
+
+  .title {
+    font-size: 3.2rem;
+  }
+
+  .text {
+    font-size: 1.6rem;
+  }
+
+  .rowTitle {
+    white-space: normal;
+  }
+}

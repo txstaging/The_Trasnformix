@@ -27,7 +27,6 @@ const STATEMENTS: Statement[] = [
   },
 ];
 
-/** Figma 2515:59851 "Desktop - 138" and 2519:66543 on the 375 artboard. */
 export function AboutVision() {
   return (
     <section className={styles.section}>

@@ -1,0 +1,327 @@
+/* Each product is its own white band: a 556 high row of two 548-wide columns,
+   88 apart, set --row-top below the band's top edge. */
+.product {
+  height: var(--band-h);
+  padding-top: var(--row-top);
+  background: var(--bg-main);
+  scroll-margin-top: 12rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, 54.8rem);
+  grid-template-rows: 55.6rem;
+  column-gap: 8.8rem;
+  width: 118.4rem;
+  margin-inline: auto;
+}
+
+/* RTL: the first column is the right-hand one. The platform's copy is
+   centred on the row — it runs taller than the row and overflows it evenly,
+   as on the artboard; the agents' copy hangs from the row's top. */
+.copy {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+}
+
+.mediaSlot {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+}
+
+.reverse .copy {
+  grid-column: 2;
+  align-self: start;
+}
+
+/* The agents' 574-wide card hangs from the right column's left edge and
+   runs 26px past its far side. */
+.reverse .mediaSlot {
+  grid-column: 1;
+  justify-self: end;
+  width: 57.4rem;
+}
+
+.eyebrow {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.title {
+  font-size: 4.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.lead {
+  font-size: 2.4rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.text {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  word-break: break-word;
+}
+
+/* Figma 3817:48416 — hairlines above and below, 16 in. */
+.audience {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 54.7rem;
+  max-width: 100%;
+  margin: 0;
+  padding: 1.6rem 0;
+  border-block: 0.1rem solid #e5e7eb;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.audienceLabel {
+  color: var(--text-secondary);
+}
+
+.audienceValue {
+  margin: 0;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.action {
+  display: flex;
+}
+
+/* 245 or 351 wide (--pill-w comes from the row), 60 high, an 18px label 16
+   from its disc. */
+.cta {
+  --pill-gap: 1.6rem;
+  --pill-size: 1.8rem;
+  height: 6rem;
+}
+
+/* ---- Cards --------------------------------------------------------------
+   Brand blue under two 7% white washes. The export lists each wash's stops
+   out of order (white at 0.27%, clear at 0%); Figma sorts them, so the wash
+   fades in over the first pixel at the top and left edges and covers the
+   rest of the card — the lighter blue the artboard shows. Everything inside
+   is placed in percentages of the 548 / 574 x 420 card, so the card can
+   scale as a whole once the row stacks.
+   ------------------------------------------------------------------------ */
+.media {
+  position: relative;
+  width: 100%;
+  border-radius: 2.8rem;
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.07) 0.27473%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.07) 0.18248%),
+    linear-gradient(90deg, #1c4499 0%, #1c4499 100%);
+}
+
+/* Figma 3817:48428 — 548 x 420, clipping the tablet's shadows. */
+.tabletCard {
+  aspect-ratio: 548 / 420;
+  overflow: hidden;
+}
+
+/* Figma 3817:48429 — a 492 x 366 box 28 in from the top-left corner with
+   the tablet centred in it. The box itself casts a deep shadow down-right
+   and a faint one up-left; the artboard draws neither beneath the box. */
+.tablet {
+  position: absolute;
+  left: 5.1095%;
+  top: 6.6667%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 89.781%;
+  height: 87.1429%;
+  border-radius: 1.6rem;
+  box-shadow:
+    2.9rem 3.5rem 3rem rgba(6, 16, 38, 0.35),
+    -2.7rem -4.1rem 0.45rem rgba(6, 16, 38, 0.04);
+}
+
+/* "image 237" — 468 x 334, cropping the export as Figma does. */
+.tabletCrop {
+  position: relative;
+  flex-shrink: 0;
+  width: 95.122%;
+  height: 91.2568%;
+  overflow: hidden;
+}
+
+.tabletImage {
+  position: absolute;
+  left: -5.42%;
+  top: -3.57%;
+  width: 110.98%;
+  height: 103.51%;
+  max-width: none;
+}
+
+/* Figma 3817:48433 — 574 x 420, clipping its arcs. */
+.agentsCard {
+  aspect-ratio: 574 / 420;
+  overflow: hidden;
+}
+
+/* The outer arc: 574 x 589 from 80 down, its 281px corners rounding the
+   top into a dome. */
+.arcOuter {
+  position: absolute;
+  left: 0;
+  top: 19.0476%;
+  width: 100%;
+  height: 140.2381%;
+  border-radius: 48.9547% / 47.708%;
+  background: rgba(51, 82, 148, 0.2);
+  box-shadow: 0.8rem 0.8rem 6rem 0 rgba(60, 76, 113, 0.35);
+}
+
+/* The artboard catches light along the dome: a pale-blue hairline, brightest
+   at the crest and gone a quarter of the way down. It has no code export, so
+   it is measured off the render. */
+.arcOuter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 0.1rem;
+  border-radius: inherit;
+  background: linear-gradient(
+    to bottom,
+    rgba(178, 212, 255, 0.5) 0%,
+    rgba(178, 212, 255, 0.32) 12%,
+    rgba(178, 212, 255, 0) 26%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  pointer-events: none;
+}
+
+/* Two 123px rings above the arc's top-right shoulder, cut by the card. */
+.ring {
+  position: absolute;
+  width: 21.4286%;
+  height: 20.8829%;
+  border: 0.1rem solid rgba(28, 68, 153, 0.85);
+  border-radius: 50%;
+}
+
+.ringA {
+  left: 88.1533%;
+  top: -18.5059%;
+}
+
+.ringB {
+  left: 72.6481%;
+  top: -20.8829%;
+}
+
+/* The inner arc: 535 x 563 at (20, 116), the agents standing on its top. */
+.arcInner {
+  position: absolute;
+  left: 3.4843%;
+  top: 27.619%;
+  width: 93.2056%;
+  height: 134.0476%;
+  border-radius: 52.5234% / 49.9112%;
+  background: rgba(51, 82, 148, 0.2);
+}
+
+/* "image 238" — 401 x 301, 81 in from the arc's left edge. */
+.agentsImage {
+  position: absolute;
+  left: 15.1402%;
+  top: 0;
+  width: 74.9533%;
+  height: 53.4636%;
+  object-fit: cover;
+}
+
+/* Below 1024 the row stacks: copy first, then the card at up to its own
+   width. */
+@media (max-width: 1024px) {
+  .product {
+    height: auto;
+    padding: 6.4rem var(--gutter);
+  }
+
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    row-gap: 4rem;
+    width: min(76.8rem, 100%);
+  }
+
+  .copy,
+  .reverse .copy {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: auto;
+  }
+
+  .mediaSlot,
+  .reverse .mediaSlot {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: center;
+    width: min(57.4rem, 100%);
+  }
+
+  .title {
+    font-size: 4rem;
+  }
+
+  .lead {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .product {
+    padding-block: 4.8rem;
+  }
+
+  .copy {
+    gap: 1.6rem;
+  }
+
+  .eyebrow,
+  .text,
+  .audience {
+    font-size: 1.6rem;
+  }
+
+  .title {
+    font-size: 2.8rem;
+  }
+
+  .lead {
+    font-size: 1.8rem;
+  }
+
+  .audienceValue {
+    white-space: normal;
+  }
+
+  .media {
+    border-radius: 2rem;
+  }
+}

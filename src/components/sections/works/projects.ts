@@ -5,9 +5,9 @@
    exactly as the artboard places it: some stills are cover-fitted, some are
    scaled into a box of a different ratio ("fill"), and one (Belli) is inset.
 
-   Tags are listed right-to-left, as they read; `width` is the drawn chip. */
+   Tags are listed right-to-left, as they read. */
 
-export type WorkTag = { label: string; width?: number };
+export type WorkTag = { label: string };
 
 export type WorkCategory = "ai" | "web" | "creative" | "erp";
 
@@ -17,7 +17,6 @@ export type WorkProject = {
   image: string;
   /** Case study on Behance; a card without one is not a link. */
   behanceUrl?: string;
-  /** Picture window height on the artboard (width is always 604). */
   frame?: number;
   crop: { x: number; y: number; w: number; h: number; fit: "cover" | "fill" };
   tags: WorkTag[];
@@ -32,19 +31,19 @@ const BRAND_TAGS: WorkTag[] = [
 const CONTENT_AI_TAGS: WorkTag[] = [
   { label: "تحليل الاتجاهات" },
   { label: "أتمتة المحتوى" },
-  { label: "الذكاء الاصطناعي التوليدي", width: 188 },
+  { label: "الذكاء الاصطناعي التوليدي" },
 ];
 
 const SOCIAL_TAGS: WorkTag[] = [
   { label: "استراتيجية المحتوى" },
   { label: "إدارة المحتوى" },
-  { label: "تصميم السوشال ميديا", width: 188 },
+  { label: "تصميم السوشال ميديا" },
 ];
 
 const PLATFORM_TAGS: WorkTag[] = [
-  { label: "تصميم تجربة المستخدم", width: 167 },
+  { label: "تصميم تجربة المستخدم" },
   { label: "تطوير المنصة" },
-  { label: "استراتيجية المنصة", width: 154 },
+  { label: "استراتيجية المنصة" },
 ];
 
 const reem: WorkProject = {
@@ -76,7 +75,7 @@ const salesAgent: WorkProject = {
   crop: { x: -16.006, y: -29.984, w: 620.006, h: 620.004, fit: "fill" },
   tags: [
     { label: "وكيل مبيعات ذكي" },
-    { label: "ذكاء اصطناعي للمحادثات", width: 165 },
+    { label: "ذكاء اصطناعي للمحادثات" },
     { label: "أتمتة المبيعات" },
   ],
 };
@@ -210,7 +209,6 @@ const kuni: WorkProject = {
   tags: BRAND_TAGS,
 };
 
-/* "الكل" — right card first, row by row. */
 const ALL: WorkProject[] = [
   reem,
   omayma,
@@ -233,7 +231,6 @@ const ALL: WorkProject[] = [
 export type WorkFilter = {
   id: "all" | WorkCategory;
   label: string;
-  /** Chip box on the artboard; the pill sits at its left edge. */
   width?: number;
   projects: WorkProject[];
 };

@@ -1,429 +1,109 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { Button8 } from "@/components/ui/Button8";
+import { motion } from "framer-motion";
+import { useRef, type KeyboardEvent } from "react";
 import { Reveal } from "@/components/ui/Reveal";
-import { useInView } from "@/lib/useInView";
+import { processSteps } from "@/components/v3/content";
+import { tajawal } from "@/lib/fonts";
+import { useProgressCards } from "@/lib/useProgressCards";
 import styles from "./Process.module.css";
 
-type Figure = {
-  src: string;
-  alt: string;
-  /** Straight crop, or the 45°-rotated diamond the artboard alternates to. */
-  shape: "rect" | "diamond";
-  /** Outer box on the artboard, in artboard px. */
-  left: number;
-  top: number;
-  size: number;
-  /** The image's own box inside that crop. */
-  boxW: number;
-  boxH: number;
-  /** Diamond only: the counter-rotating stage inside the 350px window. */
-  stageX?: number;
-  stageY?: number;
-  stageSize?: number;
-  /** The picture's offset and scale inside its box, in per cent. */
-  cropX: number;
-  cropY: number;
-  cropW: number;
-  cropH: number;
-};
+const number = (index: number) => String(index + 1).padStart(2, "0");
 
-type Step = {
-  title: string;
-  text: string;
-  bullets: string[];
-  figure: Figure;
-};
-
-/* The six variants of Figma's "Component 20" (2099:5295), one per step —
-   Desktop-90 … Desktop-95. Odd steps are drawn as a straight 350px crop, even
-   steps as the same crop rotated into a diamond; step 6 reuses step 1's photo.
-
-   NOTE: the last bullet of step 1 carries a leftover designer note on the
-   artboard ("اعملي صورة للمحتوي دة"); only the bullet copy is used here. */
-const STEPS: Step[] = [
-  {
-    title: "1.نفهم",
-    text: "نبدأ بفهم المشروع، أهدافه، التحديات وطريقة العمل الحالية، عشان نحدد الصورة كاملة قبل ما نقترح أي حل.",
-    bullets: [
-      "فهم أهداف المشروع",
-      "تحديد التحديات الرئيسية",
-      "مراجعة المستخدمين والعمليات",
-      "تحديد الأولويات",
-    ],
-    figure: {
-      src: "/images/process-1.png",
-      alt: "فريق يناقش مخطط عمل على لوحة",
-      shape: "rect",
-      left: 100,
-      top: 185,
-      size: 350,
-      boxW: 400,
-      boxH: 272,
-      cropX: -4.15,
-      cropY: -11.9,
-      cropW: 111.35,
-      cropH: 142.07,
-    },
-  },
-  {
-    title: "2. نحلل",
-    text: "نراجع البيانات، الأنظمة وتجربة المستخدم لاكتشاف الفرص والمشكلات التي تحتاج إلى معالجة.",
-    bullets: [
-      "تحليل البيانات المتاحة",
-      "مراجعة رحلة المستخدم",
-      "دراسة الأنظمة الحالية",
-      "اكتشاف فرص التحسين",
-    ],
-    figure: {
-      src: "/images/process-2.png",
-      alt: "زميلان يراجعان لوحات بيانات ومخطط تدفق على الحائط",
-      shape: "diamond",
-      left: 103,
-      top: 80,
-      size: 494.975,
-      stageX: -175,
-      stageY: -342.6,
-      stageSize: 868.327,
-      boxW: 732,
-      boxH: 496,
-      cropX: -11.95,
-      cropY: -41.89,
-      cropW: 122.69,
-      cropH: 157.64,
-    },
-  },
-  {
-    title: "3.  نحدد الاتجاه",
-    text: "نحوّل ما اكتشفناه إلى خطة واضحة تحدد الحل الأنسب، نطاق العمل وأولويات التنفيذ.",
-    bullets: [
-      "تحديد الحل المناسب",
-      "وضع استراتيجية التنفيذ",
-      "تحديد نطاق المشروع",
-      "ترتيب الأولويات",
-    ],
-    figure: {
-      src: "/images/process-3.png",
-      alt: "عرض خطة مشروع أمام فريق في قاعة اجتماعات",
-      shape: "rect",
-      left: 100,
-      top: 185,
-      size: 350,
-      boxW: 407.491,
-      boxH: 272,
-      cropX: -0.05,
-      cropY: -30.34,
-      cropW: 100.1,
-      cropH: 130.34,
-    },
-  },
-  {
-    title: "4.  نبني",
-    text: "نبدأ في تصميم وتطوير الحل، مع مراجعات مستمرة لضمان أن كل جزء يخدم الهدف الأساسي للمشروع.",
-    bullets: [
-      "التصميم والتطوير",
-      "بناء النماذج الأولية",
-      "التكامل بين الأنظمة",
-      "مراجعات واختبارات مستمرة",
-    ],
-    figure: {
-      src: "/images/process-4.png",
-      alt: "مراجعة نماذج الشاشات على شاشة كبيرة أثناء التطوير",
-      shape: "diamond",
-      left: 100,
-      top: 80,
-      size: 494.975,
-      stageX: -279.67,
-      stageY: -279.67,
-      stageSize: 938.331,
-      boxW: 792,
-      boxH: 535,
-      cropX: -9.84,
-      cropY: -20.55,
-      cropW: 109.73,
-      cropH: 141.12,
-    },
-  },
-  {
-    title: "5.  نطلق",
-    text: "نختبر التجربة بالكامل، نجهز الحل للتشغيل، ثم نطلقه بصورة مستقرة وجاهزة للاستخدام.",
-    bullets: [
-      "اختبار الجودة والأداء",
-      "تجهيز الإطلاق",
-      "نقل وتشغيل الأنظمة",
-      "تدريب الفريق عند الحاجة",
-    ],
-    figure: {
-      src: "/images/process-5.png",
-      alt: "عرض لوحة إطلاق المنتج ومؤشرات الأداء",
-      shape: "rect",
-      left: 100,
-      top: 201,
-      size: 350,
-      boxW: 400,
-      boxH: 272,
-      cropX: -4.49,
-      cropY: -0.04,
-      cropW: 104.46,
-      cropH: 120.46,
-    },
-  },
-  {
-    title: "6.  نطور",
-    text: "بعد الإطلاق نتابع الأداء والنتائج، ونحدد فرص التطوير والتحسين مع نمو المشروع.",
-    bullets: [
-      "متابعة الأداء",
-      "تحليل النتائج",
-      "تحسين التجربة",
-      "تطوير الحل مع نمو الأعمال",
-    ],
-    figure: {
-      src: "/images/process-1.png",
-      alt: "فريق يناقش مخطط عمل على لوحة",
-      shape: "diamond",
-      left: 100,
-      top: 92,
-      size: 494.975,
-      stageX: -257.04,
-      stageY: -240.07,
-      stageSize: 836.507,
-      boxW: 704,
-      boxH: 479,
-      cropX: -4.15,
-      cropY: -11.9,
-      cropW: 111.35,
-      cropH: 142.07,
-    },
-  },
+const processArtwork = [
+  { src: "/images/process/generated/discovery.webp", alt: "عدسة مكبرة زرقاء فوق بطاقات بحث ومسارات أعمال" },
+  { src: "/images/process/generated/analysis.webp", alt: "رسوم بيانية ثلاثية الأبعاد تعرض أعمدة ومخططًا دائريًا للتحليل والتقييم" },
+  { src: "/images/process/generated/planning.webp", alt: "خارطة طريق ثلاثية الأبعاد بمحطات مترابطة وقائمة مهام" },
+  { src: "/images/process/generated/development.webp", alt: "واجهة برمجية ثلاثية الأبعاد برمز برمجي ووحدات مترابطة" },
+  { src: "/images/process/generated/launch.webp", alt: "صاروخ ثلاثي الأبعاد بجانب قائمة تحقق يرمز للاختبار والإطلاق" },
 ];
 
-/** Star travel, in artboard px: it starts at y=33 and walks the 509px rail. */
-const STAR_TOP_START = 33;
-const STAR_TRAVEL = 450;
-const AUTOPLAY_MS = 4200;
-
-/** The rail is only drawn from this width up, so only here does scroll drive it. */
-const SCROLL_DRIVEN = "(min-width: 1025px)";
-
-const rem = (px: number) => `${px / 10}rem`;
-const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
-
+/** The Progress Cards interaction, adapted to the existing five-stage process. */
 export function Process() {
-  const [index, setIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const [scrollDriven, setScrollDriven] = useState(false);
-  const track = useRef<HTMLDivElement>(null);
-  const { ref, inView } = useInView<HTMLDivElement>({
-    threshold: 0.3,
-    once: false,
-  });
+  const { ref, active, select, progress, interactive, paused, setPaused, playing, setHovered, setFocused } = useProgressCards(processSteps.length);
+  const triggers = useRef<(HTMLButtonElement | null)[]>([]);
 
-  useEffect(() => {
-    const query = window.matchMedia(SCROLL_DRIVEN);
-    const sync = () => setScrollDriven(query.matches);
-    sync();
-    query.addEventListener("change", sync);
-    return () => query.removeEventListener("change", sync);
-  }, []);
-
-  /* Desktop: the timeline is pinned for the length of the track, and the
-     scrolled fraction of that track *is* the walk down the rail — the star
-     glides with the wheel while the copy swaps once per step. */
-  useEffect(() => {
-    if (!scrollDriven) return;
-    const node = track.current;
-    if (!node) return;
-
-    let frame = 0;
-    const measure = () => {
-      frame = 0;
-      const { top, height } = node.getBoundingClientRect();
-      const span = height - window.innerHeight;
-      const walked = span > 0 ? clamp01(-top / span) : 0;
-      setProgress(walked);
-      setIndex(Math.min(STEPS.length - 1, Math.floor(walked * STEPS.length)));
-    };
-    const onScroll = () => {
-      if (!frame) frame = window.requestAnimationFrame(measure);
-    };
-
-    measure();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, [scrollDriven]);
-
-  /* Below the rail's breakpoint there is nothing to walk, so the steps cycle
-     on their own while the stack is on screen and the dots stay in charge. */
-  useEffect(() => {
-    if (scrollDriven || !inView) return;
-    const timer = window.setInterval(
-      () => setIndex((current) => (current + 1) % STEPS.length),
-      AUTOPLAY_MS,
-    );
-    return () => window.clearInterval(timer);
-  }, [scrollDriven, inView]);
-
-  const walked = scrollDriven ? progress : index / (STEPS.length - 1);
-  const step = STEPS[index];
+  const navigate = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    const rtl = getComputedStyle(event.currentTarget).direction !== "ltr";
+    let next: number;
+    if (event.key === "ArrowLeft") next = (index + (rtl ? 1 : -1) + processSteps.length) % processSteps.length;
+    else if (event.key === "ArrowRight") next = (index + (rtl ? -1 : 1) + processSteps.length) % processSteps.length;
+    else if (event.key === "Home") next = 0;
+    else if (event.key === "End") next = processSteps.length - 1;
+    else return;
+    event.preventDefault();
+    select(next);
+    triggers.current[next]?.focus();
+  };
 
   return (
-    <section id="process" className={styles.section}>
+    <section id="process" className={`${styles.section} ${tajawal.variable}`} aria-labelledby="process-heading" data-flow="outro">
       <div className={styles.inner}>
         <div className={styles.head}>
-          <div className={styles.headCopy}>
-            <Reveal as="h2" className={styles.title}>
-              من التحدي إلى حل جاهز للنمو
-            </Reveal>
-            <Reveal as="p" className={styles.subtitle} delay={120}>
-              نعمل بخطوات واضحة تبدأ بفهم أعمالك وتنتهي بحل قابل للتطوير{" "}
-            </Reveal>
-          </div>
-          <Reveal delay={240}>
-            <Button8>ابدء مشروعك معنا</Button8>
-          </Reveal>
+          <Reveal as="h2" id="process-heading" className={styles.title}>نعالج تحدياتك بحلول جاهزة للنمو</Reveal>
+          <Reveal as="p" className={styles.subtitle} delay={120}>نعمل بخطوات واضحة تبدأ بفهم أعمالك وتنتهي بحل قابل للتطوير</Reveal>
         </div>
 
-        {/* One viewport of pin plus a dwell per remaining step. */}
-        <div
-          ref={track}
-          className={styles.track}
-          style={{ "--dwells": STEPS.length - 1 } as CSSProperties}
-        >
-          <div className={styles.sticky}>
-            <div ref={ref} className={styles.timeline}>
-              <div className={styles.rail} />
+        <div className={styles.playback}>
+          <button type="button" className={styles.pause} data-progress-toggle aria-pressed={paused}
+            aria-label={paused ? "استئناف التقدم التلقائي" : "إيقاف التقدم التلقائي"}
+            onClick={() => setPaused(value => !value)}>
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              {paused
+                ? <path d="m7 4 9 6-9 6V4Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+                : <path d="M7 4v12M13 4v12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />}
+            </svg>
+            <span>{paused ? "استئناف" : "إيقاف مؤقت"}</span>
+          </button>
+        </div>
 
-              <div
-                className={styles.star}
-                style={{ top: rem(STAR_TOP_START + walked * STAR_TRAVEL) }}
-              >
-                <Image
-                  className={styles.starSpin}
-                  src="/icons/star.svg"
-                  alt=""
-                  width={82}
-                  height={82}
-                  aria-hidden
-                />
-              </div>
+        <ol ref={ref} className={styles.list} data-progress-cards data-playing={playing}
+          onPointerEnter={event => { if (event.pointerType !== "touch") setHovered(true); }}
+          onPointerLeave={() => setHovered(false)}
+          onFocusCapture={() => setFocused(true)}
+          onBlurCapture={event => {
+            if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(false);
+          }}>
+          {processSteps.map((step, index) => {
+            const image = processArtwork[index] ?? { src: step.image, alt: step.alt };
+            const expanded = !interactive || active === index;
+            const headingId = `process-step-${index + 1}`;
+            const detailId = `process-detail-${index + 1}`;
+            const heading = <>
+              <span className={styles.number} dir="ltr">{number(index)}</span>
+              <span className={styles.stepTitle}>{step.title}</span>
+            </>;
 
-              {/* All six are mounted so the swap is a cross-fade, not a load. */}
-              {STEPS.map((item, figureIndex) => {
-                const figure = item.figure;
-                const isActive = figureIndex === index;
-                const picture = (
-                  <div
-                    className={styles.figureCrop}
-                    style={
-                      {
-                        "--box-w": rem(figure.boxW),
-                        "--box-h": rem(figure.boxH),
-                        "--crop-x": `${figure.cropX}%`,
-                        "--crop-y": `${figure.cropY}%`,
-                        "--crop-w": `${figure.cropW}%`,
-                        "--crop-h": `${figure.cropH}%`,
-                      } as CSSProperties
-                    }
-                  >
-                    <Image
-                      src={figure.src}
-                      alt={isActive ? figure.alt : ""}
-                      width={Math.round(figure.boxW)}
-                      height={Math.round(figure.boxH)}
-                      aria-hidden={isActive ? undefined : true}
-                    />
-                  </div>
-                );
-
-                return (
-                  <div
-                    key={item.title}
-                    className={[
-                      styles.figure,
-                      figure.shape === "diamond"
-                        ? styles.figureDiamond
-                        : styles.figureRect,
-                      isActive && styles.figureActive,
-                    ]
-                      .filter(Boolean)
-                      .join(" ")}
-                    style={
-                      {
-                        "--fig-x": rem(figure.left),
-                        "--fig-y": rem(figure.top),
-                        "--fig-size": rem(figure.size),
-                        "--stage-x": rem(figure.stageX ?? 0),
-                        "--stage-y": rem(figure.stageY ?? 0),
-                        "--stage-size": rem(figure.stageSize ?? figure.size),
-                      } as CSSProperties
-                    }
-                  >
-                    {figure.shape === "diamond" ? (
-                      <div className={styles.tilt}>
-                        <div className={styles.window}>
-                          <div className={styles.stage}>
-                            <div className={styles.untilt}>{picture}</div>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      picture
-                    )}
-                  </div>
-                );
-              })}
-
-              <div key={index} className={`${styles.step} ${styles.stepEnter}`}>
-                <div className={styles.stepCopy}>
-                  <p className={styles.stepTitle}>{step.title}</p>
-                  <p className={styles.stepText}>{step.text}</p>
+            return (
+              <li key={step.title} className={styles.card} data-active={active === index}>
+                <div className={styles.rail} aria-hidden="true">
+                  <motion.span style={{ scaleY: active === index ? progress : 0 }} />
                 </div>
-
-                <ul className={styles.bullets}>
-                  {step.bullets.map((bullet) => (
-                    <li key={bullet} className={styles.bullet}>
-                      <Image
-                        className={styles.bulletDot}
-                        src="/icons/dot.svg"
-                        alt=""
-                        width={10}
-                        height={10}
-                        aria-hidden
-                      />
-                      <span className={styles.bulletText}>{bullet}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className={styles.mobileDots}>
-                {STEPS.map((item, dotIndex) => (
-                  <button
-                    key={item.title}
-                    type="button"
-                    aria-label={item.title}
-                    className={[
-                      styles.dotButton,
-                      dotIndex === index && styles.dotActive,
-                    ]
-                      .filter(Boolean)
-                      .join(" ")}
-                    onClick={() => setIndex(dotIndex)}
-                  >
-                    <span />
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
+                <h3 id={headingId} className={styles.stepHeading}>
+                  {interactive
+                    ? <button type="button" className={styles.trigger} data-process-step={index}
+                        ref={element => { triggers.current[index] = element; }}
+                        aria-expanded={active === index} aria-controls={detailId}
+                        onClick={() => select(index)} onKeyDown={event => navigate(event, index)}>
+                        {heading}
+                      </button>
+                    : <div className={styles.trigger}>{heading}</div>}
+                </h3>
+                <div id={detailId} className={styles.details} role="region" aria-labelledby={headingId}
+                  inert={!expanded} aria-hidden={!expanded || undefined}>
+                  <div className={styles.detailsInner}>
+                    <p className={styles.stepText}>{step.text}</p>
+                    <div className={styles.visual}>
+                      <Image src={image.src} alt={image.alt} fill
+                        sizes="(max-width: 640px) 85vw, (max-width: 900px) 75vw, 650px" />
+                    </div>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
       </div>
     </section>
   );

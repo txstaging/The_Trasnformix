@@ -1,5 +1,3 @@
-/* Figma 2515:59882 "Desktop - 1" — 1440 x 552: padding 100 / 51, heading,
-   then the 1238 x 221 "Group 3" 55px below it. */
 .section {
   display: flex;
   flex-direction: column;
@@ -24,7 +22,6 @@
   height: 22.1rem;
 }
 
-/* Five 154px columns 117 apart; in RTL the first lands on the right. */
 .steps {
   display: grid;
   grid-template-columns: repeat(5, 15.4rem);
@@ -40,7 +37,6 @@
   height: 22.1rem;
 }
 
-/* "Frame 1" — a white 154 disc around a 130 blue core with a dashed rim. */
 .disc {
   position: relative;
   width: 15.4rem;
@@ -104,7 +100,6 @@
   white-space: nowrap;
 }
 
-/* "Vector 5" — 14px clear of each disc, pointing on to the next step. */
 .arrow {
   position: absolute;
   left: -10.351rem;
@@ -200,7 +195,6 @@
     display: none;
   }
 
-  /* An 89 x 17 curve turned upright inside its 17 x 89 box. */
   .flowArrow {
     position: absolute;
     display: flex;
@@ -230,7 +224,6 @@
     padding: 4rem var(--gutter);
   }
 
-  /* "Header:margin" — a 56 tall box with the heading 5px from its top. */
   .title {
     height: 5.6rem;
     padding-top: 0.5rem;

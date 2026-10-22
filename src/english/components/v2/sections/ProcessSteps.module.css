@@ -1,0 +1,171 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
+  width: 100%;
+}
+
+.track {
+  position: relative;
+  width: 100%;
+}
+
+.steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2.8rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 2.4rem 0 2rem;
+  line-height: 1.85;
+  text-align: center;
+}
+
+.number {
+  font-size: 2.6rem;
+  color: var(--v2-cyan);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.85;
+  color: var(--v2-text);
+}
+
+.text {
+  font-size: 1.6rem;
+  color: var(--v2-text-soft);
+}
+
+/* --- ruled: plain numbers under a hairline (Figma 3709:1437) --- */
+
+.ruled .step {
+  border-top: 0.1rem solid var(--v2-rule);
+}
+
+/* --- timeline: glass badges on the cyan line (3693:64892) --- */
+
+/* The line is the export at its own size (1227.67 x 10.67), set where Figma
+   insets it: its 5.33px end dots sit 8px in from the left edge and 48px down,
+   level with the badges. */
+.line {
+  position: absolute;
+  top: 4.2667rem;
+  left: 0.2667rem;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.line img {
+  width: 122.767rem;
+  height: 1.0667rem;
+  max-width: none;
+}
+
+.timeline .number {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.7rem;
+  height: 4.7rem;
+  border-radius: 3.9rem;
+  /* The badge is glass: on the render the line turns into a soft band where
+     it passes behind (peaking near 40% of the line's colour, ~12px tall) and
+     is otherwise hidden. Painted directly so it does not hinge on
+     backdrop-filter support. --band is where the line crosses the badge. */
+  --band: 50%;
+  --band-strength: rgba(42, 192, 212, 0.4);
+  --badge-fill: #fff;
+  background:
+    linear-gradient(
+      to bottom,
+      transparent calc(var(--band) - 0.7rem),
+      var(--band-strength) var(--band),
+      transparent calc(var(--band) + 0.7rem)
+    ),
+    var(--badge-fill);
+  box-shadow: inset 0 0 0.6rem rgba(42, 192, 212, 0.16);
+  font-weight: 700;
+  line-height: 1.85;
+}
+
+.bordered .step {
+  border-top: 0.1rem solid var(--v2-rule);
+}
+
+/* Home (3693:64671): 60px badges tinted #d6f0f3, a 5.33px line 25px in. */
+.large .line {
+  top: 4.5333rem;
+  left: 2.2333rem;
+}
+
+.large .line img {
+  width: 121.033rem;
+  height: 0.5333rem;
+}
+
+/* #d6f0f3 at 20% over white; the line crosses 24px down the 60px badge. */
+.large .number {
+  --band: 40%;
+  --band-strength: rgba(42, 192, 212, 0.45);
+  --badge-fill: rgb(247, 252, 253);
+  width: 6rem;
+  height: 6rem;
+}
+
+/* The home row is a 213px frame that clips the last 11px of the steps'
+   20px foot. */
+.large .step {
+  padding-bottom: 0.9rem;
+}
+
+@media (max-width: 1024px) {
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 1.6rem;
+  }
+
+  /* The line only reads across a single row. */
+  .line {
+    display: none;
+  }
+
+  /* No line to cross once the steps wrap. */
+  .timeline .number {
+    background: rgba(214, 240, 243, 0.45);
+  }
+
+  .timeline .step {
+    border-top: 0.1rem solid var(--v2-rule);
+  }
+}
+
+@media (max-width: 640px) {
+  .steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .step {
+    padding: 2rem 0;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+}

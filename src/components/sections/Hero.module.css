@@ -1,9 +1,10 @@
-/* Figma 2096:4498 "Desktop - 75" — 1440 x 1009 including the 82px nav bar,
-   which is rendered by <Navbar> just above this section. */
+/* Figma 3642:6426 — the hero starts under the floating navbar (34 + 83px), so
+   its copy sits 107px into the section (224px on the artboard) and the media
+   band 515px in (632px on the artboard), leaving space below the buttons. */
 .hero {
   position: relative;
   width: 100%;
-  height: 100.7rem;
+  height: 107.9rem;
   background: var(--bg-main);
   overflow: hidden;
 }
@@ -14,23 +15,21 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 11.2rem;
-  width: 100rem;
+  top: 10.7rem;
+  width: 89.9rem;
   margin-inline: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3.2rem;
+  gap: 1.6rem;
 }
 
 .copy {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 1.6rem;
+  gap: 1.8rem;
   width: 100%;
-  height: 19.8rem;
   text-align: center;
 }
 
@@ -38,39 +37,82 @@
   width: 100%;
   font-size: 4rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--primary);
   word-break: break-word;
+}
+
+.lead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  color: var(--text-primary);
 }
 
 .subtitle {
-  width: 64.2rem;
-  font-size: 1.8rem;
+  min-height: 4.5rem;
+  font-size: 2.4rem;
   font-weight: 500;
-  color: var(--text-secondary);
   word-break: break-word;
 }
 
-/* The artboard leaves 1440 x 524 clear beneath the copy for the hero film. */
+/* Keep the introduction centered within the hero's copy area. */
+.text {
+  display: block;
+  min-height: 10.5rem;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  word-break: break-word;
+}
+
+.textEnding {
+  display: block;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.primaryAction {
+  --pill-w: 31.6rem;
+  --pill-gap: 1.6rem;
+  --pill-size: 1.8rem;
+  height: 6rem;
+}
+
 .video {
   position: absolute;
   left: 50%;
-  top: 48.3rem;
-  width: min(120rem, calc(100% - 4.8rem));
-  height: 52.4rem;
+  top: 51.5rem;
+  width: min(144rem, calc(100% - 2.4rem));
+  height: 56.4rem;
   transform: translateX(-50%);
   overflow: hidden;
   background:
     radial-gradient(120% 140% at 50% 0%, #eef2fa 0%, #ffffff 62%);
 }
 
-/* Preserve the complete 16:9 frame. In this shallower band, `contain` also
-   keeps the visible film narrower and centres it without cropping. */
+/* Fill the band's width, cropping the taller 16:9 frame evenly above and below. */
 .video video {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
+}
+
+@media (min-width: 1025px) {
+  .text {
+    max-width: 89.9rem;
+    text-wrap: wrap;
+  }
+
+  .textLine {
+    display: block;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -86,8 +128,14 @@
     padding-inline: var(--gutter);
   }
 
-  .copy {
-    height: auto;
+  .title {
+    font-size: 3.2rem;
+  }
+
+  .subtitle,
+  .text {
+    min-height: 0;
+    font-size: 2rem;
   }
 
   /* Holds the artboard ratio once the band stops being pinned inside the
@@ -96,17 +144,13 @@
     position: relative;
     left: auto;
     top: auto;
-    width: calc(100% - 2 * var(--gutter));
     height: auto;
     transform: none;
-    aspect-ratio: 1440 / 524;
-    margin: 8rem auto 0;
+    aspect-ratio: 1240 / 564;
+    margin: 6.4rem auto 0;
   }
-
 }
 
-/* Figma 2836:26813 (phone, 362 wide) — a 321 copy column, 16 / 12 type and
-   the 121 x 39 pill; the film slot is 346 x 184, 40px under the button. */
 @media (max-width: 640px) {
   .hero {
     padding-top: 2.4rem;
@@ -115,11 +159,14 @@
   .content {
     gap: 1.6rem;
     padding-inline: var(--gutter);
-    --btn8-w: 12.1rem;
-    --btn8-h: 3.9rem;
-    --btn8-pill-h: 3.9rem;
-    --btn8-top: 0rem;
-    --btn8-size: 1.2rem;
+    --pill-w: auto;
+    --pill-pad: 0.95rem 1.4rem;
+    --pill-gap: 1rem;
+    --pill-size: 1.2rem;
+    --pill-lh: 1.8rem;
+    --pill-disc: 2rem;
+    --pill-disc-pad: 0.4rem;
+    --pill-arrow: 1.2rem;
   }
 
   .copy {
@@ -127,17 +174,29 @@
   }
 
   .title {
-    font-size: 1.6rem;
+    font-size: 2rem;
   }
 
-  .subtitle {
-    width: 100%;
-    font-size: 1.2rem;
+  .subtitle,
+  .text {
+    font-size: 1.4rem;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.2rem;
+  }
+
+  .primaryAction {
+    --pill-w: auto;
+    --pill-gap: 1rem;
+    --pill-size: 1.2rem;
+    height: auto;
   }
 
   .video {
-    width: calc(100% - 2 * var(--gutter));
     aspect-ratio: 346 / 184;
-    margin-top: 4rem;
+    margin-top: 6.4rem;
   }
 }

@@ -1,0 +1,441 @@
+.footer {
+  width: 100%;
+  font-family: var(--font-kufi), "Noto Kufi Arabic", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 10rem 2.7rem;
+  background: #0a1836;
+  color: var(--text-inverse);
+}
+
+.top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10rem;
+  width: 100%;
+  max-width: 124rem;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3.5rem;
+  width: 90.9rem;
+}
+
+.columns {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 4.9rem;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+  text-align: left;
+}
+
+.columnTitle {
+  width: 100%;
+  height: 2.6rem;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--text-inverse);
+}
+
+.columnList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.columnLink {
+  display: block;
+  width: 100%;
+  min-height: 3rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--yellow-light);
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.columnLink:hover {
+  color: var(--text-inverse);
+  transform: translateX(-0.4rem);
+}
+
+.contact {
+  width: 24rem;
+}
+
+.contactRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.6rem;
+  width: 22.8rem;
+  height: 2.7rem;
+}
+
+.contactIcon {
+  flex-shrink: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.contactRow:hover .contactIcon {
+  transform: scale(1.12);
+}
+
+.contactText {
+  width: 18.8rem;
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-align: left;
+  color: var(--text-inverse);
+}
+
+.contactMuted {
+  color: var(--yellow-light);
+}
+
+/* The linked rows wrap their text in an <a>; without this its inherited 16px
+   strut sets the line box and drops the 14px text 3px below the plain rows. */
+.contactRow > a {
+  font-size: 1.4rem;
+}
+
+.contactLink {
+  text-decoration: underline;
+  text-underline-position: from-font;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.contactLink:hover {
+  opacity: 0.8;
+}
+
+.legal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.3rem;
+  width: 100%;
+}
+
+.rule {
+  width: 100%;
+  height: 0.05rem;
+  border: 0;
+  margin: 0;
+  background: linear-gradient(90deg, #a4ded5 0%, #5cc4b4 100%);
+}
+
+.copyright {
+  width: 100%;
+  height: 3.4rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: rgba(243, 241, 236, 0.4);
+  text-align: center;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  width: 20.8rem;
+}
+
+.brandTop {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.9rem;
+  width: 100%;
+}
+
+.brandHome { display: block; }
+
+/* Use the same transparent wordmark as version 4, in white on the dark footer. */
+.brandLogo {
+  width: 20.8rem;
+  height: 7rem;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.brandLogo:hover {
+  transform: scale(1.04);
+}
+
+/* The artboard keeps the tagline's leading space, which nudges the
+   right-aligned line 4px inwards. */
+.tagline {
+  width: 100%;
+  height: 2.6rem;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--text-inverse);
+  text-align: left;
+  white-space: pre;
+}
+
+.social {
+  display: flex;
+  align-items: center;
+}
+
+.socialLink {
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  transition:
+    transform var(--dur) var(--ease-out),
+    opacity var(--dur-fast) var(--ease-out);
+}
+
+.socialLink img {
+  width: 100%;
+  height: 100%;
+}
+
+.socialLink:hover {
+  transform: translateY(-0.4rem) scale(1.1);
+  opacity: 0.85;
+}
+
+@media (max-width: 1024px) {
+  .footer {
+    padding: 6.4rem var(--gutter) 3.2rem;
+  }
+
+  .top {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 4.8rem;
+  }
+
+  .main {
+    width: 100%;
+  }
+
+  .columns {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 4rem;
+  }
+
+  .brand {
+    align-items: center;
+  }
+
+  .brandTop {
+    align-items: center;
+  }
+
+  .tagline {
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .columns {
+    gap: 3.2rem;
+  }
+
+  .contact,
+  .contactRow {
+    width: 100%;
+  }
+
+  .contactRow {
+    height: auto;
+  }
+
+  .contactText {
+    width: auto;
+    flex: 1;
+  }
+
+  .copyright {
+    font-size: 1.4rem;
+  }
+}
+
+.contactIconMobile {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .footer {
+    align-items: stretch;
+    padding-bottom: 3.2rem;
+  }
+
+  /* The brand and main wrappers dissolve so their children can be re-ordered
+     into the artboard's single column. */
+  .footer .top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3.2rem;
+  }
+
+  .footer .brand,
+  .footer .main {
+    display: contents;
+  }
+
+  .footer .brandTop {
+    order: 1;
+    align-items: center;
+    gap: 0;
+  }
+
+  .footer .brandLogo {
+    display: block;
+    width: 20.8rem;
+    height: 7rem;
+    margin-bottom: 2.4rem;
+  }
+
+  .footer .tagline {
+    width: auto;
+    height: auto;
+    font-family: var(--font-tajawal), sans-serif;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    letter-spacing: 0.00273rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .footer .columns {
+    order: 2;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 3.2rem;
+    padding-top: 1.6rem;
+    padding-right: 1.6rem;
+  }
+
+  /* The columns carry their 1440 widths inline. */
+  .footer .column {
+    width: 100% !important;
+    gap: 2.4rem;
+  }
+
+  .footer .contact {
+    order: 2;
+    gap: 1.6rem;
+  }
+
+  .footer .contact .columnTitle {
+    margin-bottom: 0.8rem;
+  }
+
+  .footer .columnTitle {
+    height: auto;
+    font-family: var(--font-tajawal), sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 2.8rem;
+  }
+
+  .footer .columnList {
+    gap: 1.2rem;
+  }
+
+  .footer .columnLink {
+    height: auto;
+    font-family: var(--font-tajawal), sans-serif;
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
+
+  .footer .contactRow {
+    align-items: center;
+    gap: 1.2rem;
+    height: 2rem;
+  }
+
+  .footer .contactIcon {
+    display: none;
+  }
+
+  .footer .contactIconMobile {
+    display: block;
+    flex-shrink: 0;
+  }
+
+  .footer .contactText {
+    font-family: var(--font-tajawal), sans-serif;
+    line-height: 2rem;
+    color: var(--yellow-light);
+    white-space: nowrap;
+  }
+
+  .footer .contactLink {
+    text-decoration: none;
+  }
+
+  /* The linked rows' <a> must share the text's face and line box, or its
+     taller Kufi strut drops the line below the plain rows. */
+  .footer .contactRow > a {
+    font-family: var(--font-tajawal), sans-serif;
+    line-height: 2rem;
+  }
+
+  .footer .social {
+    order: 3;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 1.6rem;
+    padding-top: 1.6rem;
+  }
+
+  .footer .legal {
+    order: 4;
+    padding-top: 3.2rem;
+    border-top: 0.1rem solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer .rule {
+    display: none;
+  }
+
+  .footer .phoneHidden {
+    display: none;
+  }
+
+  .footer .phoneLast {
+    order: 1;
+  }
+
+  .footer .copyright {
+    height: auto;
+    font-family: var(--font-tajawal), sans-serif;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    letter-spacing: 0.00137rem;
+    color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+.footer .tagline { max-width: 100%; height: auto; min-height: 2.6rem; white-space: normal; }

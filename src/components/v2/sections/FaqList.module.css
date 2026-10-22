@@ -1,0 +1,55 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.8rem;
+  width: 100%;
+}
+
+.list {
+  width: 100%;
+  margin: 0;
+  /* Figma stacks the rows inside the section's 28px gap. */
+  display: flex;
+  flex-direction: column;
+  gap: 2.8rem;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 2.4rem 0;
+  border-bottom: 0.1rem solid var(--v2-border);
+  line-height: 1.95;
+}
+
+.inset .item {
+  padding-inline: 2.4rem;
+}
+
+.question {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--v2-text);
+}
+
+.answer {
+  margin: 0;
+  font-size: 1.6rem;
+  color: var(--v2-text-muted);
+}
+
+@media (max-width: 640px) {
+  .list {
+    gap: 0.8rem;
+  }
+
+  .inset .item {
+    padding-inline: 0;
+  }
+
+  .question {
+    font-size: 1.8rem;
+  }
+}

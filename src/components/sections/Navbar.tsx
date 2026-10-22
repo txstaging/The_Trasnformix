@@ -4,35 +4,37 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { useContactModal } from "@/components/contact/ContactModal";
-import { Button8 } from "@/components/ui/Button8";
+import { PillButton } from "@/components/ui/PillButton";
+import { HOME_VERSIONS } from "@/lib/homeVersions";
+import { getServicesMenu, type ServiceMenuLink } from "@/lib/serviceNavigation";
+import { ChevronDown } from "@/components/ui/ChevronDown";
+import { LanguageSwitch } from "@/components/ui/LanguageSwitch";
 import styles from "./Navbar.module.css";
+
+type MenuId = "home" | "services";
 
 /** Right-to-left reading order, so the first entry renders furthest right.
     Section links are rooted at "/" so they resolve from every page; the item
     whose href matches the current route is drawn in its active state. */
-const NAV_ITEMS = [
+const NAV_ITEMS: { label: string; href: string; menu?: MenuId }[] = [
+  /* The versions menu is hidden for launch; add `menu: "home"` back to show it. */
   { label: "الرئيسية", href: "/" },
   { label: "من نحن", href: "/about" },
-  { label: "الخدمات", href: "/#services", hasMenu: true },
-  /* Figma 2794:12691 — added with the القطاعات page (2789:11500). */
-  { label: "القطاعات", href: "/sectors" },
+  { label: "الخدمات", href: "/services", menu: "services" },
+  /* Figma 3642:6444 — the sectors page is labelled الصناعات in the bar. */
+  { label: "الصناعات", href: "/sectors" },
+  /* Figma 3817:48362 — the products page sits right after the sectors. */
+  { label: "المنتجات", href: "/products" },
   { label: "أعمالنا", href: "/works" },
-  /* Opens the contact form (Figma 2551:7944) rather than navigating. */
-  { label: "تواصل معنا", href: "/#contact", contact: true },
+  { label: "الأكاديمية", href: "/academy" },
+  { label: "تواصل معنا", href: "/contact" },
 ];
 
-/* Figma 2166:28462 "Links container" — the الخدمات drop-down. Each row leaves
-   for the service's own site on its thetransformix.com subdomain. */
-const SERVICE_LINKS = [
-  {
-    label: "تحليل البيانات و الذكاء الاصطناعي",
-    href: "https://ai.thetransformix.com/data-lap",
-  },
-  { label: "تطوير المواقع الالكترونية", href: "https://web.thetransformix.com/" },
-  { label: "استديو الابداع", href: "https://creative.thetransformix.com/" },
-  { label: "انظمة ERP", href: "https://ai.thetransformix.com/erp" },
-];
+/* Service entries open the existing sites; the overview stays in this version. */
+const MENUS: Record<MenuId, { links: readonly ServiceMenuLink[] }> = {
+  home: { links: HOME_VERSIONS },
+  services: { links: getServicesMenu("/services") },
+};
 
 const cx = (...names: (string | false | undefined)[]) =>
   names.filter(Boolean).join(" ");
@@ -46,12 +48,15 @@ type NavbarProps = {
 
 export function Navbar({ variant = "default" }: NavbarProps) {
   const pathname = usePathname();
-  const { open: openContact } = useContactModal();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const [sheetServicesOpen, setSheetServicesOpen] = useState(false);
-  const servicesItem = useRef<HTMLLIElement>(null);
+  const [openMenu, setOpenMenu] = useState<MenuId | null>(null);
+  const [sheetMenu, setSheetMenu] = useState<MenuId | null>(null);
+  const navList = useRef<HTMLUListElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
+
+  const isActive = (href: string) => pathname === href;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -63,7 +68,8 @@ export function Navbar({ variant = "default" }: NavbarProps) {
   useEffect(() => {
     const close = () => {
       setMenuOpen(false);
-      setServicesOpen(false);
+      setOpenMenu(null);
+      setSheetMenu(null);
     };
     window.addEventListener("resize", close);
     return () => window.removeEventListener("resize", close);
@@ -72,51 +78,75 @@ export function Navbar({ variant = "default" }: NavbarProps) {
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
+      if (menuOpen) burgerRef.current?.focus();
+      else navList.current?.querySelector<HTMLButtonElement>('[aria-expanded="true"]')?.focus();
       setMenuOpen(false);
-      setServicesOpen(false);
-      setSheetServicesOpen(false);
+      setOpenMenu(null);
+      setSheetMenu(null);
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [menuOpen]);
 
   /* A tap opens the pop-over without ever producing a mouseleave, so anything
-     pressed outside the item has to close it. */
+     pressed outside the links has to close it. */
   useEffect(() => {
-    if (!servicesOpen) return;
+    if (!openMenu) return;
     const onPointerDown = (event: PointerEvent) => {
-      if (!servicesItem.current?.contains(event.target as Node)) {
-        setServicesOpen(false);
+      if (!navList.current?.contains(event.target as Node)) {
+        setOpenMenu(null);
       }
     };
     document.addEventListener("pointerdown", onPointerDown);
     return () => document.removeEventListener("pointerdown", onPointerDown);
-  }, [servicesOpen]);
+  }, [openMenu]);
 
   /* The sheet covers the viewport, so the page behind it must not scroll. */
   useEffect(() => {
     if (!menuOpen) return;
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    sheetRef.current?.querySelector<HTMLButtonElement>("button")?.focus();
+    const trapFocus = (event: KeyboardEvent) => {
+      if (event.key !== "Tab") return;
+      const controls = Array.from(sheetRef.current?.querySelectorAll<HTMLElement>("a, button") ?? [])
+        .filter((element) => element.getClientRects().length > 0 && !element.closest("[inert]"));
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+    };
+    document.addEventListener("keydown", trapFocus);
     return () => {
       document.body.style.overflow = previous;
+      document.removeEventListener("keydown", trapFocus);
     };
   }, [menuOpen]);
 
   const closeAll = () => {
     setMenuOpen(false);
-    setServicesOpen(false);
-    setSheetServicesOpen(false);
+    setOpenMenu(null);
+    setSheetMenu(null);
   };
 
-  /** The 210 x 184 card, shared by the desktop pop-over and the sheet. */
-  const renderServiceMenu = (id: string, className: string) => (
-    <ul id={id} className={className}>
-      {SERVICE_LINKS.map(({ label, href }) => (
+  const renderMenu = (menu: MenuId, id: string, className: string) => (
+    <ul
+      id={id}
+      className={cx(className, menu === "services" && styles.menuServices)}
+      inert={id.startsWith("sheet-") ? sheetMenu !== menu : openMenu !== menu}
+    >
+      {MENUS[menu].links.map(({ label, href, external }) => (
         <li key={label}>
-          <a href={href} className={styles.menuLink} onClick={closeAll}>
+          <Link
+            href={href}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener noreferrer" : undefined}
+            className={cx(styles.menuLink, href === pathname && styles.menuLinkActive)}
+            aria-current={href === pathname ? "page" : undefined}
+            onClick={closeAll}
+          >
             {label}
-          </a>
+          </Link>
         </li>
       ))}
     </ul>
@@ -131,16 +161,13 @@ export function Navbar({ variant = "default" }: NavbarProps) {
       )}
     >
       <div className={styles.inner}>
-        {/* Three lockups: the artboard draws 85.14 x 54.36 on desktop, a
-            differently proportioned 46.99 x 35 on the 390 screen and 60 x 53
-            on the 375 about screen. */}
         <Link href="/" className={styles.logo} aria-label="Transformix">
           <Image
             className={styles.logoWide}
-            src="/icons/logo.svg"
+            src="/images/logo-wide.png"
             alt=""
-            width={86}
-            height={55}
+            width={174}
+            height={58}
             priority
           />
           <Image
@@ -164,53 +191,48 @@ export function Navbar({ variant = "default" }: NavbarProps) {
         </Link>
 
         <nav className={styles.nav} aria-label="التنقل الرئيسي">
-          <ul className={styles.list}>
+          <ul ref={navList} className={styles.list}>
             {NAV_ITEMS.map((item) =>
-              item.hasMenu ? (
+              item.menu ? (
                 <li
                   key={item.label}
-                  ref={servicesItem}
                   className={cx(styles.item, styles.itemMenu)}
-                  onMouseEnter={() => setServicesOpen(true)}
-                  onMouseLeave={() => setServicesOpen(false)}
+                  onMouseEnter={() => setOpenMenu(item.menu!)}
+                  onMouseLeave={() => setOpenMenu(null)}
+                  onBlur={(event) => {
+                    if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setOpenMenu(null);
+                  }}
                 >
                   <button
                     type="button"
-                    className={cx(styles.link, styles.trigger)}
+                    className={cx(
+                      styles.link,
+                      styles.trigger,
+                      isActive(item.href) && styles.active,
+                    )}
                     aria-haspopup="true"
-                    aria-expanded={servicesOpen}
-                    aria-controls="nav-services-menu"
-                    onClick={() => setServicesOpen((open) => !open)}
+                    aria-expanded={openMenu === item.menu}
+                    aria-controls={`nav-${item.menu}-menu`}
+                    onClick={() => setOpenMenu(openMenu === item.menu ? null : item.menu!)}
+                    onKeyDown={(event) => {
+                      if (event.key !== "ArrowDown") return;
+                      event.preventDefault();
+                      setOpenMenu(item.menu!);
+                      requestAnimationFrame(() => document.getElementById(`nav-${item.menu}-menu`)?.querySelector("a")?.focus());
+                    }}
                   >
                     {item.label}
-                    <Image
-                      className={styles.chevron}
-                      src="/icons/nav-chevron.svg"
-                      alt=""
-                      width={16}
-                      height={16}
-                      aria-hidden
-                    />
+                    <ChevronDown className={styles.chevron} />
                   </button>
-                  {renderServiceMenu(
-                    "nav-services-menu",
+                  {renderMenu(
+                    item.menu,
+                    `nav-${item.menu}-menu`,
                     cx(
                       styles.menu,
                       styles.dropdown,
-                      servicesOpen && styles.dropdownOpen,
+                      openMenu === item.menu && styles.dropdownOpen,
                     ),
                   )}
-                </li>
-              ) : item.contact ? (
-                <li key={item.label} className={styles.item}>
-                  <button
-                    type="button"
-                    className={styles.link}
-                    aria-haspopup="dialog"
-                    onClick={openContact}
-                  >
-                    {item.label}
-                  </button>
                 </li>
               ) : (
                 <li key={item.label} className={styles.item}>
@@ -230,11 +252,13 @@ export function Navbar({ variant = "default" }: NavbarProps) {
           </ul>
         </nav>
 
+        <LanguageSwitch />
         <div className={styles.cta}>
-          <Button8>احجز استشارة مجانية</Button8>
+          <PillButton>اطلب استشارة</PillButton>
         </div>
 
         <button
+          ref={burgerRef}
           type="button"
           className={styles.burger}
           aria-label="فتح القائمة"
@@ -262,16 +286,21 @@ export function Navbar({ variant = "default" }: NavbarProps) {
           )}
         </button>
 
-        {/* Figma 2164:28439 "Navbar 9" — the small-screen menu. */}
         <div
+          ref={sheetRef}
           id="mobile-menu"
           className={cx(styles.sheet, menuOpen && styles.sheetOpen)}
+          role="dialog"
+          aria-modal={menuOpen ? true : undefined}
+          aria-label="التنقل الرئيسي"
+          aria-hidden={!menuOpen}
+          inert={!menuOpen}
         >
           <button
             type="button"
             className={styles.close}
             aria-label="إغلاق القائمة"
-            onClick={closeAll}
+            onClick={() => { closeAll(); burgerRef.current?.focus(); }}
           >
             <span />
             <span />
@@ -279,47 +308,30 @@ export function Navbar({ variant = "default" }: NavbarProps) {
 
           <ul className={styles.sheetList}>
             {NAV_ITEMS.map((item) =>
-              item.hasMenu ? (
+              item.menu ? (
                 <li key={item.label} className={styles.sheetItem}>
                   <button
                     type="button"
-                    className={styles.sheetTrigger}
-                    aria-expanded={sheetServicesOpen}
-                    aria-controls="sheet-services-menu"
-                    onClick={() => setSheetServicesOpen((open) => !open)}
+                    className={cx(
+                      styles.sheetTrigger,
+                      isActive(item.href) && styles.sheetActive,
+                    )}
+                    aria-expanded={sheetMenu === item.menu}
+                    aria-controls={`sheet-${item.menu}-menu`}
+                    onClick={() => setSheetMenu(sheetMenu === item.menu ? null : item.menu!)}
                   >
                     <span>{item.label}</span>
-                    <Image
-                      className={styles.sheetChevron}
-                      src="/icons/menu-chevron.svg"
-                      alt=""
-                      width={17}
-                      height={9}
-                      aria-hidden
-                    />
+                    <ChevronDown className={styles.sheetChevron} />
                   </button>
-                  {renderServiceMenu(
-                    "sheet-services-menu",
+                  {renderMenu(
+                    item.menu,
+                    `sheet-${item.menu}-menu`,
                     cx(
                       styles.menu,
                       styles.sheetMenu,
-                      sheetServicesOpen && styles.sheetMenuOpen,
+                      sheetMenu === item.menu && styles.sheetMenuOpen,
                     ),
                   )}
-                </li>
-              ) : item.contact ? (
-                <li key={item.label} className={styles.sheetItem}>
-                  <button
-                    type="button"
-                    className={cx(styles.sheetLink, styles.sheetButton)}
-                    aria-haspopup="dialog"
-                    onClick={() => {
-                      closeAll();
-                      openContact();
-                    }}
-                  >
-                    {item.label}
-                  </button>
                 </li>
               ) : (
                 <li key={item.label} className={styles.sheetItem}>
@@ -339,7 +351,7 @@ export function Navbar({ variant = "default" }: NavbarProps) {
             )}
 
             <li className={styles.sheetCtaItem}>
-              <Button8 size="compact">احجز استشارة مجانية</Button8>
+              <PillButton size="compact">اطلب استشارة</PillButton>
             </li>
           </ul>
         </div>

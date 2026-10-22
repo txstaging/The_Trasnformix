@@ -1,10 +1,11 @@
-/* Figma 2096:4855 "Frame 118" — 1440 x 383 */
 .footer {
+  width: 100%;
+  font-family: var(--font-kufi), "Noto Kufi Arabic", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 4rem 10rem 2.7rem;
-  background: var(--primary);
+  background: #0a1836;
   color: var(--text-inverse);
 }
 
@@ -14,6 +15,7 @@
   justify-content: flex-start;
   gap: 10rem;
   width: 100%;
+  max-width: 124rem;
 }
 
 .main {
@@ -28,7 +30,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 7.9rem;
+  gap: 4.9rem;
   width: 100%;
 }
 
@@ -62,7 +64,7 @@
 .columnLink {
   display: block;
   width: 100%;
-  height: 3rem;
+  min-height: 3rem;
   font-size: 1.6rem;
   font-weight: 400;
   color: var(--yellow-light);
@@ -76,7 +78,6 @@
   transform: translateX(-0.4rem);
 }
 
-/* Contact column — icon sits to the right of its line. */
 .contact {
   width: 24rem;
 }
@@ -136,7 +137,6 @@
   width: 100%;
 }
 
-/* "Line 3" — a 0.5px teal gradient rule. */
 .rule {
   width: 100%;
   height: 0.05rem;
@@ -166,13 +166,18 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 2.5rem;
+  gap: 0.9rem;
   width: 100%;
 }
 
+.brandHome { display: block; }
+
+/* Use the same transparent wordmark as version 4, in white on the dark footer. */
 .brandLogo {
-  width: 17.3rem;
-  height: 11.0447rem;
+  width: 20.8rem;
+  height: 7rem;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
   transition: transform var(--dur) var(--ease-out);
 }
 
@@ -180,6 +185,8 @@
   transform: scale(1.04);
 }
 
+/* The artboard keeps the tagline's leading space, which nudges the
+   right-aligned line 4px inwards. */
 .tagline {
   width: 100%;
   height: 2.6rem;
@@ -187,6 +194,7 @@
   font-weight: 400;
   color: var(--text-inverse);
   text-align: right;
+  white-space: pre;
 }
 
 .social {
@@ -271,34 +279,14 @@
   }
 }
 
-/* ==========================================================================
-   `navy` — the about artboards. At 1440 (Figma 2515:60030) only the ground
-   and the lockup change.
-   Phones — every variant (Figma 2888:10856, 375): one stacked column set in
-   Tajawal on the navy ground: lockup, الخدمات / الشركة / تواصل معنا, the
-   social row and the legal line, 32px apart.
-   ========================================================================== */
-.navy {
-  background: #0a1836;
-}
-
-/* The about artboard keeps the tagline's leading space, which nudges the
-   right-aligned line 4px inwards. */
-.navy .tagline {
-  white-space: pre;
-}
-
-.brandLogoMobile,
 .contactIconMobile {
   display: none;
 }
 
 @media (max-width: 640px) {
-  /* Figma 2888:10856 draws every phone footer on the navy ground. */
   .footer {
     align-items: stretch;
     padding-bottom: 3.2rem;
-    background: #0a1836;
   }
 
   /* The brand and main wrappers dissolve so their children can be re-ordered
@@ -321,13 +309,9 @@
   }
 
   .footer .brandLogo {
-    display: none;
-  }
-
-  .footer .brandLogoMobile {
     display: block;
-    width: 14rem;
-    height: 9rem;
+    width: 20.8rem;
+    height: 7rem;
     margin-bottom: 2.4rem;
   }
 
@@ -342,7 +326,6 @@
     white-space: nowrap;
   }
 
-  /* Inset from the right edge so the link columns don't hug the rim. */
   .footer .columns {
     order: 2;
     flex-direction: column;
@@ -358,7 +341,6 @@
     gap: 2.4rem;
   }
 
-  /* الخدمات, الشركة, then تواصل معنا last. */
   .footer .contact {
     order: 2;
     gap: 1.6rem;
@@ -420,7 +402,6 @@
     line-height: 2rem;
   }
 
-  /* Facebook sits on the left of this row, the mirror of the 1440 order. */
   .footer .social {
     order: 3;
     flex-direction: row-reverse;

@@ -1,333 +1,114 @@
-/* Figma 2096:4539 "Desktop - 79" — 1440 x 854, padding 100 / 75 */
 .section {
-  background: var(--bg-main);
-  padding: 10rem 7.5rem;
-}
-
-.inner {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  width: 129rem;
-  max-width: 100%;
+  width: calc(100% - 112px);
+  max-width: 1536px;
   margin-inline: auto;
-}
-
-.head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-  height: 24.6rem;
+  padding-block: 130px 100px;
+  scroll-margin-top: 120px;
+  color: var(--text-primary);
+  font-family: var(--font-tajawal), sans-serif;
 }
 
 .heading {
-  width: 47.7rem;
-  font-size: 3.2rem;
-  font-weight: 400;
-  color: var(--primary);
-  text-align: right;
-  word-break: break-word;
-}
-
-.lead {
-  display: flex;
-  flex-direction: column;
-  gap: 2.4rem;
-  width: 65.4rem;
-}
-
-.leadText {
-  width: 65.3rem;
-  font-size: 1.8rem;
+  max-width: 1250px;
+  font-size: clamp(38px, 4.8vw, 78px);
   font-weight: 500;
-  color: var(--unactive);
-  text-align: right;
-  word-break: break-word;
+  line-height: 1.32;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
 }
 
-.leadLink {
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-}
+.heading > span { color: var(--primary); }
 
-/* Three 421.33 columns packed to the left edge of the 1290 content box. */
-.cards {
+.bottom {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: start;
-  height: 36.8rem;
-  width: 126.4rem;
-  max-width: 100%;
-  margin-right: auto;
-  margin-left: 0;
-  border-radius: 0.8rem;
-  background: rgba(255, 255, 255, 0.05);
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  margin-top: 65px;
 }
 
-.card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 3.2rem;
-  height: 36.2rem;
-  /* The article frame is 362 tall on the artboard while its stack measures
-     383, so the trailing padding is absorbed by the frame. */
-  padding: 2.4rem 2.4rem 0;
-  border-radius: 0.8rem;
-  transition:
-    transform var(--dur) var(--ease-out),
-    box-shadow var(--dur) var(--ease-out),
-    background-color var(--dur) var(--ease-out);
-}
-
-.card:hover {
-  transform: translateY(-0.6rem);
-  background-color: rgba(232, 236, 245, 0.34);
-  box-shadow: 0 2.4rem 4.8rem -2.4rem rgba(21, 51, 115, 0.28);
-}
-
-.cardIcon {
-  width: 5.4rem;
-  height: 5.4rem;
-  transition: transform var(--dur-slow) var(--ease-out);
-}
-
-.card:hover .cardIcon {
-  transform: scale(1.08) rotate(-4deg);
-}
-
-.cardBody {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.6rem;
-  width: 37.3328rem;
-  max-width: 100%;
-}
-
-/* The counter is drawn as vector glyphs on the artboard, so the exported SVGs
-   are placed at their measured offsets rather than re-typeset. */
-.figure {
-  position: relative;
-  width: 100%;
-  height: 10.8rem;
-}
-
-/* Box set per glyph by the component; --figure-scale shrinks every counter
-   alike on phones. */
-.figureNumber,
-.figurePlus {
-  position: absolute;
-  left: var(--x);
-  top: var(--y);
-  width: calc(var(--w) * var(--figure-scale, 1));
-  height: calc(var(--h) * var(--figure-scale, 1));
-  transform-origin: bottom right;
-  transition: transform var(--dur-slow) var(--ease-out);
-}
-
-.card:hover .figureNumber {
-  transform: translateY(-0.4rem);
-}
-
-.card:hover .figurePlus {
-  transform: translateY(-0.4rem) rotate(90deg);
-}
-
-.cardTitle {
-  width: 37.4rem;
-  max-width: 100%;
-  height: 4.9rem;
-  padding-top: 1.2rem;
-  font-size: 1.8rem;
-  font-weight: 700;
+.cross {
+  display: block;
+  width: max-content;
   color: var(--primary);
-  text-align: right;
-  word-break: break-word;
+  font: 180px/1 Arial, sans-serif;
 }
 
-.cardTextWrap {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 37.4rem;
-  max-width: 100%;
-  min-height: 6rem;
-}
-
-.cardText {
-  width: 32.7rem;
-  max-width: 100%;
-  font-size: 1.6rem;
-  font-weight: 400;
+.copy p {
+  margin-bottom: 22px;
   color: var(--text-secondary);
-  text-align: right;
-  word-break: break-word;
+  font-size: 19px;
+  line-height: 1.75;
 }
 
-@media (max-width: 1024px) {
-  .section {
-    padding: 8rem var(--gutter);
-  }
-
-  .inner {
-    width: 100%;
-  }
-
-  .head {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 3.2rem;
-    height: auto;
-  }
-
-  .heading,
-  .lead,
-  .leadText {
-    width: 100%;
-  }
-
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
-    width: 100%;
-    height: auto;
-    gap: 1.6rem;
-  }
-
-  .card {
-    height: auto;
-    padding: 2.4rem;
-  }
-
-  .cardTitle {
-    height: auto;
-  }
-
-  .cardBody,
-  .cardTitle,
-  .cardTextWrap {
-    width: 100%;
-  }
-
-  /* Once the cards stack, icon, counter and copy share one centre line. */
-  .card,
-  .cardBody,
-  .cardTextWrap {
-    align-items: center;
-  }
-
-  .cardTitle,
-  .cardText {
-    text-align: center;
-  }
-
-  /* Below the artboard width the counter stops being absolutely placed and
-     becomes a plain centred row. */
-  .figure {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: center;
-    align-items: center;
-    gap: 0.6rem;
-    height: auto;
-  }
-
-  .figureNumber,
-  .figurePlus {
-    position: static;
-    flex-shrink: 0;
-  }
-
-  .cardText {
-    width: 100%;
-  }
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+  min-height: 58px;
+  padding-block: 14px;
+  border-bottom: 1px solid var(--blue-light-active);
+  font-size: 16px;
+  line-height: 1.5;
+  transition: gap var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
 }
 
-/* Figma 2836:26820 (phone, 362 wide) — centred 14 / 12 copy, then the
-   counters stacked in a 204 column, 10+ on top. */
+.link:hover { gap: 55px; color: var(--primary); }
+.link svg { width: 26px; height: 26px; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 90px;
+  border-block: 1px solid var(--blue-light-active);
+}
+
+.stats article {
+  padding: 45px 30px 40px;
+  border-inline-start: 1px solid var(--blue-light-active);
+}
+
+.stats article:last-child { border-inline-start: 0; }
+
+.value {
+  display: block;
+  color: var(--primary);
+  font: clamp(75px, 8vw, 125px)/1 Arial, sans-serif;
+  letter-spacing: -0.08em;
+}
+
+.value sup { font-size: 34px; vertical-align: top; letter-spacing: 0; }
+
+.stats h3 {
+  margin-block: 25px 12px;
+  font-size: 23px;
+  font-weight: 500;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+.stats p {
+  max-width: 340px;
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+@media (max-width: 900px) {
+  .section { width: calc(100% - 48px); padding-block: 80px; }
+  .bottom { gap: 35px; }
+  .stats article { padding-inline: 20px; }
+}
+
 @media (max-width: 640px) {
-  .section {
-    padding: 4rem calc(var(--gutter) - 0.8rem) 1.6rem;
+  .section { width: calc(100% - 40px); padding-block: 65px; }
+  .bottom { grid-template-columns: 1fr; gap: 25px; margin-top: 35px; }
+  .cross { font-size: 90px; }
+  .stats { grid-template-columns: 1fr; margin-top: 50px; }
+  .stats article {
+    padding: 30px 0;
+    border-inline-start: 0;
+    border-bottom: 1px solid var(--blue-light-active);
   }
-
-  .inner {
-    gap: 2.4rem;
-  }
-
-  .head {
-    align-items: center;
-    gap: 0;
-  }
-
-  .heading {
-    padding: 0.8rem 0.8rem 0;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    text-align: center;
-  }
-
-  .lead {
-    gap: 0;
-  }
-
-  .leadText {
-    padding: 0.8rem 0.8rem 0.8rem;
-    font-size: 1.2rem;
-    font-weight: 400;
-    text-align: center;
-  }
-
-  .leadLink {
-    justify-content: center;
-    --arrow-link-gap: 0.4rem;
-    --arrow-link-icon: 1.5rem;
-    --arrow-link-size: 1.2rem;
-  }
-
-  /* The artboard reads the counters top-down from 10+, the reverse of the
-     desktop's right-to-left order. */
-  .cards {
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 1.5rem;
-    width: 20.4rem;
-    margin-inline: auto;
-  }
-
-  .card {
-    gap: 1.6rem;
-    min-height: 0;
-    padding: 1.2rem;
-  }
-
-  .cardIcon {
-    width: 2.7rem;
-    height: 2.7rem;
-  }
-
-  .cardBody {
-    gap: 0.8rem;
-  }
-
-  .figure {
-    --figure-scale: 0.47;
-    gap: 1.1rem;
-  }
-
-  .cardTitle {
-    padding-top: 0.6rem;
-    font-size: 0.9rem;
-  }
-
-  .cardTextWrap {
-    min-height: 0;
-  }
-
-  .cardText {
-    width: 18.6rem;
-    font-size: 1rem;
-  }
+  .stats article:last-child { border-bottom: 0; }
 }

@@ -1,0 +1,222 @@
+/* The #fcfbfa ground is the <AcademyCurtain> band behind this section. */
+.section {
+  background: transparent;
+}
+
+.stage {
+  position: relative;
+  width: 144rem;
+  max-width: 100%;
+  height: 99.1rem;
+  margin-inline: auto;
+}
+
+.copy {
+  position: absolute;
+  left: 25.8rem;
+  top: 4.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4rem;
+  width: 93.7rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: #000;
+  white-space: nowrap;
+}
+
+.text {
+  width: 86.8rem;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.dashboard {
+  position: absolute;
+  left: 32rem;
+  top: 25.6rem;
+  width: 80rem;
+  height: 53.3rem;
+}
+
+/* <ScrollTilt> leans the card back from its top edge and straightens it
+   as the section scrolls in. */
+.tilt {
+  height: 100%;
+}
+
+.dashboard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* A rotated layer, centred in its artboard bounding box. */
+.turned {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--w);
+  height: var(--h);
+  pointer-events: none;
+}
+
+.turned img {
+  flex: none;
+  max-width: none;
+}
+
+.pills {
+  display: contents;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pillBox {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--w);
+  height: var(--h);
+}
+
+.pill {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--pill-w);
+  height: 6.2769rem;
+  border: 0.1rem solid #f9f9f9;
+  border-radius: 9.2rem;
+  background: #c6e7f9;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #000;
+  white-space: nowrap;
+  rotate: var(--pill-rotate);
+  transition:
+    transform var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.pill:hover {
+  transform: translateY(-0.3rem);
+  box-shadow: 0 0.8rem 2rem rgba(28, 68, 153, 0.12);
+}
+
+/* Below 1024 the composition no longer fits: the heading stacks over the
+   dashboard and the pills follow as a centred row of chips. */
+@media (max-width: 1024px) {
+  .stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    padding: 6.4rem var(--gutter);
+  }
+
+  .copy {
+    position: static;
+    width: 100%;
+    max-width: 86.8rem;
+    gap: 1.6rem;
+  }
+
+  .title {
+    font-size: 2.8rem;
+    white-space: normal;
+  }
+
+  .text {
+    width: auto;
+    font-size: 2rem;
+  }
+
+  .dashboard {
+    position: static;
+    width: 100%;
+    max-width: 80rem;
+    height: auto;
+    margin-top: 4rem;
+  }
+
+  .dashboard img {
+    height: auto;
+    aspect-ratio: 1536 / 1024;
+  }
+
+  .turned {
+    display: none;
+  }
+
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 3.2rem;
+  }
+
+  .pillBox {
+    position: static;
+    width: auto;
+    height: auto;
+  }
+
+  .pill {
+    width: auto;
+    height: 5.2rem;
+    padding-inline: 3.2rem;
+    rotate: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .stage {
+    padding-block: 4.8rem;
+  }
+
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .text {
+    font-size: 1.7rem;
+  }
+
+  .dashboard {
+    margin-top: 3.2rem;
+  }
+
+  .pills {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .pill {
+    width: 100%;
+    height: auto;
+    min-height: 4.8rem;
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    white-space: normal;
+    text-align: center;
+  }
+}

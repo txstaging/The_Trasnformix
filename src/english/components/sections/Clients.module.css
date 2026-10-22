@@ -1,0 +1,196 @@
+/* Figma 3648:7008 — a 128px band, 49px under the hero's media band. The logo
+   rail starts at the title card's left edge, 21px from the band's top. */
+.section {
+  --frame-gutter: 2.4rem;
+  --card-width: 30.4rem;
+  --card-right: 0.4rem;
+  position: relative;
+  height: 12.8rem;
+  margin-top: 11rem;
+  overflow: hidden;
+  background: var(--bg-main);
+}
+
+/* Logos read the same in either script, so the rail runs left-to-right. The
+   viewport must be LTR too: as an RTL flex container it would park the
+   (much wider) track against its right edge, and the animation would then walk
+   it straight off screen. */
+.viewport {
+  direction: ltr;
+  position: absolute;
+  left: 0;
+  /* Clip against the card itself, including the centred frame's outer margin. */
+  right: calc(max(var(--frame-gutter), (100% - 124rem) / 2) + var(--card-right) + var(--card-width));
+  top: 2.1rem;
+  height: 10.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+/* The rail holds RAIL_COPIES identical sets and travels exactly one set per
+   cycle, so the seam is invisible and the strip is never empty — one set is
+   ~2243px, so four sets keep even an ultra-wide viewport covered throughout. */
+.track {
+  display: flex;
+  gap: 0.1rem;
+  height: 10.5rem;
+  width: max-content;
+  will-change: transform;
+  animation: marquee 44s linear infinite;
+}
+
+.viewport:hover .track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: calc(var(--cell) * var(--cell-scale, 1));
+  height: 100%;
+  padding-block: 1rem;
+}
+
+.logo {
+  position: relative;
+  flex-shrink: 0;
+  width: calc(var(--logo-w) * var(--logo-scale, 1));
+  height: calc(var(--logo-h) * var(--logo-scale, 1));
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.cell:hover .logo {
+  transform: scale(1.06);
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cropped {
+  overflow: hidden;
+}
+
+.cropped img {
+  position: absolute;
+  left: -0.27%;
+  top: -16.67%;
+  width: 100.54%;
+  height: 133.33%;
+  max-width: none;
+  object-fit: fill;
+}
+
+/* The 1240 artboard column the card is pinned to. */
+.frame {
+  position: relative;
+  width: 124rem;
+  max-width: calc(100% - 2 * var(--frame-gutter));
+  height: 100%;
+  margin-inline: auto;
+  pointer-events: none;
+}
+
+.card {
+  position: absolute;
+  right: var(--card-right);
+  top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--card-width);
+  height: 11.8rem;
+  padding-block: 3.6rem;
+  background: var(--bg-main);
+  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.15);
+  pointer-events: auto;
+}
+
+.title {
+  width: 21.9rem;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #193d8a;
+  text-align: left;
+  word-break: break-word;
+}
+
+@media (max-width: 1024px) {
+  .section {
+    --frame-gutter: var(--gutter);
+    --card-width: 22rem;
+    --card-right: 0rem;
+    height: 12rem;
+    margin-top: 4rem;
+  }
+
+  .viewport {
+    top: 1.5rem;
+    height: 9rem;
+    --logo-scale: 0.8;
+    --cell-scale: 0.7;
+  }
+
+  .track {
+    height: 9rem;
+    animation-duration: 32s;
+  }
+
+  .card {
+    top: 1rem;
+    height: 10rem;
+    padding-block: 2rem;
+  }
+
+  .title {
+    width: 17rem;
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    --card-width: 13rem;
+    height: 8rem;
+    margin-top: 2.4rem;
+  }
+
+  .viewport {
+    top: 1rem;
+    height: 6rem;
+    --logo-scale: 0.5;
+    --cell-scale: 0.42;
+  }
+
+  .track {
+    height: 6rem;
+    /* A set is ~940px at this scale; 18s keeps the desktop's ~50px/s pace. */
+    animation-duration: 18s;
+  }
+
+  .card {
+    top: 0.8rem;
+    height: 6.4rem;
+    padding-block: 1rem;
+  }
+
+  .title {
+    width: 10.4rem;
+    font-size: 1.2rem;
+  }
+}

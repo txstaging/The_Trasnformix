@@ -1,37 +1,68 @@
-/* Figma 2096:4499 "Background+HorizontalBorder" — 1440 x 82 */
+/* Full-width version of the original floating, rounded navigation bar. */
 .header {
   position: sticky;
   top: 0;
   z-index: 60;
   width: 100%;
+  padding-top: 1.6rem;
   background: transparent;
+  pointer-events: none;
   transition:
+    padding-top var(--dur) var(--ease-out),
     background-color var(--dur) var(--ease-out),
     box-shadow var(--dur) var(--ease-out);
 }
 
-/* Once the page has scrolled the bar gains a surface so it stays readable over
-   the hero video. At rest it is transparent, exactly as drawn. */
+/* Once the page has scrolled the bar rides closer to the top and lifts a
+   little further off the page. */
 .scrolled {
-  background-color: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(1.2rem);
-  box-shadow: 0 0.1rem 0 rgba(28, 68, 153, 0.08);
+  padding-top: 1.2rem;
 }
 
 .inner {
   position: relative;
-  width: 144rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  width: 100%;
   max-width: 100%;
-  height: 8.2rem;
+  height: 8.3rem;
   margin-inline: auto;
+  padding-inline: clamp(2.4rem, 3vw, 6rem);
+  border: 0.1rem solid #def0fd;
+  border-radius: 2rem;
+  background: var(--bg-main);
+  -webkit-backdrop-filter: blur(0);
+  backdrop-filter: blur(0);
+  box-shadow:
+    -0.4rem -0.4rem 0.4rem rgba(0, 0, 0, 0.06),
+    0.4rem 0.4rem 0.4rem rgba(0, 0, 0, 0.06);
+  pointer-events: auto;
+  transition:
+    background-color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out),
+    backdrop-filter var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.scrolled .inner {
+  border-color: rgba(222, 240, 253, 0.65);
+  background: rgba(255, 255, 255, 0.78);
+  -webkit-backdrop-filter: blur(1.8rem) saturate(140%);
+  backdrop-filter: blur(1.8rem) saturate(140%);
+  box-shadow:
+    -0.4rem -0.4rem 0.4rem rgba(0, 0, 0, 0.06),
+    0.4rem 0.4rem 0.4rem rgba(0, 0, 0, 0.06),
+    0 1.2rem 3.2rem rgba(28, 68, 153, 0.12);
 }
 
 .logo {
-  position: absolute;
-  right: 2.053rem;
-  top: 1.3822rem;
-  width: 8.514rem;
-  height: 5.4355rem;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 17.4rem;
+  height: 5.8rem;
   transition: transform var(--dur) var(--ease-out);
 }
 
@@ -40,8 +71,9 @@
 }
 
 .logoWide {
-  width: 8.514rem;
-  height: 5.4355rem;
+  width: 17.4rem;
+  height: 5.8rem;
+  object-fit: contain;
 }
 
 .logoCompact,
@@ -49,21 +81,18 @@
   display: none;
 }
 
-/* The list is centred in a 672 wide container that starts 500.33px from the
-   left — not on the page — so it re-centres there as items come and go. */
+/* Keep navigation in the space between the logo and consultation button. */
 .nav {
-  position: absolute;
-  left: 50.0328rem;
-  top: 50%;
   display: flex;
+  flex: 1;
+  min-width: 0;
   justify-content: center;
-  width: 67.2rem;
-  transform: translateY(-50%);
 }
 
 .list {
   display: flex;
   align-items: center;
+  gap: 24px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -72,17 +101,18 @@
 .item {
   display: flex;
   align-items: center;
-  padding-left: 1.6rem;
-  padding-right: 0.8rem;
 }
 
-.item:last-child {
-  padding-right: 1.6rem;
-}
-
-/* Anchor for the drop-down. */
 .itemMenu {
   position: relative;
+}
+
+.itemMenu::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  inset-inline: -0.8rem;
+  height: 1.8rem;
 }
 
 /* Row order, not row-reverse: the artboard puts the chevron on the *left* of
@@ -121,6 +151,8 @@
 .chevron {
   width: 1.6rem;
   height: 1.6rem;
+  flex-shrink: 0;
+  transform-origin: center;
   transition: transform var(--dur) var(--ease-out);
 }
 
@@ -148,10 +180,6 @@
   display: none;
 }
 
-/* --------------------------------------------------------------------------
-   الخدمات menu — Figma 2166:28462 "Links container", 210 x 184: an 8px gutter
-   around 39px rows spaced 4px apart, under a six-stop drop shadow.
-   -------------------------------------------------------------------------- */
 .menu {
   display: flex;
   flex-direction: column;
@@ -161,7 +189,6 @@
   padding: 0.8rem;
   list-style: none;
   background: var(--bg-main);
-  /* Figma leaves the 1px stroke out of the layout: the rows are 194 wide. */
   outline: 0.1rem solid rgba(0, 0, 0, 0.1);
   outline-offset: -0.1rem;
   border-radius: 1.2rem;
@@ -178,26 +205,28 @@
   display: block;
   padding: 0.8rem 1.2rem;
   border-radius: 0.8rem;
-  font-size: 1.2rem;
-  line-height: 2.3rem;
+  font-size: 1.6rem;
+  line-height: 1.85;
+  text-align: start;
   color: var(--menu-text);
   transition:
     background-color var(--dur-fast) var(--ease-out),
     color var(--dur-fast) var(--ease-out);
 }
 
-/* The first label sits in a 180-wide box pinned to the row's left padding, so
-   it runs 10px into the right padding on one line instead of wrapping. */
-.menu > li:first-child > .menuLink,
-.menu > .menuLink:first-child {
-  padding-right: 0.2rem;
-  white-space: nowrap;
+.menuServices {
+  width: 31rem;
+  max-width: calc(100vw - 4rem);
+  outline-color: #dce7f4;
 }
 
-/* The artboard draws the second row in this state — it is the hover, not a
-   permanent selection. */
+.menuServices .menuLink {
+  padding-block: 1rem;
+}
+
 .menuLink:hover,
-.menuLink:focus-visible {
+.menuLink:focus-visible,
+.menuLinkActive {
   background: var(--menu-hover);
   color: var(--menu-text-active);
 }
@@ -223,15 +252,9 @@
 }
 
 .cta {
-  position: absolute;
-  left: 12rem;
-  top: 50%;
-  transform: translateY(-50%);
+  flex-shrink: 0;
 }
 
-/* Burger — hidden on the artboard width, opens the sheet below 1024px. The
-   glyph is Figma 2150:25972 "lucide/menu" at its drawn 24 x 24, centred in a
-   44px target. */
 .burger {
   display: none;
   position: absolute;
@@ -264,11 +287,26 @@
 }
 
 @media (max-width: 1024px) {
-  /* Figma 2150:25555 (390 wide): the page starts at y 96, so the bar is 96
-     tall, with the logo at (306, 35) sized 46.99 x 35 and the menu glyph at
-     (32, 36) sized 24 x 24. */
-  .inner {
+  /* Small screens retain the full-width mobile bar and menu. */
+  .header,
+  .scrolled {
+    padding-top: 0;
+    pointer-events: auto;
+  }
+
+  .inner,
+  .scrolled .inner {
+    width: 100%;
+    display: block;
+    max-width: 100%;
     height: 9.6rem;
+    padding-inline: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
   }
 
   .burger {
@@ -284,6 +322,7 @@
   }
 
   .logo {
+    position: absolute;
     right: 3.7rem;
     top: 3.5rem;
     width: 4.6991rem;
@@ -302,13 +341,19 @@
   }
 
   .header {
-    background-color: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(1.2rem);
+    background-color: var(--bg-main);
+  }
+
+  .header.scrolled {
+    background-color: rgba(255, 255, 255, 0.78);
+    -webkit-backdrop-filter: blur(1.8rem) saturate(140%);
+    backdrop-filter: blur(1.8rem) saturate(140%);
   }
 
   /* A backdrop-filter makes the header the containing block of everything
      inside it, which would pin the fixed sheet to the 96px bar. */
   .header:has(.sheetOpen) {
+    -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
 
@@ -340,7 +385,6 @@
     transform: none;
   }
 
-  /* "Bar Rounded" — two 40 x 4 bars crossed inside a 40 x 31 box. */
   .close {
     position: relative;
     align-self: flex-end; /* RTL: the panel's left edge. */
@@ -375,7 +419,7 @@
   .sheetList {
     display: flex;
     flex-direction: column;
-    gap: 2.1rem;
+    gap: 24px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -390,13 +434,6 @@
     font-size: 1.8rem;
     color: var(--ocean-dark);
     transition: color var(--dur-fast) var(--ease-out);
-  }
-
-  /* "تواصل معنا" is a button (it opens the contact form); keep it flush right
-     like the link rows. */
-  .sheetButton {
-    width: 100%;
-    text-align: right;
   }
 
   .sheetActive,
@@ -422,8 +459,10 @@
   }
 
   .sheetChevron {
-    width: 1.7rem;
-    height: 0.9rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    flex-shrink: 0;
+    transform-origin: center;
     transition: transform var(--dur) var(--ease-out);
   }
 
@@ -431,7 +470,6 @@
     transform: rotate(180deg);
   }
 
-  /* The same card, collapsed under the row until the chevron is used. */
   .menu.sheetMenu {
     overflow: hidden;
     max-height: 0;
@@ -439,18 +477,21 @@
     margin-inline-end: auto; /* RTL: hold it against the right edge. */
     padding-block: 0;
     opacity: 0;
+    visibility: hidden;
     transition:
       max-height var(--dur) var(--ease-out),
       margin-top var(--dur) var(--ease-out),
       padding var(--dur) var(--ease-out),
+      visibility var(--dur),
       opacity var(--dur) var(--ease-out);
   }
 
   .menu.sheetMenuOpen {
-    max-height: 24rem;
+    max-height: 38rem;
     margin-top: 1.2rem;
     padding-block: 0.8rem;
     opacity: 1;
+    visibility: visible;
   }
 
   .sheetCtaItem {
@@ -458,15 +499,21 @@
   }
 }
 
-/* --------------------------------------------------------------------------
-   `slim` — Figma 2515:60114, the bar of the 375 about screen: 72 tall, white,
-   with a 1px #f3f4f6 hairline drawn inside it. The 21 x 24 bars glyph sits at
-   (32, 18.5) and the 60 x 53 lockup at (284, 9), i.e. 31px from the right.
-   -------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
-  .slim,
-  .slim.scrolled {
+  .inner > :global([data-language-switch]) {
+    position: absolute;
+    left: 50%;
+    top: 3rem;
+    transform: translateX(-50%);
+  }
+
+  .slim .inner > :global([data-language-switch]) {
+    top: 1.8rem;
+  }
+
+  .slim {
     background-color: var(--bg-main);
+    -webkit-backdrop-filter: none;
     backdrop-filter: none;
     box-shadow: inset 0 -0.1rem 0 #f3f4f6;
   }
@@ -475,7 +522,6 @@
     height: 7.2rem;
   }
 
-  /* The 44px target stays centred on the glyph. */
   .slim .burger {
     left: 2.05rem;
     top: 0.85rem;

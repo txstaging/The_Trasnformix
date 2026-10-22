@@ -1,0 +1,502 @@
+/* On desktop the section is a scroll track: 35vh of extra scroll per tab
+   change (--tab-steps, set by the component) while the stage stays pinned. */
+.section {
+  position: relative;
+  width: 100%;
+  height: calc(105.3rem + var(--tab-steps, 0) * 35vh);
+  background: var(--bg-main);
+}
+
+/* Pins at the top of the viewport; on short screens it rides up at most 2rem
+   so the tab rail stays clear of the navbar. */
+.stage {
+  position: sticky;
+  top: min(0px, max(-2rem, calc(100vh - 105.3rem)));
+  width: 144rem;
+  max-width: 100%;
+  height: 105.3rem;
+  margin-inline: auto;
+}
+
+/* ---- Tab rail ---------------------------------------------------------- */
+.tabs {
+  position: absolute;
+  left: 34.4rem;
+  top: 11rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  width: 75.2rem;
+  height: 6rem;
+  padding: 0.2rem 1.2rem;
+  border: 0.03rem solid var(--blue-light);
+  border-radius: 999rem;
+  background: rgba(232, 236, 245, 0.26);
+}
+
+/* The filled pill behind the open tab; the component sizes and places it. */
+.tabIndicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 999rem;
+  background: var(--primary);
+  box-shadow: 0 0.6rem 1.6rem rgba(28, 68, 153, 0.25);
+  pointer-events: none;
+  transition:
+    transform 480ms var(--ease-out),
+    width 480ms var(--ease-out),
+    height 480ms var(--ease-out);
+}
+
+.tab {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 999rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  transition:
+    background-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.tabIcon {
+  width: 2.4rem;
+  height: 2.4rem;
+  transition:
+    filter var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.tab:hover,
+.tab:focus-visible {
+  color: var(--text-inverse);
+  background: var(--primary);
+}
+
+.tab:hover .tabIcon,
+.tab:focus-visible .tabIcon {
+  filter: brightness(0) invert(1);
+  transform: scale(1.1);
+}
+
+.tabActive,
+.tabActive:hover,
+.tabActive:focus-visible {
+  padding: 1.75rem 1.2rem;
+  background: transparent;
+  color: var(--text-inverse);
+}
+
+/* The exported glyphs are drawn in the secondary ink; invert them on the
+   filled pill so the active tab matches the artboard. */
+.tabActive .tabIcon {
+  filter: brightness(0) invert(1);
+}
+
+/* ---- Media card -------------------------------------------------------- */
+/* Figma 3648:7131 — 605 x 726, 56px from the list. */
+.media {
+  position: absolute;
+  left: 10rem;
+  top: 22.2rem;
+  width: 60.5rem;
+  height: 72.6rem;
+  overflow: hidden;
+  border: 0.03rem solid var(--blue-light-active);
+  border-radius: 1.2rem;
+  background: var(--bg-card);
+}
+
+/* Box supplied per tab by the component — every poster is framed differently
+   inside the card. */
+.mediaImage {
+  position: absolute;
+  left: var(--media-x);
+  top: var(--media-y);
+  width: var(--media-w);
+  height: var(--media-h);
+  max-width: none;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.media:hover .mediaImage {
+  transform: scale(1.03);
+}
+
+.media:focus-visible {
+  outline: 0.3rem solid color-mix(in srgb, var(--primary) 55%, transparent);
+  outline-offset: 0.4rem;
+}
+
+/* Remounted per tab: the new gallery zooms out of a soft blur. */
+.mediaSwap {
+  position: absolute;
+  inset: 0;
+  animation: mediaIn 700ms var(--ease-out) both;
+}
+
+@keyframes mediaIn {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--enter-dir, 1) * 4rem)) scale(1.06);
+    filter: blur(0.6rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+.gallerySlide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1);
+  transition:
+    opacity 900ms var(--ease-out),
+    transform 2200ms var(--ease-out);
+}
+
+.gallerySlideActive {
+  opacity: 1;
+}
+
+.media:hover .gallerySlideActive,
+.media:focus-visible .gallerySlideActive {
+  transform: scale(1.025);
+}
+
+.galleryImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.galleryCollage {
+  display: grid;
+  grid-template-rows: 58% 42%;
+  width: 100%;
+  height: 100%;
+  background: #0c0c0c;
+}
+
+.galleryCollagePanel {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.srOnly {
+  position: absolute;
+  width: 0.1rem;
+  height: 0.1rem;
+  padding: 0;
+  margin: -0.1rem;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- Service list ------------------------------------------------------ */
+/* Figma 3648:7100 — a 574 x 728 card shaded from #0c75d2 on the left to
+   #001e4a on the right, set in white. All tabs inherit white link colors
+   and arrows, including hover and keyboard focus. */
+.list {
+  --arrow-link-color: var(--text-inverse);
+  --arrow-link-hover-color: var(--text-inverse);
+  --arrow-link-icon-filter: brightness(0) invert(1);
+
+  position: absolute;
+  left: 76.1rem;
+  top: 22rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3.2rem;
+  width: 57.4rem;
+  height: 72.8rem;
+  padding: 3.25rem 4.05rem;
+  overflow: hidden;
+  border: 0.05rem solid var(--blue-light-active);
+  border-radius: 1.6rem;
+  background: linear-gradient(to right, #0c75d2, #001e4a);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.0667rem;
+  width: 100%;
+}
+
+.itemHead {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.0667rem;
+  width: 100%;
+}
+
+.itemIcon {
+  flex-shrink: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+  /* The lucide glyphs are exported in primary blue; the card draws them white. */
+  filter: brightness(0) invert(1);
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.item:hover .itemIcon {
+  transform: translateY(-0.3rem) scale(1.08);
+}
+
+.itemTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--text-inverse);
+  white-space: nowrap;
+}
+
+.itemText {
+  width: var(--item-width);
+  max-width: 100%;
+  font-size: var(--item-size);
+  font-weight: 400;
+  color: var(--text-inverse-li);
+  text-align: left;
+  word-break: break-word;
+}
+
+.divider {
+  width: 42.4rem;
+  max-width: 100%;
+  height: 0.1rem;
+  background: var(--blue-light);
+  border: 0;
+  margin: 0;
+  align-self: flex-end;
+}
+
+.dividerWarm {
+  background: #e4e4dc;
+}
+
+.itemBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3.2rem;
+  width: 100%;
+}
+
+.panel {
+  display: contents;
+}
+
+.fading {
+  animation: panelIn var(--dur-slow) var(--ease-out) both;
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--enter-dir, 1) * 3.2rem));
+    filter: blur(0.4rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .section {
+    height: auto;
+    padding: 0 var(--gutter) 8rem;
+  }
+
+  .stage {
+    position: relative;
+    top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+    height: auto;
+  }
+
+  .tabs {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: auto;
+    justify-content: flex-start;
+    gap: 1.2rem;
+    padding: 0.8rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    flex-shrink: 0;
+  }
+
+  .tabActive,
+  .tabActive:hover,
+  .tabActive:focus-visible {
+    padding: 0.8rem 1.6rem;
+  }
+
+  .media {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 530 / 500;
+  }
+
+  .mediaImage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .list {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 3.2rem 2.4rem;
+  }
+
+  .itemTitle {
+    white-space: normal;
+    text-align: left;
+  }
+
+  /* Release the measured artboard line width once the card is narrower than
+     the artboard column. */
+  .itemText {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 3.4rem var(--gutter) 4rem;
+  }
+
+  .stage {
+    align-items: center;
+    gap: 3.4rem;
+  }
+
+  .tabs {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    width: auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    overflow: visible;
+  }
+
+  .tab,
+  .tabActive {
+    justify-content: center;
+    width: 17.6rem;
+    height: 3.6rem;
+    padding: 0.8rem 1.2rem;
+    border: 0.1rem solid rgba(87, 88, 91, 0.24);
+    font-size: 1.2rem;
+  }
+
+  .tabActive,
+  .tabActive:hover,
+  .tabActive:focus-visible {
+    height: 3.7rem;
+    padding: 0.8rem 1.2rem;
+    border-color: var(--primary);
+    font-size: 1.1rem;
+  }
+
+  .media {
+    width: 29.2rem;
+    max-width: 100%;
+    aspect-ratio: 292 / 164;
+    border: 0;
+    border-radius: 0;
+  }
+
+  /* Same column as the media card so both edges line up. */
+  .list {
+    width: 29.2rem;
+    max-width: 100%;
+    gap: 0.89rem;
+    padding: 0.9rem 1.125rem;
+    border-width: 0.1rem;
+    border-radius: 0.444rem;
+  }
+
+  .itemBlock {
+    gap: 0.89rem;
+  }
+
+  .item,
+  .itemHead {
+    gap: 0.3rem;
+  }
+
+  .item {
+    --arrow-link-gap: 0.22rem;
+    --arrow-link-pad: 0.25rem 0.32rem;
+    --arrow-link-icon: 0.67rem;
+    --arrow-link-size: 1rem;
+  }
+
+  .itemIcon {
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+
+  .itemTitle {
+    font-size: 1.2rem;
+  }
+
+  .itemText {
+    font-size: 0.9rem;
+  }
+
+  .divider {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallerySlide {
+    transition-duration: 1ms;
+  }
+}

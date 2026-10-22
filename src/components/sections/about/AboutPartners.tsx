@@ -1,14 +1,11 @@
 import Image from "next/image";
-import { Button8 } from "@/components/ui/Button8";
+import { PillButton } from "@/components/ui/PillButton";
 import { Reveal } from "@/components/ui/Reveal";
 import styles from "./AboutPartners.module.css";
 
-/** Figma 2515:60020 "Desktop - 114" and 2519:67008 on the 375 artboard. */
 export function AboutPartners() {
   return (
     <section className={styles.section}>
-      {/* "90554-OIVDSQ-877" 1 and 2 — the same circuit render, cropped two
-          ways and flipped vertically; the 375 artboard leaves them out. */}
       <div className={`${styles.ornament} ${styles.ornamentRight}`} aria-hidden>
         <Image
           className={styles.ornamentImage}
@@ -42,7 +39,7 @@ export function AboutPartners() {
             </Reveal>
           </div>
           <Reveal className={styles.cta} delay={240}>
-            <Button8 fluid={false}>ناقش تحديك معنا</Button8>
+            <PillButton>ناقش تحديك معنا</PillButton>
           </Reveal>
         </div>
       </div>

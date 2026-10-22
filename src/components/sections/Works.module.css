@@ -1,236 +1,54 @@
-/* Figma 2096:4706 "Desktop - 88" — 1440 x 1825 */
 .section {
   position: relative;
   width: 100%;
-  height: 182.5rem;
+  /* 120px from the process cards, with their own 100 below. */
+  padding-block: 2rem 10rem;
   background: var(--bg-main);
 }
 
 .stage {
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
   width: 144rem;
   max-width: 100%;
-  height: 100%;
   margin-inline: auto;
 }
 
 .title {
-  position: absolute;
-  left: 9.9rem;
-  top: 10rem;
-  width: 124.2rem;
-  height: 7.6rem;
+  width: min(124rem, calc(100% - 2 * var(--gutter)));
   font-size: 4rem;
   font-weight: 700;
   color: var(--text-primary);
   text-align: center;
 }
 
-.row {
-  position: absolute;
-  left: 9.9rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2.4rem;
-  width: 124rem;
-}
-
-.rowHead {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 6.1rem;
-}
-
-.rowTitle {
-  font-size: 3.2rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  text-align: right;
-  white-space: nowrap;
-}
-
-/* "عرض المزيد" follows the cards in the markup, but the desktop rows sit at
-   fixed artboard tops, so it is lifted into the 61-tall head line (left end)
-   instead of growing the row into the next one. */
 .more {
-  position: absolute;
-  left: 0;
-  top: 0.7rem;
-}
-
-.cards {
-  display: flex;
-  align-items: center;
-  gap: 3.2rem;
-  width: 100%;
-  height: 39.1rem;
-}
-
-.card {
-  position: relative;
-  flex-shrink: 0;
-  width: 60.4rem;
-  height: 39.1rem;
-  overflow: hidden;
-  border: 0.02rem solid var(--text-inverse-li);
-  border-radius: 0.6rem;
-  transition:
-    transform var(--dur) var(--ease-out),
-    box-shadow var(--dur) var(--ease-out);
-}
-
-.card:hover {
-  transform: translateY(-0.6rem);
-  box-shadow: 0 3.2rem 6.4rem -3.2rem rgba(21, 51, 115, 0.35);
-}
-
-/* Each still is placed at its own measured crop offset. */
-.cardImage {
-  position: absolute;
-  max-width: none;
-  object-fit: cover;
-  transition: transform var(--dur-slow) var(--ease-out);
-}
-
-.card:hover .cardImage {
-  transform: scale(1.045);
-}
-
-.caption {
-  position: absolute;
-  left: 0;
-  top: 33.3rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 60.4rem;
-  height: 5.8rem;
-  padding: 1rem 2.4rem;
-  overflow: hidden;
-  border-radius: 0.6rem 0.6rem 0 0;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(0.6rem);
-  transition: background-color var(--dur) var(--ease-out);
-}
-
-.card:hover .caption {
-  background: rgba(255, 255, 255, 0.42);
-}
-
-.captionRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.captionText {
-  width: 21.4rem;
-  font-size: 1.8rem;
-  font-weight: 400;
-  color: var(--text-primary);
-  text-align: right;
-}
-
-.captionIcon {
-  width: 2.9rem;
-  height: 2.9rem;
-  flex-shrink: 0;
-  transition: transform var(--dur) var(--ease-out);
-}
-
-.card:hover .captionIcon {
-  transform: translate(-0.3rem, -0.3rem);
+  margin-top: 1.6rem;
 }
 
 @media (max-width: 1024px) {
   .section {
-    height: auto;
-    padding: 8rem var(--gutter);
-  }
-
-  .stage {
-    display: flex;
-    flex-direction: column;
-    gap: 6.4rem;
-    height: auto;
+    padding-block: 8rem;
   }
 
   .title {
-    position: static;
-    width: 100%;
-    height: auto;
     font-size: 3.2rem;
-  }
-
-  .row {
-    position: static;
-    top: auto !important;
-    width: 100%;
-  }
-
-  .rowHead {
-    height: auto;
-  }
-
-  /* Stacked rows: the link drops back under the cards. */
-  .more {
-    position: static;
-  }
-
-  .cards {
-    flex-direction: column;
-    height: auto;
-  }
-
-  .card {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 604 / 391;
-  }
-
-  .cardImage {
-    position: absolute;
-    inset: 0;
-    left: 0 !important;
-    top: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-  }
-
-  .caption {
-    top: auto;
-    bottom: 0;
-    width: 100%;
-    height: auto;
   }
 }
 
 @media (max-width: 640px) {
-  /* More air between one category's "عرض المزيد" and the next heading
-     (6.4rem stage gap + 3.2rem). */
-  .row + .row {
-    margin-top: 3.2rem;
+  .section {
+    padding-block: 4.8rem;
+  }
+
+  .stage {
+    gap: 2.4rem;
   }
 
   .title {
     font-size: 2.2rem;
     font-weight: 500;
-  }
-
-  .rowHead {
-    flex-wrap: wrap;
-    gap: 1.2rem;
-  }
-
-  .rowTitle {
-    font-size: 2.2rem;
-  }
-
-  .captionText {
-    width: auto;
-    font-size: 1.5rem;
   }
 }

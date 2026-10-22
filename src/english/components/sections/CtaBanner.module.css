@@ -1,0 +1,145 @@
+.section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg-main);
+}
+
+.stage {
+  position: relative;
+  width: 144rem;
+  max-width: 100%;
+  height: 100%;
+  margin-inline: auto;
+}
+
+.ornament {
+  position: absolute;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.ornamentRight {
+  animation: drift 9s var(--ease-in-out) infinite alternate;
+}
+
+.ornamentLeft {
+  animation: drift 9s var(--ease-in-out) infinite alternate reverse;
+}
+
+@keyframes drift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-1.2rem);
+  }
+}
+
+/* The film is the whole 1440x1080 composition; the artboard shows a zoomed,
+   top-biased crop of it. Measured against the exported stills: the picture is
+   drawn 1.292x the slot width, centred across, and pulled up 28.9% of the slot
+   height — which lands the artwork exactly where the poster has it, so the
+   hand-off from still to film is invisible. `contain` would have shown it at
+   roughly half that size. */
+.ornament video {
+  position: absolute;
+  left: 50%;
+  top: -28.9%;
+  width: 129.2%;
+  height: auto;
+  max-width: none;
+  transform: translateX(-50%);
+}
+
+/* Only one film was cut, in the left-hand orientation, so the right-hand slot
+   mirrors it. The stills each carry their own baked flip and are left alone. */
+.ornamentRight video {
+  transform: translateX(-50%) scaleX(-1);
+}
+
+.content {
+  position: absolute;
+  left: 20.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
+  width: 102.3rem;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+.title {
+  width: 100%;
+  word-break: break-word;
+}
+
+.text {
+  color: var(--text-secondary);
+  font-weight: 400;
+  word-break: break-word;
+}
+
+@media (max-width: 1024px) {
+  .section {
+    height: auto !important;
+    padding: 8rem var(--gutter);
+  }
+
+  .stage {
+    height: auto;
+  }
+
+  /* `height: auto` would collapse around the absolutely-placed film, so the
+     slot keeps the artboard's proportion and the crop rides along. */
+  .ornament {
+    opacity: 0.35;
+    width: 32rem !important;
+    height: auto !important;
+    aspect-ratio: 452 / 295;
+  }
+
+  /* Kept in flow but stacked above the ornaments, which would otherwise
+     paint over the copy. The artboard's `top` arrives inline, hence the
+     override. */
+  .content {
+    position: relative;
+    left: auto;
+    top: 0 !important;
+    z-index: 1;
+    width: 100%;
+  }
+
+  .text {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .ornament {
+    display: none;
+  }
+
+  .title {
+    font-size: 2.8rem !important;
+  }
+
+  /* "مش متأكد من أين تبدأ؟" only; the inline artboard size needs the
+     !important. */
+  .start .title {
+    font-size: 2.2rem !important;
+    font-weight: 500 !important;
+  }
+
+  .text {
+    font-size: 1.8rem !important;
+  }
+}

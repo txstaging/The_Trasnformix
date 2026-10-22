@@ -1,71 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import { tajawal } from "@/lib/fonts";
+import { SOCIAL_LINKS } from "@/lib/socialLinks";
+import { getFooterColumns } from "@/lib/footerNavigation";
 import styles from "./Footer.module.css";
 
-/* The 375 footer (Figma 2888:10856) is shorter: no UAE address and no
-   استديو الابداع, with ERP listed last and الشركة after الخدمات. Those entries
-   are flagged here and only moved or dropped by the phone layout. */
 type PhoneLayout = {
   phone?: "hidden" | "last";
 };
 
-type FooterLink = PhoneLayout & {
-  label: string;
-  href: string;
-};
-
-type LinkColumn = PhoneLayout & {
-  title: string;
-  width: number;
-  links: FooterLink[];
-};
-
-/* Right-to-left order, so "الشركة" sits furthest right as on the artboard. */
-const COLUMNS: LinkColumn[] = [
-  {
-    title: "الشركة",
-    width: 123,
-    phone: "last",
-    links: [
-      { label: "من نحن", href: "/about" },
-      { label: "اعمالنا", href: "/works" },
-      { label: "المدونة", href: "#" },
-    ],
-  },
-  {
-    title: "الخدمات",
-    width: 123,
-    links: [
-      { label: "علوم البيانات", href: "#" },
-      { label: "الذكاء الاصطناعي", href: "#" },
-      { label: "استديو الابداع", href: "#", phone: "hidden" },
-      { label: "انظمة ERP ", href: "#", phone: "last" },
-      { label: "تطوير المواقع", href: "#" },
-    ],
-  },
-];
-
-/* Figma 2796:12800 — the القطاعات footer adds this column left of الخدمات. */
-const INDUSTRIES: LinkColumn = {
-  title: "الصناعات",
-  width: 115,
-  links: [
-    { label: "السياحة", href: "/sectors" },
-    { label: "التعليم", href: "/sectors#education" },
-  ],
-};
+const COLUMN_WIDTHS = { company: 123, services: 123, sectors: 115, academy: 115 };
+const LINK_COLUMNS = getFooterColumns("v1");
 
 type Glyph = { src: string; width: number; height: number };
 
 type ContactRow = PhoneLayout & {
   icon: string;
-  /** The 375 footer (Figma 2888:10856) draws its own, smaller glyphs. */
   mobileIcon: Glyph;
   text: string;
   href?: string;
   muted: boolean;
-  /** Artboard underlines the email only. */
   plain?: boolean;
 };
 
@@ -105,10 +59,10 @@ const CONTACT: ContactRow[] = [
 /* Right-to-left: the artboard reads Behance, LinkedIn, Instagram, Facebook from
    left to right, so Facebook leads here to land on the right. */
 const SOCIAL = [
-  { icon: "/icons/social-4.svg", label: "فيسبوك" },
-  { icon: "/icons/social-3.svg", label: "إنستغرام" },
-  { icon: "/icons/social-2.svg", label: "لينكدإن" },
-  { icon: "/icons/social-1.svg", label: "بيهانس" },
+  { icon: "/icons/social-4.svg", label: "فيسبوك", href: SOCIAL_LINKS.facebook },
+  { icon: "/icons/social-3.svg", label: "إنستغرام", href: SOCIAL_LINKS.instagram },
+  { icon: "/icons/social-2.svg", label: "لينكدإن", href: SOCIAL_LINKS.linkedin },
+  { icon: "/icons/social-1.svg", label: "بيهانس", href: SOCIAL_LINKS.behance },
 ];
 
 const rem = (px: number) => `${px / 10}rem`;
@@ -120,42 +74,21 @@ const phoneClass = (item: PhoneLayout) =>
       ? styles.phoneLast
       : undefined;
 
-type FooterProps = {
-  /** `navy` is the footer of the about artboards — Figma 2515:60030 (1440):
-      a #0a1836 ground with the all-white lockup. On phones every variant
-      takes the same single stacked column (Figma 2888:10856). */
-  variant?: "default" | "navy";
-  /** Adds the الصناعات column (Figma 2796:12800). */
-  industries?: boolean;
-};
-
-export function Footer({ variant = "default", industries = false }: FooterProps) {
-  const navy = variant === "navy";
-  const columns = industries ? [...COLUMNS, INDUSTRIES] : COLUMNS;
-
+export function Footer() {
   return (
-    <footer
-      className={[styles.footer, navy && styles.navy, tajawal.variable]
-        .filter(Boolean)
-        .join(" ")}
-    >
+    <footer className={`${styles.footer} ${tajawal.variable}`}>
       <div className={styles.top}>
         <div className={styles.brand}>
           <div className={styles.brandTop}>
-            <Image
-              className={styles.brandLogo}
-              src={navy ? "/icons/logo-footer-light.svg" : "/icons/logo-footer.svg"}
-              alt="Transformix"
-              width={173}
-              height={111}
-            />
-            <Image
-              className={styles.brandLogoMobile}
-              src="/icons/logo-footer-mobile.svg"
-              alt="Transformix"
-              width={140}
-              height={90}
-            />
+            <Link href="/" className={styles.brandHome} aria-label="Transformix — الرئيسية">
+              <Image
+                className={styles.brandLogo}
+                src="/images/logo-wide.png"
+                alt=""
+                width={208}
+                height={70}
+              />
+            </Link>
             <p className={styles.tagline}> حلول رقمية متكاملة تدعم نمو أعمالك</p>
           </div>
 
@@ -164,7 +97,9 @@ export function Footer({ variant = "default", industries = false }: FooterProps)
               <a
                 key={item.icon}
                 className={styles.socialLink}
-                href="#"
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={item.label}
               >
                 <Image src={item.icon} alt="" width={40} height={40} aria-hidden />
@@ -174,22 +109,24 @@ export function Footer({ variant = "default", industries = false }: FooterProps)
         </div>
         <div className={styles.main}>
           <div className={styles.columns}>
-            {columns.map((column) => (
+            {LINK_COLUMNS.map((column) => (
               <div
                 key={column.title}
-                className={[styles.column, phoneClass(column)]
+                className={[styles.column, column.id === "company" && styles.phoneLast]
                   .filter(Boolean)
                   .join(" ")}
-                style={{ width: rem(column.width) }}
+                style={{ width: rem(COLUMN_WIDTHS[column.id]) }}
               >
-                <p className={styles.columnTitle}>{column.title}</p>
+                <p className={styles.columnTitle}><Link href={column.href}>{column.title}</Link></p>
                 <ul className={styles.columnList}>
                   {column.links.map((link) => (
-                    <li key={link.label} className={phoneClass(link)}>
+                    <li key={link.label} className={link.label.includes("ERP") ? styles.phoneLast : undefined}>
                       <Link
                         dir="auto"
                         className={styles.columnLink}
                         href={link.href}
+                        target={link.external ? "_blank" : undefined}
+                        rel={link.external ? "noopener noreferrer" : undefined}
                       >
                         {link.label}
                       </Link>
@@ -200,7 +137,7 @@ export function Footer({ variant = "default", industries = false }: FooterProps)
             ))}
 
             <div className={`${styles.column} ${styles.contact}`}>
-              <p className={styles.columnTitle}>تواصل معنا</p>
+              <p className={styles.columnTitle}><Link href="/contact">تواصل معنا</Link></p>
               {CONTACT.map((row) => {
                 const text = (
                   <span

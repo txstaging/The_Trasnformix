@@ -1,25 +1,14 @@
-/* Figma 2096:4655 "Frame 165" — 1440 x 426 */
+/* Figma 3648:7008 — a 128px band, 49px under the hero's media band. The logo
+   rail starts at the title card's left edge, 21px from the band's top. */
 .section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4.3rem;
-  /* The artboard's parent frame clips the last 58px of the bottom padding,
-     which is what makes the full page measure 9682 rather than 9740. */
-  padding: 10rem 0 4.2rem;
+  --frame-gutter: 2.4rem;
+  --card-width: 30.4rem;
+  --card-right: 0.4rem;
+  position: relative;
+  height: 12.8rem;
+  margin-top: 11rem;
+  overflow: hidden;
   background: var(--bg-main);
-}
-
-.title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 7.5rem;
-  font-size: 4rem;
-  font-weight: 700;
-  color: var(--primary);
-  text-align: center;
 }
 
 /* Logos read the same in either script, so the rail runs left-to-right. The
@@ -28,26 +17,28 @@
    it straight off screen. */
 .viewport {
   direction: ltr;
-  position: relative;
-  width: 100%;
-  height: 10.8rem;
+  position: absolute;
+  left: 0;
+  /* Clip against the card itself, including the centred frame's outer margin. */
+  right: calc(max(var(--frame-gutter), (100% - 124rem) / 2) + var(--card-right) + var(--card-width));
+  top: 2.1rem;
+  height: 10.5rem;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   overflow: hidden;
-  background: var(--bg-main);
 }
 
 /* The rail holds RAIL_COPIES identical sets and travels exactly one set per
    cycle, so the seam is invisible and the strip is never empty — one set is
-   ~2153px, so four sets keep even an ultra-wide viewport covered throughout. */
+   ~2243px, so four sets keep even an ultra-wide viewport covered throughout. */
 .track {
   display: flex;
   gap: 0.1rem;
-  height: 7rem;
+  height: 10.5rem;
   width: max-content;
   will-change: transform;
-  animation: marquee 42s linear infinite;
+  animation: marquee 44s linear infinite;
 }
 
 .viewport:hover .track {
@@ -63,19 +54,16 @@
   }
 }
 
-/* --cell-scale narrows every cell alike on phones. */
 .cell {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   min-width: calc(var(--cell) * var(--cell-scale, 1));
-  height: 7rem;
-  padding-block: 2.4rem;
+  height: 100%;
+  padding-block: 1rem;
 }
 
-/* Each logo keeps its artboard frame; --logo-scale enlarges every frame
-   alike on smaller screens. */
 .logo {
   position: relative;
   flex-shrink: 0;
@@ -94,7 +82,6 @@
   object-fit: cover;
 }
 
-/* One logo is cropped inside its frame on the artboard. */
 .cropped {
   overflow: hidden;
 }
@@ -109,59 +96,101 @@
   object-fit: fill;
 }
 
+/* The 1240 artboard column the card is pinned to. */
+.frame {
+  position: relative;
+  width: 124rem;
+  max-width: calc(100% - 2 * var(--frame-gutter));
+  height: 100%;
+  margin-inline: auto;
+  pointer-events: none;
+}
+
+.card {
+  position: absolute;
+  right: var(--card-right);
+  top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--card-width);
+  height: 11.8rem;
+  padding-block: 3.6rem;
+  background: var(--bg-main);
+  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.15);
+  pointer-events: auto;
+}
+
+.title {
+  width: 21.9rem;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #193d8a;
+  text-align: right;
+  word-break: break-word;
+}
+
 @media (max-width: 1024px) {
   .section {
-    padding: 8rem 0;
-    gap: 3.2rem;
+    --frame-gutter: var(--gutter);
+    --card-width: 22rem;
+    --card-right: 0rem;
+    height: 12rem;
+    margin-top: 4rem;
+  }
+
+  .viewport {
+    top: 1.5rem;
+    height: 9rem;
+    --logo-scale: 0.8;
+    --cell-scale: 0.7;
+  }
+
+  .track {
+    height: 9rem;
+    animation-duration: 32s;
+  }
+
+  .card {
+    top: 1rem;
+    height: 10rem;
+    padding-block: 2rem;
   }
 
   .title {
-    height: auto;
-    font-size: 3rem;
-  }
-
-  /* The tallest logo grows to ~117px, so the rail is heightened to match. */
-  .viewport {
-    --logo-scale: 1.5;
-    height: 14rem;
-  }
-
-  .track,
-  .cell {
-    height: 12.4rem;
-  }
-
-  .cell {
-    padding-block: 0;
+    width: 17rem;
+    font-size: 2rem;
   }
 }
 
-/* Figma 2836:26935 (phone) — a 12px title over a 54 tall rail of logos at
-   about three quarters of their desktop size, in cells ~120 wide. */
 @media (max-width: 640px) {
   .section {
-    gap: 1.15rem;
-    padding: 1.3rem 0;
-  }
-
-  .title {
-    height: 2rem;
-    font-size: 1.2rem;
+    --card-width: 13rem;
+    height: 8rem;
+    margin-top: 2.4rem;
   }
 
   .viewport {
-    --logo-scale: 0.75;
+    top: 1rem;
+    height: 6rem;
+    --logo-scale: 0.5;
     --cell-scale: 0.42;
-    height: 5.4rem;
   }
 
-  .track,
-  .cell {
-    height: 5.4rem;
-  }
-
-  /* A set is ~900px at this scale; 18s keeps the desktop's ~50px/s pace. */
   .track {
+    height: 6rem;
+    /* A set is ~940px at this scale; 18s keeps the desktop's ~50px/s pace. */
     animation-duration: 18s;
+  }
+
+  .card {
+    top: 0.8rem;
+    height: 6.4rem;
+    padding-block: 1rem;
+  }
+
+  .title {
+    width: 10.4rem;
+    font-size: 1.2rem;
   }
 }

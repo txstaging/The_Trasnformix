@@ -1,0 +1,25 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
+  width: 100%;
+}
+
+.footnote {
+  width: 100%;
+  font-size: 1.6rem;
+  line-height: 1.95;
+  color: var(--v2-text-muted);
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .section {
+    gap: 2.4rem;
+  }
+
+  .footnote {
+    font-size: 1.4rem;
+  }
+}

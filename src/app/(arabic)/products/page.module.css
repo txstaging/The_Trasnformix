@@ -1,0 +1,7 @@
+/* Figma 3817:48356 — 245 x 60, an 18px label 16 from its disc. */
+.heroCta {
+  --pill-w: 24.5rem;
+  --pill-gap: 1.6rem;
+  --pill-size: 1.8rem;
+  height: 6rem;
+}

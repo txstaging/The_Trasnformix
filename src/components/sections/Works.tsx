@@ -1,28 +1,18 @@
-import Image from "next/image";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import { Reveal } from "@/components/ui/Reveal";
+import { SOCIAL_LINKS } from "@/lib/socialLinks";
+import { WorksCarousel, type WorkCarouselProject } from "./works/WorksCarousel";
 import styles from "./Works.module.css";
-
-type WorkCard = {
-  name: string;
-  src: string;
-  href: string;
-  /** Crop of the still inside the 604 x 391 frame, in artboard px. */
-  crop: { left: number; top: number; width: number; height: number };
-};
 
 type WorkRow = {
   category: string;
-  /** Distance from the top of the section on the artboard. */
-  top: number;
-  cards: WorkCard[];
+  cards: Omit<WorkCarouselProject, "category">[];
 };
 
-/* Cards are listed right-to-left, matching how they read on the artboard. */
+/* Keep the original projects and their artwork crops in category order. */
 const ROWS: WorkRow[] = [
   {
     category: "الهوية البصرية",
-    top: 222,
     cards: [
       {
         name: "د. ريم بخيت",
@@ -40,17 +30,16 @@ const ROWS: WorkRow[] = [
   },
   {
     category: "التسويق الرقمي",
-    top: 744,
     cards: [
       {
-        name: "أكاديمية الإلهام الاجتماعي",
-        src: "/images/work-ilham.png",
+        name: " My Horizon",
+        src: "/images/0f005d05928a27d068e368df65b07a5b029fb3eb.jpg",
         href: "/works",
         crop: { left: -27, top: 0, width: 631, height: 631 },
       },
       {
-        name: "ميرماتس | Mermates",
-        src: "/images/work-mermates-marketing.png",
+        name: " Chi Academy",
+        src: "/images/9f3ec8504138b3df6b6a0816efeda8a71a136318.jpg",
         href: "/works",
         crop: { left: 0, top: -65, width: 604, height: 495 },
       },
@@ -58,17 +47,16 @@ const ROWS: WorkRow[] = [
   },
   {
     category: "تطوير المواقع",
-    top: 1244,
     cards: [
       {
-        name: "رزانا البخاري",
-        src: "/images/work-razana.png",
+        name: "Diomedea",
+        src: "/images/32d6b6238ff2978730e869b3ca67b2b8bb4432c1.jpg",
         href: "/works",
         crop: { left: -21, top: -26, width: 625, height: 469 },
       },
       {
-        name: "ميرماتس | Mermates",
-        src: "/images/work-mermates-web.png",
+        name: "Guide | دليل",
+        src: "/images/2837df4cb22aca59a822c310b1a9181cde40ea1f.png",
         href: "/works",
         crop: { left: 0, top: 2, width: 604, height: 494 },
       },
@@ -76,78 +64,32 @@ const ROWS: WorkRow[] = [
   },
 ];
 
-const rem = (px: number) => `${px / 10}rem`;
+const PROJECTS = ROWS.flatMap(({ category, cards }) =>
+  cards.map((card) => ({ ...card, category })),
+);
 
 export function Works() {
   return (
-    <section id="works" className={styles.section}>
+    <section
+      id="works"
+      className={styles.section}
+      aria-labelledby="works-title"
+    >
       <div className={styles.stage}>
-        <Reveal as="h2" className={styles.title}>
+        <Reveal as="h2" id="works-title" className={styles.title}>
           أعمال تحكي كيف نفكر
         </Reveal>
 
-        {ROWS.map((row) => (
-          <div
-            key={row.category}
-            className={styles.row}
-            style={{ top: rem(row.top) }}
-          >
-            <div className={styles.rowHead}>
-              <h3 className={styles.rowTitle}>{row.category}</h3>
-            </div>
+        <WorksCarousel projects={PROJECTS} />
 
-            <div className={styles.cards}>
-              {row.cards.map((card, index) => (
-                <Reveal
-                  key={`${row.category}-${card.name}`}
-                  as="a"
-                  href={card.href}
-                  className={styles.card}
-                  delay={index * 140}
-                >
-                  <Image
-                    className={styles.cardImage}
-                    src={card.src}
-                    alt={card.name}
-                    width={card.crop.width}
-                    height={card.crop.height}
-                    style={{
-                      left: rem(card.crop.left),
-                      top: rem(card.crop.top),
-                      width: rem(card.crop.width),
-                      height: rem(card.crop.height),
-                    }}
-                  />
-
-                  <span className={styles.caption}>
-                    <span className={styles.captionRow}>
-                      <span dir="auto" className={styles.captionText}>
-                        {card.name}
-                      </span>
-                      <Image
-                        className={styles.captionIcon}
-                        src="/icons/lucide-external-link.svg"
-                        alt=""
-                        width={29}
-                        height={29}
-                        aria-hidden
-                      />
-                    </span>
-                  </span>
-                </Reveal>
-              ))}
-            </div>
-
-            <ArrowLink
-              href="https://www.behance.net/Futureexperts"
-              size="lg"
-              icon="/icons/arrow-more.svg"
-              className={styles.more}
-            >
-              عرض المزيد
-            </ArrowLink>
-          </div>
-        ))}
+        <ArrowLink
+          href={SOCIAL_LINKS.behance}
+          size="lg"
+          icon="/icons/arrow-more.svg"
+          className={styles.more}
+        >
+          عرض المزيد
+        </ArrowLink>
       </div>
     </section>
   );

@@ -1,0 +1,209 @@
+/* Figma 3642:6426 — the hero starts under the floating navbar (34 + 83px), so
+   its copy sits 107px into the section (224px on the artboard) and the media
+   band 515px in (632px on the artboard), leaving space below the buttons. */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 107.9rem;
+  background: var(--bg-main);
+  overflow: hidden;
+}
+
+/* Centred on the page rather than pinned at the artboard's x, so the copy
+   stays on the centre line at any viewport width. */
+.content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10.7rem;
+  width: 89.9rem;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.8rem;
+  width: 100%;
+  text-align: center;
+}
+
+.title {
+  width: 100%;
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--primary);
+  word-break: break-word;
+}
+
+.lead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  color: var(--text-primary);
+}
+
+.subtitle {
+  min-height: 4.5rem;
+  font-size: 2.4rem;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+/* Keep the introduction centered within the hero's copy area. */
+.text {
+  display: block;
+  min-height: 10.5rem;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  word-break: break-word;
+}
+
+.textEnding {
+  display: block;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.primaryAction {
+  --pill-w: 31.6rem;
+  --pill-gap: 1.6rem;
+  --pill-size: 1.8rem;
+  height: 6rem;
+}
+
+.video {
+  position: absolute;
+  left: 50%;
+  top: 51.5rem;
+  width: min(144rem, calc(100% - 2.4rem));
+  height: 56.4rem;
+  transform: translateX(-50%);
+  overflow: hidden;
+  background:
+    radial-gradient(120% 140% at 50% 0%, #eef2fa 0%, #ffffff 62%);
+}
+
+/* Fill the band's width, cropping the taller 16:9 frame evenly above and below. */
+.video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (min-width: 1025px) {
+  .text {
+    max-width: 89.9rem;
+    text-wrap: wrap;
+  }
+
+  .textLine {
+    display: block;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    height: auto;
+    padding-top: 6.4rem;
+  }
+
+  .content {
+    position: static;
+    width: min(100rem, 100%);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .title {
+    font-size: 3.2rem;
+  }
+
+  .subtitle,
+  .text {
+    min-height: 0;
+    font-size: 2rem;
+  }
+
+  /* Holds the artboard ratio once the band stops being pinned inside the
+     fixed-height hero. */
+  .video {
+    position: relative;
+    left: auto;
+    top: auto;
+    height: auto;
+    transform: none;
+    aspect-ratio: 1240 / 564;
+    margin: 6.4rem auto 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 2.4rem;
+  }
+
+  .content {
+    gap: 1.6rem;
+    padding-inline: var(--gutter);
+    --pill-w: auto;
+    --pill-pad: 0.95rem 1.4rem;
+    --pill-gap: 1rem;
+    --pill-size: 1.2rem;
+    --pill-lh: 1.8rem;
+    --pill-disc: 2rem;
+    --pill-disc-pad: 0.4rem;
+    --pill-arrow: 1.2rem;
+  }
+
+  .copy {
+    gap: 0.8rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle,
+  .text {
+    font-size: 1.4rem;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.2rem;
+  }
+
+  .primaryAction {
+    --pill-w: auto;
+    --pill-gap: 1rem;
+    --pill-size: 1.2rem;
+    height: auto;
+  }
+
+  .video {
+    aspect-ratio: 346 / 184;
+    margin-top: 6.4rem;
+  }
+}
+
+/* English copy flows naturally while preserving the video dimensions. */
+@media (min-width: 1025px) {
+  .hero { height: auto; padding-top: 10.7rem; }
+  .content { position: relative; top: auto; }
+  .video { position: relative; left: auto; top: auto; transform: none; margin: 8rem auto 0; }
+}

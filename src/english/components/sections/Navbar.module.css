@@ -1,0 +1,567 @@
+/* Full-width version of the original floating, rounded navigation bar. */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  width: 100%;
+  padding-top: 1.6rem;
+  background: transparent;
+  pointer-events: none;
+  transition:
+    padding-top var(--dur) var(--ease-out),
+    background-color var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+/* Once the page has scrolled the bar rides closer to the top and lifts a
+   little further off the page. */
+.scrolled {
+  padding-top: 1.2rem;
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  width: 100%;
+  max-width: 100%;
+  height: 8.3rem;
+  margin-inline: auto;
+  padding-inline: clamp(2.4rem, 3vw, 6rem);
+  border: 0.1rem solid #def0fd;
+  border-radius: 2rem;
+  background: var(--bg-main);
+  -webkit-backdrop-filter: blur(0);
+  backdrop-filter: blur(0);
+  box-shadow:
+    -0.4rem -0.4rem 0.4rem rgba(0, 0, 0, 0.06),
+    0.4rem 0.4rem 0.4rem rgba(0, 0, 0, 0.06);
+  pointer-events: auto;
+  transition:
+    background-color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out),
+    backdrop-filter var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.scrolled .inner {
+  border-color: rgba(222, 240, 253, 0.65);
+  background: rgba(255, 255, 255, 0.78);
+  -webkit-backdrop-filter: blur(1.8rem) saturate(140%);
+  backdrop-filter: blur(1.8rem) saturate(140%);
+  box-shadow:
+    -0.4rem -0.4rem 0.4rem rgba(0, 0, 0, 0.06),
+    0.4rem 0.4rem 0.4rem rgba(0, 0, 0, 0.06),
+    0 1.2rem 3.2rem rgba(28, 68, 153, 0.12);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 17.4rem;
+  height: 5.8rem;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.logo:hover {
+  transform: scale(1.04);
+}
+
+.logoWide {
+  width: 17.4rem;
+  height: 5.8rem;
+  object-fit: contain;
+}
+
+.logoCompact,
+.logoBar {
+  display: none;
+}
+
+/* Keep navigation in the space between the logo and consultation button. */
+.nav {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  justify-content: center;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+.itemMenu {
+  position: relative;
+}
+
+.itemMenu::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  inset-inline: -0.8rem;
+  height: 1.8rem;
+}
+
+/* Row order, not row-reverse: the artboard puts the chevron on the *left* of
+   the label (Figma 2096:4516 — icon at x 0, text at x 20). */
+.link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -0.4rem;
+  width: 0;
+  height: 0.15rem;
+  background: var(--primary);
+  transition: width var(--dur) var(--ease-out);
+}
+
+.link:hover {
+  color: var(--primary);
+}
+
+.link:hover::after {
+  width: 100%;
+}
+
+.chevron {
+  width: 1.6rem;
+  height: 1.6rem;
+  flex-shrink: 0;
+  transform-origin: center;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.trigger[aria-expanded="true"] {
+  color: var(--primary);
+}
+
+.trigger[aria-expanded="true"]::after {
+  width: 100%;
+}
+
+.trigger[aria-expanded="true"] .chevron {
+  transform: rotate(180deg);
+}
+
+.active {
+  color: var(--primary);
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: 7.5%;
+  text-underline-offset: 0.2rem;
+}
+
+.active::after {
+  display: none;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 21rem;
+  margin: 0;
+  padding: 0.8rem;
+  list-style: none;
+  background: var(--bg-main);
+  outline: 0.1rem solid rgba(0, 0, 0, 0.1);
+  outline-offset: -0.1rem;
+  border-radius: 1.2rem;
+  box-shadow:
+    0 10rem 4rem rgba(0, 0, 0, 0.07),
+    0 4.1778rem 1.6711rem rgba(0, 0, 0, 0.05),
+    0 2.2336rem 0.8935rem rgba(0, 0, 0, 0.04),
+    0 1.2522rem 0.5009rem rgba(0, 0, 0, 0.04),
+    0 0.665rem 0.266rem rgba(0, 0, 0, 0.03),
+    0 0.2767rem 0.1107rem rgba(0, 0, 0, 0.02);
+}
+
+.menuLink {
+  display: block;
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.8rem;
+  font-size: 1.6rem;
+  line-height: 1.85;
+  text-align: start;
+  color: var(--menu-text);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.menuServices {
+  width: 31rem;
+  max-width: calc(100vw - 4rem);
+  outline-color: #dce7f4;
+}
+
+.menuServices .menuLink {
+  padding-block: 1rem;
+}
+
+.menuLink:hover,
+.menuLink:focus-visible,
+.menuLinkActive {
+  background: var(--menu-hover);
+  color: var(--menu-text-active);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 1.6rem);
+  right: 0.8rem;
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.8rem);
+  transition:
+    opacity var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out),
+    visibility var(--dur);
+}
+
+.dropdownOpen {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.cta {
+  flex-shrink: 0;
+}
+
+.burger {
+  display: none;
+  position: absolute;
+  left: 2.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4.4rem;
+  height: 4.4rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.burger:hover {
+  background: var(--blue-light);
+}
+
+.burger img {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.burgerBars {
+  display: none;
+}
+
+.sheet {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  /* Small screens retain the full-width mobile bar and menu. */
+  .header,
+  .scrolled {
+    padding-top: 0;
+    pointer-events: auto;
+  }
+
+  .inner,
+  .scrolled .inner {
+    width: 100%;
+    display: block;
+    max-width: 100%;
+    height: 9.6rem;
+    padding-inline: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+
+  .burger {
+    display: flex;
+    left: 2.2rem;
+    top: 2.6rem;
+    transform: none;
+  }
+
+  .nav,
+  .cta {
+    display: none;
+  }
+
+  .logo {
+    position: absolute;
+    right: 3.7rem;
+    top: 3.5rem;
+    width: 4.6991rem;
+    height: 3.5rem;
+    transform: none;
+  }
+
+  .logoWide {
+    display: none;
+  }
+
+  .logoCompact {
+    display: block;
+    width: 4.6991rem;
+    height: 3.5rem;
+  }
+
+  .header {
+    background-color: var(--bg-main);
+  }
+
+  .header.scrolled {
+    background-color: rgba(255, 255, 255, 0.78);
+    -webkit-backdrop-filter: blur(1.8rem) saturate(140%);
+    backdrop-filter: blur(1.8rem) saturate(140%);
+  }
+
+  /* A backdrop-filter makes the header the containing block of everything
+     inside it, which would pin the fixed sheet to the 96px bar. */
+  .header:has(.sheetOpen) {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  /* Figma 2164:28439 "Navbar 9" — a white panel with a 20px gutter and a 30px
+     gap under the close cross. Drawn 390 x 468; it takes the whole viewport
+     here so nothing of the page shows through its plain white ground. */
+  .sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 2rem;
+    background: var(--bg-main);
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-1.2rem);
+    transition:
+      opacity var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out),
+      visibility var(--dur);
+  }
+
+  .sheetOpen {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .close {
+    position: relative;
+    align-self: flex-end; /* RTL: the panel's left edge. */
+    width: 4rem;
+    height: 3.1rem;
+    flex-shrink: 0;
+  }
+
+  .close span {
+    position: absolute;
+    left: 0;
+    top: 1.35rem;
+    width: 4rem;
+    height: 0.4rem;
+    border-radius: 0.3rem;
+    background: var(--ocean-blue);
+    transition: background-color var(--dur-fast) var(--ease-out);
+  }
+
+  .close span:first-child {
+    transform: rotate(45deg);
+  }
+
+  .close span:last-child {
+    transform: rotate(-45deg);
+  }
+
+  .close:hover span {
+    background: var(--blue-dark);
+  }
+
+  .sheetList {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sheetItem {
+    width: 100%;
+  }
+
+  .sheetLink {
+    display: block;
+    font-size: 1.8rem;
+    color: var(--ocean-dark);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .sheetActive,
+  .sheetLink:hover {
+    color: var(--ocean-blue);
+  }
+
+  /* The label sits flush right and the chevron flush left, so in RTL the two
+     ends of a space-between row. */
+  .sheetTrigger {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.8rem;
+    color: var(--ocean-dark);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .sheetTrigger:hover,
+  .sheetTrigger[aria-expanded="true"] {
+    color: var(--ocean-blue);
+  }
+
+  .sheetChevron {
+    width: 1.6rem;
+    height: 1.6rem;
+    flex-shrink: 0;
+    transform-origin: center;
+    transition: transform var(--dur) var(--ease-out);
+  }
+
+  .sheetTrigger[aria-expanded="true"] .sheetChevron {
+    transform: rotate(180deg);
+  }
+
+  .menu.sheetMenu {
+    overflow: hidden;
+    max-height: 0;
+    margin-top: 0;
+    margin-inline-end: auto; /* RTL: hold it against the right edge. */
+    padding-block: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      max-height var(--dur) var(--ease-out),
+      margin-top var(--dur) var(--ease-out),
+      padding var(--dur) var(--ease-out),
+      visibility var(--dur),
+      opacity var(--dur) var(--ease-out);
+  }
+
+  .menu.sheetMenuOpen {
+    max-height: 38rem;
+    margin-top: 1.2rem;
+    padding-block: 0.8rem;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .sheetCtaItem {
+    display: flex; /* RTL: flex-start keeps the pill flush right. */
+  }
+}
+
+@media (max-width: 1024px) {
+  .inner > :global([data-language-switch]) {
+    position: absolute;
+    left: 50%;
+    top: 3rem;
+    transform: translateX(-50%);
+  }
+
+  .slim .inner > :global([data-language-switch]) {
+    top: 1.8rem;
+  }
+
+  .slim {
+    background-color: var(--bg-main);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: inset 0 -0.1rem 0 #f3f4f6;
+  }
+
+  .slim .inner {
+    height: 7.2rem;
+  }
+
+  .slim .burger {
+    left: 2.05rem;
+    top: 0.85rem;
+  }
+
+  .slim .burgerGlyph {
+    display: none;
+  }
+
+  .slim .burgerBars {
+    display: block;
+    width: 2.1rem;
+    height: 2.4rem;
+  }
+
+  .slim .logo {
+    right: 3.1rem;
+    top: 0.9rem;
+    width: 6rem;
+    height: 5.3rem;
+  }
+
+  .slim .logoCompact {
+    display: none;
+  }
+
+  .slim .logoBar {
+    display: block;
+    width: 6rem;
+    height: 5.3rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .inner { gap: 1.2rem; }
+  .list { gap: 24px; }
+  .link { font-size: 1.6rem; }
+  .cta { --pill-size: 1.4rem; --pill-gap: 1.4rem; }
+}
+@media (max-width: 1024px) {
+  .logo, .slim .logo { right: auto; left: 3rem; }
+  .burger, .slim .burger { left: auto; right: 2rem; }
+}

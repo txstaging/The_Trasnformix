@@ -1,0 +1,261 @@
+.carousel {
+  --center-width: 60.4rem;
+  --center-height: calc(var(--center-width) * 391 / 604);
+  --side-width: calc(var(--center-width) * 0.64);
+  --side-height: calc(var(--center-height) * 0.98);
+  --carousel-gap: 6.4rem;
+  --carousel-depth: 20rem;
+  width: 100%;
+}
+
+.viewport {
+  position: relative;
+  width: 100%;
+  height: calc(var(--center-height) + 10rem);
+  overflow: hidden;
+  perspective: calc(var(--center-width) * 0.8);
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.viewport:active {
+  cursor: grabbing;
+}
+
+.viewport:focus-visible {
+  outline-offset: -0.4rem;
+}
+
+/* Match the reference's fixed, progressively masked blur at both edges. */
+.viewport::before,
+.viewport::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 25%;
+  backdrop-filter: blur(2.4rem);
+  -webkit-backdrop-filter: blur(2.4rem);
+  pointer-events: none;
+}
+
+.viewport::before {
+  left: 0;
+  mask-image: linear-gradient(to right, #000, transparent);
+  -webkit-mask-image: linear-gradient(to right, #000, transparent);
+}
+
+.viewport::after {
+  right: 0;
+  mask-image: linear-gradient(to left, #000, transparent);
+  -webkit-mask-image: linear-gradient(to left, #000, transparent);
+}
+
+.scene {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 0;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+}
+
+.card {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-style: preserve-3d;
+}
+
+.cardLink {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 0.1rem solid var(--text-inverse-li);
+  border-radius: 1rem;
+  background: var(--bg-card);
+  box-shadow: 0 1.8rem 4rem -2.4rem rgba(21, 51, 115, 0.3);
+  cursor: inherit;
+  -webkit-user-drag: none;
+}
+
+.cardLink:focus-visible {
+  outline-offset: -0.4rem;
+}
+
+.cardImage {
+  position: absolute;
+  max-width: none;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 1.2rem 2.4rem;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(0.6rem);
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.captionCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.category {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.projectName {
+  overflow: hidden;
+  font-size: 1.8rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.captionIcon {
+  flex-shrink: 0;
+  width: 2.9rem;
+  height: 2.9rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+  padding-inline: var(--gutter);
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 4.8rem;
+  height: 4.8rem;
+  border: 0.1rem solid var(--blue-light-active);
+  border-radius: 50%;
+  color: var(--primary);
+  font-family: Arial, sans-serif;
+  font-size: 2.6rem;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.arrow:hover {
+  background: var(--blue-light);
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+}
+
+.pageButton {
+  display: grid;
+  place-items: center;
+  width: 4.4rem;
+  height: 4.4rem;
+}
+
+.dot {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 99.9rem;
+  background: var(--blue-light-active);
+  transition:
+    width var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.pageButton[aria-current="true"] .dot {
+  width: 2.4rem;
+  background: var(--primary);
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 1024px) {
+  .carousel {
+    --center-width: min(60.4rem, 74vw);
+    --carousel-gap: 4rem;
+    --carousel-depth: 16rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .carousel {
+    --center-width: calc(100vw - 2 * var(--gutter) - 4.8rem);
+    --carousel-gap: 2.4rem;
+    --carousel-depth: 10rem;
+  }
+
+  .viewport {
+    height: calc(var(--center-height) + 8rem);
+  }
+
+  .viewport::before,
+  .viewport::after {
+    width: 18%;
+    backdrop-filter: blur(1.4rem);
+    -webkit-backdrop-filter: blur(1.4rem);
+  }
+
+  .caption {
+    gap: 0.8rem;
+    padding: 0.8rem 1.2rem;
+  }
+
+  .category {
+    font-size: 1rem;
+  }
+
+  .projectName {
+    font-size: 1.3rem;
+  }
+
+  .captionIcon {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .controls {
+    gap: 0.4rem;
+  }
+
+  .arrow {
+    width: 4.4rem;
+    height: 4.4rem;
+  }
+
+  .pageButton {
+    width: 3rem;
+  }
+}

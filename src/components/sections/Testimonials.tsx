@@ -1,157 +1,183 @@
+"use client";
+
 import Image from "next/image";
-import type { CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { tajawal } from "@/lib/fonts";
 import styles from "./Testimonials.module.css";
 
-/* Where "رؤية جميع الاراء" leads.
-   NOTE: the artboard gives it no target — point it at the reviews page or
-   profile once there is one. */
-const ALL_REVIEWS_HREF = "#";
-
-type Box = { right: number; top: number };
-
 type Review = {
   quote: string;
   name: string;
-  /** Second caption line (source or role), where drawn. */
-  meta?: { text: string; size: number } & Box;
-  /** Card width on the artboard; the three are not the same. */
-  width: number;
-  radius: number;
-  /** Only the right-hand card carries the drop shadow. */
-  raised?: boolean;
-  stars: { src: string; width: number; height: number } & Box;
-  quoteBox: { width: number; height: number; size: number } & Box;
-  avatar: { src: string; width: number; height: number; round: boolean } & Box;
-  nameBox: Box;
+  avatar: { src: string; size: number; round: boolean };
 };
 
-/* Figma 2150:25508, right-to-left. Every offset is measured from the card's
-   right edge, where the RTL copy is anchored, in artboard px. */
 const REVIEWS: Review[] = [
-  {
-    quote:
-      "بصفتي مدربة أسرية معتمدة، كنت أسعى لتعزيز علامتي التجارية الشخصية والتواصل مع المزيد من العائلات التي تحتاج إلى التوجيه. كان العمل مع شركة FUEX Solutions بمثابة نقطة تحول بالنسبة لي. فقد أدى نهجهم الاستراتيجي في التسويق عبر وسائل التواصل الاجتماعي إلى نمو ملحوظ بنسبة %134.5 في عدد متابعي خلال ثلاثة أسابيع فقط",
-    name: "د/ ريم بخيت",
-    meta: { text: "مستشارة اجتماعية", size: 14, right: 83, top: 289 },
-    width: 382,
-    radius: 8,
-    raised: true,
-    stars: { src: "/icons/stars-5-compact.svg", width: 96, height: 16, right: 28, top: 28 },
-    quoteBox: { width: 325, height: 134, size: 13, right: 28, top: 78 },
-    avatar: { src: "/images/review-reem.png", width: 43, height: 43, round: false, right: 28, top: 267 },
-    nameBox: { right: 84, top: 261 },
-  },
   {
     quote:
       "يسعنا إلا أن نتقدم بجزيل الشكر لوكالتكم التسويقية على خدماتها المتميزة. لقد ساهمت أفكار فريقكم الإبداعية ونهجهم القائم على البيانات في تحقيق نتائج باهرة في فترة وجيزة. ارتفع تفاعل متابعينا على وسائل التواصل الاجتماعي بشكل ملحوظ، واكتسبت علامتنا التجارية قاعدة جماهيرية وفية.",
     name: "يسرى بوغوس",
-    width: 427.84,
-    radius: 8.96,
-    stars: { src: "/icons/stars-5.svg", width: 107.52, height: 17.92, right: 31.36, top: 31.36 },
-    quoteBox: { width: 368, height: 174, size: 14, right: 38.84, top: 87 },
-    avatar: { src: "/images/review-yosra.png", width: 47.712, height: 47.712, round: true, right: 31.128, top: 254 },
-    nameBox: { right: 82.84, top: 256 },
+    avatar: { src: "/images/review-yosra.png", size: 47.712, round: true },
+  },
+  {
+    quote:
+      "بصفتي مدربة أسرية معتمدة، كنت أسعى لتعزيز علامتي التجارية الشخصية والتواصل مع المزيد من العائلات التي تحتاج إلى التوجيه. كان العمل مع شركة FUEX Solutions بمثابة نقطة تحول بالنسبة لي. فقد أدى نهجهم الاستراتيجي في التسويق عبر وسائل التواصل الاجتماعي إلى نمو ملحوظ بنسبة %134.5 في عدد متابعي خلال ثلاثة أسابيع فقط",
+    name: "د/ ريم بخيت",
+    avatar: { src: "/images/review-reem.png", size: 43, round: false },
   },
   {
     quote:
       "لقد فاقت وكالة Fuex توقعاتي بخدماتها المتميزة فريقهم محترف، سريع الاستجابة، ويفهم تماما احتياجات عملائهم. لقد قدموا نتائج عالية الجودة في الوقت المحدد، وكان لإبداعهم وخبرتهم أثر بالغ. أوصي بشدة بوكالة Fuex لكل من يبحث عن حلول تسويقية من الطراز الأول.",
     name: "د/روزانا البخاري",
-    meta: { text: "عبر بيكسفورت.", size: 11.3, right: 55, top: 279 },
-    width: 427.84,
-    radius: 8.96,
-    stars: { src: "/icons/stars-5.svg", width: 107.52, height: 17.92, right: 31.36, top: 31.36 },
-    quoteBox: { width: 376, height: 174, size: 14, right: 30.92, top: 87 },
-    avatar: { src: "/images/review-rozana.png", width: 20, height: 22, round: true, right: 31, top: 254 },
-    nameBox: { right: 55, top: 245 },
+    avatar: { src: "/images/review-rozana.png", size: 43, round: true },
   },
 ];
 
+const COUNT = REVIEWS.length;
+/* Three copies let the neighbours peek in on both sides and let the loop wrap
+   without a visible jump. */
+const SLIDES = [...REVIEWS, ...REVIEWS, ...REVIEWS];
+/** How long each review stays centred before the next one slides in. */
+const DISPLAY_MS = 4000;
+const SLIDE_MS = 700;
+
 const rem = (px: number) => `${px / 10}rem`;
 
-const at = (prefix: string, box: Box) => ({
-  [`--${prefix}-r`]: rem(box.right),
-  [`--${prefix}-t`]: rem(box.top),
-});
-
+/* Compact reviews stay centered, with neighbouring cards peeking in. */
 export function Testimonials() {
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const slideRef = useRef<HTMLElement>(null);
+  const [metrics, setMetrics] = useState({ viewport: 960, slide: 720, gap: 24 });
+  const [position, setPosition] = useState(COUNT);
+  const [animated, setAnimated] = useState(false);
+
+  const activeIndex = position % COUNT;
+  const step = metrics.slide + metrics.gap;
+  const offset = (metrics.viewport - metrics.slide) / 2;
+
+  const goTo = (target: number) => {
+    setAnimated(true);
+    setPosition(target);
+  };
+
+  /* Track the real card and gap sizes — they follow the rem scale. */
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+    const measure = () => {
+      const slide = slideRef.current;
+      const track = slide?.parentElement;
+      if (!slide || !track) return;
+      setMetrics({
+        viewport: viewport.clientWidth,
+        slide: slide.offsetWidth,
+        gap: parseFloat(getComputedStyle(track).columnGap) || 0,
+      });
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(viewport);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const normalized = COUNT + (position % COUNT);
+
+    // After sliding into an outer copy, jump back to the middle copy unseen.
+    if (normalized !== position) {
+      const settle = setTimeout(() => {
+        setAnimated(false);
+        setPosition(normalized);
+      }, SLIDE_MS);
+      return () => clearTimeout(settle);
+    }
+
+    // Each review stays on screen for DISPLAY_MS once it has slid into place.
+    const next = setTimeout(
+      () => {
+        setAnimated(true);
+        setPosition(normalized + 1);
+      },
+      (animated ? SLIDE_MS : 0) + DISPLAY_MS,
+    );
+    return () => clearTimeout(next);
+  }, [position, animated]);
+
   return (
     <section
       className={`${styles.section} ${tajawal.variable}`}
       aria-labelledby="reviews-heading"
     >
       <Reveal as="h2" id="reviews-heading" className={styles.title}>
-        تجارب حقيقية مع حلول AI تصنع فرقًا
+        ما يقوله شركاؤنا وعملاؤنا
       </Reveal>
 
-      <div className={styles.stage}>
-        <div className={styles.plate} aria-hidden />
-
-        <div className={styles.cards}>
-          {REVIEWS.map((review, index) => (
-            <Reveal
-              as="figure"
-              key={review.name}
-              className={[styles.card, review.raised && styles.raised]
-                .filter(Boolean)
-                .join(" ")}
-              delay={index * 120}
-              style={
-                {
-                  "--card-w": rem(review.width),
-                  "--radius": rem(review.radius),
-                  ...at("stars", review.stars),
-                  "--stars-w": rem(review.stars.width),
-                  "--stars-h": rem(review.stars.height),
-                  ...at("q", review.quoteBox),
-                  "--q-w": rem(review.quoteBox.width),
-                  "--q-h": rem(review.quoteBox.height),
-                  "--q-size": rem(review.quoteBox.size),
-                  ...at("av", review.avatar),
-                  "--av-w": rem(review.avatar.width),
-                  "--av-h": rem(review.avatar.height),
-                  ...at("name", review.nameBox),
-                  ...(review.meta && {
-                    ...at("meta", review.meta),
-                    "--meta-size": rem(review.meta.size),
-                  }),
-                } as CSSProperties
-              }
-            >
-              <Image
-                className={styles.stars}
-                src={review.stars.src}
-                alt="تقييم 5 من 5"
-                width={Math.round(review.stars.width)}
-                height={Math.round(review.stars.height)}
-              />
-              <blockquote className={styles.quote}>
-                <p>{review.quote}</p>
-              </blockquote>
-              <figcaption className={styles.caption}>
-                <Image
-                  className={[styles.avatar, review.avatar.round && styles.round]
-                    .filter(Boolean)
-                    .join(" ")}
-                  src={review.avatar.src}
-                  alt=""
-                  width={Math.round(review.avatar.width)}
-                  height={Math.round(review.avatar.height)}
-                />
-                <span className={styles.name}>{review.name}</span>
-                {review.meta && (
-                  <span className={styles.meta}>{review.meta.text}</span>
-                )}
-              </figcaption>
-            </Reveal>
-          ))}
+      <Reveal className={styles.carousel} delay={120}>
+        <div ref={viewportRef} className={styles.viewport}>
+          {/* Center the active card using the measured card width and gap. */}
+          <div
+            className={styles.track}
+            style={{
+              transform: `translateX(${position * step - offset}px)`,
+              transition: animated
+                ? `transform ${SLIDE_MS}ms var(--ease-in-out)`
+                : "none",
+            }}
+          >
+            {SLIDES.map((review, index) => (
+              <figure
+                key={index}
+                ref={index === 0 ? slideRef : undefined}
+                className={[styles.card, index === position && styles.cardActive]
+                  .filter(Boolean)
+                  .join(" ")}
+                aria-hidden={index !== position}
+              >
+                <div className={styles.cardHead}>
+                  <figcaption className={styles.author}>
+                    <Image
+                      className={[styles.avatar, review.avatar.round && styles.round]
+                        .filter(Boolean)
+                        .join(" ")}
+                      style={{ width: rem(review.avatar.size), height: rem(review.avatar.size) }}
+                      src={review.avatar.src}
+                      alt=""
+                      width={96}
+                      height={96}
+                    />
+                    <span className={styles.name}>{review.name}</span>
+                  </figcaption>
+                  <Image
+                    className={styles.stars}
+                    src="/icons/stars-5-large.svg"
+                    alt="تقييم 5 من 5"
+                    width={162}
+                    height={27}
+                  />
+                </div>
+                <blockquote className={styles.quote}>
+                  <p>{review.quote}</p>
+                </blockquote>
+              </figure>
+            ))}
+          </div>
         </div>
 
-        <a className={styles.more} href={ALL_REVIEWS_HREF}>
-          رؤية جميع الاراء
-        </a>
-      </div>
+        <div className={styles.dots}>
+          {REVIEWS.map((review, index) => (
+            <button
+              key={review.name}
+              type="button"
+              className={[styles.dot, activeIndex === index && styles.dotActive]
+                .filter(Boolean)
+                .join(" ")}
+              aria-label={`رأي ${review.name}`}
+              aria-current={activeIndex === index}
+              onClick={() => goTo(COUNT + index)}
+            />
+          ))}
+        </div>
+      </Reveal>
     </section>
   );
 }

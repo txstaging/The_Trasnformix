@@ -1,0 +1,83 @@
+.hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4rem;
+  width: var(--v2-container);
+  max-width: calc(100% - 2 * var(--gutter));
+  margin-inline: auto;
+  padding-top: 6.4rem; /* Under the 140px navigation band. */
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  width: 63.2rem;
+  min-width: 0;
+}
+
+.title {
+  font-size: 4.8rem;
+  font-weight: 700;
+  line-height: normal;
+  color: var(--v2-text);
+}
+
+.lead {
+  font-size: 2rem;
+  line-height: 1.95;
+  color: var(--v2-text-muted);
+}
+
+/* 70 high, the pills held against the right edge (Figma 3693:64520). */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  min-height: 7rem;
+}
+
+.visual {
+  border: 0.1rem solid var(--v2-border-blue);
+  background: rgba(244, 247, 252, 0.72);
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+    padding-top: 3.2rem;
+  }
+
+  .copy {
+    width: 100%;
+  }
+
+  .title {
+    font-size: 4rem;
+  }
+
+  .lead {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: 3rem;
+  }
+
+  .lead {
+    font-size: 1.6rem;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+  }
+
+  .actions > * {
+    flex: 1 1 100%;
+  }
+}

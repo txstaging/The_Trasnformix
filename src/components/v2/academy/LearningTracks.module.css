@@ -1,0 +1,96 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.4rem;
+  width: 100%;
+}
+
+/* Figma 3693:66433 — 32px padding, 20px gaps and corners. */
+.track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 3.2rem;
+  border: 0.1rem solid var(--v2-border);
+  border-radius: 2rem;
+  background: var(--v2-surface-neutral);
+  line-height: 1.95;
+  text-align: center;
+  scroll-margin-top: 14rem;
+}
+
+.icon {
+  width: 3.6rem;
+  height: 3.6rem;
+}
+
+.audience {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--v2-primary);
+}
+
+.title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.95;
+  color: var(--v2-text);
+}
+
+.text {
+  font-size: 1.6rem;
+  color: var(--v2-text-muted);
+}
+
+.label {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.95;
+  color: var(--v2-primary);
+}
+
+/* Each topic is its own row in the card's 20px rhythm. */
+.topics {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.6rem;
+  color: var(--v2-text-muted);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .track {
+    gap: 1.4rem;
+    scroll-margin-top: 10rem;
+  }
+
+  .topics {
+    gap: 0.8rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .track {
+    padding: 2.8rem 2rem;
+  }
+
+  .title {
+    font-size: 2.2rem;
+  }
+}

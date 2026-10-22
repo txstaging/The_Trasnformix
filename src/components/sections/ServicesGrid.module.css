@@ -1,0 +1,104 @@
+/* Version 3's sticky process illustration and numbered rail. */
+.section {
+  max-width: 1600px;
+  margin-inline: auto;
+  padding: 110px clamp(24px, 4.5vw, 80px) 120px;
+  scroll-margin-top: 120px;
+  color: #102544;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 11%;
+  align-items: start;
+}
+
+.head { margin-bottom: 56px; text-align: center; }
+.head h2 { font-size: clamp(38px, 3.4vw, 55px); font-weight: 700; line-height: 1.25; letter-spacing: -1.5px; }
+.lead { max-width: 550px; margin: 18px auto 0; color: #5c6878; font-size: 18px; line-height: 1.75; }
+.aside { position: sticky; top: 130px; }
+.art { position: relative; aspect-ratio: 1.2; overflow: hidden; }
+.image { position: absolute; inset: 0; }
+.image img { object-fit: contain; mix-blend-mode: multiply; }
+
+.list { list-style: none; margin: 0; padding: 0; }
+.item { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 25px; min-height: 390px; padding-bottom: 54px; }
+.item:last-child { padding-bottom: 0; min-height: 330px; }
+.rail { position: relative; display: flex; justify-content: center; }
+.rail > span {
+  position: absolute;
+  top: 0;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  font: 12px Arial, sans-serif;
+  background: #fff;
+  border: 1px solid #dce2ea;
+  color: #7e8a9d;
+  z-index: 1;
+  transition: background var(--dur), color var(--dur);
+}
+.rail::before, .rail > div {
+  content: "";
+  position: absolute;
+  inset-inline-start: 20px;
+  width: 1px;
+  top: 42px;
+  bottom: -1px;
+  background: #dce2ea;
+}
+.rail > div { background: var(--primary); transform-origin: top; }
+.item[data-active="true"] .rail > span { color: #fff; background: var(--primary); border-color: var(--primary); }
+.item:last-child .rail::before, .item:last-child .rail > div { display: none; }
+
+.copy h3 { font-size: 29px; font-weight: 700; line-height: 1.35; margin: 3px 0 18px; }
+.copy > p { color: #5c6878; font-size: 18px; line-height: 1.75; }
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding-block: 8px;
+  border-bottom: 1px solid #dce2ea;
+  color: var(--primary);
+  font-size: 16px;
+  transition: gap var(--dur) var(--ease-out);
+}
+.link:hover { gap: 20px; }
+.link > span { color: #05b8d5; font: 20px Arial, sans-serif; }
+.mobileImage { display: none; }
+
+@media (max-width: 900px) {
+  .section { padding-block: 80px; }
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 45px; }
+  .aside { display: none; }
+  .head h2 { font-size: 45px; }
+  .item { min-height: auto; padding-bottom: 40px; }
+  .item:last-child { min-height: 0; }
+  .copy { padding-top: 2px; }
+  .copy > p { max-width: 600px; }
+  .mobileImage { display: block; width: 320px; height: 210px; object-fit: contain; mix-blend-mode: multiply; margin-block: 20px 10px; }
+}
+
+@media (max-width: 640px) {
+  .section { padding: 65px 20px; }
+  .head { margin-bottom: 35px; }
+  .head h2 { font-size: 38px; }
+  .lead { font-size: 17px; }
+  .layout { gap: 35px; }
+  .item { grid-template-columns: 32px minmax(0, 1fr); gap: 17px; padding-bottom: 30px; }
+  .rail > span { width: 32px; height: 32px; font-size: 10px; }
+  .rail::before, .rail > div { top: 32px; inset-inline-start: 15px; }
+  .copy h3 { font-size: 26px; margin-bottom: 16px; }
+  .copy > p { font-size: 16px; }
+  .mobileImage { width: 100%; max-width: 350px; height: auto; aspect-ratio: 1.5; margin-block: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rail > span, .link { transition: none; }
+}

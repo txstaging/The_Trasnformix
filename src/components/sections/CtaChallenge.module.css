@@ -1,0 +1,196 @@
+/* Growth section without a background surface. */
+.section {
+  padding: 7.8rem 7.6rem;
+}
+
+.panel {
+  position: relative;
+  width: 129.1rem;
+  max-width: 100%;
+  height: 56.4rem;
+  margin-inline: auto;
+  overflow: hidden;
+  border-radius: 3rem;
+  background: #fcfbfa;
+}
+
+/* Figma 3614:5477 — the copy column, 102px in from the panel's right edge. */
+.content {
+  position: absolute;
+  right: 10.2rem;
+  top: 9.6rem;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4.2rem;
+  width: 48.3rem;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  width: 41.5rem;
+  height: 31.1rem;
+  text-align: right;
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--primary);
+  word-break: break-word;
+}
+
+.text {
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  word-break: break-word;
+}
+
+.cta {
+  height: 6.6rem;
+}
+
+/* ---- Moving mockup columns ------------------------------------------- */
+.mockups {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.column {
+  position: absolute;
+  direction: ltr;
+}
+
+/* Two identical sets per reel: travelling -50% lands on a frame identical to
+   the first, so the loop has no seam. */
+.reel {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.reelUp {
+  animation-name: reelUp;
+}
+
+.reelDown {
+  animation-name: reelDown;
+}
+
+@keyframes reelUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes reelDown {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.set {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.4rem;
+  padding-bottom: 2.4rem;
+}
+
+.setEnd {
+  align-items: flex-end;
+}
+
+.card {
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 1.6rem;
+}
+
+.cropped {
+  position: absolute;
+  max-width: none;
+}
+
+.cover {
+  object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+  .section {
+    padding: 6.4rem var(--gutter);
+  }
+
+  .panel {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .content {
+    position: relative;
+    right: auto;
+    top: auto;
+    width: 100%;
+    gap: 3.2rem;
+    padding: 4.8rem 4rem 3.2rem;
+  }
+
+  .copy {
+    width: 100%;
+    height: auto;
+  }
+
+  .mockups {
+    position: relative;
+    inset: auto;
+    height: 42rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 4rem var(--gutter);
+  }
+
+  .panel {
+    border-radius: 2rem;
+  }
+
+  .content {
+    gap: 2.4rem;
+    padding: 3.2rem 2.4rem 2.4rem;
+  }
+
+  .title {
+    font-size: 2.6rem;
+  }
+
+  .text {
+    font-size: 1.8rem;
+  }
+
+  .cta {
+    height: auto;
+  }
+
+  .mockups {
+    height: 32rem;
+  }
+}

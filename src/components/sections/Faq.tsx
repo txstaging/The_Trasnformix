@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { PillButton } from "@/components/ui/PillButton";
 import { Reveal } from "@/components/ui/Reveal";
 import styles from "./Faq.module.css";
 
@@ -41,79 +42,78 @@ const ITEMS: FaqEntry[] = [
   },
 ];
 
+/* Figma 3652:7475 — the call to action on the right, the questions on the
+   left. */
 export function Faq() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <section id="faq" className={styles.section}>
-      <div className={styles.panel}>
-        <div className={styles.container}>
-          <div className={styles.head}>
-            <div className={styles.spacer} />
+      <div className={styles.row}>
+        <div className={styles.cta}>
+          <div className={styles.ctaCopy}>
             <Reveal as="h2" className={styles.title}>
-              إجابات واضحة على أسئلتك
+              هل لديك تحديات تواجهه اعملك؟ دعنا نساعدك في حلها
+            </Reveal>
+            <Reveal as="p" className={styles.lead} delay={120}>
+              شاركنا التحدي الذي يواجه أعمالك، وسيتولى فريقنا التقني رسم المسار
+              الأمثل وتحديد الحلول والأنظمة الأنسب لنمو مشروعك.
             </Reveal>
           </div>
+          <Reveal className={styles.actions} delay={240}>
+            <PillButton className={styles.primaryAction}>احجز استشارة الان</PillButton>
+            <PillButton variant="soft" href="/contact">
+              تواصل معنا
+            </PillButton>
+          </Reveal>
+        </div>
 
-          <div className={styles.list}>
-            <div className={styles.listInner}>
-              {ITEMS.map((item, index) => {
-                const isOpen = openIndex === index;
-                return (
-                  <div
-                    key={item.number}
-                    className={[styles.item, isOpen && styles.itemOpen]
-                      .filter(Boolean)
-                      .join(" ")}
-                  >
-                    <button
-                      type="button"
-                      className={styles.trigger}
-                      aria-expanded={isOpen}
-                      aria-controls={`faq-answer-${item.number}`}
-                      onClick={() => setOpenIndex(isOpen ? null : index)}
-                    >
-                      <span className={styles.question}>
-                        <span className={styles.number}>{item.number}</span>
-                        <span className={styles.questionText}>
-                          {item.question}
-                        </span>
-                      </span>
+        <div className={styles.list}>
+          {ITEMS.map((item, index) => {
+            const isOpen = openIndex === index;
+            return (
+              <Reveal
+                key={item.number}
+                delay={index * 90}
+                className={[styles.item, isOpen && styles.itemOpen]
+                  .filter(Boolean)
+                  .join(" ")}
+              >
+                <button
+                  type="button"
+                  className={styles.trigger}
+                  aria-expanded={isOpen}
+                  aria-controls={`faq-answer-${item.number}`}
+                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                >
+                  <span className={styles.questionText}>{item.question}</span>
 
-                      <span className={styles.marker}>
-                        <span className={styles.markerCircle}>
-                          <Image
-                            className={styles.markerIcon}
-                            src={
-                              isOpen
-                                ? "/icons/faq-minus.svg"
-                                : "/icons/faq-plus.svg"
-                            }
-                            alt=""
-                            width={14}
-                            height={14}
-                            aria-hidden
-                          />
-                        </span>
-                      </span>
-                    </button>
+                  <span className={styles.markerCircle}>
+                    <Image
+                      className={styles.markerIcon}
+                      src={isOpen ? "/icons/faq-minus.svg" : "/icons/faq-plus.svg"}
+                      alt=""
+                      width={14}
+                      height={14}
+                      aria-hidden
+                    />
+                  </span>
+                </button>
 
-                    <div
-                      id={`faq-answer-${item.number}`}
-                      className={[styles.answer, isOpen && styles.answerOpen]
-                        .filter(Boolean)
-                        .join(" ")}
-                      role="region"
-                    >
-                      <div className={styles.answerInner}>
-                        <p className={styles.answerText}>{item.answer}</p>
-                      </div>
-                    </div>
+                <div
+                  id={`faq-answer-${item.number}`}
+                  className={[styles.answer, isOpen && styles.answerOpen]
+                    .filter(Boolean)
+                    .join(" ")}
+                  role="region"
+                >
+                  <div className={styles.answerInner}>
+                    <p className={styles.answerText}>{item.answer}</p>
                   </div>
-                );
-              })}
-            </div>
-          </div>
+                </div>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

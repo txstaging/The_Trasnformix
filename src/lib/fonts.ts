@@ -1,11 +1,10 @@
-import { Alexandria, Inter } from "next/font/google";
+import { Alexandria, Inter, Noto_Serif } from "next/font/google";
 import localFont from "next/font/local";
 
 /* Secondary faces the artboards call for. Neither is preloaded: each covers a
    handful of blocks, so they are fetched only when a rule that uses them
    actually paints. */
 
-/** Step counters "01"–"05" — Figma 2515:59888 sets them in Alexandria 500. */
 export const alexandria = Alexandria({
   variable: "--font-alexandria",
   subsets: ["latin"],
@@ -37,9 +36,21 @@ export const tajawal = localFont({
   preload: false,
 });
 
-/** The phone field of the contact form — Figma 2551:7973 sets it in Inter. */
 export const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+  preload: false,
+});
+
+/**
+ * Noto Serif — the outlined counters of the home stats band (Figma 3648:6893).
+ * The artboard draws them as vector glyphs; setting them as stroked text lets
+ * them count up from zero.
+ */
+export const notoSerif = Noto_Serif({
+  variable: "--font-noto-serif",
   subsets: ["latin"],
   weight: ["400"],
   display: "swap",

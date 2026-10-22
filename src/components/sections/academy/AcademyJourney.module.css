@@ -1,0 +1,238 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 69.2rem;
+  padding-top: 16.5rem;
+  background: var(--bg-main);
+}
+
+.title {
+  width: 52.9rem;
+  max-width: 100%;
+  min-height: 7.5rem;
+  margin-bottom: 5.5rem;
+  font-size: 4rem;
+  font-weight: 700;
+  color: #000;
+  text-align: center;
+}
+
+/* Laid out left-to-right in artboard coordinates. */
+.flow {
+  position: relative;
+  width: 131.2rem;
+  height: 23.3rem;
+  direction: ltr;
+}
+
+.steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  position: absolute;
+  left: var(--x);
+  top: 0;
+  width: 15.4rem;
+}
+
+.disc {
+  position: relative;
+  width: 15.4rem;
+  height: 15.4rem;
+  border-radius: 10rem;
+  background: #fff;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.step:hover .disc {
+  transform: translateY(-0.4rem);
+}
+
+.ring {
+  position: absolute;
+  left: 1.2rem;
+  top: 1rem;
+  width: 13rem;
+  height: 13rem;
+  border-radius: 10rem;
+  /* Figma strokes the 9px rim with ~2px dashes; CSS `dashed` draws far
+     longer ones, so the ticks are a conic pattern masked to the rim. */
+  background: repeating-conic-gradient(
+    var(--blue-light-active) 0deg 1.875deg,
+    transparent 1.875deg 3.75deg
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 0.9rem), #000 calc(100% - 0.9rem));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 0.9rem), #000 calc(100% - 0.9rem));
+  transition: rotate var(--dur-slow) var(--ease-out);
+}
+
+.step:hover .ring {
+  rotate: 45deg;
+}
+
+.icon {
+  position: absolute;
+  left: var(--icon-x);
+  top: var(--icon-y);
+  width: 7rem;
+  height: 7rem;
+}
+
+.badge {
+  position: absolute;
+  left: 11.3rem;
+  top: -0.7rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  padding-top: 0.6rem;
+  border-radius: 10rem;
+  background: var(--primary);
+  font-family: var(--font-alexandria), var(--font-kufi), sans-serif;
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: normal;
+  color: #f5f5f7;
+  overflow: hidden;
+}
+
+.label {
+  position: absolute;
+  left: var(--label-x);
+  top: 17.5rem;
+  width: var(--label-w);
+  direction: rtl;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  text-align: center;
+  white-space: pre-wrap;
+}
+
+.arrow {
+  position: absolute;
+  width: 11.0046rem;
+  height: 9.9881rem;
+}
+
+.shaft,
+.head {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shaft {
+  left: 0.999rem;
+  top: 0;
+  width: 10.008rem;
+  height: 9.2272rem;
+}
+
+.head {
+  left: 0;
+  top: 3.122rem;
+  width: 4.877rem;
+  height: 4.5631rem;
+}
+
+.shaft img,
+.head img {
+  flex: none;
+  max-width: none;
+  rotate: 31.65deg;
+}
+
+.shaft img {
+  width: 8.1852rem;
+  height: 5.794rem;
+}
+
+.head img {
+  width: 3.9109rem;
+  height: 2.9497rem;
+}
+
+/* Below 1024 the steps wrap into a centred grid, read right to left; the
+   arrows only make sense in the single row, so they drop out. */
+@media (max-width: 1024px) {
+  .section {
+    min-height: 0;
+    padding: 6.4rem var(--gutter) 8rem;
+  }
+
+  .title {
+    min-height: 0;
+    margin-bottom: 4.8rem;
+    font-size: 3.2rem;
+  }
+
+  .flow {
+    width: 100%;
+    max-width: 72rem;
+    height: auto;
+    direction: rtl;
+  }
+
+  .steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4.8rem 3.2rem;
+  }
+
+  .step {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 20rem;
+  }
+
+  .disc {
+    direction: ltr;
+  }
+
+  .label {
+    position: static;
+    width: 100%;
+    font-size: 2rem;
+  }
+
+  .arrow {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 4.8rem var(--gutter) 5.6rem;
+  }
+
+  .title {
+    margin-bottom: 3.2rem;
+    font-size: 2.6rem;
+  }
+
+  .steps {
+    gap: 3.2rem 1.6rem;
+  }
+
+  .step {
+    width: calc(50% - 0.8rem);
+    gap: 1.6rem;
+  }
+
+  .label {
+    font-size: 1.7rem;
+  }
+}

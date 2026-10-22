@@ -1,0 +1,216 @@
+.section {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  min-height: 102.1rem;
+  padding-top: 41.019rem;
+  overflow: hidden;
+}
+
+/* Both arcs are the hero's dome flipped upside down. */
+.waveFront,
+.waveBack {
+  position: absolute;
+  max-width: none;
+  scale: 1 -1;
+  pointer-events: none;
+}
+
+.waveFront {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 18.873rem;
+}
+
+.waveBack {
+  left: -3.3333%;
+  top: -0.12rem;
+  width: 106.25%;
+  height: 20.8029rem;
+}
+
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 55.2rem 55.2rem;
+  column-gap: 9.3rem;
+  align-items: start;
+  width: 120rem;
+  max-width: 100%;
+  padding-right: 0.3rem;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.1rem;
+}
+
+.title {
+  width: 100%;
+  padding-block: 0.4rem;
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.text {
+  width: 51.7rem;
+  min-height: 12.3rem;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.action {
+  padding-top: 1.081rem;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 3.3rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.centered {
+  align-items: center;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.icon img {
+  display: block;
+  flex-shrink: 0;
+  max-width: none;
+}
+
+.feature:hover .icon {
+  transform: translateY(-0.3rem) scale(1.06);
+}
+
+.featureCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+.featureTitle {
+  padding-block: 0.4rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* One line each, as drawn — the longest runs past the 552 column's edge. */
+.featureText {
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .section {
+    min-height: 0;
+    padding: 14rem var(--gutter) 8rem;
+  }
+
+  .waveFront {
+    height: 9.6rem;
+  }
+
+  .waveBack {
+    height: 10.6rem;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 4.8rem;
+    max-width: 72rem;
+    padding-right: 0;
+  }
+
+  .title {
+    font-size: 3.2rem;
+  }
+
+  .text {
+    width: auto;
+    min-height: 0;
+    font-size: 2rem;
+  }
+
+  .featureText {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 8.8rem var(--gutter) 5.6rem;
+  }
+
+  .waveFront {
+    height: 5.6rem;
+  }
+
+  .waveBack {
+    height: 6.2rem;
+  }
+
+  .grid {
+    row-gap: 4rem;
+  }
+
+  .intro {
+    gap: 1.6rem;
+  }
+
+  .title {
+    font-size: 2.6rem;
+  }
+
+  .text {
+    font-size: 1.7rem;
+  }
+
+  .features {
+    gap: 2.4rem;
+  }
+
+  .feature {
+    gap: 1.6rem;
+  }
+
+  .icon {
+    scale: 0.85;
+  }
+
+  .featureTitle {
+    font-size: 1.7rem;
+  }
+
+  .featureText {
+    font-size: 1.6rem;
+  }
+}

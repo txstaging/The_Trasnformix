@@ -1,0 +1,71 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: var(--v2-container);
+  max-width: calc(100% - 2 * var(--gutter));
+  margin-inline: auto;
+  padding-bottom: 10rem;
+}
+
+.gapMd {
+  gap: 10rem;
+}
+
+.gapLg {
+  gap: 15rem;
+}
+
+.topPage {
+  padding-top: 5.6rem;
+}
+
+.topSection {
+  padding-top: 10rem;
+}
+
+/* Sections are direct children; none may grow past the column. */
+.body > * {
+  max-width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .gapMd {
+    gap: 8rem;
+  }
+
+  .gapLg {
+    gap: 9.6rem;
+  }
+
+  .topPage {
+    padding-top: 4rem;
+  }
+
+  .topSection {
+    padding-top: 8rem;
+  }
+
+  .body {
+    padding-bottom: 8rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .gapMd,
+  .gapLg {
+    gap: 6.4rem;
+  }
+
+  .topPage {
+    padding-top: 3.2rem;
+  }
+
+  .topSection {
+    padding-top: 6.4rem;
+  }
+
+  .body {
+    padding-bottom: 6.4rem;
+  }
+}

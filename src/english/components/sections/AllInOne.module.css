@@ -1,0 +1,208 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10rem;
+  background: var(--bg-main);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+  width: 117.4rem;
+  max-width: 100%;
+}
+
+.banner {
+  position: relative;
+  width: 117.4rem;
+  max-width: 100%;
+  height: 12.1rem;
+}
+
+.bannerPlate {
+  position: absolute;
+  left: -1.3rem;
+  top: 2.6rem;
+  width: 117.295rem;
+  height: 12.1rem;
+  transform-origin: center;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.banner:hover .bannerPlate {
+  transform: scale(1.015);
+}
+
+.bannerTitle {
+  position: absolute;
+  left: 27.2rem;
+  top: 4.1rem;
+  width: 63.1rem;
+  height: 9.1rem;
+  font-size: 4.8rem;
+  font-weight: 600;
+  color: var(--blue-dark);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rem;
+  width: 114.3rem;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+/* The observer has to sit on an unclipped wrapper: a clip-path on the observed
+   element zeroes its own intersection rect, so it would never un-clip itself. */
+.diagram {
+  width: 63.9rem;
+  height: 56.7rem;
+  max-width: 100%;
+}
+
+/* The artboard ships this as a motion composition, so it draws itself in from
+   the trunk upwards once it scrolls into view. */
+.diagramInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* The film overhangs this box (see `.diagram video`). clip-path only hides
+     the overhang from paint; this also keeps it out of the page's scroll
+     width, which it widened below 1024px. Both clip to the same edges, so
+     nothing visible changes. */
+  overflow: hidden;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1800ms var(--ease-out);
+}
+
+.diagramIn .diagramInner {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Same story as the CTA ornaments: the film is the full 1440x1080 composition
+   and the artboard crops into it. Measured against comp-3-1.png — 1.387x the
+   slot width, centred, pulled up 8.6% — so the film lands on the still. The
+   clip-path above trims the overflow. */
+.diagram video {
+  position: absolute;
+  left: 50%;
+  top: -8.6%;
+  width: 138.7%;
+  height: auto;
+  max-width: none;
+  transform: translateX(-50%);
+}
+
+.caption {
+  width: 101.6rem;
+  max-width: 100%;
+  height: 12.1rem;
+  font-size: 3.2rem;
+  font-weight: 400;
+  color: var(--subtitle);
+  text-align: center;
+  word-break: break-word;
+}
+
+@media (max-width: 1024px) {
+  .section {
+    padding: 8rem var(--gutter) 0;
+  }
+
+  .inner {
+    gap: 6.4rem;
+    width: 100%;
+  }
+
+  .banner {
+    height: auto;
+    padding: 3.2rem 0;
+    border-radius: 1.2rem;
+    background: var(--blue-light);
+  }
+
+  .bannerPlate {
+    display: none;
+  }
+
+  .bannerTitle {
+    position: static;
+    width: 100%;
+    height: auto;
+    font-size: 3.2rem;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .body {
+    width: 100%;
+    gap: 4.8rem;
+  }
+
+  .diagram {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 639 / 567;
+  }
+
+  .caption {
+    width: 100%;
+    height: auto;
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 2.7rem var(--gutter) 0;
+  }
+
+  .inner {
+    gap: 2.7rem;
+  }
+
+  .banner {
+    height: auto;
+    aspect-ratio: 317.143 / 32.687;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+  }
+
+  .bannerPlate {
+    display: block;
+    left: -5.52%;
+    top: 21.5%;
+    width: 99.91%;
+    height: 100%;
+  }
+
+  .bannerTitle {
+    position: absolute;
+    inset: 33.88% 27.33% auto 18.76%;
+    width: auto;
+    font-size: 1.3rem;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .body {
+    gap: 2.16rem;
+  }
+
+  .diagram {
+    width: 17.26rem;
+  }
+
+  .caption {
+    width: 27.45rem;
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,188 @@
+/* Centered heading, compact review cards, and carousel pagination. */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
+  padding: 1rem 0 9rem;
+  overflow: hidden;
+  background: var(--bg-main);
+}
+
+.title {
+  width: 108.3rem;
+  max-width: calc(100% - 2 * var(--gutter));
+  font-size: 4rem;
+  font-weight: 700;
+  color: #11295c;
+  text-align: center;
+  word-break: break-word;
+}
+
+.carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4rem;
+  width: 96rem;
+  max-width: 100%;
+  padding-top: 0.9rem;
+}
+
+.viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  gap: 2.4rem;
+  width: max-content;
+  will-change: transform;
+}
+
+/* Compact cards use even padding and grow to fit the complete review. */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  flex-shrink: 0;
+  width: min(72rem, calc(100vw - 2 * var(--gutter)));
+  height: auto;
+  margin: 0;
+  padding: 3.2rem;
+  overflow: hidden;
+  border-radius: 2rem;
+  background: var(--blue-light);
+  box-shadow:
+    0 2.1rem 4.6rem rgba(241, 227, 227, 0.1),
+    0 8.3rem 8.3rem rgba(255, 255, 255, 0.09);
+  opacity: 0.85;
+  transition: opacity var(--dur-slow) var(--ease-out);
+}
+
+.cardActive {
+  opacity: 1;
+}
+
+.cardHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+}
+
+.author {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.avatar {
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.round {
+  border-radius: 50%;
+}
+
+.name {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #18181b;
+  line-height: 1.4;
+}
+
+.stars {
+  flex-shrink: 0;
+  width: 12rem;
+  height: 2rem;
+}
+
+.quote {
+  margin: 0;
+}
+
+.quote p {
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 2rem;
+  line-height: 1.7;
+  font-weight: 400;
+  color: #18181b;
+  text-align: left;
+  word-break: break-word;
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.dot {
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 3.4rem;
+  background: #cbd0dc;
+  transition:
+    background-color var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.dot:hover {
+  transform: scale(1.15);
+  background: var(--blue-light-active);
+}
+
+.dotActive,
+.dotActive:hover {
+  background: var(--primary);
+}
+
+@media (max-width: 1024px) {
+  .section {
+    padding: 6.4rem 0;
+  }
+
+  .title {
+    font-size: 3.2rem;
+  }
+
+}
+
+@media (max-width: 640px) {
+  .section {
+    gap: 2.4rem;
+    padding: 4rem 0;
+  }
+
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .track {
+    gap: 1.6rem;
+  }
+
+  .card {
+    gap: 1.6rem;
+    padding: 2.4rem;
+    border-radius: 1.6rem;
+  }
+
+  .name {
+    font-size: 1.4rem;
+  }
+
+  .stars {
+    width: 9.6rem;
+    height: 1.6rem;
+  }
+
+  .quote p {
+    font-size: 1.6rem;
+  }
+}

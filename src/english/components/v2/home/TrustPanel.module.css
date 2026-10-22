@@ -1,0 +1,18 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
+  width: 100%;
+  padding: 4rem;
+  border-radius: 2.4rem;
+  background: var(--v2-gradient-deep);
+}
+
+@media (max-width: 640px) {
+  .panel {
+    gap: 2.4rem;
+    padding: 3.2rem 1.6rem;
+    border-radius: 2rem;
+  }
+}

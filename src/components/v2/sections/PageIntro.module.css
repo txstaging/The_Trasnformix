@@ -1,0 +1,145 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
+  width: 100%;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+  width: var(--intro-w, 100%);
+  max-width: 100%;
+  min-height: var(--intro-min-h, 0);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4rem;
+  width: 100%;
+  text-align: center;
+}
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.95;
+  color: var(--v2-primary);
+}
+
+.crumbs li + li::before {
+  content: "/";
+  margin-inline: 0.45ch;
+}
+
+.crumbs a {
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.crumbs a:hover,
+.crumbs a:focus-visible {
+  color: var(--v2-navy);
+  text-decoration: underline;
+}
+
+.title {
+  width: var(--title-w, 100%);
+  max-width: 100%;
+  font-size: 4.8rem;
+  font-weight: 700;
+  line-height: normal;
+  color: var(--v2-text);
+}
+
+.lead {
+  width: var(--lead-w, 100%);
+  max-width: 100%;
+  font-size: 2rem;
+  line-height: 1.95;
+  color: var(--v2-text-muted);
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.split {
+  flex-direction: row;
+  gap: 6.4rem;
+}
+
+.split > .intro,
+.split > :last-child {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+}
+
+.split .copy {
+  align-items: flex-start;
+  text-align: start;
+}
+
+.split .crumbs { justify-content: flex-start; }
+.split .title { font-size: 4rem; line-height: 1.65; }
+
+@media (max-width: 1024px) {
+  .split { gap: 3.2rem; }
+  .split .title { font-size: 3.6rem; }
+  .title {
+    font-size: 3.6rem;
+  }
+
+  .lead {
+    font-size: 1.8rem;
+  }
+
+  .intro {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .split { flex-direction: column; }
+  .split > .intro { flex: auto; width: 100%; }
+  .split > :last-child:not(.intro) { flex: none; width: 100%; max-width: 57rem; }
+  .split .title { font-size: 3.2rem; }
+}
+
+@media (max-width: 640px) {
+  .split .title { font-size: 2.8rem; }
+  .hero {
+    gap: 2.4rem;
+  }
+
+  .intro,
+  .copy {
+    gap: 1.6rem;
+  }
+
+  .crumbs {
+    font-size: 1.4rem;
+  }
+
+  .title {
+    font-size: 2.8rem;
+  }
+
+  .lead {
+    font-size: 1.6rem;
+  }
+}

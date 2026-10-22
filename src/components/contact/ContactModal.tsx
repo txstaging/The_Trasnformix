@@ -78,7 +78,6 @@ const EMPTY: FormState = {
   message: "",
 };
 
-/* Copy from Figma 2551:7944, 2551:7985 and 2551:8025. */
 const STEP_COPY = {
   1: {
     title: "لنبدأ",
@@ -129,11 +128,6 @@ const FOCUSABLE =
 
 const cx = (...names: (string | false | undefined)[]) =>
   names.filter(Boolean).join(" ");
-
-/* ==========================================================================
-   Dialog — Figma 2551:7944 (step 1), 2551:7985 (2), 2551:8025 (3) and
-   2551:8068 (sent). 672 x 574 on the 1440 artboard.
-   ========================================================================== */
 
 function ContactModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const router = useRouter();

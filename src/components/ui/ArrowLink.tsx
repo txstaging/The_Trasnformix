@@ -6,7 +6,6 @@ type ArrowLinkProps = {
   href?: string;
   /** `sm` is the 24px in-body link, `lg` the 47px "عرض المزيد" link. */
   size?: "sm" | "lg";
-  /** Exported arrow glyph; the three call sites use three different exports. */
   icon?: string;
   className?: string;
 };

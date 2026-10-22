@@ -1,4 +1,3 @@
-/* Figma 2096:4678 "Frame 1618872772" — 1440 x 1089 */
 .section {
   display: flex;
   flex-direction: column;
@@ -16,7 +15,6 @@
   max-width: 100%;
 }
 
-/* Banner plate + title, both centred on the same axis. */
 .banner {
   position: relative;
   width: 117.4rem;
@@ -161,9 +159,6 @@
   }
 }
 
-/* Figma 2836:26957 (phone) — a 317 column: the plate returns at 317 x 32.7,
-   nudged as drawn (5.5% left, 21.5% down) under a 13px title, then a 172.5
-   wide diagram and a 10px caption. */
 @media (max-width: 640px) {
   .section {
     padding: 2.7rem var(--gutter) 0;

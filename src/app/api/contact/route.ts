@@ -1,6 +1,8 @@
 import { SERVICES } from "@/lib/services";
 
-/* Receives the contact form (components/contact/ContactModal.tsx).
+/* Receives the contact form — the modal (components/contact/ContactModal.tsx)
+   and the /contact page (components/contact/ContactForm.tsx, sent with
+   `form: "page"`).
 
    Delivery: set CONTACT_WEBHOOK_URL to any endpoint that accepts a JSON POST
    — a Make / Zapier / n8n webhook, Formspree, a Slack workflow, a CRM — and
@@ -9,6 +11,7 @@ import { SERVICES } from "@/lib/services";
 
 const LIMITS = {
   name: 120,
+  email: 254,
   phone: 40,
   company: 160,
   website: 300,
@@ -16,13 +19,17 @@ const LIMITS = {
 } as const;
 
 type Submission = {
+  form: "modal" | "page";
   name: string;
+  email: string;
   phone: string;
   company: string;
   website: string;
   services: string[];
   message: string;
 };
+
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 const text = (value: unknown, max: number) =>
   typeof value === "string" ? value.trim().slice(0, max) : "";
@@ -32,7 +39,9 @@ function parse(body: unknown): Submission | null {
   const input = body as Record<string, unknown>;
 
   const submission: Submission = {
+    form: input.form === "page" ? "page" : "modal",
     name: text(input.name, LIMITS.name),
+    email: text(input.email, LIMITS.email),
     phone: text(input.phone, LIMITS.phone),
     company: text(input.company, LIMITS.company),
     website: text(input.website, LIMITS.website),
@@ -45,12 +54,18 @@ function parse(body: unknown): Submission | null {
   };
 
   const digits = submission.phone.replace(/\D/g, "");
+  const phoneValid = /^[+\d\s()-]+$/.test(submission.phone) && digits.length >= 7;
+
+  /* The page asks for an email and a message; phone and company are optional
+     there, and the reader must accept the privacy terms. */
   const valid =
     submission.name.length >= 2 &&
-    /^[+\d\s()-]+$/.test(submission.phone) &&
-    digits.length >= 7 &&
-    submission.company.length > 0 &&
-    submission.services.length > 0;
+    (submission.form === "page"
+      ? EMAIL.test(submission.email) &&
+        submission.message.length > 0 &&
+        (!submission.phone || phoneValid) &&
+        input.consent === true
+      : phoneValid && submission.company.length > 0 && submission.services.length > 0);
 
   return valid ? submission : null;
 }

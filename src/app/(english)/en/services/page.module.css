@@ -1,0 +1,51 @@
+.main { display: flex; flex-direction: column; gap: 9rem; padding-bottom: 10rem; }
+.wrap { width: 124rem; max-width: calc(100% - 2 * var(--gutter)); margin-inline: auto; }
+.heading { margin-bottom: 3.2rem; color: var(--primary); font-size: 3.2rem; font-weight: 700; }
+.eyebrow { margin-bottom: 1.2rem; color: var(--primary); font-size: 1.6rem; }
+.directory { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.4rem; padding: 0; margin: 0; list-style: none; }
+.directory > li { min-width: 0; }
+.serviceCard { display: flex; flex-direction: column; align-items: flex-start; gap: 1.8rem; height: 100%; padding: 3.2rem; border: 1px solid #dce7f4; border-radius: 3rem; background: linear-gradient(145deg, #fff, #f4f7fc); }
+.serviceCard:hover { border-color: var(--primary); box-shadow: 0 1.2rem 3.2rem #1c449912; }
+.serviceCard:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+.number { display: inline-flex; align-items: center; justify-content: center; width: 4.8rem; height: 4.8rem; border-radius: 50%; background: var(--blue-light); color: var(--primary); font: 500 1.8rem Arial, sans-serif; }
+.serviceCard h3 { color: var(--primary); font-size: 2.4rem; font-weight: 500; }
+.serviceCard p, .challengeCard p, .steps p, .faq p { color: var(--text-secondary); font-size: 1.7rem; line-height: 1.9; }
+.siteLink { display: flex; align-items: center; justify-content: space-between; gap: 2rem; align-self: stretch; margin-top: auto; padding-top: 1.2rem; color: var(--primary); font-size: 1.6rem; }
+.siteLink > span { font: 2.8rem Arial, sans-serif; }
+.guidance { padding-block: 6.4rem; background: #f4f7fc; }
+.challengeGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.4rem; }
+.challengeCard { display: flex; flex-direction: column; gap: 1.6rem; padding: 2.8rem; border: 1px solid #e0e8f2; border-radius: 2.4rem; background: #fff; }
+.challengeCard h3, .steps h3 { color: var(--blue-dark); font-size: 2rem; font-weight: 500; }
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2.4rem; list-style: none; padding: 0; margin: 0; }
+.steps li { display: flex; flex-direction: column; gap: 1.6rem; padding-top: 2.4rem; border-top: 2px solid var(--blue-light-active); }
+.stepNumber { color: var(--blue-light-active); font: 500 4rem Arial, sans-serif; }
+.faq details { margin-bottom: 1.2rem; border: 1px solid #e0e8f2; border-radius: 1.6rem; background: #fff; }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 2.4rem; color: var(--blue-dark); font-size: 1.8rem; cursor: pointer; list-style: none; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; flex-shrink: 0; color: var(--primary); font: 2.4rem Arial, sans-serif; }
+.faq details[open] summary::after { content: "−"; }
+.faq details p { padding: 0 2.4rem 2.4rem; }
+.cta { display: flex; flex-direction: column; align-items: center; gap: 2.4rem; padding: 6.4rem 4rem; border-radius: 4rem; background: var(--btn-gradient); color: #fff; text-align: center; }
+.cta h2 { font-size: 3.2rem; font-weight: 500; }
+.cta p { max-width: 72rem; font-size: 1.8rem; line-height: 1.9; }
+
+@media (max-width: 1024px) {
+  .main { gap: 6.4rem; padding-bottom: 6.4rem; }
+  .challengeGrid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .main { gap: 4.8rem; padding-bottom: 4.8rem; }
+  .heading { font-size: 2.6rem; margin-bottom: 2.4rem; }
+  .directory, .steps { grid-template-columns: 1fr; }
+  .serviceCard { gap: 1.6rem; padding: 2.4rem; border-radius: 2.4rem; }
+  .serviceCard h3 { font-size: 2.1rem; }
+  .serviceCard p, .challengeCard p, .steps p, .faq p { font-size: 1.6rem; }
+  .guidance { padding-block: 4.8rem; }
+  .challengeCard { padding: 2.4rem; }
+  .faq summary { padding: 2rem; font-size: 1.6rem; }
+  .cta { padding: 4rem 2.4rem; border-radius: 3rem; }
+  .cta h2 { font-size: 2.6rem; }
+  .cta p { font-size: 1.6rem; }
+}

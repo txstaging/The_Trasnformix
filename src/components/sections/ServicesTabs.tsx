@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { CompMedia } from "@/components/ui/CompMedia";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import styles from "./ServicesTabs.module.css";
@@ -10,9 +10,10 @@ type ServiceItem = {
   title: string;
   icon: string;
   text: string;
-  /** Measured line width on the artboard, in artboard px. */
   width: number;
   fontSize: number;
+  /** The row's link label; "اعرف المزيد" when omitted. */
+  link?: string;
 };
 
 type ServiceMedia = {
@@ -20,7 +21,6 @@ type ServiceMedia = {
   video: string;
   image: string;
   alt: string;
-  /** The poster's box inside the 530 x 686 card, in artboard px. */
   width: number;
   height: number;
   left: number;
@@ -31,49 +31,46 @@ type ServiceTab = {
   id: string;
   label: string;
   icon: string;
-  /** `null` where the artboard leaves the media card empty. */
   media: ServiceMedia | null;
   items: ServiceItem[];
 };
 
-/* Figma 2099:5022 "Component 16" — one variant per tab: Desktop-79 (data/AI),
-   Desktop-80 (web), Desktop-81 (studio), Desktop-82 (ERP).
-
-   Right-to-left order, so the variant drawn as active sits furthest right and
+/* Right-to-left order, so the variant drawn as active sits furthest right and
    opens by default. */
 const TABS: ServiceTab[] = [
   {
-    /* The card shows the project gallery in place of a motion comp. */
     id: "data-ai",
     label: "البيانات والذكاء الاصطناعي",
     icon: "/icons/lucide-brain-circuit.svg",
     media: null,
     items: [
+      /* Figma 3648:7100 */
       {
-        title: "تحليل البيانات",
+        title: "تحليل وهندسة البيانات",
         icon: "/icons/lucide-chart-pie.svg",
-        text: "نحوّل البيانات الخام إلى رؤى واضحة تساعدك على فهم الأداء، اكتشاف الفرص واتخاذ قرارات أفضل.",
+        text: "نحوّل بياناتك المعقدة إلى لوحات تحكم ومؤشرات دقيقة تكشف فرص النمو غير المستغلة، وتمنحك رؤية استباقية لاتخاذ قرارات استراتيجية حاسمة.",
         width: 455,
         fontSize: 18,
+        link: "اكتشف حلول البيانات",
       },
       {
-        title: "ذكاء الأعمال ولوحات المتابعة",
+        title: "ذكاء الأعمال ولوحات التحكم",
         icon: "/icons/lucide-brain.svg",
-        text: "نبني Dashboards وتقارير تفاعلية تجمع مؤشرات الأداء في مكان واحد وتسهّل المتابعة المستمرة.",
+        text: "نصمم لوحات تحكم تفاعلية وتقارير ذكية تجمع مؤشرات أدائك الرئيسية (KPIs) في شاشة واحدة، لتمنحك رؤية فورية وشاملة تسهّل متابعة النمو واتخاذ القرارات بدقة.",
         width: 415,
         fontSize: 18,
+        link: "استكشف لوحات التحكم",
       },
       {
         title: "حلول الذكاء الاصطناعي",
         icon: "/icons/lucide-astroid.svg",
-        text: "نطوّر AI Agents ومساعدات ذكية وحلول مخصصة تساعد على تحسين تجربة العملاء وتسريع العمل.",
+        text: "نبتكر أنظمة ذكية (AI Agents) ومساعدين افتراضيين مخصصين لأتمتة المهام اليومية، والارتقاء بتجربة عملائك، ومضاعفة الإنتاجية على مدار الساعة.",
         width: 415,
         fontSize: 16,
       },
     ],
   },
   {
-    /* The card shows the project gallery in place of a motion comp. */
     id: "web",
     label: "تطوير المواقع",
     icon: "/icons/lucide-globe.svg",
@@ -103,7 +100,6 @@ const TABS: ServiceTab[] = [
     ],
   },
   {
-    /* Desktop-81 draws this panel's media card as an empty bordered frame. */
     id: "studio",
     label: "استديو الابداع",
     icon: "/icons/lucide-gem.svg",
@@ -190,6 +186,11 @@ const GALLERIES: Partial<Record<string, Gallery>> = {
   "data-ai": {
     label: "معرض أعمال البيانات والذكاء الاصطناعي",
     frames: [
+      /* Figma 3648:7131 — the card rests on the circuit-brain artwork. */
+      {
+        images: ["/images/services-brain.png"],
+        alt: "دماغ على شكل دائرة إلكترونية يرمز إلى الذكاء الاصطناعي",
+      },
       {
         images: ["/images/services-ai-law-agent.jpg"],
         alt: "واجهة المساعد القانوني Law Agent على حاسوب محمول",
@@ -286,10 +287,101 @@ export function ServicesTabs() {
     return () => window.clearInterval(intervalId);
   }, [gallery, galleryPlaying]);
 
-  const selectTab = (tabId: string) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [indicator, setIndicator] = useState<CSSProperties | null>(null);
+  /** 1 when moving to a later tab, -1 to an earlier one — panels enter from that side. */
+  const [direction, setDirection] = useState(1);
+
+  const showTab = (tabId: string) => {
+    const from = TABS.findIndex((tab) => tab.id === activeId);
+    const to = TABS.findIndex((tab) => tab.id === tabId);
+    if (to !== from) setDirection(to > from ? 1 : -1);
     setGalleryPlaying(false);
     setGalleryFrame(0);
     setActiveId(tabId);
+  };
+
+  /* The highlight pill slides to whichever tab is open. */
+  useLayoutEffect(() => {
+    const measure = () => {
+      const button = tabRefs.current[TABS.findIndex((tab) => tab.id === activeId)];
+      if (!button) return;
+      setIndicator({
+        width: button.offsetWidth,
+        height: button.offsetHeight,
+        transform: `translate(${button.offsetLeft}px, ${button.offsetTop}px)`,
+      });
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [activeId]);
+
+  /* Desktop only: the section is a tall scroll track and the stage pins
+     inside it, so scrolling steps through the tabs one by one before the
+     page carries on to the next section. */
+  const pinned = () => window.matchMedia("(min-width: 1025px)").matches;
+
+  /** Where the stage pins, and how far the track scrolls while it is pinned. */
+  const trackMetrics = () => {
+    const section = sectionRef.current;
+    const stage = stageRef.current;
+    if (!section || !stage) return null;
+    const stickTop = parseFloat(getComputedStyle(stage).top) || 0;
+    const distance = section.offsetHeight - stage.offsetHeight;
+    return { section, stickTop, distance };
+  };
+
+  useEffect(() => {
+    let frame = 0;
+    let lastIndex = -1;
+
+    const update = () => {
+      frame = 0;
+      const metrics = trackMetrics();
+      if (!pinned() || !metrics || metrics.distance <= 0) return;
+      const { section, stickTop, distance } = metrics;
+      const travelled = stickTop - section.getBoundingClientRect().top;
+      const progress = Math.min(1, Math.max(0, travelled / distance));
+      const index = Math.min(TABS.length - 1, Math.floor(progress * TABS.length));
+      if (index === lastIndex) return;
+      if (lastIndex !== -1) setDirection(index > lastIndex ? 1 : -1);
+      lastIndex = index;
+      setGalleryPlaying(false);
+      setGalleryFrame(0);
+      setActiveId(TABS[index].id);
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+    };
+  }, []);
+
+  /* A click scrolls to the middle of that tab's stretch of the track, so the
+     scroll position and the open tab never disagree. */
+  const selectTab = (tabId: string) => {
+    const metrics = trackMetrics();
+    if (!pinned() || !metrics || metrics.distance <= 0) {
+      showTab(tabId);
+      return;
+    }
+    const { section, stickTop, distance } = metrics;
+    const index = TABS.findIndex((tab) => tab.id === tabId);
+    const trackStart = window.scrollY + section.getBoundingClientRect().top - stickTop;
+    window.scrollTo({
+      top: trackStart + (distance * (index + 0.5)) / TABS.length,
+      behavior: "smooth",
+    });
   };
 
   const startGallery = () => {
@@ -305,14 +397,30 @@ export function ServicesTabs() {
   };
 
   return (
-    <section id="services" className={styles.section}>
-      <div className={styles.stage}>
+    <section
+      id="services"
+      ref={sectionRef}
+      className={styles.section}
+      style={
+        {
+          "--tab-steps": TABS.length - 1,
+          "--enter-dir": direction,
+        } as CSSProperties
+      }
+    >
+      <div ref={stageRef} className={styles.stage}>
         <div className={styles.tabs} role="tablist" aria-label="خدمات Transformix">
-          {TABS.map((tab) => {
+          {indicator && (
+            <span className={styles.tabIndicator} style={indicator} aria-hidden />
+          )}
+          {TABS.map((tab, index) => {
             const isActive = tab.id === activeId;
             return (
               <button
                 key={tab.id}
+                ref={(node) => {
+                  tabRefs.current[index] = node;
+                }}
                 type="button"
                 role="tab"
                 id={`tab-${tab.id}`}
@@ -369,6 +477,7 @@ export function ServicesTabs() {
               label={media.alt}
             />
           )}
+          <div key={active.id} className={styles.mediaSwap}>
           {gallery?.frames.map((frame, index) => (
             <div
               key={frame.images[0]}
@@ -410,6 +519,7 @@ export function ServicesTabs() {
               )}
             </div>
           ))}
+          </div>
         </div>
 
         <div
@@ -458,8 +568,8 @@ export function ServicesTabs() {
                   {item.text}
                 </p>
 
-                <ArrowLink href="#services" icon="/icons/arrow-service.svg">
-                  اعرف المزيد
+                <ArrowLink href="#services" icon="/icons/arrow-service-light.svg">
+                  {item.link ?? "اعرف المزيد"}
                 </ArrowLink>
               </div>
             </div>

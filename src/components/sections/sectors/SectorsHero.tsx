@@ -1,10 +1,8 @@
 import Image from "next/image";
-import { Button8 } from "@/components/ui/Button8";
+import { PillButton } from "@/components/ui/PillButton";
 import { Reveal } from "@/components/ui/Reveal";
 import styles from "./SectorsHero.module.css";
 
-/** Figma 2789:11502 "Section - HERO" — copy on the right, the 672 x 410
-    sector ecosystem image (2901:6386) on the left. */
 export function SectorsHero() {
   return (
     <section className={styles.section}>
@@ -19,13 +17,10 @@ export function SectorsHero() {
           صناعة وتحوّل العمليات المعقدة إلى تجارب أكثر وضوحًا وكفاءة.
         </p>
         <div className={styles.actions}>
-          <Button8>ناقش مشروعك معنا</Button8>
+          <PillButton>ناقش مشروعك معنا</PillButton>
         </div>
       </Reveal>
 
-      {/* Figma 2901:6386 "Mask Group" — the sector ecosystem render, 672 x 410,
-          cover-fitted. It sits on the outer edge of its 636 track and runs
-          36px into the gap, as drawn. */}
       <Reveal className={styles.visualWrap} delay={120}>
         <Image
           className={styles.visual}

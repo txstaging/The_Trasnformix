@@ -26,7 +26,6 @@ const SECTORS = [
   },
 ] as const;
 
-/** Figma 2789:11533 "Section - OVERVIEW". */
 export function SectorsOverview() {
   return (
     <section className={styles.section}>

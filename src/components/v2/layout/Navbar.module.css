@@ -1,0 +1,363 @@
+/* Figma "Site navigation" (3709:653): the pill sits 24px down inside a band
+   that is white on the artboard. The band is left transparent so the pill can
+   stay on screen as the page scrolls. */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  padding-block: 2.4rem;
+  pointer-events: none;
+}
+
+/* Once the page scrolls the pill rides 12px higher. It moves by transform so
+   the band keeps its height and nothing below it shifts. */
+.scrolled .pill {
+  transform: translateY(-1.2rem);
+}
+
+.pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: var(--v2-container);
+  max-width: calc(100% - 2 * var(--gutter));
+  height: 9.2rem;
+  margin-inline: auto;
+  padding-inline: 2.4rem;
+  border: 0.1rem solid var(--v2-border-blue);
+  border-radius: 4.6rem;
+  background: #fff;
+  box-shadow: 0 0.2rem 1.2rem rgba(15, 38, 82, 0.08);
+  pointer-events: auto;
+  transition:
+    box-shadow var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.scrolled .pill {
+  box-shadow:
+    0 0.2rem 1.2rem rgba(15, 38, 82, 0.08),
+    0 1.2rem 3.2rem rgba(15, 38, 82, 0.1);
+}
+
+/* The 170 x 45 logo frame; the artwork carries its own margins. */
+.logo {
+  flex-shrink: 0;
+  width: 17rem;
+  height: 4.5rem;
+  overflow: hidden;
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nav {
+  display: flex;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  position: relative;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1.6rem;
+  line-height: 1.85;
+  color: var(--v2-text);
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.link:hover,
+.link:focus-visible,
+.link[aria-expanded="true"] {
+  color: var(--v2-primary);
+}
+
+.active {
+  color: var(--v2-primary);
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-position: from-font;
+}
+
+.chevron {
+  display: block;
+  width: 1.6rem;
+  height: 1.6rem;
+  flex-shrink: 0;
+  transform-origin: center;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.link[aria-expanded="true"] .chevron {
+  transform: rotate(180deg);
+}
+
+/* A hover bridge so the pointer can cross from the label to the menu. */
+.hasMenu::after {
+  content: "";
+  position: absolute;
+  inset-inline: -1.2rem;
+  top: 100%;
+  height: 2.6rem;
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 2.2rem);
+  right: -1.6rem;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 31rem;
+  margin: 0;
+  padding: 0.8rem;
+  list-style: none;
+  border: 0.1rem solid var(--v2-border-blue);
+  border-radius: 1.6rem;
+  background: #fff;
+  box-shadow: 0 1.6rem 4rem rgba(10, 24, 54, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-0.8rem);
+  transition:
+    opacity var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out),
+    visibility var(--dur);
+}
+
+.menuOpen {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.menuLink {
+  display: block;
+  padding: 0.8rem 1.2rem;
+  border-radius: 1rem;
+  font-size: 1.5rem;
+  line-height: 1.85;
+  color: var(--v2-text);
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.menuLink:hover,
+.menuLink:focus-visible,
+.menuLinkActive {
+  background: var(--v2-surface-blue);
+  color: var(--v2-primary);
+}
+
+.cta {
+  display: flex;
+}
+
+.burger {
+  display: none;
+}
+
+.sheet {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .header {
+    padding-block: 1.2rem;
+  }
+
+  .scrolled .pill {
+    transform: none;
+  }
+
+  .pill {
+    height: 7.2rem;
+    padding-inline: 2rem 1.2rem;
+  }
+
+  .nav,
+  .cta {
+    display: none;
+  }
+
+  .logo {
+    width: 13.6rem;
+    height: 3.6rem;
+  }
+
+  .burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 4.8rem;
+    height: 4.8rem;
+    padding-inline: 1.2rem;
+    border-radius: 50%;
+    transition: background-color var(--dur-fast) var(--ease-out);
+  }
+
+  .burger:hover {
+    background: var(--v2-surface-blue);
+  }
+
+  .burger span {
+    height: 0.2rem;
+    border-radius: 0.2rem;
+    background: var(--v2-primary);
+  }
+
+  .sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+    padding: 2rem var(--gutter) 3.2rem;
+    background: #fff;
+    overflow-y: auto;
+    pointer-events: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-1.2rem);
+    transition:
+      opacity var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out),
+      visibility var(--dur);
+  }
+
+  .sheetOpen {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .sheetHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 5.6rem;
+  }
+
+  .sheetLogo img {
+    width: 13.6rem;
+    height: 3.6rem;
+    object-fit: cover;
+  }
+
+  .close {
+    position: relative;
+    width: 4.4rem;
+    height: 4.4rem;
+  }
+
+  .close span {
+    position: absolute;
+    top: 50%;
+    left: 0.8rem;
+    width: 2.8rem;
+    height: 0.2rem;
+    border-radius: 0.2rem;
+    background: var(--v2-primary);
+  }
+
+  .close span:first-child {
+    transform: rotate(45deg);
+  }
+
+  .close span:last-child {
+    transform: rotate(-45deg);
+  }
+
+  .sheetList {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .sheetList > li {
+    border-bottom: 0.1rem solid var(--v2-rule);
+  }
+
+  .sheetLink {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-block: 1.4rem;
+    font-size: 1.8rem;
+    line-height: 1.85;
+    color: var(--v2-text);
+    text-align: start;
+  }
+
+  .sheetTrigger[aria-expanded="true"] .chevron {
+    transform: rotate(180deg);
+  }
+
+  .sheetActive {
+    color: var(--v2-primary);
+  }
+
+  .sheetMenu {
+    max-height: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    visibility: hidden;
+    transition:
+      max-height var(--dur) var(--ease-out),
+      padding var(--dur) var(--ease-out),
+      visibility var(--dur);
+  }
+
+  .sheetMenuOpen {
+    max-height: 32rem;
+    padding-bottom: 1.2rem;
+    visibility: visible;
+  }
+
+  .sheetMenuLink {
+    display: block;
+    padding: 0.8rem 1.6rem;
+    border-radius: 1rem;
+    font-size: 1.6rem;
+    line-height: 1.85;
+    color: var(--v2-text-muted);
+  }
+
+  .sheetMenuLink:hover,
+  .sheetMenuLink:focus-visible,
+  .sheetMenuLink.sheetActive {
+    background: var(--v2-surface-blue);
+    color: var(--v2-primary);
+  }
+
+  .sheetCta {
+    align-self: center;
+  }
+}

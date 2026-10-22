@@ -1,0 +1,4 @@
+main.home :is(h1, h2),
+main.home :is(h1, h2) span {
+  color: #11295c;
+}

@@ -1,0 +1,59 @@
+.card { width: 100%; min-width: 0; border-top: 2px solid var(--v3-blue); padding-top: 28px; }
+.formHeading { margin-bottom: 32px; }
+.formHeading > p:first-child { font-size: 13px; color: var(--v3-blue); margin-bottom: 17px; }
+.formHeading h2 { font-size: clamp(35px, 3.3vw, 52px); line-height: 1.3; margin-bottom: 18px; }
+.formHeading > p:last-child { color: var(--v3-muted); font-size: 16px; }
+.row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 25px; margin-bottom: 26px; }
+.field { min-width: 0; }
+.label { display: block; font-weight: 700; font-size: 17px; margin-bottom: 12px; }
+.input { display: block; width: 100%; min-height: 54px; padding: 13px 14px; border: 1px solid #d8e0eb; border-radius: 0; color: var(--v3-ink); background: #f7f9fc; font-family: inherit; font-size: 17px; transition: border-color 200ms, background 200ms; }
+.input::placeholder { color: #9ba7b9; font-size: 15px; }
+.input:focus { border-color: var(--v3-blue); background: #fff; }
+.input[aria-invalid="true"] { border-color: #b93e3e; }
+.selectWrap { position: relative; }
+.select { appearance: none; padding-inline-end: 38px; }
+.selectChevron { position: absolute; left: 15px; top: 15px; font: 20px Arial, sans-serif; color: #8194ae; pointer-events: none; }
+.placeholder { color: #9ba7b9; font-size: 15px; }
+.requestType { padding: 0; border: 0; margin: 35px 0 30px; min-width: 0; }
+.legend { font-weight: 700; font-size: 17px; margin-bottom: 18px; }
+.options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.option { display: flex; gap: 12px; align-items: center; position: relative; cursor: pointer; padding: 15px 13px; border: 1px solid #d8e0eb; background: #fff; transition: border-color 200ms, background 200ms; min-width: 0; }
+.option:has(:checked) { border-color: var(--v3-blue); background: #edf3fd; }
+.option:has(:focus-visible) { outline: 2px solid var(--v3-cyan); outline-offset: 3px; }
+.radio { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.radioMark { display: grid; place-items: center; width: 16px; height: 16px; border: 1px solid #a4b7d2; border-radius: 50%; flex-shrink: 0; }
+.radioMark > img { display: none; }
+.radioMark::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--v3-blue); scale: 0; transition: scale 150ms; }
+.radio:checked + .radioMark { border-color: var(--v3-blue); }
+.radio:checked + .radioMark::after { scale: 1; }
+.optionLabel { font-size: 15px; line-height: 1.4; }
+.textarea { min-height: 165px; resize: vertical; line-height: 1.7; }
+.consentBlock { margin-block: 25px; }
+.consent { display: flex; gap: 12px; align-items: start; cursor: pointer; }
+.checkbox { margin-top: 6px; width: 17px; height: 17px; accent-color: var(--v3-blue); flex-shrink: 0; }
+.consentText { font-size: 15px; line-height: 1.7; color: var(--v3-muted); }
+.submit { display: flex; align-items: start; gap: 25px; flex-wrap: wrap; }
+.submitButton { display: inline-flex; align-items: center; justify-content: space-between; gap: 40px; padding: 18px 25px; min-height: 58px; background: var(--v3-blue); color: #fff; font-size: 17px; font-weight: 700; transition: background 200ms; }
+.submitButton:hover { background: #10388f; }
+.submitButton:disabled { opacity: 0.6; cursor: progress; }
+.submitButton > svg { width: 22px; }
+.privacy { color: #8b9ab0; font-size: 13px; margin-top: 20px; }
+.error { color: #b33b3b; font-size: 14px; margin-top: 8px; line-height: 1.6; }
+.sent { padding: 45px 0; min-height: 300px; }
+@media (max-width: 640px) {
+  .card { padding-top: 25px; }
+  .formHeading h2 { font-size: 36px; }
+  .row { grid-template-columns: 1fr; gap: 23px; margin-bottom: 23px; }
+  .label { font-size: 16px; }
+  .input { min-height: 53px; font-size: 16px; }
+  .input::placeholder { font-size: 14px; }
+  .options { gap: 10px; }
+  .option { padding: 14px 11px; gap: 9px; }
+  .optionLabel { font-size: 14px; }
+  .radioMark { width: 15px; height: 15px; }
+  .requestType { margin-block: 30px; }
+  .consentText { font-size: 14px; }
+  .submitButton { width: 100%; font-size: 16px; }
+  .privacy { font-size: 12px; }
+}
+@media (max-width: 360px) { .options { grid-template-columns: 1fr; } }

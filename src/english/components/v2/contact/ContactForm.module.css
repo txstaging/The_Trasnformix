@@ -1,0 +1,298 @@
+/* Figma "Consultation form" (3693:66625): a 1240 wide neutral card, 32px
+   padding, 28px between its blocks. */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.8rem;
+  width: 100%;
+  padding: 3.2rem;
+  border: 0.1rem solid var(--v2-border);
+  border-radius: 2.4rem;
+  background: var(--v2-surface-neutral);
+}
+
+.sent {
+  padding-block: 6.4rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.4rem;
+  width: 100%;
+}
+
+/* Figma "Form field" (3503:32377): the label 8px over a 56px input. */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.label {
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--v2-text);
+}
+
+.input {
+  width: 100%;
+  min-height: 5.6rem;
+  padding: 1.6rem;
+  border: 0.1rem solid var(--v2-input-border);
+  border-radius: 0.4rem;
+  background: #fff;
+  font: inherit;
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--v2-text);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.input::placeholder {
+  color: var(--v2-text-muted);
+  opacity: 1;
+}
+
+.input:hover {
+  border-color: var(--v2-text-muted);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--v2-primary);
+  box-shadow: 0 0 0 0.3rem rgba(28, 68, 153, 0.15);
+}
+
+.input[aria-invalid="true"] {
+  border-color: #c0392b;
+}
+
+.textarea {
+  min-height: 14.4rem;
+  resize: vertical;
+}
+
+.selectWrap {
+  position: relative;
+}
+
+.select {
+  appearance: none;
+  padding-inline-end: 4rem;
+  cursor: pointer;
+}
+
+.placeholder {
+  color: var(--v2-text-muted);
+}
+
+.select option {
+  color: var(--v2-text);
+}
+
+/* "اختر قطاع المنشأة  ⌄" — the artboard writes the chevron after the
+   placeholder; here it marks the control's end. */
+.selectChevron {
+  position: absolute;
+  inset-inline-end: 1.6rem;
+  top: 50%;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--v2-text-muted);
+  transform: translateY(-65%);
+  pointer-events: none;
+}
+
+/* Figma "Request type" (3693:66675). */
+.requestType {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.legend {
+  width: 100%;
+  margin-bottom: 1.6rem;
+  padding: 0;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.95;
+  color: var(--v2-text);
+  text-align: center;
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.6rem;
+}
+
+/* Figma "Request option" (3503:32717): white, 16px padding, 8px corners,
+   the radio on the right. */
+.option {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.6rem;
+  padding: 1.6rem;
+  border: 0.1rem solid var(--v2-border);
+  border-radius: 0.8rem;
+  background: #fff;
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.option:hover {
+  border-color: var(--v2-primary);
+}
+
+.option:has(.radio:checked) {
+  border-color: var(--v2-primary);
+  background: var(--v2-surface-blue);
+}
+
+.option:has(.radio:focus-visible) {
+  outline: 2px solid var(--v2-primary);
+  outline-offset: 2px;
+}
+
+.radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* The exported 20px circle, centred on the label's first line. */
+.radioMark {
+  position: relative;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  margin-top: 0.52rem;
+}
+
+.radioMark img {
+  width: 2rem;
+  height: 2rem;
+}
+
+.radioMark::after {
+  content: "";
+  position: absolute;
+  inset: 0.5rem;
+  border-radius: 50%;
+  background: var(--v2-primary);
+  transform: scale(0);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.radio:checked + .radioMark::after {
+  transform: scale(1);
+}
+
+.optionLabel {
+  flex: 1;
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--v2-primary);
+}
+
+/* Figma "Consent" (3693:66729): the 24px box on the right, the sentence
+   centred in the rest of the row. */
+.consentBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  cursor: pointer;
+}
+
+.checkbox {
+  flex-shrink: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin: 0.36rem 0 0;
+  border: 0.1rem solid var(--v2-text-muted);
+  border-radius: 0.4rem;
+  background: #fff;
+  accent-color: var(--v2-primary);
+  cursor: pointer;
+}
+
+.consentText {
+  flex: 1;
+  font-size: 1.6rem;
+  line-height: 1.95;
+  color: var(--v2-text);
+  text-align: center;
+}
+
+.submit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.privacy {
+  width: 100%;
+  font-size: 1.6rem;
+  line-height: 1.95;
+  color: var(--v2-text-muted);
+  text-align: center;
+}
+
+.error {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: #c0392b;
+}
+
+.consentBlock .error {
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .card {
+    gap: 2.4rem;
+    padding: 2.4rem 1.6rem;
+  }
+
+  .row,
+  .options {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
+  }
+
+  .options {
+    gap: 1.2rem;
+  }
+
+  .consentText {
+    text-align: start;
+  }
+
+  .privacy {
+    font-size: 1.4rem;
+  }
+}

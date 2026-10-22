@@ -10,7 +10,6 @@ const STATS = [
   { value: "360°", label: "منظومة رقمية متكاملة" },
 ];
 
-/** Figma 2789:11760 "Section - STATS". */
 export function SectorsStats() {
   return (
     <section className={styles.section}>

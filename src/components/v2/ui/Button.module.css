@@ -1,0 +1,143 @@
+/* Figma "CTA — اطلب استشارة مجانية" (3709:655): 260 x 60, radius 30, 12 gap,
+   18 / 22 side padding (the wider side behind the label), 1px rim. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-shrink: 0;
+  width: var(--btn-w, 26rem);
+  max-width: 100%;
+  height: 6rem;
+  padding-inline: 2.2rem 1.8rem;
+  border: 0.1rem solid transparent;
+  border-radius: 3rem;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.button:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+.label {
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.85;
+  white-space: nowrap;
+}
+
+.disc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--disc, 2.8rem);
+  height: var(--disc, 2.8rem);
+  border-radius: 1.4rem;
+  overflow: hidden;
+  color: var(--v2-primary);
+}
+
+.arrow {
+  font-size: var(--arrow, 1.8rem);
+  line-height: 2.4rem;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.button:hover .arrow,
+.button:focus-visible .arrow {
+  transform: translateX(-0.2rem);
+}
+
+.button:not(:disabled):hover,
+.button:focus-visible {
+  transform: translateY(-0.2rem);
+}
+
+.button:not(:disabled):active {
+  transform: none;
+}
+
+.primary,
+.primary-soft {
+  background: var(--v2-primary);
+  border-color: var(--v2-primary);
+  color: var(--v2-text-inverse);
+}
+
+.primary .disc {
+  background: #fff;
+}
+
+.primary-soft {
+  border-color: var(--v2-border-blue);
+}
+
+.primary-soft .disc {
+  background: var(--v2-surface-blue);
+}
+
+.primary:not(:disabled):hover,
+.primary:focus-visible,
+.primary-soft:not(:disabled):hover,
+.primary-soft:focus-visible {
+  background: var(--v2-primary-hover);
+  box-shadow: 0 0.8rem 2.4rem rgba(28, 68, 153, 0.28);
+}
+
+.inverse {
+  background: #fff;
+  border-color: var(--v2-border-blue);
+  color: var(--v2-primary);
+}
+
+.inverse .disc {
+  background: var(--v2-surface-blue);
+}
+
+.inverse:hover,
+.inverse:focus-visible {
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 10, 30, 0.35);
+}
+
+.outline {
+  background: #fff;
+  border-color: var(--v2-border-blue);
+  color: var(--v2-primary);
+}
+
+.outline:hover,
+.outline:focus-visible {
+  background: var(--v2-surface-blue);
+  border-color: var(--v2-primary);
+}
+
+/* The home invitation band draws a longer 28px arrow (Figma 3709:729). */
+.longArrow {
+  --arrow: 2.8rem;
+}
+
+/* Figma 3709:723 — 170 x 51 with a 29px disc and a 35px arrow glyph. */
+.compact {
+  --disc: 2.9rem;
+  --arrow: 3.5rem;
+  height: 5.1rem;
+  padding-inline: 1.9rem 1.8rem;
+}
+
+@media (max-width: 640px) {
+  .button {
+    height: 5.4rem;
+  }
+
+  .compact {
+    height: 5.1rem;
+  }
+}

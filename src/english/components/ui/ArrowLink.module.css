@@ -1,0 +1,76 @@
+/* Figma "Link" — arrow + label, right-aligned label with the arrow to its left.
+   A parent section may resize the small link through --arrow-link-gap,
+   --arrow-link-pad, --arrow-link-icon and --arrow-link-size. */
+.root {
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: var(--arrow-link-gap, 0.8rem);
+  padding: var(--arrow-link-pad, 0.8933rem 0.1rem 0.8933rem 1.1578rem);
+  border: 1px solid transparent;
+  border-radius: 0.7933rem;
+  cursor: pointer;
+  width: max-content;
+}
+
+.icon {
+  flex-shrink: 0;
+  width: var(--arrow-link-icon, 2.4rem);
+  height: var(--arrow-link-icon, 2.4rem);
+  filter: var(--arrow-link-icon-filter, none);
+  /* Figma flips the exported glyph on its Y axis and rotates it 180deg, which
+     resolves to a plain horizontal mirror. */
+  transform: scaleX(-1);
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.label {
+  font-size: var(--arrow-link-size, 1.8rem);
+  font-weight: 500;
+  color: var(--arrow-link-color, var(--primary-alt));
+  text-align: center;
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.root:hover .icon,
+.root:focus-visible .icon {
+  transform: scaleX(-1) translateX(0.5rem);
+}
+
+.root:hover .label,
+.root:focus-visible .label {
+  color: var(--arrow-link-hover-color, var(--blue-dark));
+}
+
+.lg {
+  gap: 0.8rem;
+  height: 4.7rem;
+  padding: 0.8933rem 1.7rem 0.8933rem 1.1578rem;
+}
+
+.lg .icon {
+  width: 4.7rem;
+  height: 4.7rem;
+}
+
+.lg .label {
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .lg .icon {
+    width: 3.6rem;
+    height: 3.6rem;
+  }
+
+  .lg .label {
+    font-size: 2rem;
+  }
+}
+
+.root { max-width: 100%; }
+.label { white-space: normal; }
+.icon { transform: none; }
+.root:hover .icon, .root:focus-visible .icon { transform: translateX(0.5rem); }

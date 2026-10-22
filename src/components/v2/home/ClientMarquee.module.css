@@ -1,0 +1,69 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
+  width: 100%;
+}
+
+.viewport {
+  width: 100%;
+  height: 10.8rem;
+  overflow: hidden;
+}
+
+/* Two identical sets. The track starts flush right (RTL); sliding it right by
+   one set's width (50%) lands on an identical frame, so the loop is seamless.
+   One set is ~2350 design px, wider than the column, so no gap ever shows. */
+.track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  animation: marquee 48s linear infinite;
+}
+
+.viewport:hover .track {
+  animation-play-state: paused;
+}
+
+.set {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--cell);
+  min-width: 28.8rem;
+  height: 10.8rem;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(50%);
+  }
+}
+
+@media (max-width: 640px) {
+  .viewport {
+    height: 8.4rem;
+  }
+
+  .cell {
+    min-width: 0;
+    width: calc(var(--cell) * 0.6);
+    height: 8.4rem;
+  }
+
+  .cell > * {
+    width: calc(var(--w) * 0.7);
+  }
+
+  .track {
+    animation-duration: 32s;
+  }
+}

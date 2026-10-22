@@ -1,0 +1,383 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8.1rem 0 40.8rem;
+  /* Shares the #fcfbfa <AcademyCurtain> band with the section above. */
+  background: transparent;
+}
+
+.heading {
+  margin-bottom: 7.1rem;
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: #000;
+  text-align: center;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 6.5rem;
+  width: 115.2rem;
+  max-width: 100%;
+}
+
+.card {
+  position: sticky;
+  top: 12rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 0.1rem solid rgba(255, 255, 255, 0.3);
+  border-radius: 3rem;
+  padding: 6.4rem;
+  scroll-margin-top: 10rem;
+  color: var(--text-inverse);
+  --tint: 255, 103, 36;
+  box-shadow:
+    0.1rem 0.2rem 0.2rem 0 rgba(var(--tint-first, var(--tint)), 0.2),
+    0.2rem 0.4rem 0.4rem 0 rgba(var(--tint), 0.2),
+    0.4rem 0.8rem 0.8rem 0 rgba(var(--tint), 0.2),
+    0.8rem 1.6rem 1.6rem 0 rgba(var(--tint), 0.2),
+    1.6rem 3.2rem 3.2rem 0 rgba(var(--tint), 0.2);
+  /* Stacking-card scroll state, written by AcademyTracks (0..1 each). */
+  transform-origin: 50% 0;
+  transform: scale(calc(0.9 + 0.1 * var(--in, 1) - 0.1 * var(--out, 0)));
+  opacity: calc((0.2 + 0.8 * var(--in, 1)) * (1 - var(--out, 0)));
+  will-change: transform, opacity;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding-bottom: 2.4rem;
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--text-inverse);
+  white-space: nowrap;
+}
+
+.mark {
+  flex-shrink: 0;
+  width: 8rem;
+  height: 8rem;
+  align-self: flex-start;
+}
+
+.body {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 3.2rem;
+  flex-shrink: 0;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.4rem;
+  flex-shrink: 0;
+  width: 49.5rem;
+  height: 100%;
+}
+
+.text {
+  flex-shrink: 0;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 3.2rem;
+  font-weight: 400;
+  color: var(--text-inverse);
+  text-align: right;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  width: 29.9188rem;
+  padding: 1.6rem 2rem;
+  border: 0.1rem solid rgba(255, 255, 255, 0.3);
+  border-radius: 999.9rem;
+  background: var(--bg-main);
+  backdrop-filter: blur(0.4rem);
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.4rem;
+  color: #032d60;
+  white-space: nowrap;
+  transition:
+    transform var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.cta:hover,
+.cta:focus-visible {
+  transform: translateY(-0.2rem);
+  box-shadow: 0 0.8rem 2.4rem rgba(3, 45, 96, 0.25);
+}
+
+.cta:active {
+  transform: none;
+  box-shadow: inset 0 0.3rem 0.6rem rgba(3, 45, 96, 0.2);
+}
+
+.ctaIcon {
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.cta:hover .ctaIcon {
+  transform: scale(1.15);
+}
+
+.visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.industry {
+  --tint: 255, 103, 36;
+  --tint-first: 249, 115, 22;
+  height: 62.3359rem;
+  padding-top: 3.9rem;
+  background: linear-gradient(to left, #f07f31, #f0a571);
+}
+
+.industry .header {
+  height: 15.7rem;
+}
+
+.industry .title,
+.cooperatives .title {
+  margin-right: 1.1rem;
+}
+
+.industry .body {
+  height: 36.4rem;
+}
+
+.industry .text {
+  width: 52.3rem;
+  min-height: 26rem;
+  margin-right: 1.2rem;
+}
+
+.industry .visual {
+  position: absolute;
+  left: -1.6rem;
+  top: -7.2rem;
+  width: 48.2rem;
+  height: 35.6rem;
+}
+
+.industry .visual img {
+  object-fit: contain;
+}
+
+.vocational {
+  --tint: 52, 81, 222;
+  height: 56.4rem;
+  background: linear-gradient(to left, #0c75d2, #001e4a);
+}
+
+.vocational .header {
+  height: 10.4rem;
+}
+
+.vocational .body {
+  height: 33rem;
+  padding-right: 0.6rem;
+}
+
+.vocational .text {
+  width: 51.3rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.vocational .visual {
+  flex-shrink: 0;
+  width: 48.9rem;
+  height: 32.0946rem;
+}
+
+.vocational .visual img {
+  object-fit: cover;
+}
+
+.cooperatives {
+  --tint: 31, 130, 124;
+  height: 62.3359rem;
+  background: linear-gradient(to left, #1f827c, #023434);
+}
+
+.cooperatives .header {
+  height: 11.4rem;
+}
+
+.cooperatives .body {
+  height: 36.4359rem;
+}
+
+.cooperatives .copy {
+  gap: 3.3rem;
+}
+
+.cooperatives .text {
+  width: 48.3rem;
+  min-height: 22.8rem;
+  margin-right: 1.2rem;
+}
+
+.cooperatives .visual {
+  flex-shrink: 0;
+  width: 49.5rem;
+  height: 100%;
+  max-height: 40rem;
+}
+
+.cooperatives .visual img {
+  object-fit: contain;
+}
+
+/* Below 1024 each card stacks: heading, copy, then the shot. */
+@media (max-width: 1024px) {
+  .section {
+    padding: 6.4rem var(--gutter) 9.6rem;
+  }
+
+  .heading {
+    margin-bottom: 4rem;
+    font-size: 2.8rem;
+  }
+
+  .list {
+    width: 100%;
+    max-width: 86rem;
+    gap: 4rem;
+  }
+
+  .card,
+  .industry,
+  .vocational,
+  .cooperatives {
+    position: relative;
+    top: auto;
+    height: auto;
+    padding: 4.8rem 4rem;
+  }
+
+  .industry .header,
+  .vocational .header,
+  .cooperatives .header {
+    height: auto;
+    gap: 2.4rem;
+  }
+
+  .industry .title,
+  .cooperatives .title {
+    margin-right: 0;
+  }
+
+  .title {
+    font-size: 3.2rem;
+    white-space: normal;
+  }
+
+  .mark {
+    width: 6.4rem;
+    height: 6.4rem;
+  }
+
+  .industry .body,
+  .vocational .body,
+  .cooperatives .body {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3.2rem;
+    height: auto;
+    padding-right: 0;
+  }
+
+  .copy,
+  .cooperatives .copy {
+    width: 100%;
+    gap: 2.4rem;
+  }
+
+  .industry .text,
+  .vocational .text,
+  .cooperatives .text {
+    width: auto;
+    min-height: 0;
+    margin-right: 0;
+    font-size: 2.4rem;
+  }
+
+  .industry .visual,
+  .vocational .visual,
+  .cooperatives .visual {
+    position: static;
+    align-self: center;
+    width: 100%;
+    max-width: 49.5rem;
+    height: auto;
+    max-height: none;
+  }
+
+  .visual img {
+    height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 4.8rem var(--gutter) 6.4rem;
+  }
+
+  .heading {
+    margin-bottom: 3.2rem;
+    font-size: 2.2rem;
+  }
+
+  .list {
+    gap: 3.2rem;
+  }
+
+  .card,
+  .industry,
+  .vocational,
+  .cooperatives {
+    border-radius: 2.4rem;
+    padding: 3.2rem 2rem;
+  }
+
+  .title {
+    font-size: 2.4rem;
+  }
+
+  .mark {
+    width: 4.8rem;
+    height: 4.8rem;
+  }
+
+  .industry .text,
+  .vocational .text,
+  .cooperatives .text {
+    font-size: 1.8rem;
+  }
+
+  .cta {
+    width: 100%;
+  }
+}

@@ -1,463 +1,212 @@
-/* Figma 2096:4697 "Frame 1618872768" — 1440 x 900, with "Component 20"
-   (2099:5295, 1440 x 575) carrying the timeline and its six variants. */
 .section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10rem 0.8rem;
+  padding: 6.4rem 7.6rem;
   background: var(--bg-main);
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  scroll-margin-top: 12rem;
 }
 
 .inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 144rem;
+  width: 129.1rem;
   max-width: 100%;
+  margin-inline: auto;
 }
 
 .head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2.4rem;
-  width: 77.5rem;
-  max-width: 100%;
-}
-
-.headCopy {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  width: 100%;
+  max-width: 77.5rem;
+  margin: 0 auto 3.2rem;
   text-align: center;
 }
 
 .title {
-  width: 100%;
+  font-family: var(--font-kufi), sans-serif;
   font-size: 4rem;
-  font-weight: 600;
-  color: var(--text-primary);
+  font-weight: 700;
+  color: #11295c;
 }
 
 .subtitle {
-  width: 100%;
+  margin-top: 1.6rem;
   font-size: 2.4rem;
-  font-weight: 400;
+  color: #1a1a1a;
+  line-height: 1.6;
+}
+
+.playback {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.6rem;
+}
+
+.pause {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-height: 3.6rem;
+  padding: 0.6rem 1rem;
+  border-radius: 0.6rem;
   color: var(--text-secondary);
+  font-size: 1.4rem;
+  line-height: 1.5;
+  transition: color var(--dur-fast), background-color var(--dur-fast);
 }
 
-/* ---- Scroll track ------------------------------------------------------
-   The timeline is pinned for the length of this track, and the fraction of it
-   that has been scrolled is what walks the star down the rail. One viewport
-   of pin, plus a dwell for every step after the first (`--dwells`, set by the
-   component so the length follows the step count).
-   ------------------------------------------------------------------------ */
-.track {
-  --dwell: 70vh;
-  position: relative;
-  width: 100%;
-  margin-top: 4rem;
-  height: calc(100vh + var(--dwells) * var(--dwell));
-}
+.pause:hover { color: var(--primary); background: var(--blue-light); }
+.pause svg { width: 1.8rem; height: 1.8rem; }
 
-.sticky {
-  position: sticky;
-  top: 0;
+/* One expanded stage and four compact headings, as in Progress Cards. */
+.list {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100vh;
-}
-
-/* ---- Timeline ---------------------------------------------------------- */
-.timeline {
-  position: relative;
-  width: 144rem;
-  max-width: 100%;
-  height: 57.5rem;
-  overflow: hidden;
-  background: var(--bg-main);
-}
-
-/* "Line 116" is a 2px rule with its own blue-to-grey gradient. */
-.rail {
-  position: absolute;
-  left: 72rem;
-  top: 5.6rem;
-  width: 0.2rem;
-  height: 50.9rem;
-  transform: translateX(-50%);
-  background: linear-gradient(
-    to bottom,
-    #1e4599 0%,
-    #1c4499 72.682%,
-    #999999 100%
-  );
-}
-
-/* Driven straight off the scroll position, so no transition here — a tween
-   would only lag behind the wheel. */
-.star {
-  position: absolute;
-  left: 67.9rem;
-  width: 8.2rem;
-  height: 8.2rem;
-}
-
-.starSpin {
-  width: 100%;
-  height: 100%;
-  animation: starSpin 14s linear infinite;
-}
-
-@keyframes starSpin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ---- Step figure -------------------------------------------------------
-   Every step supplies its own box, so all six stay mounted and cross-fade.
-   Odd steps are a straight crop; even ones rotate the same 350px window into
-   a diamond and counter-rotate the picture back upright inside it.
-   ------------------------------------------------------------------------ */
-.figure {
-  position: absolute;
-  left: var(--fig-x);
-  top: var(--fig-y);
-  width: var(--fig-size);
-  height: var(--fig-size);
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity var(--dur-slow) var(--ease-out),
-    visibility var(--dur-slow);
-}
-
-.figureActive {
-  opacity: 1;
-  visibility: visible;
-}
-
-.figureRect {
-  overflow: hidden;
-}
-
-.figureRect .figureCrop {
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-
-.figureDiamond {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.tilt {
-  transform: rotate(45deg);
-}
-
-.window {
-  position: relative;
-  width: 35rem;
-  height: 35rem;
-  overflow: hidden;
-}
-
-.stage {
-  position: absolute;
-  left: var(--stage-x);
-  top: var(--stage-y);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: var(--stage-size);
-  height: var(--stage-size);
-}
-
-.untilt {
-  transform: rotate(-45deg);
-}
-
-.figureCrop {
-  position: relative;
-  flex-shrink: 0;
-  width: var(--box-w);
-  height: var(--box-h);
-  overflow: hidden;
-}
-
-.figureCrop img {
-  position: absolute;
-  left: var(--crop-x);
-  top: var(--crop-y);
-  width: var(--crop-w);
-  height: var(--crop-h);
-  max-width: none;
-  object-fit: cover;
-}
-
-/* ---- Step card --------------------------------------------------------- */
-.step {
-  position: absolute;
-  left: 84.2rem;
-  top: 14.6rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.2rem;
-  width: 49.8rem;
-  text-align: right;
-}
-
-.stepEnter {
-  animation: stepIn 620ms var(--ease-out) both;
-}
-
-@keyframes stepIn {
-  from {
-    opacity: 0;
-    transform: translateY(2rem);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.stepCopy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.6rem;
-  width: 100%;
-  font-weight: 500;
-}
-
-.stepTitle {
-  width: 100%;
-  height: 3.9rem;
-  font-size: 2.4rem;
-  font-weight: 500;
-  color: var(--primary);
-  white-space: pre-wrap;
-}
-
-.stepText {
-  width: 100%;
-  font-size: 1.8rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  word-break: break-word;
-}
-
-.bullets {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1.2rem;
-  width: 34.4rem;
+  align-items: stretch;
+  gap: 2rem;
+  height: 52rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.bullet {
+.card {
+  position: relative;
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex: 0 0 14rem;
+  flex-direction: column;
+  gap: 1.6rem;
+  min-width: 0;
+  padding: 1.6rem 2rem;
+  overflow: hidden;
+  transition: flex-grow 650ms var(--ease-out), flex-basis 650ms var(--ease-out);
+}
+
+.card[data-active="true"] { flex: 1 1 0%; }
+
+.rail {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 0.1rem;
+  overflow: hidden;
+  background: #dce2ea;
+}
+
+.rail > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--primary);
+  transform-origin: bottom;
+}
+
+.stepHeading { margin: 0; font-weight: 500; }
+.trigger {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 0.8rem;
+  width: 100%;
+  text-align: start;
 }
 
-.bulletDot {
-  flex-shrink: 0;
-  width: 1rem;
-  height: 1rem;
+button.trigger { border-radius: 0.4rem; }
+
+.number {
+  display: block;
+  color: #1c4499;
+  font: 500 4rem/1.1 Arial, sans-serif;
+  letter-spacing: -0.04em;
 }
 
-.bulletText {
-  font-size: 1.8rem;
-  font-weight: 400;
-  color: var(--text-secondary);
-  text-align: right;
+.stepTitle {
+  color: #11295c;
+  font-size: 2rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  transition: color var(--dur);
 }
 
-/* ---- Step chooser (tablet / mobile only) ------------------------------- */
-.dotButton {
-  width: 2.2rem;
-  height: 2.2rem;
+.card[data-active="true"] .stepTitle { color: #11295c; }
+
+.details {
+  flex: 1;
+  min-height: 0;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms, visibility 0s 150ms;
+}
+
+.card[data-active="true"] .details {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 350ms 250ms, visibility 0s 250ms;
+}
+
+.detailsInner {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
+  flex-direction: column;
+  gap: 1.2rem;
+  height: 100%;
+  min-height: 0;
 }
 
-.dotButton span {
-  width: 0.8rem;
-  height: 0.8rem;
-  border-radius: 50%;
-  background: var(--blue-light-active);
-  transition:
-    background-color var(--dur) var(--ease-out),
-    transform var(--dur) var(--ease-out);
+.stepText {
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
 }
 
-.dotButton:hover span {
-  transform: scale(1.5);
-  background: var(--primary);
+.visual {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 8rem;
+  overflow: hidden;
+  border-radius: 0.8rem;
 }
 
-.dotActive span {
-  background: var(--primary);
-  transform: scale(1.4);
-}
-
-/* Horizontal chooser shown once the rail is hidden. */
-.mobileDots {
-  display: none;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2.4rem;
-}
+.visual img { object-fit: contain; }
 
 @media (max-width: 1024px) {
-  .section {
-    padding: 8rem var(--gutter);
-  }
-
-  .inner {
-    width: 100%;
-    gap: 4.8rem;
-  }
-
-  /* No rail below this width, so nothing to pin: the steps stack and the dots
-     take over. */
-  .track {
-    height: auto;
-    margin-top: 0;
-  }
-
-  .sticky {
-    position: static;
-    display: block;
-    height: auto;
-  }
-
-  .timeline {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3.2rem;
-    width: 100%;
-    height: auto;
-  }
-
-  .rail,
-  .star {
-    display: none;
-  }
-
-  .figure {
-    position: relative;
-    left: auto;
-    top: auto;
-    display: none;
-    width: min(35rem, 100%);
-    height: auto;
-    aspect-ratio: 1;
-    overflow: hidden;
-    opacity: 1;
-    visibility: visible;
-  }
-
-  /* Each step slides in from the right, following the RTL reading order. */
-  .figureActive {
-    display: block;
-    animation: stepInFromRight 620ms var(--ease-out) both;
-  }
-
-  .stepEnter {
-    animation-name: stepInFromRight;
-  }
-
-  .tilt,
-  .untilt {
-    transform: none;
-  }
-
-  .window,
-  .stage {
-    position: static;
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .figureCrop {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .figureCrop img {
-    position: static;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .step {
-    position: relative;
-    left: auto;
-    top: auto;
-    width: 100%;
-  }
-
-  .bullets {
-    width: 100%;
-  }
-
-  .mobileDots {
-    display: flex;
-  }
+  .section { padding: 5.6rem var(--gutter); }
+  .list { gap: 1.2rem; height: 60rem; }
+  .card { flex-basis: 11rem; padding-inline: 1.6rem; }
+  .card[data-active="true"] { flex-basis: 0%; }
+  .stepTitle { font-size: 1.8rem; }
 }
 
-@keyframes stepInFromRight {
-  from {
-    opacity: 0;
-    transform: translateX(4rem);
+/* All five stages remain open on smaller screens and with reduced motion. */
+@media (max-width: 900px), (prefers-reduced-motion: reduce) {
+  .playback { display: none; }
+  .list { flex-direction: column; height: auto; gap: 3.2rem; }
+  .card, .card[data-active="true"] {
+    flex: none;
+    gap: 1.6rem;
+    width: 100%;
+    padding: 0 0 2.4rem;
+    border-bottom: 0.1rem solid #dce2ea;
+    overflow: visible;
+    transition: none;
   }
-  to {
+  .card:last-child { padding-bottom: 0; border-bottom: 0; }
+  .rail { display: none; }
+  .stepTitle, .card[data-active="true"] .stepTitle { color: #11295c; font-size: 2.4rem; }
+  .details, .card[data-active="true"] .details {
+    flex: none;
+    visibility: visible;
     opacity: 1;
-    transform: none;
+    pointer-events: auto;
+    transition: none;
   }
+  .detailsInner { height: auto; }
+  .visual { flex: none; height: 18rem; }
+  .stepText { font-size: 1.8rem; }
 }
 
 @media (max-width: 640px) {
-  .section {
-    padding: 6.4rem var(--gutter);
-  }
-
-  .title {
-    font-size: 2.2rem;
-    font-weight: 500;
-  }
-
-  .subtitle {
-    font-size: 1.8rem;
-  }
-
-  .stepText,
-  .bulletText {
-    font-size: 1.6rem;
-  }
+  .section { padding: 4.8rem var(--gutter); }
+  .head { margin-bottom: 2.8rem; }
+  .title { font-size: 2.2rem; font-weight: 500; }
+  .subtitle { font-size: 1.8rem; }
+  .visual { height: 16rem; }
+  .stepTitle, .card[data-active="true"] .stepTitle { font-size: 2.2rem; }
+  .stepText { font-size: 1.6rem; }
 }

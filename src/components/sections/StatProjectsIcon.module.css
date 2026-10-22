@@ -1,0 +1,24 @@
+.icon {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  width: 5.4rem;
+  height: 5.4rem;
+  overflow: hidden;
+}
+
+/* The layers' 53.205 × 51.996 group, centred in the box and flipped
+   vertically about its own centre (Figma's -scale-y-100). */
+.group {
+  position: absolute;
+  left: 0.03975rem;
+  top: 0.1002rem;
+  width: 5.3205rem;
+  height: 5.1996rem;
+  transform: scaleY(-1);
+}
+
+.layer {
+  position: absolute;
+  max-width: none;
+}

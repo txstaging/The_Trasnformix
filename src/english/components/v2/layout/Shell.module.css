@@ -1,0 +1,54 @@
+/* ==========================================================================
+   Transformix v2 — design tokens
+   Source: Figma "transformix-2" · section 3800:4253 (ten 1440 px artboards)
+
+   Scoped to the v2 shell so nothing here leaks into the first design. Sizing
+   follows the project-wide convention from app/globals.css: 1rem === 10
+   design px, scaled with the viewport between 1024 and 1440.
+   ========================================================================== */
+
+.root {
+  /* Brand */
+  --v2-primary: #1c4499;
+  --v2-primary-hover: #11295c; /* Foundation/Blue/Dark :hover */
+  --v2-navy: #11295c;
+  --v2-darker: #0a1836; /* Foundation/Blue/Darker — the invitation band */
+  --v2-footer: #0c1935;
+  --v2-cyan: #00a3cf;
+  --v2-cyan-line: #2ac0d4; /* brand/technology-cyan */
+  --v2-orange: #e87524; /* brand/industrial-orange */
+
+  /* Text */
+  --v2-text: #1a1a1a;
+  --v2-text-muted: #57585b;
+  --v2-text-soft: #575963;
+  --v2-text-inverse: #ffffff;
+  --v2-text-inverse-muted: #dadada;
+  --v2-footer-muted: #adbad1;
+
+  /* Surfaces */
+  --v2-surface-blue: #f4f7fc;
+  --v2-surface-neutral: #f5f6f8;
+  --v2-surface-card: #fcfbfa;
+  --v2-surface-light: #e8ecf5; /* Foundation/Blue/Light */
+
+  /* Lines */
+  --v2-border: #e5e7eb;
+  --v2-border-blue: #e0e8f2;
+  --v2-rule: #e5ebf2;
+  --v2-input-border: #a3a9b3;
+
+  /* Effects. Figma's `bg-gradient-to-l` starts on the right. */
+  --v2-gradient: linear-gradient(to left, #0c75d2, #001e4a);
+  --v2-gradient-deep: linear-gradient(
+    to left,
+    #0c75d2 0%,
+    #001e4a 48.077%,
+    #001e4a 83.497%
+  );
+
+  /* The artboard's 1240 wide content column. */
+  --v2-container: 124rem;
+
+  color: var(--v2-text);
+}

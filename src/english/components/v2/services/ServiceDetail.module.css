@@ -1,0 +1,24 @@
+/* Figma "Service visual" (3693:65506): the 1040 x 686 render and its caption,
+   16px apart. */
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  width: 104rem;
+  max-width: 100%;
+  margin: 0;
+}
+
+.caption {
+  font-size: 1.6rem;
+  line-height: 1.85;
+  color: var(--v2-text-soft);
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .caption {
+    font-size: 1.4rem;
+  }
+}

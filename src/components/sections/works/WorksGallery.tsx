@@ -6,7 +6,6 @@ import { Reveal } from "@/components/ui/Reveal";
 import { WORK_FILTERS, type WorkFilter, type WorkProject } from "./projects";
 import styles from "./WorksGallery.module.css";
 
-/** Cards per page; the artboard shows sixteen before "عرض المزيد". */
 const PAGE_SIZE = 16;
 
 const CARD_WIDTH = 604;
@@ -50,38 +49,40 @@ function WorkCard({ project, index }: { project: WorkProject; index: number }) {
         className={styles.media}
         style={{ aspectRatio: `${CARD_WIDTH} / ${frame}` }}
       >
-        <Image
-          className={cx(styles.mediaImage, crop.fit === "cover" && styles.cover)}
-          style={{
-            left: pct(crop.x, CARD_WIDTH),
-            top: pct(crop.y, frame),
-            width: pct(crop.w, CARD_WIDTH),
-            height: pct(crop.h, frame),
-          }}
-          src={project.image}
-          alt={project.title}
-          width={Math.round(crop.w)}
-          height={Math.round(crop.h)}
-          sizes="(max-width: 640px) 110vw, (max-width: 1024px) 60vw, 52vw"
-        />
-      </div>
+        <div className={styles.zoom}>
+          <Image
+            className={cx(styles.mediaImage, crop.fit === "cover" && styles.cover)}
+            style={{
+              left: pct(crop.x, CARD_WIDTH),
+              top: pct(crop.y, frame),
+              width: pct(crop.w, CARD_WIDTH),
+              height: pct(crop.h, frame),
+            }}
+            src={project.image}
+            alt={project.title}
+            width={Math.round(crop.w)}
+            height={Math.round(crop.h)}
+            sizes="(max-width: 640px) 110vw, (max-width: 1024px) 60vw, 52vw"
+          />
+        </div>
 
-      <div className={styles.info}>
-        <h3 dir="auto" className={styles.title}>
-          {project.title}
-        </h3>
+        {/* Frosted-glass service pills over a soft shade at the picture's foot. */}
         <ul className={styles.tags} aria-label="الخدمات">
-          {project.tags.map((tag) => (
+          {project.tags.map((tag, tagIndex) => (
             <li
               key={tag.label}
               className={styles.tag}
-              style={{ "--w": rem(tag.width ?? 133) } as CSSProperties}
+              style={{ "--i": tagIndex } as CSSProperties}
             >
               {tag.label}
             </li>
           ))}
         </ul>
       </div>
+
+      <h3 dir="auto" className={styles.title}>
+        {project.title}
+      </h3>
     </>
   );
 
@@ -106,8 +107,6 @@ function WorkCard({ project, index }: { project: WorkProject; index: number }) {
   );
 }
 
-/** Figma 2418:33318 — filters, search and the project grid (states 2418:33317,
-    2418:39853 and 2422:2951). */
 export function WorksGallery() {
   const [filterId, setFilterId] = useState<WorkFilter["id"]>("all");
   const [query, setQuery] = useState("");

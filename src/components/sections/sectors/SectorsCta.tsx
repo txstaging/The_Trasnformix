@@ -1,8 +1,7 @@
-import { Button8 } from "@/components/ui/Button8";
+import { PillButton } from "@/components/ui/PillButton";
 import { Reveal } from "@/components/ui/Reveal";
 import styles from "./SectorsCta.module.css";
 
-/** Figma 2789:11785 "Section - CTA" — the navy closing banner. */
 export function SectorsCta() {
   return (
     <section className={styles.section}>
@@ -16,13 +15,13 @@ export function SectorsCta() {
             هل تعمل في أحد هذه القطاعات؟
           </p>
           <div className={styles.titleWrap}>
-            <h2 className={styles.title}>خلّينا نبني الحل المناسب لطبيعة شغلك.</h2>
+            <h2 className={styles.title}>تناقش معنا للوصول الي الحل المناسب</h2>
           </div>
           <p className={styles.text}>
             شاركنا التحدي أو الفكرة، ونبدأ من فهم احتياجك الحقيقي ثم نحولها إلى
             منظومة رقمية قابلة للتنفيذ.
           </p>
-          <Button8>احجز استشارة مجانية</Button8>
+          <PillButton>احجز استشارة مجانية</PillButton>
         </div>
       </Reveal>
     </section>

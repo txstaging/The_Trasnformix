@@ -1,0 +1,184 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
+  width: 100%;
+}
+
+/* Figma "Illustrative resource planning" (3693:65970): an 820 wide white
+   board, 24px padding and gaps, 8px corners. */
+.board {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  width: 82rem;
+  max-width: 100%;
+  margin: 0;
+  padding: 2.4rem;
+  border: 0.1rem solid var(--v2-border);
+  border-radius: 0.8rem;
+  background: #fff;
+  box-shadow: 0 1.2rem 3.2rem rgba(10, 24, 54, 0.06);
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--v2-text);
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.boardTitle {
+  font-size: 2.4rem;
+  color: var(--v2-primary);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 0;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 0.8rem;
+  background: var(--v2-surface-neutral);
+}
+
+.metric dd {
+  margin: 0;
+  color: var(--v2-primary);
+}
+
+.schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  line-height: normal;
+  color: var(--v2-text-muted);
+  text-align: center;
+}
+
+.phase {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+/* Physical sides on purpose: Figma pads the bar 8px on the right and by the
+   phase's offset on the left. */
+.track {
+  display: flex;
+  height: 2rem;
+  padding-right: 0.8rem;
+  padding-left: var(--inset);
+  background: var(--v2-surface-neutral);
+}
+
+.bar {
+  flex: 1;
+  border-radius: 0.2rem;
+  background: var(--bar);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  text-align: start;
+}
+
+.table th,
+.table td {
+  padding: 1.2rem 0.8rem;
+  font-weight: 400;
+  text-align: start;
+}
+
+.table td[dir="ltr"] {
+  text-align: right;
+}
+
+.table th {
+  padding-block: 0.8rem;
+  background: var(--v2-surface-light);
+}
+
+.table td {
+  border-bottom: 0.1rem solid var(--v2-border);
+}
+
+.footnote {
+  color: var(--v2-text-muted);
+}
+
+.explain {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  width: 104rem;
+  max-width: 100%;
+  line-height: 1.95;
+  text-align: center;
+}
+
+.lead {
+  font-size: 2rem;
+  color: var(--v2-text-muted);
+}
+
+.note {
+  font-size: 1.6rem;
+  color: var(--v2-text-muted);
+}
+
+@media (max-width: 640px) {
+  .board {
+    gap: 1.6rem;
+    padding: 1.6rem;
+    font-size: 1.3rem;
+  }
+
+  .boardTitle {
+    font-size: 2rem;
+  }
+
+  .metrics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .days {
+    gap: 0.4rem;
+    font-size: 1.1rem;
+  }
+
+  .track {
+    padding-left: calc(var(--inset) * 0.4);
+  }
+
+  .table th,
+  .table td {
+    padding-inline: 0.4rem;
+    font-size: 1.2rem;
+    overflow-wrap: anywhere;
+  }
+
+  .lead {
+    font-size: 1.6rem;
+  }
+}

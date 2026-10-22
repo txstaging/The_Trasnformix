@@ -1,0 +1,199 @@
+/* Figma 3459:10323 / 3482:4562 — a 264-wide, fully rounded pill, 16/20
+   padding, its label and the 28px arrow disc 24 apart. The disc sits left of
+   the label. A caller may resize it through --pill-w, --pill-pad, --pill-gap,
+   --pill-size, --pill-lh, --pill-disc, --pill-disc-pad and --pill-arrow. */
+.root {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pill-gap, 2.4rem);
+  flex-shrink: 0;
+  width: var(--pill-w, 26.4rem);
+  max-width: 100%;
+  padding: var(--pill-pad, 1.6rem 2rem);
+  border: 0;
+  border-radius: 999.9rem;
+  backdrop-filter: blur(0.4rem);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    transform var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out),
+    background-color var(--dur) var(--ease-out);
+}
+
+.label {
+  font-size: var(--pill-size, 1.6rem);
+  font-weight: 400;
+  line-height: var(--pill-lh, 2.4rem);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.disc {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: var(--pill-disc, 2.8rem);
+  padding: var(--pill-disc-pad, 0.6rem);
+  border-radius: 2.4rem;
+  overflow: hidden;
+}
+
+/* Figma turns the exported right arrow 180° and flips it on Y, which
+   resolves to a horizontal mirror: it points left. */
+.arrow {
+  display: block;
+  flex-shrink: 0;
+  width: var(--pill-arrow, 1.6rem);
+  height: var(--pill-arrow, 1.6rem);
+  max-width: none;
+  transform: scaleX(-1);
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.root:hover .arrow,
+.root:focus-visible .arrow {
+  transform: scaleX(-1) translateX(0.3rem);
+}
+
+.root:active {
+  transform: none;
+}
+
+.compact {
+  --pill-w: auto;
+  --pill-pad: 0.8rem 1.4rem;
+  --pill-gap: 1rem;
+  --pill-size: 1.3rem;
+  --pill-lh: 2rem;
+  --pill-disc: 2rem;
+  --pill-disc-pad: 0.4rem;
+  --pill-arrow: 1.2rem;
+}
+
+.primary {
+  background: var(--primary);
+  color: var(--text-inverse);
+}
+
+.primary .disc {
+  background: #fff;
+}
+
+.primary:hover,
+.primary:focus-visible {
+  transform: translateY(-0.2rem);
+  box-shadow: 0 0.8rem 2.4rem rgba(28, 68, 153, 0.3);
+}
+
+.primary:active {
+  box-shadow: inset 0 0.3rem 0.6rem rgba(0, 0, 0, 0.25);
+}
+
+.inverse {
+  background: var(--text-inverse);
+  color: var(--primary);
+}
+
+.inverse .disc {
+  background: var(--primary);
+}
+
+.inverse:hover,
+.inverse:focus-visible {
+  transform: translateY(-0.2rem);
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 18, 51, 0.35);
+}
+
+.inverse:active {
+  box-shadow: inset 0 0.3rem 0.6rem rgba(28, 68, 153, 0.25);
+}
+
+.outline,
+.ghost {
+  height: 6.1rem;
+  padding: 0 2rem;
+  border: 0.2rem solid var(--primary);
+  border-radius: 6.3rem;
+}
+
+.outline .label,
+.ghost .label {
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.outline {
+  --pill-w: 25.1rem;
+  background: rgba(255, 255, 255, 0.24);
+  box-shadow: inset 0 0.4rem 0.1rem 0 rgba(255, 255, 255, 0.4);
+  color: var(--primary);
+}
+
+.outline:hover,
+.outline:focus-visible {
+  background-color: rgba(28, 68, 153, 0.06);
+  transform: translateY(-0.2rem);
+}
+
+.outline:active {
+  background-color: rgba(28, 68, 153, 0.12);
+}
+
+.ghost {
+  --pill-w: 23.7rem;
+  border-color: #778fc2;
+  background: transparent;
+  color: var(--text-inverse);
+}
+
+.ghost:hover,
+.ghost:focus-visible {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-0.2rem);
+}
+
+.ghost:active {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+/* Figma 3652:7310 — 228 x 60, Foundation/Blue/Light :hover fill. */
+.soft {
+  --pill-w: 22.8rem;
+  height: 6rem;
+  background: #dde3f0;
+  color: var(--primary);
+}
+
+.soft .label {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.soft:hover,
+.soft:focus-visible {
+  background-color: var(--blue-light-active);
+  transform: translateY(-0.2rem);
+}
+
+.soft:active {
+  background-color: #cfd8ea;
+}
+
+@media (max-width: 640px) {
+  .outline .label,
+  .ghost .label {
+    font-size: 1.6rem;
+  }
+
+  .soft {
+    height: auto;
+  }
+
+  .soft .label {
+    font-size: 1.2rem;
+  }
+}

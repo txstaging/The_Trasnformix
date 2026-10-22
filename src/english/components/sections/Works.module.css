@@ -1,0 +1,54 @@
+.section {
+  position: relative;
+  width: 100%;
+  /* 120px from the process cards, with their own 100 below. */
+  padding-block: 2rem 10rem;
+  background: var(--bg-main);
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
+  width: 144rem;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.title {
+  width: min(124rem, calc(100% - 2 * var(--gutter)));
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.more {
+  margin-top: 1.6rem;
+}
+
+@media (max-width: 1024px) {
+  .section {
+    padding-block: 8rem;
+  }
+
+  .title {
+    font-size: 3.2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-block: 4.8rem;
+  }
+
+  .stage {
+    gap: 2.4rem;
+  }
+
+  .title {
+    font-size: 2.2rem;
+    font-weight: 500;
+  }
+}

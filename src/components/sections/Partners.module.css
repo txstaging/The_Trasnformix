@@ -1,16 +1,17 @@
-/* Figma 2096:4837 "Frame 1618872754" — 1440 x 424 */
 .section {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4rem;
-  padding: 10rem;
+  /* 120px to the works link above and the challenge panel below. */
+  padding: 2rem 0 3.6rem;
+  overflow: hidden;
   background: var(--bg-main);
 }
 
 .title {
   width: 82.2rem;
-  max-width: 100%;
+  max-width: calc(100% - 2 * var(--gutter));
   font-size: 4rem;
   font-weight: 600;
   color: var(--primary);
@@ -18,11 +19,46 @@
   word-break: break-word;
 }
 
-.row {
+/* Logos read the same in either script, so the rail runs left-to-right; as an
+   RTL flex container the viewport would park the track against its right edge
+   and the animation would walk it off screen. */
+.viewport {
+  direction: ltr;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  overflow: hidden;
+}
+
+.track {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  width: max-content;
+  height: 12rem;
+  will-change: transform;
+  animation: marquee 30s linear infinite;
+}
+
+.viewport:hover .track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 100%;
+  padding-inline: 6rem;
 }
 
 .logo {
@@ -31,8 +67,8 @@
   transition: transform var(--dur) var(--ease-out);
 }
 
-.logo:hover {
-  transform: translateY(-0.4rem) scale(1.05);
+.cell:hover .logo {
+  transform: scale(1.06);
 }
 
 .logo img {
@@ -41,7 +77,6 @@
   object-fit: cover;
 }
 
-/* Two of the six sit inside a tighter frame than their source bitmap. */
 .cropped {
   overflow: hidden;
 }
@@ -52,32 +87,35 @@
   object-fit: fill;
 }
 
+/* `zoom` shrinks the logos and their spacing together, so the -25% keyframe
+   still moves exactly one set. */
 @media (max-width: 1024px) {
   .section {
-    padding: 8rem var(--gutter);
+    padding-block: 8rem;
   }
 
   .title {
     font-size: 3rem;
   }
 
-  .row {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4rem 5.6rem;
+  .track {
+    zoom: 0.8;
+    animation-duration: 26s;
   }
 }
 
 @media (max-width: 640px) {
+  .section {
+    gap: 2.4rem;
+    padding-block: 5.6rem;
+  }
+
   .title {
     font-size: 2.4rem;
   }
 
-  .row {
-    gap: 3.2rem 4rem;
-  }
-
-  .logo {
-    transform: scale(0.85);
+  .track {
+    zoom: 0.55;
+    animation-duration: 18s;
   }
 }

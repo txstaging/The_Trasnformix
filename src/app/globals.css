@@ -23,7 +23,6 @@
   --blue-light: #e8ecf5;
   --blue-light-active: #b9c5df;
   --yellow-light: #fef8eb;
-  /* Small-screen menu — Figma 2164:28439 "Navbar 9". */
   --ocean-blue: #005bc5;
   --ocean-dark: #1e1e1e;
 
@@ -34,7 +33,6 @@
   --text-inverse-li: #dadada;
   --unactive: #3a3a3a;
   --subtitle: #252525;
-  /* الخدمات drop-down rows — Figma 2166:28462 "Links container". */
   --menu-text: #455a64;
   --menu-text-active: #030723;
   --menu-hover: #f0f5ff;
@@ -69,7 +67,6 @@
   --dur: 320ms;
   --dur-slow: 620ms;
 
-  /* القطاعات page — Figma 2789:11500 draws in its own blue and ink. */
   --sector-blue: #1d4fb7;
   --sector-ink: #14213d;
   --sector-muted: #667085;

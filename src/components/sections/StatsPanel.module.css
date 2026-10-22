@@ -1,0 +1,254 @@
+/* The gradient runs from #0c75d2 on the right to #001e4a on the left. */
+.panel {
+  width: 100%;
+  padding: 3.2rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+  background: linear-gradient(to left, #0c75d2, #001e4a);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.6rem;
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.6rem;
+  height: 41.2rem;
+  padding: 2.4rem 3.2rem;
+  border: 0.1rem solid #dce2ff;
+  border-radius: 1.2rem;
+  background: var(--bg-card);
+  /* Keeps <Reveal>'s staggered entrance; the hover lift uses `translate` so
+     it never fights the reveal's transform. */
+  transition:
+    opacity var(--dur-slow) var(--ease-out) var(--reveal-delay, 0ms),
+    transform var(--dur-slow) var(--ease-out) var(--reveal-delay, 0ms),
+    translate var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.card[data-reveal="in"]:hover {
+  translate: 0 -0.6rem;
+  box-shadow: 0 2.4rem 4.8rem -2.4rem rgba(0, 18, 51, 0.6);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 8.8rem;
+}
+
+.cardIcon {
+  flex-shrink: 0;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.card:hover .cardIcon {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.figure {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 3.2rem;
+  height: 11.6rem;
+}
+
+/* Outlined serif digits, matching the artboard's vector counters. */
+.figureNumber {
+  font-family: var(--font-noto-serif), "Noto Serif", Georgia, serif;
+  font-size: 14rem;
+  font-weight: 400;
+  line-height: 10rem;
+  color: transparent;
+  -webkit-text-stroke: 0.3rem #153373;
+  font-variant-numeric: tabular-nums;
+}
+
+.figurePlus {
+  position: relative;
+  flex-shrink: 0;
+  width: 4.2rem;
+  height: 4rem;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.figurePlus img {
+  position: absolute;
+  left: -0.3rem;
+  top: -0.3rem;
+  width: 4.8rem;
+  height: 4.6rem;
+  max-width: none;
+}
+
+.card:hover .figurePlus {
+  transform: rotate(90deg);
+}
+
+.cardCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  text-align: right;
+}
+
+.cardTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #11295c;
+  word-break: break-word;
+}
+
+.cardText {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  word-break: break-word;
+}
+
+/* ---- dark: Figma 3800:4860 ------------------------------------------------
+   A Foundation/Blue/Dark panel, 535 high with 40 / 32 padding, holding three
+   380 × 439 glass cards 32 apart. The leftmost card (the last in reading
+   order) carries a slightly stronger wash.
+   ------------------------------------------------------------------------ */
+.dark {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 53.5rem;
+  padding: 4rem 3.2rem;
+  background: #11295c;
+}
+
+.dark .cards {
+  grid-template-columns: repeat(3, 38rem);
+  justify-content: center;
+  gap: 3.2rem;
+}
+
+.dark .card {
+  height: 43.9rem;
+  border-radius: 2.7rem;
+  background: rgba(252, 251, 250, 0.21);
+}
+
+.dark .card:last-child {
+  background: rgba(252, 251, 250, 0.28);
+}
+
+.dark .card[data-reveal="in"]:hover {
+  box-shadow: 0 2.4rem 4.8rem -2.4rem rgba(0, 0, 0, 0.6);
+}
+
+.dark .figureNumber {
+  -webkit-text-stroke-color: #fff;
+}
+
+/* Titles hold one line and may run past the card's padding, as the
+   automation title does on the artboard. */
+.dark .cardTitle {
+  color: var(--text-inverse);
+  white-space: nowrap;
+}
+
+.dark .cardText {
+  font-size: 1.6rem;
+  color: var(--text-inverse-li);
+}
+
+@media (max-width: 1024px) {
+  .panel {
+    padding: 2.4rem;
+  }
+
+  .dark {
+    height: auto;
+  }
+
+  .dark .cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.6rem;
+  }
+
+  .dark .card {
+    height: auto;
+  }
+
+  .dark .cardTitle {
+    white-space: normal;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card {
+    height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .panel {
+    padding: 1.6rem;
+    border-radius: 1.2rem;
+  }
+
+  .cards,
+  .dark .cards {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .dark .card {
+    border-radius: 1.6rem;
+  }
+
+  .dark .cardText {
+    font-size: 1.2rem;
+  }
+
+  .card {
+    gap: 1.2rem;
+    padding: 1.6rem 2rem;
+  }
+
+  .cardTop {
+    height: auto;
+  }
+
+  .cardIcon {
+    zoom: 0.7;
+  }
+
+  .figure {
+    gap: 1.6rem;
+    height: auto;
+  }
+
+  .figureNumber {
+    font-size: 8.4rem;
+    line-height: 6rem;
+    -webkit-text-stroke-width: 0.2rem;
+  }
+
+  .figurePlus {
+    zoom: 0.6;
+  }
+
+  .cardTitle {
+    font-size: 1.8rem;
+  }
+
+  .cardText {
+    font-size: 1.2rem;
+  }
+}

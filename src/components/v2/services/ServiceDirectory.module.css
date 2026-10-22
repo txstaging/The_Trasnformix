@@ -1,0 +1,70 @@
+/* Rows 40 apart; the cards 24 apart within a row. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4rem 2.4rem;
+  width: 100%;
+}
+
+/* Figma 3783:7985 — #f4f7fc, 32 / 40 padding, 24px corners, 16px gaps. */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  padding: 3.2rem 4rem;
+  border-radius: 2.4rem;
+  background: var(--v2-surface-blue);
+  line-height: 1.85;
+  text-align: center;
+}
+
+.number {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--v2-primary);
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.85;
+  color: var(--v2-text);
+}
+
+.titleLink {
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.titleLink:hover,
+.titleLink:focus-visible {
+  color: var(--v2-primary);
+}
+
+.text {
+  width: var(--text-w);
+  max-width: 100%;
+  font-size: 1.8rem;
+  color: var(--v2-text-soft);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 2.8rem 2rem;
+  }
+
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .text {
+    font-size: 1.6rem;
+  }
+}

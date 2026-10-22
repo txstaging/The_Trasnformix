@@ -1,0 +1,16 @@
+/* This stylesheet belongs only to the English root layout. */
+html[lang="en"] {
+  --font-kufi: var(--font-inter);
+  --font-tajawal: var(--font-inter);
+  --font-alexandria: var(--font-inter);
+}
+
+html[lang="en"] body {
+  font-family: var(--font-inter), Arial, sans-serif;
+  line-height: 1.6;
+}
+
+html[lang="en"] :is(input, select, textarea) {
+  direction: ltr;
+}
+

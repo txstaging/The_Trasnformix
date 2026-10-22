@@ -1,0 +1,82 @@
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  width: 100%;
+  line-height: 1.95;
+  text-align: center;
+}
+
+.start {
+  text-align: start;
+}
+
+.eyebrow {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--v2-primary);
+}
+
+.title {
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.95;
+  color: var(--v2-text);
+}
+
+.lead {
+  font-weight: 400;
+  color: var(--v2-text-muted);
+}
+
+.lead16 {
+  font-size: 1.6rem;
+}
+
+/* The works intro uses the softer #575963 at 18px (Figma 3709:736). */
+.lead18 {
+  font-size: 1.8rem;
+  color: var(--v2-text-soft);
+}
+
+.lead20 {
+  font-size: 2rem;
+}
+
+.lead24 {
+  font-size: 2.4rem;
+}
+
+.tight,
+.tight .title {
+  line-height: 1.85;
+}
+
+.inverse .eyebrow,
+.inverse .title {
+  color: var(--v2-text-inverse);
+}
+
+@media (max-width: 1024px) {
+  .title {
+    font-size: 2.8rem;
+    line-height: 1.6;
+  }
+
+  .lead20,
+  .lead24 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: 2.4rem;
+  }
+
+  .lead18,
+  .lead20,
+  .lead24 {
+    font-size: 1.6rem;
+  }
+}

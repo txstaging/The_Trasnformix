@@ -1,7 +1,3 @@
-/* Figma 2789:11502 "Section - HERO" — a 1282 grid of 1.05fr / 0.95fr tracks
-   70 apart on one 410 row, 80 above and 70 below. The artboard's main column
-   starts at y 78.8, 3.2px under the 82px bar, so the top padding gives that
-   back. Right-to-left, the first (copy) track is the right-hand one. */
 .section {
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
@@ -26,15 +22,15 @@
   width: 57.6rem;
   padding-bottom: 0.075rem;
   font-size: 4.8rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--sector-ink);
 }
 
-/* 598 wide in a 575.7 track — it runs 22px past the track's left edge. */
 .text {
   flex-shrink: 0;
   width: 59.8rem;
   padding-top: 0.67rem;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
   font-size: 2.4rem;
   font-weight: 400;
   color: var(--sector-muted);
@@ -45,8 +41,6 @@
   padding-top: 1.27rem;
 }
 
-/* Figma 2901:6386 "Mask Group" — 672 wide, the full 410 row tall. It hugs
-   the track's outer (left) edge and overhangs 36px into the gap. */
 .visualWrap {
   align-self: stretch;
   justify-self: end;
@@ -103,7 +97,6 @@
     padding: 3.2rem var(--gutter) 4rem;
   }
 
-  /* Phones centre the copy column: heading, paragraph and button. */
   .copy {
     align-items: center;
     text-align: center;

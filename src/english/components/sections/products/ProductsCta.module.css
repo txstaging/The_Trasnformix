@@ -1,0 +1,118 @@
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 54.9rem;
+  background: var(--bg-main);
+}
+
+/* The gradient runs from #0c75d2 on the right to #001e4a on the left. */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.4rem;
+  width: 102.8rem;
+  max-width: 100%;
+  height: 37.6rem;
+  padding: 4.9rem 4rem 4rem;
+  overflow: hidden;
+  border-radius: 3.2rem;
+  background: linear-gradient(to left, #0c75d2, #001e4a);
+  color: var(--text-inverse);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4.1rem;
+  width: 100%;
+  text-align: center;
+}
+
+.title {
+  width: 100%;
+  min-height: 7.5rem;
+  font-size: 4rem;
+  font-weight: 700;
+}
+
+.text {
+  width: 67.4rem;
+  max-width: 100%;
+  min-height: 7.5rem;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+}
+
+/* Figma 3817:48461 "Button 5" — a 218 x 53 white pill in a 2px primary rim,
+   under a soft shadow. The label rides 3px right of centre. */
+.card .button {
+  --pill-w: 21.8328rem;
+  height: 5.3rem;
+  padding: 0 0 0 0.6rem;
+  border-color: var(--primary);
+  border-radius: 6.6rem;
+  background: var(--text-inverse);
+  box-shadow: 0 0.2rem 0.3rem 0 rgba(0, 0, 0, 0.18);
+}
+
+.card .button:hover,
+.card .button:focus-visible {
+  background-color: var(--text-inverse);
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 18, 51, 0.35);
+}
+
+@media (max-width: 1024px) {
+  .section {
+    height: auto;
+    padding: 6.4rem var(--gutter);
+  }
+
+  .card {
+    height: auto;
+    padding: 5.6rem 3.2rem;
+  }
+
+  .copy {
+    gap: 2.4rem;
+  }
+
+  .title,
+  .text {
+    min-height: 0;
+  }
+
+  .title {
+    font-size: 3.2rem;
+  }
+
+  .text {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-block: 4.8rem;
+  }
+
+  .card {
+    padding: 4rem 2rem;
+    border-radius: 2.4rem;
+  }
+
+  .copy {
+    gap: 1.6rem;
+  }
+
+  .title {
+    font-size: 2.6rem;
+  }
+
+  .text {
+    font-size: 1.7rem;
+  }
+}

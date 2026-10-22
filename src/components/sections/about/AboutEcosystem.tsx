@@ -7,13 +7,11 @@ type Pillar = {
   title: string;
   /** Leading spaces are the artboard's own; they are kept (pre-wrap). */
   text: string;
-  /** Only the website card sets its line in the secondary grey. */
   muted?: boolean;
   icon: { src: string; width: number; height: number };
   /** 1440 grid cell — column 1 is the right-hand one in RTL. */
   column: 1 | 2;
   row: 1 | 2;
-  /** The 375 artboard draws the ERP heading a size smaller. */
   compactTitle?: boolean;
 };
 
@@ -54,7 +52,6 @@ const PILLARS: Pillar[] = [
 
 const rem = (px: number) => `${px / 10}rem`;
 
-/** Figma 2515:59783 "Desktop - 110" and 2519:66494 on the 375 artboard. */
 export function AboutEcosystem() {
   return (
     <section className={styles.section}>
@@ -62,8 +59,6 @@ export function AboutEcosystem() {
         نربط الخبرات لنصنع حلًا متكاملًا.
       </Reveal>
 
-      {/* Two text boxes on the artboard (34 and 112 tall, each centred on its
-          box); the 375 artboard runs them together as one paragraph. */}
       <Reveal as="p" className={styles.lead} delay={120}>
         <span className={styles.leadIntro}>
           هي شركة حلول وتحول رقمي تأسست بهدف سد الفجوة بين احتياجات الأعمال

@@ -1,16 +1,20 @@
-/* Figma 2096:4688 "Component 16" — 1440 x 936, offset 17px inside its frame. */
+/* On desktop the section is a scroll track: 35vh of extra scroll per tab
+   change (--tab-steps, set by the component) while the stage stays pinned. */
 .section {
   position: relative;
   width: 100%;
-  height: 105.3rem;
+  height: calc(105.3rem + var(--tab-steps, 0) * 35vh);
   background: var(--bg-main);
 }
 
+/* Pins at the top of the viewport; on short screens it rides up at most 2rem
+   so the tab rail stays clear of the navbar. */
 .stage {
-  position: relative;
+  position: sticky;
+  top: min(0px, max(-2rem, calc(100vh - 105.3rem)));
   width: 144rem;
   max-width: 100%;
-  height: 100%;
+  height: 105.3rem;
   margin-inline: auto;
 }
 
@@ -31,7 +35,24 @@
   background: rgba(232, 236, 245, 0.26);
 }
 
+/* The filled pill behind the open tab; the component sizes and places it. */
+.tabIndicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 999rem;
+  background: var(--primary);
+  box-shadow: 0 0.6rem 1.6rem rgba(28, 68, 153, 0.25);
+  pointer-events: none;
+  transition:
+    transform 480ms var(--ease-out),
+    width 480ms var(--ease-out),
+    height 480ms var(--ease-out);
+}
+
 .tab {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -56,19 +77,23 @@
     transform var(--dur) var(--ease-out);
 }
 
-.tab:hover {
-  color: var(--primary);
-  background: rgba(232, 236, 245, 0.9);
+.tab:hover,
+.tab:focus-visible {
+  color: var(--text-inverse);
+  background: var(--primary);
 }
 
-.tab:hover .tabIcon {
+.tab:hover .tabIcon,
+.tab:focus-visible .tabIcon {
+  filter: brightness(0) invert(1);
   transform: scale(1.1);
 }
 
 .tabActive,
-.tabActive:hover {
+.tabActive:hover,
+.tabActive:focus-visible {
   padding: 1.75rem 1.2rem;
-  background: var(--primary);
+  background: transparent;
   color: var(--text-inverse);
 }
 
@@ -79,12 +104,13 @@
 }
 
 /* ---- Media card -------------------------------------------------------- */
+/* Figma 3648:7131 — 605 x 726, 56px from the list. */
 .media {
   position: absolute;
   left: 10rem;
-  top: 23.9rem;
-  width: 53rem;
-  height: 68.6rem;
+  top: 22.2rem;
+  width: 60.5rem;
+  height: 72.6rem;
   overflow: hidden;
   border: 0.03rem solid var(--blue-light-active);
   border-radius: 1.2rem;
@@ -111,6 +137,26 @@
 .media:focus-visible {
   outline: 0.3rem solid color-mix(in srgb, var(--primary) 55%, transparent);
   outline-offset: 0.4rem;
+}
+
+/* Remounted per tab: the new gallery zooms out of a soft blur. */
+.mediaSwap {
+  position: absolute;
+  inset: 0;
+  animation: mediaIn 700ms var(--ease-out) both;
+}
+
+@keyframes mediaIn {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--enter-dir, 1) * 4rem)) scale(1.06);
+    filter: blur(0.6rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
 }
 
 .gallerySlide {
@@ -165,21 +211,28 @@
 }
 
 /* ---- Service list ------------------------------------------------------ */
+/* Figma 3648:7100 — a 574 x 728 card shaded from #0c75d2 on the left to
+   #001e4a on the right, set in white. All tabs inherit white link colors
+   and arrows, including hover and keyboard focus. */
 .list {
+  --arrow-link-color: var(--text-inverse);
+  --arrow-link-hover-color: var(--text-inverse);
+  --arrow-link-icon-filter: brightness(0) invert(1);
+
   position: absolute;
-  left: 79.5rem;
-  top: 23.7rem;
+  left: 76.1rem;
+  top: 22rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 3.2rem;
-  width: 54.5rem;
-  height: 68.6rem;
+  width: 57.4rem;
+  height: 72.8rem;
   padding: 3.25rem 4.05rem;
   overflow: hidden;
   border: 0.05rem solid var(--blue-light-active);
   border-radius: 1.6rem;
-  background: var(--bg-card);
+  background: linear-gradient(to right, #0c75d2, #001e4a);
 }
 
 .item {
@@ -203,6 +256,8 @@
   flex-shrink: 0;
   width: 2.4rem;
   height: 2.4rem;
+  /* The lucide glyphs are exported in primary blue; the card draws them white. */
+  filter: brightness(0) invert(1);
   transition: transform var(--dur) var(--ease-out);
 }
 
@@ -213,16 +268,16 @@
 .itemTitle {
   font-size: 2.4rem;
   font-weight: 700;
-  color: var(--primary);
+  color: var(--text-inverse);
   white-space: nowrap;
 }
 
-/* Width and size are the measured artboard values, set per item. */
 .itemText {
   width: var(--item-width);
+  max-width: 100%;
   font-size: var(--item-size);
   font-weight: 400;
-  color: var(--text-secondary);
+  color: var(--text-inverse-li);
   text-align: right;
   word-break: break-word;
 }
@@ -241,7 +296,6 @@
   background: #e4e4dc;
 }
 
-/* Wraps a divider with the service row that follows it. */
 .itemBlock {
   display: flex;
   flex-direction: column;
@@ -250,7 +304,6 @@
   width: 100%;
 }
 
-/* Cross-fade between tab panels. */
 .panel {
   display: contents;
 }
@@ -262,11 +315,13 @@
 @keyframes panelIn {
   from {
     opacity: 0;
-    transform: translateY(1.2rem);
+    transform: translateY(calc(var(--enter-dir, 1) * 3.2rem));
+    filter: blur(0.4rem);
   }
   to {
     opacity: 1;
     transform: none;
+    filter: none;
   }
 }
 
@@ -277,6 +332,8 @@
   }
 
   .stage {
+    position: relative;
+    top: auto;
     display: flex;
     flex-direction: column;
     gap: 3.2rem;
@@ -284,7 +341,9 @@
   }
 
   .tabs {
-    position: static;
+    position: relative;
+    left: auto;
+    top: auto;
     width: 100%;
     height: auto;
     justify-content: flex-start;
@@ -302,7 +361,9 @@
     flex-shrink: 0;
   }
 
-  .tabActive {
+  .tabActive,
+  .tabActive:hover,
+  .tabActive:focus-visible {
     padding: 0.8rem 1.6rem;
   }
 
@@ -342,8 +403,6 @@
   }
 }
 
-/* Figma 2836:26966 – 2836:26989 (phone) — the tabs stack as 176 wide pills,
-   then a 292 x 164 media card and a compact list card, 34px apart. */
 @media (max-width: 640px) {
   .section {
     padding: 3.4rem var(--gutter) 4rem;
@@ -376,7 +435,8 @@
   }
 
   .tabActive,
-  .tabActive:hover {
+  .tabActive:hover,
+  .tabActive:focus-visible {
     height: 3.7rem;
     padding: 0.8rem 1.2rem;
     border-color: var(--primary);
