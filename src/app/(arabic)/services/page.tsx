@@ -5,7 +5,7 @@ import { Navbar } from "@/components/sections/Navbar";
 import { PageHero } from "@/components/sections/PageHero";
 import { PillButton } from "@/components/ui/PillButton";
 import { Reveal } from "@/components/ui/Reveal";
-import { SERVICE_CATEGORIES, SERVICES_INTRO } from "@/lib/serviceNavigation";
+import { ALL_SERVICES, SERVICES_INTRO } from "@/lib/serviceNavigation";
 import { SERVICES_OVERVIEW } from "@/lib/servicesOverview";
 import styles from "./page.module.css";
 
@@ -35,7 +35,7 @@ export default function ServicesPage() {
         <section className={styles.wrap} aria-labelledby="services-heading">
           <Reveal as="h2" id="services-heading" className={styles.heading}>جميع الخدمات</Reveal>
           <ul className={styles.directory}>
-            {SERVICE_CATEGORIES.map((service, index) => (
+            {ALL_SERVICES.map((service, index) => (
               <li key={service.key}>
                 <Reveal as="a" href={service.website} target="_blank" rel="noopener noreferrer"
                   className={styles.serviceCard} delay={index * 80}

@@ -25,12 +25,6 @@ const REVIEWS: Review[] = [
     name: "Dr. Reem Bakhit",
     avatar: { src: "/images/review-reem.png", size: 43, round: false },
   },
-  {
-    quote:
-      "Fuex exceeded my expectations with its excellent services. The team is professional, responsive, and understands its clients' needs. They delivered high-quality results on time, and their creativity and expertise made a real difference. I highly recommend Fuex to anyone seeking outstanding marketing solutions.",
-    name: "Dr. Rozana Al Bukhari",
-    avatar: { src: "/images/review-rozana.png", size: 43, round: true },
-  },
 ];
 
 const COUNT = REVIEWS.length;

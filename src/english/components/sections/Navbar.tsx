@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { PillButton } from "@/english/components/ui/PillButton";
 import { HOME_VERSIONS } from "@/english/lib/homeVersions";
-import { getServicesMenu, type ServiceMenuLink } from "@/english/lib/serviceNavigation";
+import { getServiceSitesMenu, type ServiceMenuLink } from "@/english/lib/serviceNavigation";
 import { ChevronDown } from "@/english/components/ui/ChevronDown";
 import { LanguageSwitch } from "@/components/ui/LanguageSwitch";
 import styles from "@/english/components/sections/Navbar.module.css";
@@ -30,10 +30,10 @@ const NAV_ITEMS: { label: string; href: string; menu?: MenuId }[] = [
   { label: "Contact us", href: "/en/contact" },
 ];
 
-/* Service entries open the existing sites; the overview stays in this version. */
+/* Service entries open in a new tab; the trigger itself leads to the overview. */
 const MENUS: Record<MenuId, { links: readonly ServiceMenuLink[] }> = {
   home: { links: HOME_VERSIONS },
-  services: { links: getServicesMenu("/en/services") },
+  services: { links: getServiceSitesMenu() },
 };
 
 const cx = (...names: (string | false | undefined)[]) =>
@@ -79,7 +79,7 @@ export function Navbar({ variant = "default" }: NavbarProps) {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
       if (menuOpen) burgerRef.current?.focus();
-      else navList.current?.querySelector<HTMLButtonElement>('[aria-expanded="true"]')?.focus();
+      else navList.current?.querySelector<HTMLElement>('[aria-expanded="true"]')?.focus();
       setMenuOpen(false);
       setOpenMenu(null);
       setSheetMenu(null);
@@ -203,17 +203,19 @@ export function Navbar({ variant = "default" }: NavbarProps) {
                     if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setOpenMenu(null);
                   }}
                 >
-                  <button
-                    type="button"
+                  {/* The label opens its page; hovering or ArrowDown shows the menu. */}
+                  <Link
+                    href={item.href}
                     className={cx(
                       styles.link,
                       styles.trigger,
                       isActive(item.href) && styles.active,
                     )}
+                    aria-current={isActive(item.href) ? "page" : undefined}
                     aria-haspopup="true"
                     aria-expanded={openMenu === item.menu}
                     aria-controls={`nav-${item.menu}-menu`}
-                    onClick={() => setOpenMenu(openMenu === item.menu ? null : item.menu!)}
+                    onClick={() => setOpenMenu(null)}
                     onKeyDown={(event) => {
                       if (event.key !== "ArrowDown") return;
                       event.preventDefault();
@@ -223,7 +225,7 @@ export function Navbar({ variant = "default" }: NavbarProps) {
                   >
                     {item.label}
                     <ChevronDown className={styles.chevron} />
-                  </button>
+                  </Link>
                   {renderMenu(
                     item.menu,
                     `nav-${item.menu}-menu`,
@@ -310,19 +312,30 @@ export function Navbar({ variant = "default" }: NavbarProps) {
             {NAV_ITEMS.map((item) =>
               item.menu ? (
                 <li key={item.label} className={styles.sheetItem}>
-                  <button
-                    type="button"
-                    className={cx(
-                      styles.sheetTrigger,
-                      isActive(item.href) && styles.sheetActive,
-                    )}
-                    aria-expanded={sheetMenu === item.menu}
-                    aria-controls={`sheet-${item.menu}-menu`}
-                    onClick={() => setSheetMenu(sheetMenu === item.menu ? null : item.menu!)}
-                  >
-                    <span>{item.label}</span>
-                    <ChevronDown className={styles.sheetChevron} />
-                  </button>
+                  {/* The label opens its page; the chevron beside it unfolds the menu. */}
+                  <div className={styles.sheetRow}>
+                    <Link
+                      href={item.href}
+                      className={cx(
+                        styles.sheetLink,
+                        isActive(item.href) && styles.sheetActive,
+                      )}
+                      aria-current={isActive(item.href) ? "page" : undefined}
+                      onClick={closeAll}
+                    >
+                      {item.label}
+                    </Link>
+                    <button
+                      type="button"
+                      className={styles.sheetToggle}
+                      aria-label={"Show submenu"}
+                      aria-expanded={sheetMenu === item.menu}
+                      aria-controls={`sheet-${item.menu}-menu`}
+                      onClick={() => setSheetMenu(sheetMenu === item.menu ? null : item.menu!)}
+                    >
+                      <ChevronDown className={styles.sheetChevron} />
+                    </button>
+                  </div>
                   {renderMenu(
                     item.menu,
                     `sheet-${item.menu}-menu`,

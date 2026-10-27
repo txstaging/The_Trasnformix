@@ -1,0 +1,718 @@
+/* Figma 4036:5109 — sections stack 150 apart; the hero sits 174 from the top
+   of the artboard, under the 99 high sticky bar. */
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15rem;
+  padding: 7.5rem 0 15rem;
+}
+
+/* ---- Hero (Figma 4042:5549) ---------------------------------------------- */
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 4.3rem;
+  width: 127.4rem;
+  max-width: calc(100% - 2 * var(--gutter));
+}
+
+.heroCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+  width: 65.6rem;
+  padding: 0.3rem 2.4rem 4.9rem;
+}
+
+.heroTitle {
+  width: 54.6rem;
+  max-width: 100%;
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.heroText {
+  width: 55.7rem;
+  max-width: 100%;
+  margin-top: 3.2rem;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 2.4rem;
+  color: var(--text-secondary);
+}
+
+.heroActions {
+  display: flex;
+  gap: 1.6rem;
+  margin-top: 2.2rem;
+}
+
+/* Figma 4039:5534 — a 56 high primary pill without the arrow disc. */
+.heroActions .apply {
+  --pill-w: auto;
+  --pill-pad: 0 3.2rem;
+  --pill-size: 1.8rem;
+  --pill-lh: normal;
+  height: 5.6rem;
+  box-shadow:
+    0 1rem 1.5rem rgba(63, 169, 245, 0.12),
+    0 0.4rem 0.6rem rgba(140, 199, 242, 0.08);
+}
+
+.heroActions .apply:hover,
+.heroActions .apply:focus-visible {
+  box-shadow: 0 0.8rem 2.4rem rgba(28, 68, 153, 0.3);
+}
+
+.heroActions .apply > [aria-hidden="true"] {
+  display: none;
+}
+
+/* Figma 4039:5539 — the 56 high outline pill with a Regular label. */
+.heroActions .contact {
+  --pill-w: auto;
+  height: 5.6rem;
+  padding: 0 3.2rem;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+  -webkit-backdrop-filter: blur(0.8rem);
+  backdrop-filter: blur(0.8rem);
+}
+
+.heroActions .contact:hover,
+.heroActions .contact:focus-visible {
+  background-color: rgba(28, 68, 153, 0.06);
+}
+
+.heroActions .contact > span {
+  font-weight: 400;
+}
+
+.heroArt {
+  flex-shrink: 0;
+  width: 57.5rem;
+  height: 38.4rem;
+  object-fit: cover;
+}
+
+/* ---- Section intros -------------------------------------------------------- */
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #1f1f1f;
+}
+
+.lead {
+  margin-top: 2.4rem;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 2.4rem;
+  color: var(--text-secondary);
+}
+
+/* ---- Designed for founders (Figma 4036:5159) ------------------------------ */
+.pillarsSection {
+  width: 123.2rem;
+  max-width: calc(100% - 2 * var(--gutter));
+  padding-bottom: 9.6rem;
+}
+
+.pillarsSection .lead {
+  width: 88.1rem;
+  max-width: 100%;
+  font-size: 3.2rem;
+}
+
+/* The artboard lays the cards out left to right — ideate, build, scale — even
+   on this RTL page, so the row runs LTR while each card keeps its own flow. */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3.2rem;
+  margin: 8rem 0 0;
+  padding: 0;
+  list-style: none;
+  direction: ltr;
+}
+
+.pillar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 28.7rem;
+  padding: 3.2rem;
+  border: 0.1rem solid rgba(89, 90, 92, 0.2);
+  border-radius: 1.6rem;
+  background: var(--primary);
+  color: var(--text-inverse);
+  direction: rtl;
+}
+
+/* Figma 4036:5189 — a dashed rule bridging the build and scale cards. */
+.pillar:nth-child(2)::after {
+  content: "";
+  position: absolute;
+  top: 4.8rem;
+  left: 100%;
+  width: 3.2rem;
+  border-top: 0.2rem dashed rgba(89, 90, 92, 0.2);
+}
+
+.pillarIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 5rem;
+  margin-bottom: 3rem;
+  border-radius: 50%;
+  background: var(--blue-light);
+}
+
+.pillar h3 {
+  font-size: 3.2rem;
+  font-weight: 700;
+}
+
+.pillar p {
+  margin-top: 1.2rem;
+  font-size: 1.8rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ---- Choose your path (Figma 4037:5426) ------------------------------------ */
+.paths {
+  width: 100%;
+  padding-block: 10.4rem 14rem;
+  background: #f1f5f9;
+}
+
+.pathsInner {
+  width: 124.4rem;
+  max-width: calc(100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+.paths .lead {
+  margin-top: 1.2rem;
+}
+
+/* The photo card spans both rows of the second (left) column. */
+.pathGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 56.8rem));
+  justify-content: center;
+  gap: 1.6rem;
+  margin-top: 4.8rem;
+}
+
+.featured {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  min-height: 48.5rem;
+  padding-block: 0 3.8rem;
+  padding-inline: 4.7rem 1.7rem;
+  overflow: hidden;
+  border-radius: 2.4rem;
+  background: #1f1f1f;
+  color: var(--text-inverse);
+}
+
+.featuredImage {
+  object-fit: cover;
+}
+
+/* Darkens the photo where the copy sits, as the artboard renders it. */
+.featured::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.65));
+}
+
+.featuredCopy {
+  position: relative;
+  z-index: 1;
+}
+
+.featuredCopy h3 {
+  font-size: 4rem;
+  font-weight: 500;
+}
+
+.featuredCopy p {
+  margin-top: 1.6rem;
+  font-size: 1.8rem;
+}
+
+.track {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2.4rem;
+  border: 0.2rem solid rgba(28, 68, 153, 0.24);
+  border-radius: 2.4rem;
+  background: var(--bg-main);
+}
+
+.track:last-child {
+  border-color: rgba(28, 68, 153, 0.29);
+}
+
+.badge {
+  margin-block: 0.8rem 0.9rem;
+  padding: 0.4rem 1.2rem;
+  border-radius: 999.9rem;
+  background: var(--blue-light);
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+.track:last-child .badge {
+  background: #dde3f0;
+}
+
+.track h3 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #1f1f1f;
+}
+
+.track p {
+  margin-top: 1.2rem;
+  font-size: 1.8rem;
+  color: var(--text-secondary);
+}
+
+/* ---- How we build (Figma 4036:4908) ---------------------------------------- */
+.steps {
+  width: 123.2rem;
+  max-width: calc(100% - 2 * var(--gutter));
+}
+
+.steps .title,
+.steps .lead {
+  color: var(--text-primary);
+}
+
+.stepGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2.4rem;
+  margin: 4.2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 34.8rem;
+  padding: 2.4rem;
+  overflow: hidden;
+  border: 0.1rem solid rgba(255, 255, 255, 0.2);
+  border-radius: 1.6rem;
+  background: var(--primary);
+  color: var(--text-inverse);
+}
+
+/* Figma 4036:4923, 4036:4997 — the first and last cards carry a faint sheen. */
+.step:nth-child(3n + 1) {
+  background-image: linear-gradient(129.75deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
+}
+
+.stepIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5.6rem;
+  height: 5.6rem;
+  margin-bottom: 2.4rem;
+  border-radius: 50%;
+  background: var(--text-inverse);
+  box-shadow:
+    0 1rem 1.5rem rgba(63, 169, 245, 0.24),
+    0 0.4rem 0.6rem rgba(137, 160, 44, 0.2);
+}
+
+.step h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.step p {
+  margin-top: 1.2rem;
+  font-size: 1.6rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.stepNumber {
+  position: absolute;
+  bottom: -1.2rem;
+  inset-inline-end: 0.8rem;
+  font: 700 11rem/1 Arial, sans-serif;
+  color: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+/* ---- Value beyond building (Figma 4037:5236) ------------------------------- */
+.values {
+  width: 123.2rem;
+  max-width: calc(100% - 2 * var(--gutter));
+  padding-top: 6rem;
+}
+
+.values .title {
+  font-size: 4.8rem;
+  color: var(--text-primary);
+}
+
+.values .lead {
+  width: 76.8rem;
+  max-width: 100%;
+  font-size: 3.2rem;
+}
+
+.valueGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.9rem 3.2rem;
+  margin: 8rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.value {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.4rem;
+  min-height: 17.5rem;
+  padding: 3.2rem;
+  border: 0.1rem solid rgba(89, 90, 92, 0.1);
+  border-radius: 1.6rem;
+  background: var(--bg-main);
+}
+
+.valueIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 5.6rem;
+  height: 5.6rem;
+  border-radius: 50%;
+  background: #dde3f0;
+}
+
+.value h3 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #1f1f1f;
+}
+
+.value p {
+  margin-top: 1.2rem;
+  font-size: 1.8rem;
+  color: var(--text-secondary);
+}
+
+/* ---- Closing call (Figma 4037:5354) ---------------------------------------- */
+.cta {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 42.9rem;
+  padding: 9.3rem 2.4rem 5rem;
+  overflow: hidden;
+  background: var(--primary);
+  color: var(--text-inverse);
+  text-align: center;
+}
+
+.ctaLines {
+  position: absolute;
+  left: -26.3rem;
+  top: -9.4rem;
+  width: 194rem;
+  height: 63.8rem;
+  max-width: none;
+  pointer-events: none;
+}
+
+.ctaCopy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 97.6rem;
+  max-width: 100%;
+}
+
+.ctaCopy h2 {
+  font-size: 4rem;
+  font-weight: 700;
+}
+
+.ctaCopy p {
+  width: 73rem;
+  max-width: 100%;
+  margin-top: 3.2rem;
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 2.4rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Figma 4037:5401 — a white pill, its label followed by a 20px arrow. */
+.ctaCopy .ctaButton {
+  --pill-w: auto;
+  height: auto;
+  margin-top: 3.2rem;
+  padding: 1.6rem 3.2rem;
+  border: 0;
+  background: var(--text-inverse);
+  box-shadow: none;
+  filter: drop-shadow(0 1rem 0.75rem rgba(0, 0, 0, 0.1)) drop-shadow(0 0.4rem 0.3rem rgba(0, 0, 0, 0.1));
+}
+
+.ctaCopy .ctaButton:hover,
+.ctaCopy .ctaButton:focus-visible {
+  background-color: var(--text-inverse);
+}
+
+.ctaCopy .ctaButton > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-weight: 400;
+}
+
+.ctaArrow {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+}
+
+/* The exported arrow points right; on an RTL page it turns to face left. */
+.ctaArrow:dir(rtl) {
+  transform: scaleX(-1);
+}
+
+@media (max-width: 1024px) {
+  .main {
+    gap: 9.6rem;
+    padding-block: 3.2rem 9.6rem;
+  }
+
+  .hero {
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .heroCopy {
+    width: 100%;
+    padding: 0;
+  }
+
+  .heroTitle,
+  .heroText {
+    width: 100%;
+  }
+
+  .heroTitle {
+    font-size: 3.2rem;
+  }
+
+  .heroText {
+    margin-top: 2rem;
+    font-size: 2rem;
+  }
+
+  .heroArt {
+    width: 100%;
+    height: auto;
+  }
+
+  .title,
+  .values .title,
+  .ctaCopy h2 {
+    font-size: 3.2rem;
+  }
+
+  .lead,
+  .pillarsSection .lead,
+  .values .lead,
+  .ctaCopy p {
+    margin-top: 1.6rem;
+    font-size: 2rem;
+  }
+
+  .pillarsSection {
+    padding-bottom: 0;
+  }
+
+  .pillars {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+    margin-top: 4.8rem;
+  }
+
+  .pillar {
+    min-height: 0;
+  }
+
+  .pillar:nth-child(2)::after {
+    display: none;
+  }
+
+  .paths {
+    padding-block: 6.4rem;
+  }
+
+  .pathGrid {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 4rem;
+  }
+
+  .featured {
+    grid-column: auto;
+    grid-row: auto;
+    min-height: 42rem;
+  }
+
+  .featuredCopy h3 {
+    font-size: 3.2rem;
+  }
+
+  .stepGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 4rem;
+  }
+
+  .step {
+    min-height: 30rem;
+  }
+
+  .values {
+    padding-top: 0;
+  }
+
+  .valueGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.6rem;
+    margin-top: 4.8rem;
+  }
+
+  .value {
+    min-height: 0;
+  }
+
+  .cta {
+    min-height: 0;
+    padding: 6.4rem var(--gutter);
+  }
+}
+
+@media (max-width: 640px) {
+  .main {
+    gap: 6.4rem;
+    padding-block: 2.4rem 6.4rem;
+  }
+
+  .heroTitle {
+    font-size: 2.8rem;
+  }
+
+  .heroText {
+    font-size: 1.8rem;
+  }
+
+  .heroActions {
+    flex-wrap: wrap;
+  }
+
+  .title,
+  .values .title,
+  .ctaCopy h2 {
+    font-size: 2.6rem;
+  }
+
+  .lead,
+  .pillarsSection .lead,
+  .values .lead,
+  .ctaCopy p {
+    font-size: 1.7rem;
+  }
+
+  .pillar {
+    padding: 2.4rem;
+  }
+
+  .pillar h3,
+  .featuredCopy h3 {
+    font-size: 2.6rem;
+  }
+
+  .pillar p,
+  .featuredCopy p,
+  .track p,
+  .value p {
+    font-size: 1.6rem;
+  }
+
+  .paths {
+    padding-block: 4.8rem;
+  }
+
+  .featured {
+    min-height: 38rem;
+    padding: 0 2.4rem 2.4rem;
+  }
+
+  .track {
+    padding: 2rem;
+  }
+
+  .track h3,
+  .value h3 {
+    font-size: 2rem;
+  }
+
+  .stepGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .step {
+    min-height: 0;
+    padding-bottom: 8rem;
+  }
+
+  .value {
+    gap: 1.6rem;
+    padding: 2.4rem;
+  }
+
+  .valueIcon {
+    width: 4.8rem;
+    height: 4.8rem;
+  }
+
+  .cta {
+    padding-block: 4.8rem;
+  }
+}

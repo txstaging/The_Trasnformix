@@ -52,3 +52,27 @@ export const getServicesMenu = (basePath: string): ServiceMenuLink[] => [
   { label: "جميع الخدمات", href: basePath },
   ...SERVICE_CATEGORIES.map(({ label, website }) => ({ label, href: website, external: true })),
 ];
+
+/* Offered beside the four categories above but kept apart from them, since
+   the v2–v4 service routes are built around exactly those four. */
+export const EXTRA_SERVICES = [
+  {
+    key: "mobile",
+    label: "تطوير تطبيقات الجوال",
+    website: "https://mobile.thetransformix.com",
+    text: "نصمم ونطوّر تطبيقات جوال سلسة وآمنة لنظامي iOS وAndroid، تخدم عملاءك أينما كانوا.",
+  },
+  {
+    key: "ventures",
+    label: "بناء الشركات الناشئة",
+    website: "/ventures",
+    text: "نبني الشركات الناشئة التقنية مع مؤسسيها بشكل منهجي، من الفكرة والتحقق إلى الإطلاق والتوسع.",
+  },
+] as const;
+
+export const ALL_SERVICES = [...SERVICE_CATEGORIES, ...EXTRA_SERVICES];
+
+/** The v1 dropdown: the services trigger itself opens the overview, so the
+    menu lists only the services, each in a new tab. */
+export const getServiceSitesMenu = (): ServiceMenuLink[] =>
+  ALL_SERVICES.map(({ label, website }) => ({ label, href: website, external: true }));

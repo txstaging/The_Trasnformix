@@ -25,12 +25,6 @@ const REVIEWS: Review[] = [
     name: "د/ ريم بخيت",
     avatar: { src: "/images/review-reem.png", size: 43, round: false },
   },
-  {
-    quote:
-      "لقد فاقت وكالة Fuex توقعاتي بخدماتها المتميزة فريقهم محترف، سريع الاستجابة، ويفهم تماما احتياجات عملائهم. لقد قدموا نتائج عالية الجودة في الوقت المحدد، وكان لإبداعهم وخبرتهم أثر بالغ. أوصي بشدة بوكالة Fuex لكل من يبحث عن حلول تسويقية من الطراز الأول.",
-    name: "د/روزانا البخاري",
-    avatar: { src: "/images/review-rozana.png", size: 43, round: true },
-  },
 ];
 
 const COUNT = REVIEWS.length;

@@ -443,18 +443,29 @@
 
   /* The label sits flush right and the chevron flush left, so in RTL the two
      ends of a space-between row. */
-  .sheetTrigger {
+  .sheetRow {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: space-between;
-    font-size: 1.8rem;
+  }
+
+  /* A 44px target whose chevron stays flush with the edge, as before. */
+  .sheetToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.4rem;
+    height: 4.4rem;
+    flex-shrink: 0;
+    margin-block: -0.5rem;
+    margin-inline-end: -1.4rem;
     color: var(--ocean-dark);
     transition: color var(--dur-fast) var(--ease-out);
   }
 
-  .sheetTrigger:hover,
-  .sheetTrigger[aria-expanded="true"] {
+  .sheetToggle:hover,
+  .sheetToggle[aria-expanded="true"] {
     color: var(--ocean-blue);
   }
 
@@ -466,7 +477,7 @@
     transition: transform var(--dur) var(--ease-out);
   }
 
-  .sheetTrigger[aria-expanded="true"] .sheetChevron {
+  .sheetToggle[aria-expanded="true"] .sheetChevron {
     transform: rotate(180deg);
   }
 
@@ -487,7 +498,7 @@
   }
 
   .menu.sheetMenuOpen {
-    max-height: 38rem;
+    max-height: 46rem;
     margin-top: 1.2rem;
     padding-block: 0.8rem;
     opacity: 1;
