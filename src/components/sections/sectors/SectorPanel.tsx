@@ -46,7 +46,7 @@ type SectorPanelProps = {
   title: string;
   text: string;
   items: SectorItem[];
-  cta: { label: string; href?: string };
+  cta: { label: string; href?: string; external?: boolean };
 };
 
 const cx = (...names: (string | false | undefined)[]) =>
@@ -168,7 +168,7 @@ export function SectorPanel({
         </div>
 
         <div className={styles.actions}>
-          <PillButton href={cta.href} className={styles.cta}>
+          <PillButton href={cta.href} external={cta.external} className={styles.cta}>
             {cta.label}
           </PillButton>
         </div>

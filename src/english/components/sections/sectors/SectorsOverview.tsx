@@ -1,14 +1,16 @@
 import { Reveal } from "@/english/components/ui/Reveal";
+import { MANUFACTURING_WEBSITE } from "@/english/lib/serviceNavigation";
 import styles from "@/english/components/sections/sectors/SectorsOverview.module.css";
 
-/* Right-to-left: الصناعة is the right-hand card. Each one jumps to its band. */
+/* Right-to-left: الصناعة is the right-hand card. It leaves for the
+   manufacturing site; the others jump to their band. */
 const SECTORS = [
   {
     key: "industry",
     number: "01",
     title: "Manufacturing",
     text: "Factory operations, digital transformation, MCR systems, and AI.",
-    href: "#industry",
+    href: MANUFACTURING_WEBSITE,
   },
   {
     key: "cooperatives",
@@ -44,6 +46,8 @@ export function SectorsOverview() {
             <a
               key={sector.key}
               href={sector.href}
+              target={sector.href.startsWith("http") ? "_blank" : undefined}
+              rel={sector.href.startsWith("http") ? "noopener noreferrer" : undefined}
               className={`${styles.card} ${styles[sector.key]}`}
             >
               <span className={styles.number} aria-hidden>

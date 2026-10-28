@@ -8,6 +8,7 @@ import { SectorsOverview } from "@/components/sections/sectors/SectorsOverview";
 import { SectorsStats } from "@/components/sections/sectors/SectorsStats";
 import flow from "@/components/ui/SectionFlow.module.css";
 import { tajawal } from "@/lib/fonts";
+import { MANUFACTURING_WEBSITE } from "@/lib/serviceNavigation";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -124,7 +125,7 @@ export default function SectorsPage() {
               shot: INDUSTRY_SHOTS[2],
             },
           ]}
-          cta={{ label: "تعرف علي انظمتنا", href: "https://ai.thetransformix.com/erp" }}
+          cta={{ label: "تعرف علي انظمتنا", href: MANUFACTURING_WEBSITE, external: true }}
         />
 
         <SectorPanel

@@ -34,6 +34,9 @@ export type ServiceKey = (typeof SERVICE_CATEGORIES)[number]["key"];
 export const getServiceWebsite = (key: ServiceKey) =>
   SERVICE_CATEGORIES.find(service => service.key === key)!.website;
 
+/** Every link about the manufacturing sector leaves for its own site. */
+export const MANUFACTURING_WEBSITE = "https://manufacturing.thetransformix.com/";
+
 export const SERVICES_INTRO = {
   title: "حلول تبدأ من احتياجك، وتعمل معًا.",
   lead: "أربع خدمات تغطي البيانات والحضور الرقمي والتواصل والعمليات. نساعدك على اختيار المسار المناسب، مع إمكانية تكامل الخدمات وفق الأولويات وجاهزية المنشأة.",

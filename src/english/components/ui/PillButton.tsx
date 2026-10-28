@@ -8,6 +8,8 @@ type PillButtonProps = {
   children: ReactNode;
   /** Without one the pill opens the contact form. */
   href?: string;
+  /** Opens `href` in a new tab, for links that leave the site. */
+  external?: boolean;
   className?: string;
   /** `primary` — blue pill, white arrow disc (Figma 3459:10323).
       `inverse` — the white pill for dark grounds, blue disc (3459:11119).
@@ -28,6 +30,7 @@ type PillButtonProps = {
 export function PillButton({
   children,
   href,
+  external,
   className,
   variant = "primary",
   size = "default",
@@ -79,7 +82,12 @@ export function PillButton({
   }
 
   return (
-    <a href={href} className={classes}>
+    <a
+      href={href}
+      className={classes}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
+    >
       {content}
     </a>
   );

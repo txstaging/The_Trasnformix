@@ -2,16 +2,18 @@ import Link from "next/link";
 import { V2 } from "@/components/v2/routes";
 import { Media } from "@/components/v2/ui/Media";
 import { SectionIntro } from "@/components/v2/ui/SectionIntro";
+import { MANUFACTURING_WEBSITE } from "@/lib/serviceNavigation";
 import styles from "./SectorStories.module.css";
 
 /* Two rows of two, right to left (Figma 3693:64705, 3693:64714). Each story
-   opens its chapter on the sectors page. */
+   opens its chapter on the sectors page, unless it names its own site. */
 const SECTORS = [
   {
     id: "industry",
     title: "قطاع الصناعة",
     text: "رؤية أدق للإنتاج والموارد وسلاسل الإمداد.",
     image: "/v2/images/home-sector-industry.png",
+    href: MANUFACTURING_WEBSITE,
   },
   {
     id: "tourism",
@@ -44,7 +46,13 @@ export function SectorStories() {
       />
       <div className={styles.grid}>
         {SECTORS.map((sector) => (
-          <Link key={sector.id} href={`${V2.sectors}#${sector.id}`} className={styles.story}>
+          <Link
+            key={sector.id}
+            href={sector.href ?? `${V2.sectors}#${sector.id}`}
+            target={sector.href ? "_blank" : undefined}
+            rel={sector.href ? "noopener noreferrer" : undefined}
+            className={styles.story}
+          >
             <Media
               className={styles.image}
               src={sector.image}

@@ -1,4 +1,4 @@
-import { getServiceWebsite } from "@/english/lib/serviceNavigation";
+import { getServiceWebsite, MANUFACTURING_WEBSITE } from "@/english/lib/serviceNavigation";
 
 export type FooterVersion = "v1" | "v2" | "v3";
 export type FooterNavLink = { label: string; href: string; external?: boolean };
@@ -34,7 +34,7 @@ export function getFooterColumns(version: FooterVersion): FooterNavColumn[] {
     {
       id: "sectors", title: "Industries", href: `${base}/sectors`,
       links: [
-        { label: "Manufacturing", href: `${base}/sectors#industry` },
+        { label: "Manufacturing", href: MANUFACTURING_WEBSITE, external: true },
         { label: "Education", href: `${base}/sectors#education` },
         version === "v1"
           ? { label: "All industries", href: "/en/sectors" }
