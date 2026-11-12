@@ -1,14 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Noto_Kufi_Arabic } from "next/font/google";
+import localFont from "next/font/local";
 import { ContactModalProvider } from "@/components/contact/ContactModal";
 import "@/app/globals.css";
 
-const notoKufiArabic = Noto_Kufi_Arabic({
+/* Self-hosted from google/fonts (OFL, see app/fonts/NotoKufiArabic-OFL.txt),
+   like every face on the site (lib/fonts.ts says why). The file is the
+   variable font limited to weights 400–800 and subset to Arabic and Latin;
+   800 sets the V2 page banner titles (Figma V2/Display). */
+const notoKufiArabic = localFont({
   variable: "--font-kufi",
-  subsets: ["arabic", "latin"],
-  /* 800 sets the V2 page banner titles (Figma V2/Display). The family is
-     variable, so every weight shares the same files. */
-  weight: ["400", "500", "600", "700", "800"],
+  src: "../fonts/NotoKufiArabic.woff2",
+  weight: "400 800",
   display: "swap",
 });
 
