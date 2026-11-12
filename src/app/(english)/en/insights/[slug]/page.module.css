@@ -1,0 +1,508 @@
+/* Figma 4524:4242 — an article, set in a 1120px column (160px in at 1440):
+   the trail, topics, title, lead and a 352px cover; then the text beside a
+   256px contents list 64px away; then the related articles on a pale band. */
+.main {
+  --tajawal: var(--font-tajawal), var(--font-kufi), sans-serif;
+  --column: max(var(--gutter), calc((100% - 112rem) / 2));
+  --line: #e5e7eb; /* border/default */
+  background: var(--bg-main);
+}
+
+.title,
+.sectionTitle,
+.levelTitle,
+.exampleTitle,
+.takeaway,
+.nextTitle,
+.button,
+.tocTitle,
+.relatedTitle {
+  font-family: var(--tajawal);
+}
+
+/* ---- Head (Figma 4524:4256) ----------------------------------------------- */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  padding-block: 3.2rem 4.8rem;
+  padding-inline: var(--column);
+}
+
+.crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.crumbs li + li::before {
+  content: "/";
+  margin-inline: 0.8rem;
+}
+
+.crumbs,
+.author {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.crumbs a {
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.crumbs a:hover {
+  color: var(--primary);
+}
+
+.topics {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--primary);
+}
+
+.title {
+  font-size: 4.4rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.lead {
+  font-size: 1.8rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.cover {
+  position: relative;
+  height: 35.2rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+}
+
+.coverImage {
+  object-fit: cover;
+}
+
+/* ---- Reading (Figma 4524:4263) -------------------------------------------- */
+/* The contents come first for keyboards and sit at the far side. */
+.reading {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  gap: 6.4rem;
+  padding-block: 0.8rem 6.4rem;
+  padding-inline: var(--column);
+}
+
+.toc {
+  position: sticky;
+  top: 8.8rem;
+  display: flex;
+  flex: 0 0 25.6rem;
+  flex-direction: column;
+  gap: 2rem;
+  padding-block: 0.8rem 2rem;
+  padding-inline-start: 2rem;
+  border-inline-start: 0.1rem solid var(--line);
+}
+
+.tocTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+  color: var(--text-primary);
+}
+
+.tocList {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tocLink,
+.tocBack {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.tocLink {
+  color: var(--text-secondary);
+}
+
+.tocLink:hover {
+  color: var(--primary);
+}
+
+.tocNumber {
+  margin-inline-end: 0.8rem;
+}
+
+.tocBack {
+  color: var(--primary);
+}
+
+.tocBack:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.4rem;
+}
+
+.tocLink:focus-visible,
+.tocBack:focus-visible,
+.crumbs a:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.3rem;
+  border-radius: 0.2rem;
+}
+
+.rule {
+  width: 100%;
+  height: 0.1rem;
+  margin: 0;
+  border: 0;
+  background: var(--line);
+}
+
+.article {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4rem;
+  min-width: 0;
+}
+
+.intro,
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Clear of the 64px sticky bar when the contents jump here. */
+.section {
+  scroll-margin-top: 8.8rem;
+}
+
+.kicker {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--primary);
+}
+
+.sectionTitle {
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+.paragraph {
+  font-size: 1.8rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+/* Figma 4524:4418 — the three levels, each a pale card. */
+.levels {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.level {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 2.4rem;
+  border-radius: 1.6rem;
+  background: var(--bg-card);
+}
+
+.levelTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--primary);
+}
+
+/* Figma 4524:4592 — the worked example: four white stages on pale blue. */
+.example {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 0;
+  padding: 2.4rem;
+  border-radius: 1.6rem;
+  background: var(--blue-light);
+}
+
+.exampleTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--primary);
+}
+
+.steps {
+  display: flex;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+.stepBox {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  min-height: 9rem;
+  padding: 1.2rem;
+  border-radius: 0.8rem;
+  background: var(--bg-main);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.stepArrow {
+  width: 1.6rem;
+  height: 1.6rem;
+  flex-shrink: 0;
+}
+
+.exampleCaption {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+/* Figma 4524:4440 — the closing line, set off by a blue rule. */
+.takeaway {
+  padding: 2.8rem;
+  border-inline-start: 0.3rem solid var(--primary);
+  background: var(--blue-light);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--primary);
+}
+
+/* Figma 4524:4305 — what to do next. */
+.next {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 3.2rem;
+  border-radius: 1.6rem;
+  background: var(--bg-card);
+}
+
+.nextTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.6rem 2.4rem;
+  border: 0.1rem solid var(--primary);
+  border-radius: 10rem;
+  background: var(--primary);
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+  color: var(--text-inverse);
+  text-align: center;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.button:hover {
+  background: var(--blue-dark);
+  box-shadow: 0 1.2rem 2.4rem rgba(28, 68, 153, 0.24);
+  transform: translateY(-0.2rem);
+}
+
+.buttonSecondary {
+  background: var(--bg-main);
+  color: var(--primary);
+}
+
+.buttonSecondary:hover {
+  background: var(--blue-light);
+}
+
+.button:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.3rem;
+}
+
+/* ---- Related (Figma 4524:4309) -------------------------------------------- */
+.related {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  padding-block: 5.6rem;
+  padding-inline: var(--column);
+  background: var(--bg-card);
+}
+
+.relatedTitle {
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+.relatedGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.relatedItem {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button:hover {
+    transform: none;
+  }
+}
+
+/* The contents move above the text and stop following it. */
+@media (max-width: 1024px) {
+  .title {
+    font-size: 3.6rem;
+  }
+
+  .reading {
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .toc {
+    position: static;
+    flex-basis: auto;
+    width: 100%;
+    padding: 2.4rem;
+    border: 0.1rem solid var(--line);
+    border-radius: 1.6rem;
+  }
+
+  .sectionTitle,
+  .relatedTitle {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    gap: 2rem;
+    padding-bottom: 4rem;
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .lead,
+  .paragraph {
+    font-size: 1.6rem;
+  }
+
+  .cover {
+    height: 22rem;
+  }
+
+  .sectionTitle,
+  .relatedTitle {
+    font-size: 2.4rem;
+  }
+
+  .levelTitle,
+  .takeaway,
+  .nextTitle {
+    font-size: 2rem;
+  }
+
+  .level,
+  .example,
+  .takeaway,
+  .next {
+    padding: 2rem;
+  }
+
+  /* The stages stack, their arrows turned to point down the chain. */
+  .steps,
+  .step {
+    flex-direction: column;
+  }
+
+  .step {
+    width: 100%;
+  }
+
+  .stepBox {
+    width: 100%;
+    min-height: 6.4rem;
+  }
+
+  .stepArrow {
+    transform: rotate(-90deg);
+  }
+
+  .button {
+    width: 100%;
+    font-size: 1.6rem;
+  }
+
+  .related {
+    padding-block: 4.8rem;
+  }
+
+  .relatedGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* The chain reads left to right in English; stacked, its arrows still point down. */
+@media (min-width: 641px) { .stepArrow { transform: scaleX(-1); } }

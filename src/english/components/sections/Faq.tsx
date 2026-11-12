@@ -32,7 +32,7 @@ const ITEMS: FaqEntry[] = [
     number: "03",
     question: "Do you improve existing systems?",
     answer:
-      "Yes. We review existing systems, identify opportunities for improvement, and develop or integrate them with other systems without necessarily rebuilding from scratch.",
+      "Yes. We review existing systems, identify opportunities for improvement, and enhance or integrate them with other systems without necessarily rebuilding them from scratch.",
   },
   {
     number: "04",

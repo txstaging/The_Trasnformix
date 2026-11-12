@@ -6,7 +6,9 @@ import "@/app/globals.css";
 const notoKufiArabic = Noto_Kufi_Arabic({
   variable: "--font-kufi",
   subsets: ["arabic", "latin"],
-  weight: ["400", "500", "600", "700"],
+  /* 800 sets the V2 page banner titles (Figma V2/Display). The family is
+     variable, so every weight shares the same files. */
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 

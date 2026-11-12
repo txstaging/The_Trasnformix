@@ -1,4 +1,5 @@
 import { COMMUNITY_HREF, COMMUNITY_NAV, communityHref } from "./communityNav";
+import { INSIGHTS_HREF, INSIGHTS_LABEL } from "./insightsNav";
 import {
   AI_SUITE_WEBSITE,
   EXTRA_SERVICES,
@@ -6,10 +7,12 @@ import {
   MANUFACTURING_WEBSITE,
   PRODUCT_WEBSITES,
 } from "./serviceNavigation";
+import { TRUST_HREF, TRUST_LABEL, TRUST_NAV, trustHref } from "./trustNav";
 
-/* The v1 navbar (Figma 4305:4654 الخدمات, 4305:4657 المنتجات, 4305:4660
-   الموارد): five labels in a white 64px bar, three of which open a full-width
-   panel — a grey sidebar of tabs beside up to three columns of links.
+/* The v1 navbar (Figma 4305:4654): five labels in a white 64px bar, three of
+   which open a full-width panel drawn as the V2 header's menus (Figma 4612:57
+   الخدمات, 4612:136 المنتجات, 4612:222 الموارد) — a grey rail of tabs beside
+   columns of links.
 
    Every destination is one the site already has. An entry without a page of
    its own opens the overview it belongs to (/services, /products, /sectors)
@@ -40,11 +43,6 @@ export type NavMenuId = "services" | "products" | "resources";
 
 export type NavMenu = {
   id: NavMenuId;
-  /** The sidebar arrow is drawn a hair heavier on the services artboard. */
-  arrow: string;
-  /** Services list unheaded links 28px apart; the others head each column
-      and space their links 19px apart. */
-  plain?: boolean;
   /** Everything the menu holds, shown as it opens until a tab is pointed at. */
   overview: NavBlock[][];
   /** The sidebar rows, under the menu's own label. */
@@ -69,7 +67,7 @@ const TECH_SOLUTIONS: NavBlock[][] = [
   [{
     links: [
       site("الذكاء الاصطناعي والأتمتة الذكية", AI_SUITE_WEBSITE),
-      site("علوم البيانات والذكاء الرقمي", getServiceWebsite("data")),
+      { label: "علوم البيانات والذكاء الرقمي", href: "/services/data-science" },
       {
         label: "هندسة البرمجيات والتطبيقات",
         href: "/services/software-engineering",
@@ -84,7 +82,7 @@ const TECH_SOLUTIONS: NavBlock[][] = [
   [{
     links: [
       { label: "التجارة الإلكترونية والأسواق متعددة البائعين", href: "/services/ecommerce" },
-      { label: "منصات الحجوزات والخدمات السياحية", href: "/services" },
+      { label: "منصات الحجوزات والخدمات السياحية", href: "/services/tourism" },
       site("الإبداع والتسويق الرقمي متعدد القنوات", getServiceWebsite("marketing")),
     ],
   }],
@@ -119,7 +117,7 @@ const PLATFORMS: NavBlock = {
   links: [
     site("نظام تخطيط موارد المؤسسات", getServiceWebsite("erp")),
     site("منصة إدارة المستثمرين والتعاونيات", PRODUCT_WEBSITES.cooperatives),
-    { label: "منصة حوكمة الشركات المساهمة المقفلة", href: "/products" },
+    site("منصة حوكمة الشركات المساهمة المقفلة", PRODUCT_WEBSITES.governance),
     site("منصة إدارة الخدمات اللوجستية", PRODUCT_WEBSITES.logistics),
   ],
 };
@@ -133,9 +131,10 @@ const MORE_PLATFORMS: NavBlock = {
   ],
 };
 
-/* الموارد — the sectors, the academies and TX Community, with the portfolio
-   (أعمالنا), which the new bar no longer shows on its own. Manufacturing
-   leaves for its own site, as everywhere else. */
+/* الموارد — the sectors, the academies, trust and governance, TX Community,
+   the portfolio (أعمالنا), the company (من نحن now lives here rather than on
+   the bar) and what we publish. Manufacturing leaves for its own site, as
+   everywhere else. */
 const SECTORS: NavBlock = {
   title: { label: "القطاعات", href: "/sectors" },
   links: [
@@ -145,6 +144,7 @@ const SECTORS: NavBlock = {
     { label: "التجارة الإلكترونية والتجزئة", href: "/sectors" },
     { label: "السياحة والخدمات والحجوزات", href: "/sectors" },
     { label: "الخدمات اللوجستية", href: "/sectors" },
+    { label: "الرياضات الذكية", href: "/sectors/sports" },
   ],
 };
 
@@ -157,6 +157,13 @@ const ACADEMIES: NavBlock = {
   ],
 };
 
+/* الثقة والحوكمة — our ethics, the code of conduct and regulatory compliance
+   (lib/trustNav.ts). The heading opens the first of them. */
+const TRUST: NavBlock = {
+  title: { label: TRUST_LABEL, href: trustHref("ethics") },
+  links: TRUST_NAV.map(({ slug, label }) => ({ label, href: trustHref(slug) })),
+};
+
 /* TX Community — the hub, then a page per activity (lib/communityNav.ts). Its
    own tab splits the list over two columns. */
 const COMMUNITY_LINKS: NavLink[] = COMMUNITY_NAV.map(({ slug, label }) => ({ label, href: communityHref(slug) }));
@@ -166,9 +173,35 @@ const COMMUNITY_SPLIT = Math.ceil(COMMUNITY_LINKS.length / 2);
 const COMMUNITY_FIRST: NavBlock = { title: COMMUNITY_TITLE, links: COMMUNITY_LINKS.slice(0, COMMUNITY_SPLIT) };
 const COMMUNITY_REST: NavBlock = { continues: true, links: COMMUNITY_LINKS.slice(COMMUNITY_SPLIT) };
 
+/* The portfolio's case studies. The overview lists them under المعرفة
+   والأخبار, as the artboard does; the أعمالنا tab still shows them alone. */
+const CASE_STUDIES: NavLink = { label: "دراسات الحالة", href: "/works" };
+
 const WORKS: NavBlock = {
   title: { label: "أعمالنا", href: "/works" },
-  links: [{ label: "جميع المشاريع", href: "/works" }],
+  links: [CASE_STUDIES],
+};
+
+/* عن الشركة وأثرها — the about page and its labs, then the community and
+   contact pages that cover impact and partnership until each has its own. */
+const COMPANY: NavBlock = {
+  title: { label: "عن الشركة وأثرها", href: "/about" },
+  links: [
+    { label: "من نحن", href: "/about" },
+    { label: "مختبراتنا وخبراتنا", href: "/about#labs" },
+    { label: "الاستدامة والمسؤولية المجتمعية", href: communityHref("impact") },
+    { label: "التكنولوجيا من أجل الخير", href: communityHref("impact") },
+    { label: "الشراكات والتعاون", href: "/contact#ways" },
+  ],
+};
+
+const KNOWLEDGE: NavBlock = {
+  title: { label: "المعرفة والأخبار", href: INSIGHTS_HREF },
+  links: [
+    { label: INSIGHTS_LABEL, href: INSIGHTS_HREF },
+    { label: "الأخبار والمستجدات", href: communityHref("news") },
+    CASE_STUDIES,
+  ],
 };
 
 /** Right-to-left reading order, so the first entry sits beside the logo. */
@@ -179,8 +212,6 @@ export const NAV_ITEMS: NavItem[] = [
     routes: ["/services", "/ventures"],
     menu: {
       id: "services",
-      arrow: "/icons/nav/tab-arrow-services.svg",
-      plain: true,
       overview: [...TECH_SOLUTIONS, ...CONSULTING],
       tabs: [
         { label: "حلولنا التقنية", href: "/services", columns: TECH_SOLUTIONS },
@@ -194,7 +225,6 @@ export const NAV_ITEMS: NavItem[] = [
     routes: ["/products"],
     menu: {
       id: "products",
-      arrow: "/icons/nav/tab-arrow.svg",
       overview: [[AGENTS], [PLATFORMS], [MORE_PLATFORMS]],
       tabs: [
         { label: "منظومة الوكلاء الأذكياء", href: "/products#ai-agents", columns: [[AGENTS]] },
@@ -204,22 +234,21 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "الموارد",
-    routes: ["/sectors", "/academy", "/works", "/community"],
+    routes: ["/sectors", "/academy", TRUST_HREF, "/works", "/community", "/about", INSIGHTS_HREF],
     menu: {
       id: "resources",
-      arrow: "/icons/nav/tab-arrow.svg",
-      overview: [[SECTORS], [ACADEMIES, WORKS], [COMMUNITY]],
+      overview: [[SECTORS], [ACADEMIES, TRUST], [COMMUNITY], [COMPANY, KNOWLEDGE]],
       tabs: [
         { label: "القطاعات", href: "/sectors", columns: [[SECTORS]] },
         { label: "الأكاديميات", href: "/academy", columns: [[ACADEMIES]] },
+        { label: TRUST_LABEL, href: trustHref("ethics"), columns: [[TRUST]] },
         { label: "المجتمع", href: COMMUNITY_HREF, columns: [[COMMUNITY_FIRST], [COMMUNITY_REST]] },
         { label: "أعمالنا", href: "/works", columns: [[WORKS]] },
+        { label: "عن الشركة وأثرها", href: "/about", columns: [[COMPANY]] },
+        { label: "المعرفة والأخبار", href: INSIGHTS_HREF, columns: [[KNOWLEDGE]] },
       ],
     },
   },
-  /* من نحن is not drawn on the new bar; it keeps its place among the
-     company links rather than hiding inside a menu. */
-  { label: "من نحن", href: "/about", routes: ["/about"] },
   { label: "الوظائف", href: "/careers", routes: ["/careers"] },
   { label: "تواصل معنا", href: "/contact", routes: ["/contact"] },
 ];

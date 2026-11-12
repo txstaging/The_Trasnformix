@@ -1,0 +1,206 @@
+/* Figma 4473:9198 — السياحة والضيافة والتراث. The shared parts live in
+   components/services/ServiceKit.module.css; these are the page's own. */
+
+/* The paths open 100px under the hero (Figma 4473:9241). */
+.paths {
+  padding-top: 10rem;
+}
+
+/* ---- Numbered cards: who it's for, and the work done ------------------------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3.2rem 2.4rem;
+}
+
+.cardsWide {
+  column-gap: 3.2rem;
+}
+
+.card {
+  min-height: 34rem;
+}
+
+/* ---- Solution areas (Figma 4473:9336) ----------------------------------------- */
+.solutionsIntro {
+  padding: 8rem var(--column) 0;
+}
+
+.solution {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 4rem;
+}
+
+.solutionCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.4rem;
+  min-width: 0;
+}
+
+.solutionIntro {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+/* Each icon keeps its own drawn size in the 64px slot. */
+.solutionIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6.4rem;
+  height: 6.4rem;
+}
+
+.solutionIcon img {
+  max-width: none;
+}
+
+.definition {
+  align-self: stretch;
+  padding: 2rem;
+  border-radius: 1.6rem;
+  background: var(--blue-light);
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.solutionPanel {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  min-width: 0;
+}
+
+.panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2.4rem;
+}
+
+/* The artboard leaves this panel for a photo still to come; it holds the
+   pale block until then. */
+.panelBlank {
+  min-height: 53.6rem;
+  background: var(--blue-light);
+}
+
+.panelPhoto {
+  height: 47.6rem;
+  border-radius: 1.6rem;
+}
+
+.panelImage {
+  object-fit: cover;
+}
+
+.panelShade {
+  position: absolute;
+  inset: 0;
+  background: #000;
+}
+
+/* "From data to insight" (Figma 4473:9455): stands as tall as the copy. */
+.panelScope {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2.8rem;
+  border: 0.1rem solid var(--line);
+  background: var(--bg-main);
+}
+
+.scopeList {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 0;
+}
+
+.scopeItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding-top: 1.6rem;
+  border-top: 0.1rem solid var(--line);
+}
+
+.scopeItem dd {
+  margin: 0;
+}
+
+.scopeLabel {
+  font-family: var(--tajawal);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--primary);
+}
+
+@media (max-width: 1024px) {
+  .solution {
+    gap: 3.2rem;
+  }
+
+  .panelBlank {
+    min-height: 44rem;
+  }
+
+  .panelPhoto {
+    height: 40rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .paths {
+    padding-top: 8rem;
+  }
+
+  .cards,
+  .solution {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.4rem;
+  }
+
+  .card {
+    min-height: 0;
+  }
+
+  /* An empty panel says nothing once it no longer balances the copy. */
+  .solutionPanel:has(.panelBlank) {
+    display: none;
+  }
+
+  .panelPhoto {
+    height: auto;
+    aspect-ratio: 603 / 476;
+  }
+}
+
+@media (max-width: 640px) {
+  .paths {
+    padding-top: 5.6rem;
+  }
+
+  .solutionsIntro {
+    padding-top: 5.6rem;
+  }
+
+  .panel {
+    border-radius: 1.6rem;
+  }
+
+  .panelScope {
+    padding: 2.4rem;
+  }
+
+  .definition {
+    padding: 1.6rem;
+  }
+}

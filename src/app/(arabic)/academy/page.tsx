@@ -1,37 +1,391 @@
 import type { Metadata } from "next";
+import {
+  academies,
+  AcademiesHero,
+  AcademyRow,
+  ClosingCard,
+  FeatureCards,
+  Outcomes,
+  Pillars,
+  SectionIntro,
+  Split,
+  type Academy,
+  type Feature,
+  type Pillar,
+} from "@/components/academies/AcademiesKit";
+import { AcademyAction } from "@/components/academies/AcademyAction";
+import { AcademyFaq } from "@/components/academies/AcademyFaq";
 import { Footer } from "@/components/sections/Footer";
 import { Navbar } from "@/components/sections/Navbar";
-import { AcademyChallenge } from "@/components/sections/academy/AcademyChallenge";
-import { AcademyCta } from "@/components/sections/academy/AcademyCta";
-import { AcademyCurtain } from "@/components/sections/academy/AcademyCurtain";
-import { AcademyHero } from "@/components/sections/academy/AcademyHero";
-import { AcademyJourney } from "@/components/sections/academy/AcademyJourney";
-import { AcademyPartners } from "@/components/sections/academy/AcademyPartners";
-import { AcademySolutions } from "@/components/sections/academy/AcademySolutions";
-import { AcademyTracks } from "@/components/sections/academy/AcademyTracks";
+import { Reveal } from "@/components/ui/Reveal";
 import flow from "@/components/ui/SectionFlow.module.css";
-import { alexandria, tajawal } from "@/lib/fonts";
-import styles from "./page.module.css";
+import { tajawal } from "@/lib/fonts";
 
 export const metadata: Metadata = {
-  title: "الأكاديمية | Transformix",
+  title: "الأكاديميات | Transformix",
   description:
-    "تقدم أكاديميات TX تدريباً تطبيقياً على برامج الأعمال والحلول الرقمية والذكاء الاصطناعي، تساعد المؤسسات على تأهيل فرقها والأفراد على اكتساب مهارات العمل.",
+    "نؤهّل مستخدمي الحلول الرقمية لأداء وظائفهم، ونطوّر قدرات فرق العمل على تطبيق التكنولوجيا في عملياتها اليومية.",
 };
 
+const icon = (name: string, size: 26 | 28 = 26) => ({ src: `/icons/academies/${name}.svg`, size });
+
+/* Figma 4726:4809 */
+const FEATURES: readonly Feature[] = [
+  {
+    icon: icon("layers"),
+    title: "خبرة التطبيق ضمن تجربة التعلم",
+    text: "نستفيد من خبرة تطوير حلول ترانسفورمكس وتنفيذها في تصميم الدروس والتمارين، ونربط شرح الوظائف التقنية بالإجراءات والقرارات التي يواجهها المستخدم في عمله.",
+  },
+  {
+    icon: icon("users-sector"),
+    title: "تخصص حسب القطاع والوظيفة",
+    text: "يتدرب المحاسب على مهامه المالية، ومسؤول المخزون على حركة الأصناف والجرد، وموظف الخدمات على الطلبات والتواصل. وتجمعهم أنشطة مشتركة لفهم أثر معاملاتهم في الأقسام الأخرى.",
+  },
+  {
+    icon: icon("grid"),
+    title: "حلول متعددة ودورة عمل مترابطة",
+    text: "تشمل البرامج منتجات ترانسفورمكس الخاصة، وأودو وزوهو، والحلول القطاعية والأدوات الذكية المقدمة للمنشأة. يتحدد التدريب وفق التطبيقات والتكاملات المستخدمة فعليًا.",
+  },
+  {
+    icon: icon("shield"),
+    title: "إتقان قابل للتقييم واستمرارية في التأهيل",
+    text: "تُقيَّم المهام الفردية والعمل الجماعي، وتُحدد نقاط المراجعة لكل مشارك. ويمكن إعادة استخدام المسارات لتأهيل الموظفين الجدد وتحديثها مع تطور الحلول وفق نطاق البرنامج.",
+  },
+  {
+    icon: icon("link"),
+    title: "صلة مهنية تستمر بعد البرنامج",
+    text: "ينضم الخريجون إلى مجتمع ترانسفورمكس وشبكة خريجيها، ويحصل المؤهلون على أولوية النظر في فرص التدريب العملي والعمل الحر والتوظيف المتاحة، وفق المهارات ومتطلبات الفرصة.",
+  },
+];
+
+const TRAINING_AREAS = "مجالات التدريب:";
+const OUTPUT = "مخرج تطبيقي:";
+
+/* Figma 4726:4963 — the ids are the navbar's and footer's anchors. */
+const ACADEMIES: readonly Academy[] = [
+  {
+    id: "industry",
+    title: "أكاديمية ترانسفورمكس للصناعة",
+    summary: "تأهيل فرق المصانع لاستخدام حلول التصنيع والموارد والتطبيقات التشغيلية، ومتابعة البيانات والتقارير والأدوات الذكية ضمن دورة عمل المصنع.",
+    details: [
+      { label: "المستفيدون:", text: "فرق الإنتاج والتخطيط والمخازن والمشتريات والصيانة والجودة والمالية، ومسؤولو الأنظمة والإدارة." },
+      { label: TRAINING_AREAS, text: "معاملات التشغيل، تخطيط الإنتاج ومتابعته، استخدام البيانات المتاحة من المعدات والحساسات، لوحات المؤشرات، وتطبيقات الذكاء الاصطناعي المرتبطة بالحلول المقدمة." },
+      { label: OUTPUT, text: "تنفيذ المهام المسندة للمتدرب ضمن دورة طلب وإنتاج وتسليم، والتحقق من البيانات وقراءة أثرها على التقارير، في بيئة تدريب مناسبة." },
+    ],
+    action: { label: "ناقش تدريب فريق المصنع" },
+    photo: {
+      src: "/images/academies/industry.jpg",
+      alt: "فنيون بخوذات السلامة يعملون على خط إنتاج داخل مصنع",
+      height: 520,
+    },
+  },
+  {
+    id: "vocational",
+    title: "أكاديمية ترانسفورمكس للتأهيل المهني",
+    summary: "مسارات تطبيقية للطلبة والخريجين والباحثين عن عمل والمهنيين، تركز على استخدام الأنظمة والأدوات الرقمية في وظائف المحاسبة والمخزون والمبيعات والخدمات والعمليات.",
+    details: [
+      { label: TRAINING_AREAS, text: "برمجيات الأعمال، البيانات والتقارير، تشغيل التجارة الإلكترونية والحجوزات، واستخدام الذكاء الاصطناعي والأتمتة في المهام الوظيفية، بحسب المسار." },
+      { label: OUTPUT, text: "ملف أعمال يضم مهام ومشروعًا وتقييمًا للمهارات المكتسبة، مع الانضمام إلى شبكة الخريجين وإمكانية الترشيح للفرص الملائمة." },
+    ],
+    action: { label: "سجّل اهتمامك بالتأهيل المهني" },
+    photo: {
+      src: "/images/academies/vocational.jpg",
+      alt: "مدرب يشرح لوحة بيانات لمجموعة من المتدربين في قاعة اجتماعات",
+      height: 460,
+    },
+  },
+  {
+    id: "cooperatives",
+    title: "أكاديمية ترانسفورمكس للتعاونيات",
+    summary: "تبدأ بتطبيقات مرتبطة باحتياجات التعاونيات السعودية. تُخصص البرامج لموظفي الجمعية الحاليين والجدد بحسب أنظمتها وإجراءاتها وطبيعة نشاطها.",
+    details: [
+      { label: TRAINING_AREAS, text: "المالية والتشغيل، ملفات المستثمرين وحقوقهم وواجباتهم وفق الوثائق المعتمدة، والأسهم والتواصل والتقييمات وطلبات الخدمة، واستخدام الوكيل الذكي لإعداد ملف الحوكمة والامتثال. وتضاف التجارة الإلكترونية أو الحجوزات بحسب النشاط." },
+      { label: OUTPUT, text: "إنجاز معاملة أو طلب خدمة، والتحقق من السجلات والموافقات والمستندات، وتجهيز مخرجات الحوكمة للمراجعة المتخصصة." },
+    ],
+    action: { label: "ناقش برنامج جمعيتك" },
+    photo: {
+      src: "/images/academies/cooperatives.jpg",
+      alt: "متحدث يعرض خطة عمل أمام فريق حول طاولة اجتماعات",
+      height: 500,
+    },
+  },
+];
+
+/* Figma 4726:5007 */
+const TECHNOLOGY: readonly Feature[] = [
+  {
+    icon: icon("grid"),
+    title: "برمجيات الأعمال والحلول القطاعية",
+    text: "تدريب على أنظمة ترانسفورمكس الخاصة للموارد والتصنيع والتعاونيات، وعلى أودو وزوهو أو غيرهما من الحلول المقدمة للمنشأة. يشمل شرح الإجراءات والتخصيصات والصلاحيات والتقارير المرتبطة بكل وظيفة.",
+  },
+  {
+    icon: icon("bot"),
+    title: "الذكاء الاصطناعي والوكلاء الأذكياء",
+    text: "استخدام الأدوات الجاهزة أو المطورة للمنشأة، وإعداد المدخلات، ومراجعة المخرجات، وتوظيفها في العمل. يتعلم المستخدم التعامل مع البيانات وفق صلاحياته، والتحقق من النتائج قبل اعتمادها.",
+  },
+  {
+    icon: icon("database"),
+    title: "البيانات والتكامل والأتمتة",
+    text: "فهم انتقال البيانات بين الأقسام والتطبيقات، والتحقق من جودتها، وقراءة مؤشرات الأداء، وتشغيل إجراءات الأتمتة ومتابعة الاستثناءات بحسب الدور الوظيفي.",
+  },
+  {
+    icon: icon("cpu"),
+    title: "التكنولوجيا الصناعية وإنترنت الأشياء",
+    text: "استخدام بيانات المعدات والحساسات وأجهزة التشغيل ضمن الأنظمة المتكاملة، عندما تكون متاحة في نطاق المشروع. تُنفذ التمارين على بيئة تدريب أو بيانات محاكاة مناسبة، مع فصلها عن التحكم الفعلي بالمعدات.",
+  },
+  {
+    icon: icon("trending-card"),
+    title: "إدارة التحول الرقمي وتطوير بيئة العمل",
+    text: "مسارات للإدارة والمشرفين تشمل اختيار التطبيقات وتحديد متطلباتها، وتقييم الجاهزية، وتنظيم المسؤوليات، وتطوير البنية التقنية وبيئة العمل، وإدارة التغيير، وربط مبادرات التكنولوجيا بأولويات المنشأة.",
+  },
+  {
+    icon: icon("shield"),
+    title: "الجودة والحوكمة المرتبطتان بالتطبيق",
+    text: "جودة البيانات، وتوثيق الإجراءات، ومسارات الاعتماد، ومراجعة الأدلة، ومبادئ الجودة 5.0 في سياق النشاط. وتخضع موضوعات الحوكمة والامتثال للمراجعة التخصصية المناسبة.",
+  },
+];
+
+/* Figma 4753:6431 */
+const LEARNING: readonly Pillar[] = [
+  {
+    icon: icon("calendar-check", 28),
+    title: "تحديد المهام والجاهزية",
+    text: "نحدد التطبيقات والوظائف المستهدفة ومستوى المشاركين، ونضع قائمة بالمهام المطلوبة ومعايير تقييمها. تُختار الدروس المشتركة والتطبيقات الخاصة لكل مجموعة.",
+  },
+  {
+    icon: icon("book", 28),
+    title: "تعلم مسجل وجلسات مباشرة",
+    text: "دروس وفيديوهات وأدلة يمكن الرجوع إليها، مع جلسات افتراضية أو حضورية لتطبيق الإجراءات الخاصة ومراجعة التمارين والإجابة عن الأسئلة، وفق خطة التدريب.",
+  },
+  {
+    icon: icon("calendar-check", 28),
+    title: "مهام فردية ومشروعات جماعية",
+    text: "ينفذ كل مشارك مهامًا تثبت قدرته على أداء دوره. وتجمع المشروعات الجماعية الوظائف التي تشترك في دورة العمل، باستخدام بيانات تدريبية وسيناريوهات مستمدة من طبيعة النشاط.",
+  },
+  {
+    icon: icon("book", 28),
+    title: "تقييم ومتابعة وتحديث",
+    text: "نتابع إنجاز الدروس والواجبات، ودقة المعاملات، والالتزام بالإجراءات. وتوضح تقارير المجموعة المهارات المكتسبة وما يحتاج إلى مراجعة. تُحدَّث المواد ذات الصلة مع تغير الحلول وفق نطاق المتابعة المتفق عليه.",
+  },
+];
+
+/* Figma 4726:5236 */
+const OUTCOMES = [
+  { label: "تنفيذ وظيفي أوضح:", text: "قدرة الموظف على إتمام المهام المحددة في البرنامج وإثباتها عمليًا." },
+  { label: "ترابط بين الفرق:", text: "فهم أثر المعاملة في الوظائف الأخرى، وتجربته ضمن نشاط جماعي." },
+  { label: "استخدام مدروس للأدوات الذكية:", text: "إعداد المدخلات ومراجعة المخرجات قبل اعتمادها." },
+  { label: "تأهيل منظم للموظفين الجدد:", text: "مسار معروف ودليل مرجعي ومتطلبات إتمام واضحة." },
+  { label: "رؤية للإدارة:", text: "تقرير يوضح مستوى إتمام المجموعة، ونتائج المهام، والاحتياجات المتبقية." },
+] as const;
+
+/* Figma 4726:5272 */
+const ALUMNI: readonly Pillar[] = [
+  {
+    icon: icon("users", 28),
+    title: "مجتمع مهني يستمر بعد التدريب",
+    text: "ينضم الخريجون إلى مجتمع ترانسفورمكس، ويطّلعون على اللقاءات وورش تبادل الخبرات والفرص المعلنة. وتتيح أنشطة عرض المشروعات إبراز المهارات والتعرف على متخصصين ومهتمين بمجالات عملهم.",
+  },
+  {
+    icon: icon("book", 28),
+    title: "ملف مهارات وأعمال قابلة للمراجعة",
+    text: "يتضمن ملف الخريج المهام والمشروعات التي أنجزها ونتائج تقييمه. ويُستخدم، بموافقته، للنظر في فرص تناسب مستواه وتخصصه واستعداده للعمل.",
+  },
+  {
+    icon: icon("trending", 28),
+    title: "أولوية للترشيح وفق الكفاءة",
+    text: "يحصل الخريجون المؤهلون على أولوية مراجعة ملفاتهم للفرص المطابقة لمهاراتهم، والترشيح للمقابلة أو اختبار المهمة عند ملاءمتهم. ويعتمد الاختيار النهائي على متطلبات الفرصة والتقييم وتوفر الاحتياج.",
+  },
+];
+
+/* Figma 4726:5296 */
+const OPPORTUNITIES: readonly Feature[] = [
+  {
+    icon: icon("graduation"),
+    title: "التدريب العملي",
+    text: "فرص محددة المهام والإشراف، عند توفرها، لاكتساب خبرة في التوثيق واختبار إجراءات المستخدم وتجهيز البيانات ودعم تشغيل الحلول.",
+  },
+  {
+    icon: icon("briefcase"),
+    title: "العمل الحر والتعاون بالمشروعات",
+    text: "مهام مدفوعة وفق الاتفاق، مثل تجهيز كتالوجات المنتجات، وتنظيم البيانات، وإعداد تقارير محددة أو مواد شرح، وتشغيل أعمال رقمية تناسب مهارات المتعاون.",
+  },
+  {
+    icon: icon("employment"),
+    title: "التوظيف والترشيح المهني",
+    text: "النظر في الخريجين المؤهلين لشواغر ترانسفورمكس، وإمكانية ترشيحهم لطلبات عملاء أو شركاء عند توفرها وبموافقتهم.",
+  },
+];
+
+/* Figma 4726:5391 — the answers are the collapsed items' own text. */
+const QUESTIONS = [
+  {
+    question: "هل البرامج موجهة للمستخدمين أم للمطورين؟",
+    answer: "تركز البرامج الأساسية على مستخدمي الحلول في وظائف المحاسبة والمبيعات والمخازن والإنتاج والخدمات والعمليات والإدارة. ويُوضح أي مسار متخصص في تطبيق الأنظمة أو تطويرها بصورة مستقلة.",
+  },
+  {
+    question: "هل يجب أن أكون متخصصًا في تقنية المعلومات؟",
+    answer: "تختلف المتطلبات بحسب البرنامج. تستهدف مسارات الاستخدام الموظفين وأصحاب التخصصات المرتبطة بالوظيفة، وتوضح صفحة البرنامج المعرفة السابقة المطلوبة قبل التسجيل.",
+  },
+  {
+    question: "هل التدريب مقتصر على أودو؟",
+    answer: "يشمل منتجات ترانسفورمكس الخاصة، وأودو وزوهو، والتطبيقات القطاعية وأدوات الذكاء الاصطناعي، وفق المسار أو الحلول المقدمة للمنشأة.",
+  },
+  {
+    question: "هل يمكن تخصيص برنامج لكل مصنع أو جمعية؟",
+    answer: "نعم. نحدد الأنظمة والأدوار والإجراءات، ثم نجمع الدروس المشتركة والمواد الخاصة في مسارات مناسبة، مع جلسات مباشرة وتطبيقات بحسب نطاق البرنامج.",
+  },
+  {
+    question: "هل التدريب على مشروع حقيقي؟",
+    answer: "تستخدم البرامج سيناريوهات ومهامًا مستمدة من طبيعة المشروعات والحلول. أما المشاركة في مشروع عميل فعلي فتكون ضمن فرصة مستقلة، بعد الاختيار وتحديد الإشراف والصلاحيات والموافقات اللازمة.",
+  },
+  {
+    question: "كيف يتم تقييم المتدرب؟",
+    answer: "بإتمام متطلبات التعلم وتنفيذ المهام الفردية والمشاركة في الأنشطة الجماعية واجتياز التقييم المحدد. يُوضح لكل برنامج ما الذي يجب على المشارك إنجازه.",
+  },
+  {
+    question: "هل يمكن تدريب الموظفين الجدد لاحقًا؟",
+    answer: "يمكن استخدام المسارات المناسبة لتأهيلهم ومتابعتهم، وفق مدة الوصول والمقاعد ونطاق الخدمة المتفق عليه مع المنشأة.",
+  },
+  {
+    question: "ماذا تعني أولوية الخريجين في فرص العمل؟",
+    answer: "أولوية النظر في ملفات الخريجين المؤهلين للفرص الملائمة، ثم الترشيح وفق المهارات والتقييم والاحتياج. لا تعني الأولوية قبولًا تلقائيًا أو ضمان توظيف.",
+  },
+  {
+    question: "هل توجد شهادات؟",
+    answer: "توضح صفحة كل برنامج نوع شهادة الإتمام أو إثبات المهارات المتاح وشروط الحصول عليه. ويُذكر أي اعتماد خارجي باسم الجهة ونطاقه عند توفره وتوثيقه.",
+  },
+] as const;
+
+/** Figma 4726:4790 — الأكاديميات. The first design is kept at /academy/old. */
 export default function AcademyPage() {
   return (
     <>
       <Navbar variant="slim" />
-      <main className={`${styles.main} ${flow.flow} ${tajawal.variable} ${alexandria.variable}`}>
-        <AcademyCurtain hero={<AcademyHero />}>
-          <AcademyChallenge />
-          <AcademyTracks />
-        </AcademyCurtain>
-        <AcademySolutions />
-        <AcademyPartners />
-        <AcademyJourney />
-        <AcademyCta />
+      <main className={`${flow.flow} ${academies.page} ${tajawal.variable}`}>
+        <AcademiesHero
+          id="academies-hero-heading"
+          title="أكاديميات التحول الرقمي والذكاء الاصطناعي"
+          paragraphs={[
+            "نؤهّل مستخدمي الحلول الرقمية لأداء وظائفهم، ونطوّر قدرات فرق العمل على تطبيق التكنولوجيا في عملياتها اليومية.",
+            "برامج تدريبية متخصصة تجمع برمجيات الأعمال والبيانات والذكاء الاصطناعي مع فهم الإجراءات والمسؤوليات. تُصمَّم برامج المؤسسات وفق الحلول المقدمة لها، وتتيح برامج التأهيل المهني للأفراد بناء مهارات عملية ومشروعات قابلة للتقييم والعرض.",
+          ]}
+          actions={[
+            { label: "استكشف الأكاديميات", href: "#academies", tone: "inverse" },
+            { label: "اطلب برنامجًا لفريقك", tone: "outlineInverse" },
+          ]}
+        />
+
+        <section className={academies.section} aria-labelledby="academies-features-heading">
+          <SectionIntro id="academies-features-heading" title="تدريب يرتبط بحلول الأعمال ومهام المستخدم" />
+          <FeatureCards items={FEATURES} layout="carousel" />
+        </section>
+
+        <section
+          id="academies"
+          className={`${academies.section} ${academies.academies}`}
+          aria-labelledby="academies-list-heading"
+        >
+          <SectionIntro
+            id="academies-list-heading"
+            title="أكاديميات متخصصة لقطاعات ووظائف مختلفة"
+            text="تجمع أكاديمياتنا أساسًا مشتركًا في التحول الرقمي والذكاء الاصطناعي، وتخصص التطبيقات والتمارين والمخرجات لكل جمهور."
+          />
+          <div className={academies.academyRows}>
+            {ACADEMIES.map((academy, index) => (
+              <AcademyRow key={academy.id} academy={academy} far={index % 2 === 0} />
+            ))}
+          </div>
+        </section>
+
+        <section className={academies.section} aria-labelledby="academies-technology-heading">
+          <SectionIntro
+            id="academies-technology-heading"
+            title="التكنولوجيا والذكاء الاصطناعي في صميم التدريب"
+            text={
+              <>
+                {"تحدد مهام المستخدم ونطاق الحلول ما يتعلمه المشارك، وتدعم معارف الإدارة والجودة قدرته على تشغيل الأنظمة وتطوير الإجراءات."}{" "}
+                <strong>{"نطاق تقني يناسب منشأتك"}</strong>{" "}
+                {"قد يجمع البرنامج حلولًا جاهزة وأخرى مطورة خصيصًا أو مقدمة بعلامة المنشأة. تُختار الدروس بحسب الاستخدام الفعلي، ويُحدد مستوى التدريب قبل البدء."}
+              </>
+            }
+            narrow
+          />
+          <FeatureCards items={TECHNOLOGY} layout="carousel" />
+        </section>
+
+        <section className={academies.section} aria-labelledby="academies-learning-heading">
+          <SectionIntro id="academies-learning-heading" title="برنامج لمنشأتك ومسار لكل وظيفة" />
+          <Pillars items={LEARNING} layout="learning" />
+        </section>
+
+        <section className={academies.section} aria-labelledby="academies-outcomes-heading">
+          <Split
+            far
+            photo={{
+              src: "/images/academies/outcomes.jpg",
+              alt: "مدير يتأمل لوحة مؤشرات أداء الأعمال على شاشة كبيرة",
+              height: 518,
+              shade: 0,
+              focus: "30% 50%",
+            }}
+          >
+            <h2 id="academies-outcomes-heading" className={academies.title}>
+              نتائج التدريب التي نعمل عليها معك
+            </h2>
+            <Outcomes items={OUTCOMES} />
+          </Split>
+        </section>
+
+        <section className={academies.section} aria-labelledby="academies-alumni-heading">
+          <SectionIntro
+            id="academies-alumni-heading"
+            title="شبكة خريجي ترانسفورمكس والفرص المهنية"
+            text="تربط شبكة الخريجين التعلم بالتواصل المهني وفرص التعاون، وتمنح المؤهلين أولوية النظر في الفرص المتاحة لدى ترانسفورمكس."
+          />
+          <Pillars items={ALUMNI} layout="alumni" />
+          <FeatureCards items={OPPORTUNITIES} layout="stack" minHeight={281} />
+          <Reveal className={academies.sectionAction}>
+            <AcademyAction action={{ label: "سجّل اهتمامك ببرامج التأهيل" }} />
+          </Reveal>
+        </section>
+
+        <section className={academies.section} aria-labelledby="academies-faq-heading">
+          <SectionIntro id="academies-faq-heading" title="الأسئلة الشائعة" start />
+          <Reveal>
+            <AcademyFaq items={QUESTIONS} />
+          </Reveal>
+        </section>
+
+        <section className={academies.section} aria-labelledby="academies-partners-heading">
+          <Split
+            photo={{
+              src: "/images/academies/partnerships.jpg",
+              alt: "يد تراجع تقارير ورسومًا بيانية مطبوعة على مكتب عمل",
+              height: 373,
+            }}
+            className={academies.partnerCopy}
+          >
+            <h2 id="academies-partners-heading" className={academies.title}>
+              شراكات تربط التعليم بالتطبيق
+            </h2>
+            <p className={academies.leadDark}>
+              نرحب بالتعاون مع الجامعات والجهات المهنية والشركات لتطوير ورش ومسارات تدريب ومشروعات تعليمية مرتبطة بتطبيقات الأعمال. يُحدد لكل تعاون جمهوره ومخرجاته وأدوار المشاركين وآلية تقييمه.
+            </p>
+            <div className={academies.splitAction}>
+              <AcademyAction action={{ label: "ناقش شراكة تعليمية", opens: "partnerships" }} />
+            </div>
+          </Split>
+        </section>
+
+        <ClosingCard
+          id="academies-closing-heading"
+          title="ناقش برنامجًا يناسب فريقك أو مسارك المهني"
+          text="للمؤسسات: شاركنا طبيعة النشاط والحلول المستخدمة والوظائف المطلوب تدريبها. وللأفراد: حدّد المجال الذي ترغب في العمل به ومستوى خبرتك لاختيار المسار المناسب عند إتاحته."
+          actions={[
+            { label: "اطلب برنامجًا لفريقك" },
+            { label: "سجّل اهتمامك بالتأهيل المهني", tone: "outline" },
+          ]}
+        />
       </main>
       <Footer />
     </>

@@ -200,6 +200,21 @@ const guide: WorkProject = {
   tags: PLATFORM_TAGS,
 };
 
+/* A square poster (1254 × 1254), centred in the window so the title, the
+   logo and the screens show. */
+const planetSport: WorkProject = {
+  key: "planet-sport",
+  title: "بلانيت سبورت | Planet Sport",
+  image: "/images/works/planet-sport.jpg",
+  behanceUrl: "https://www.behance.net/gallery/258244209/PLANEET-CASE-STUDY-",
+  crop: { x: 0, y: -71, w: 604, h: 604, fit: "cover" },
+  tags: [
+    { label: "تطوير المنتج الرقمي" },
+    { label: "منصة ويب" },
+    { label: "تطبيق جوال" },
+  ],
+};
+
 /* NOTE: no Behance case study has been supplied for KUNI yet. */
 const kuni: WorkProject = {
   key: "kuni",
@@ -210,6 +225,7 @@ const kuni: WorkProject = {
 };
 
 const ALL: WorkProject[] = [
+  planetSport,
   reem,
   omayma,
   salesAgent,
@@ -251,7 +267,7 @@ export const WORK_FILTERS: WorkFilter[] = [
     id: "web",
     label: "تطوير المواقع",
     width: 126,
-    projects: [belli, mermatesWeb],
+    projects: [planetSport, belli, mermatesWeb],
   },
   {
     id: "creative",

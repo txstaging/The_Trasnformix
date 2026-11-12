@@ -24,30 +24,38 @@ export const metadata: Metadata = {
     "Odoo solutions that fit the way your organization works: implementation, customization, integration, upgrades and support, with industry solutions for tourism, contracting and brokerage.",
 };
 
-/* Figma 4431:13046 — the five services. Only the first row has a photo on
-   the artboard; the others keep its pale panel. */
+/* Figma 4431:13046 — the five services, each beside its photo under its own
+   veil. */
 const SERVICES: readonly Detail[] = [
   {
     title: "ERP and CRM implementation",
     text: "We connect finance, purchasing, inventory, sales and customer relationships to your organization's procedures, defining applications, permissions, data and training within the project scope so the systems become part of everyday work.",
-    image: "/images/services/odoo/erp-crm.jpg",
+    image: "/images/services/odoo/service-1.jpg",
     shade: 0.37,
   },
   {
     title: "Odoo development and customization",
     text: "We develop modules, functions, approval workflows, reports, interfaces and permissions to fit the needs of the business and the agreed development scope.",
+    image: "/images/services/odoo/service-2.jpg",
+    shade: 0.38,
   },
   {
     title: "System integration and intelligent automation",
     text: "We connect Odoo to e-commerce stores, booking platforms, applications and external services, and use automation and AI when they add real operational value.",
+    image: "/images/services/odoo/service-3.jpg",
+    shade: 0.28,
   },
   {
     title: "System upgrades and migration",
     text: "We review the current version, customizations, data and integrations, and plan the upgrade, testing and migration around business continuity and technical compatibility.",
+    image: "/images/services/odoo/service-4.jpg",
+    shade: 0.37,
   },
   {
     title: "Ongoing support and development",
     text: "Support, maintenance, updates and development of reports and integrations to suit the organization. Collaboration can extend to running business operations through Transformix GBS.",
+    image: "/images/services/odoo/service-5.jpg",
+    shade: 0.43,
   },
 ];
 
@@ -133,20 +141,10 @@ export default function OdooPage() {
         <ServiceHero
           id="odoo-heading"
           image="/images/services/odoo/hero.jpg"
-          eyebrow="TRANSFORMIX · ODOO SOLUTIONS & IMPLEMENTATION"
           title={"Odoo solutions that fit the way your organization works"}
           text={"Connect resource planning, operations and customer relationships in an enterprise environment that grows with your business. Whether you are implementing for the first time, upgrading an existing system or need an industry solution, we implement, customize and integrate Odoo around your operations and growth plans."}
-          actions={[{ label: "Discuss your project" }, { label: "Industry solutions", href: "#industries" }]}
-          labels="Industry Solutions  /  Customization  /  Implementation  /  Community & Enterprise"
+          actions={[{ label: "Discuss your project" }, { label: "Explore Odoo services", href: "#services" }]}
         />
-
-        <section className={`${kit.tinted} ${styles.expertise}`} aria-label={"Transformix's Odoo expertise"}>
-          <Reveal as="p" className={kit.lead}>
-            {" We combine Odoo Community and Odoo Enterprise expertise with an understanding of operations, software engineering and intelligent automation, and offer adaptable solution foundations for tourism, contracting and brokerage that evolve with your organization's needs. "}</Reveal>
-          <Reveal delay={80}>
-            <ActionButton action={{ label: "Explore Odoo services", href: "#services", tone: "primary" }} />
-          </Reveal>
-        </section>
 
         <section id="services" className={`${kit.section} ${styles.services}`} aria-labelledby="odoo-services-heading">
           <SectionIntro
@@ -240,20 +238,6 @@ export default function OdooPage() {
               </Reveal>
             ))}
           </ul>
-          <Reveal className={styles.readiness}>
-            <div className={styles.readinessCopy}>
-              <p className={kit.eyebrow} lang="en">
-                ODOO READINESS ASSESSMENT
-              </p>
-              <h3 className={kit.title}>{"Odoo readiness assessment"}</h3>
-              <p className={kit.cardText}>
-                {" An initial assessment of your current systems and implementation, development or upgrade needs, to help define the scope of work and next steps before the project starts. "}</p>
-            </div>
-            <div className={styles.readinessActions}>
-              <ActionButton action={{ label: "Request a readiness assessment", tone: "primary" }} />
-              <ActionButton action={{ label: "Discuss an Odoo project" }} />
-            </div>
-          </Reveal>
         </section>
 
         <section className={`${kit.section} ${kit.tinted}`} aria-labelledby="odoo-faq-heading">

@@ -195,7 +195,7 @@
   overflow-y: auto;
   background: var(--bg-main);
   border-bottom: 0.1rem solid var(--nav-line);
-  box-shadow: 0 2.4rem 4.8rem rgba(20, 33, 61, 0.08);
+  box-shadow: 0 2.4rem 4.8rem rgba(10, 18, 36, 0.1); /* Figma 4612:277 */
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -217,115 +217,100 @@
   transition-delay: 0s;
 }
 
-/* Figma 4305:4656 — the 451px panel: a 352px grey sidebar at the start,
-   then three 430px columns 58px apart, 81px clear of the sidebar. */
+/* Figma 4612:277 (and 4612:112, 4612:191) — the V2 header's menu: a 320px
+   grey rail at the start, its rows 28px apart and 80px in from the edge,
+   then the columns side by side, 48px apart, 56px clear of the rail and 80px
+   from the far edge. Everything is set at 16px. */
 .mega {
   display: flex;
-  min-height: 45.1rem;
+  font-size: 1.6rem;
 }
 
 .side {
-  flex: 0 0 35.2rem;
-  padding: 3.4rem 2.4rem;
-  background: var(--nav-side);
+  display: flex;
+  flex: 0 0 32rem;
+  flex-direction: column;
+  gap: 2.8rem;
+  padding-block: 4.8rem;
+  padding-inline: 8rem 4rem;
+  background: #f6f7fa; /* color/bg/subtle */
+}
+
+/* One line each, as drawn: the longest label runs a little into the rail's
+   40px inner padding. */
+.sideTitle,
+.tab {
+  white-space: nowrap;
 }
 
 .sideTitle {
-  margin: 0 0 2.8rem;
-  padding-inline: 0.8rem;
-  font-size: 1.8rem;
-  font-weight: 500;
-  color: var(--nav-ink);
+  margin: 0;
+  font-weight: 700;
+  line-height: 2.6rem;
+  color: var(--text-primary);
 }
 
 .tabs {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 2.8rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* Figma 4305:4743 — the selected row is a 304 x 51 pale-blue band whose
-   label steps 16px further in, with the arrow 14px from its far end. */
+/* The artboard draws the rail at rest; the pointed or focused row turns
+   brand blue, as the open label on the bar does. */
 .tab {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.2rem;
-  width: 100%;
-  min-height: 5.1rem;
-  padding-block: 0.8rem;
-  padding-inline: 0.8rem 1.4rem;
-  font-size: 1.8rem;
+  display: block;
   font-weight: 500;
-  color: var(--nav-ink);
+  line-height: 2.6rem;
+  color: var(--text-primary);
   text-align: start;
-  transition:
-    background-color var(--dur-fast) var(--ease-out),
-    color var(--dur-fast) var(--ease-out),
-    padding var(--dur) var(--ease-out);
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
+.tab:hover,
 .tabSelected {
-  padding-inline-start: 2.4rem;
-  background: var(--nav-line);
   color: var(--primary);
 }
 
-.tabArrow {
-  width: 2rem;
-  height: 2rem;
-  flex-shrink: 0;
-  opacity: 0;
-  transition: opacity var(--dur-fast) var(--ease-out);
-}
-
-.tabSelected .tabArrow {
-  opacity: 1;
-}
-
 .columns {
+  display: flex;
   flex: 1;
+  align-items: flex-start;
+  gap: 4.8rem;
   min-width: 0;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 43rem));
-  align-content: start;
-  column-gap: 5.8rem;
-  padding-block: 3.2rem 4rem;
-  padding-inline: 8.1rem 5.8rem;
+  padding-block: 4.8rem 5.6rem;
+  padding-inline: 5.6rem 8rem;
 }
 
-.megaPlain .columns {
-  padding-top: 3.4rem;
-}
-
+/* Two groups sharing a column sit 40px apart (Figma 4612:279). */
 .column {
   display: flex;
+  flex: 1 1 0;
   flex-direction: column;
-  gap: 3.2rem;
+  gap: 4rem;
   min-width: 0;
 }
 
 .block {
   display: flex;
   flex-direction: column;
-  gap: 1.9rem;
-  font-size: 1.8rem;
+  gap: 2rem;
 }
 
-/* Lines up with the first link of the heading it carries on (Figma
-   4305:4783 starts at y 85: the 34px heading line plus the 19px gap). */
+/* Carries on the heading of the column before it, so its first link lines
+   up with that column's first (Figma 4612:196 is a blank heading): the 26px
+   heading line plus the 20px gap. */
 .blockContinues {
-  padding-top: 5.3rem;
-  padding-top: calc(1lh + 1.9rem);
+  padding-top: 4.6rem;
 }
 
 .blockTitle {
   align-self: flex-start;
-  font-size: 1.8rem;
   font-weight: 700;
+  line-height: 2.6rem;
   color: var(--primary);
 }
 
@@ -337,20 +322,16 @@
 .blockLinks {
   display: flex;
   flex-direction: column;
-  gap: 1.9rem;
+  gap: 2rem;
   margin: 0;
   padding: 0;
+  line-height: 3rem;
   list-style: none;
 }
 
-.megaPlain .blockLinks {
-  gap: 2.8rem;
-}
-
 .megaLink {
-  font-size: 1.8rem;
   font-weight: 400;
-  color: var(--nav-ink);
+  color: var(--text-primary);
   transition: color var(--dur-fast) var(--ease-out);
 }
 
@@ -358,10 +339,11 @@
   color: var(--primary);
 }
 
+/* Figma 4612:130 — the grey line of parts, 4px under its entry. */
 .extras {
   display: block;
-  font-size: 1.8rem;
-  color: var(--nav-muted);
+  margin-top: 0.4rem;
+  color: var(--text-secondary);
 }
 
 .extraLink {
@@ -884,8 +866,8 @@
   }
 }
 
-/* The sidebar arrow points into the columns, which now sit to its right. */
-.tabArrow { transform: scaleX(-1); }
+/* The Latin rail labels run wider than the Arabic ones, so they may wrap. */
+.sideTitle, .tab { white-space: normal; }
 /* The Latin labels run wider than the Arabic ones; this keeps the bar on one
    line at 1440 and below. */
 @media (min-width: 1025px) {

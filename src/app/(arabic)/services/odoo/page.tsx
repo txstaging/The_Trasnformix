@@ -24,30 +24,38 @@ export const metadata: Metadata = {
     "حلول أودو تتوافق مع طريقة عمل مؤسستك: تنفيذ وتخصيص وتكامل وتحديث ودعم، مع حلول قطاعية للسياحة والمقاولات والوساطة.",
 };
 
-/* Figma 4431:13046 — the five services. Only the first row has a photo on
-   the artboard; the others keep its pale panel. */
+/* Figma 4431:13046 — the five services, each beside its photo under its own
+   veil. */
 const SERVICES: readonly Detail[] = [
   {
     title: "تنفيذ أنظمة ERP وإدارة علاقات العملاء",
     text: "نربط المالية والمشتريات والمخزون والمبيعات وعلاقات العملاء بإجراءات مؤسستك. نحدّد التطبيقات والصلاحيات والبيانات والتدريب وفق نطاق المشروع، لتصبح الأنظمة جزءًا من العمل اليومي.",
-    image: "/images/services/odoo/erp-crm.jpg",
+    image: "/images/services/odoo/service-1.jpg",
     shade: 0.37,
   },
   {
     title: "تطوير وتخصيص أودو",
     text: "نطوّر الوحدات والوظائف ومسارات الاعتماد والتقارير والواجهات والصلاحيات، بما يتناسب مع احتياجات العمل ونطاق التطوير المتفق عليه.",
+    image: "/images/services/odoo/service-2.jpg",
+    shade: 0.38,
   },
   {
     title: "تكامل الأنظمة والأتمتة الذكية",
     text: "نربط أودو بمتاجر التجارة الإلكترونية ومنصات الحجوزات والتطبيقات والخدمات الخارجية، ونوظّف الأتمتة والذكاء الاصطناعي عندما يقدّمان قيمة تشغيلية فعلية.",
+    image: "/images/services/odoo/service-3.jpg",
+    shade: 0.28,
   },
   {
     title: "تحديث الأنظمة وترحيلها",
     text: "نراجع الإصدار الحالي والتخصيصات والبيانات والتكاملات، ونضع خطة للتحديث والاختبار والترحيل تراعي استمرارية العمل والتوافق التقني.",
+    image: "/images/services/odoo/service-4.jpg",
+    shade: 0.37,
   },
   {
     title: "الدعم والتطوير المستمر",
     text: "دعم وصيانة وتحديثات وتطوير للتقارير والتكاملات وفق احتياجات المؤسسة. ويمكن توسيع التعاون إلى تشغيل عمليات الأعمال من خلال Transformix GBS.",
+    image: "/images/services/odoo/service-5.jpg",
+    shade: 0.43,
   },
 ];
 
@@ -133,22 +141,10 @@ export default function OdooPage() {
         <ServiceHero
           id="odoo-heading"
           image="/images/services/odoo/hero.jpg"
-          eyebrow="TRANSFORMIX · ODOO SOLUTIONS & IMPLEMENTATION"
           title="حلول أودو تتوافق مع طريقة عمل مؤسستك"
           text="اربط إدارة الموارد والعمليات وعلاقات العملاء ضمن بيئة مؤسسية تتطور مع أعمالك. سواء بدأت التنفيذ لأول مرة، أو حدّثت نظامًا قائمًا، أو احتجت حلًا قطاعيًا؛ نُنفّذ ونُخصّص ونربط أودو وفق عملياتك وخطط نموك."
-          actions={[{ label: "ناقش مشروعك" }, { label: "الحلول القطاعية", href: "#industries" }]}
-          labels="Industry Solutions  /  Customization  /  Implementation  /  Community & Enterprise"
+          actions={[{ label: "ناقش مشروعك" }, { label: "استكشف خدمات اودو", href: "#services" }]}
         />
-
-        <section className={`${kit.tinted} ${styles.expertise}`} aria-label="خبرة ترانسفورمكس في أودو">
-          <Reveal as="p" className={kit.lead}>
-            نجمع خبرة Odoo Community وOdoo Enterprise مع فهم العمليات وهندسة البرمجيات والأتمتة الذكية.
-            ونقدّم أسس حلول قابلة للتكيّف للسياحة والمقاولات والوساطة، تتطور وفق احتياجات مؤسستك.
-          </Reveal>
-          <Reveal delay={80}>
-            <ActionButton action={{ label: "استكشف خدمات أودو", href: "#services", tone: "primary" }} />
-          </Reveal>
-        </section>
 
         <section id="services" className={`${kit.section} ${styles.services}`} aria-labelledby="odoo-services-heading">
           <SectionIntro
@@ -242,22 +238,6 @@ export default function OdooPage() {
               </Reveal>
             ))}
           </ul>
-          <Reveal className={styles.readiness}>
-            <div className={styles.readinessCopy}>
-              <p className={kit.eyebrow} lang="en">
-                ODOO READINESS ASSESSMENT
-              </p>
-              <h3 className={kit.title}>تقييم جاهزية أودو</h3>
-              <p className={kit.cardText}>
-                تقييم أولي للأنظمة الحالية واحتياجات التنفيذ أو التطوير أو التحديث، يساعد على تحديد نطاق العمل
-                والخطوات التالية قبل بدء المشروع.
-              </p>
-            </div>
-            <div className={styles.readinessActions}>
-              <ActionButton action={{ label: "اطلب تقييم الجاهزية", tone: "primary" }} />
-              <ActionButton action={{ label: "ناقش مشروع Odoo" }} />
-            </div>
-          </Reveal>
         </section>
 
         <section className={`${kit.section} ${kit.tinted}`} aria-labelledby="odoo-faq-heading">

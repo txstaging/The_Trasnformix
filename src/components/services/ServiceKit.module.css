@@ -11,6 +11,8 @@
 }
 
 .heroTitle,
+.heroKicker,
+.kicker,
 .title,
 .cardTitle,
 .cardLink,
@@ -151,6 +153,22 @@
   gap: 2.4rem;
   width: 69.2rem;
   max-width: 100%;
+}
+
+.heroCopyWide {
+  width: 72rem;
+}
+
+/* An Arabic label over a title. */
+.heroKicker,
+.kicker {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.kicker {
+  color: var(--primary);
 }
 
 .heroTitle {
@@ -338,6 +356,59 @@
   object-fit: cover;
 }
 
+/* ---- Flow diagrams (Figma 4473:8842) ----------------------------------------------- */
+.flow {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 2.4rem;
+  border-radius: 1.6rem;
+  background: var(--blue-light);
+}
+
+.flowSteps {
+  display: flex;
+  gap: 1.6rem;
+}
+
+.flowUnit {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: 1.6rem;
+  min-width: 0;
+}
+
+.flowConcept {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  min-width: 0;
+  padding: 1.6rem;
+  border-radius: 1.6rem;
+  background: var(--bg-main);
+  font-family: var(--tajawal);
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+  color: var(--primary);
+  text-align: center;
+}
+
+.flowArrow {
+  flex-shrink: 0;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--primary);
+}
+
+.flowNote {
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
 /* ---- Process (Figma 3503:34000) ---------------------------------------------------- */
 .process {
   display: grid;
@@ -361,6 +432,11 @@
 
 .processTall .step {
   min-height: 31rem;
+}
+
+.processRoomy .step {
+  min-height: 36rem;
+  padding: 4.8rem 2.4rem 2.4rem;
 }
 
 .stepNumber {
@@ -466,7 +542,8 @@
   }
 
   .step,
-  .processTall .step {
+  .processTall .step,
+  .processRoomy .step {
     min-height: 0;
   }
 }
@@ -500,6 +577,32 @@
     width: 100%;
     height: auto;
     aspect-ratio: 330 / 238;
+  }
+
+  .heroCopyWide {
+    width: 69.2rem;
+  }
+
+  /* The flow runs top to bottom, its arrows turned to point down. */
+  .flowSteps {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .flowUnit {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8rem;
+  }
+
+  .flowConcept {
+    flex: none;
+  }
+
+  .flowArrow,
+  .flowArrow.arrow {
+    align-self: center;
+    transform: rotate(-90deg);
   }
 }
 

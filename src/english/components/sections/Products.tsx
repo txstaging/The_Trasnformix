@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useReducedMotion } from "@/english/lib/useReducedMotion";
 import { useId, useRef, useState } from "react";
 import { Reveal } from "@/english/components/ui/Reveal";
 import { tajawal } from "@/lib/fonts";
-import { getServiceWebsite, PRODUCT_WEBSITES } from "@/english/lib/serviceNavigation";
+import { AI_SUITE_WEBSITE, getServiceWebsite, PRODUCT_WEBSITES } from "@/english/lib/serviceNavigation";
 import styles from "@/english/components/sections/Products.module.css";
 
 type Product = {
@@ -16,6 +17,7 @@ type Product = {
   text: string;
   /** What "اقرأ المزيد" opens; without it the toggle is left out. */
   details?: string[];
+  readMoreHref?: string;
   website?: string;
   image: { src: string; fit: "cover" | "contain" };
 };
@@ -24,6 +26,7 @@ type Product = {
 const PRODUCTS: Product[] = [
   {
     name: "TX AI Suite",
+    website: AI_SUITE_WEBSITE,
     title: "AI Agents Suite",
     text: "A customisable suite of AI agents that helps organisations speed up customer service, improve sales and booking follow-up, cut operational effort and surface the information behind decisions.",
     details: [
@@ -35,7 +38,7 @@ const PRODUCTS: Product[] = [
   {
     name: "TX ERP",
     title: "Enterprise Resource Planning",
-    text: "An enterprise system developed by Transformix to manage operations, data and workflows in one unified environment that can grow and integrate.",
+    text: "An enterprise system developed by Transformix to manage operations, data and workflows in one unified environment that can scale and integrate with other systems.",
     /* The ‎ mark keeps ".NET"'s dot in front of it in Arabic text. */
     details: [
       "TX ERP is an enterprise resource planning system that Transformix develops in-house to organise operations and manage data and workflows across connected business functions. It is built on Flutter, Next.js, Python, .NET and Docker, supporting scalable interfaces, applications and services.",
@@ -46,7 +49,8 @@ const PRODUCTS: Product[] = [
   },
   {
     title: "Investor & Cooperative Management Platform",
-    text: "A digital platform for managing investor and member relations, governance, electronic voting and reporting across the web and mobile apps.",
+    readMoreHref: "/en/products#cooperatives",
+    text: "A digital platform for managing investor and member relations, governance, electronic voting and reporting across web and mobile applications.",
     website: PRODUCT_WEBSITES.cooperatives,
     image: { src: "/images/products/cooperatives-platform.png", fit: "contain" },
   },
@@ -91,7 +95,7 @@ export function Products() {
         <div className={styles.head}>
           <Reveal as="h2" id="products-heading" className={styles.heading}>{"Our Products & Digital Solutions"}</Reveal>
           <Reveal as="p" className={styles.lead} delay={120}>
-            {" Technology platforms and products built to support commercial and organisational operations, ready to integrate and customise for the needs of each sector. "}</Reveal>
+            {" Technology platforms and products built to support commercial and organisational operations, ready to be integrated and customised to meet the needs of each sector. "}</Reveal>
         </div>
 
         <div className={styles.stage} role="group" aria-roledescription="carousel" aria-label={"Our products"}>
@@ -132,8 +136,13 @@ export function Products() {
                     )}
                   </AnimatePresence>
 
-                  {(product.details || product.website) && (
+                  {(product.details || product.readMoreHref || product.website) && (
                     <div className={styles.actions}>
+                      {product.readMoreHref && (
+                        <Link href={product.readMoreHref} className={styles.more}>
+                          {"Read More"}
+                        </Link>
+                      )}
                       {product.details && (
                         <button
                           type="button"
@@ -154,9 +163,9 @@ export function Products() {
                           className={styles.site}
                           target="_blank"
                           rel="noopener noreferrer"
-                          aria-label={`${"Go to Website"} (opens in a new tab)`}
+                          aria-label={`${"Go to the Website"} (opens in a new tab)`}
                         >
-                          {" Go to Website "}<span aria-hidden="true">↖</span>
+                          {" Go to the Website "}<span aria-hidden="true">↖</span>
                         </a>
                       )}
                     </div>

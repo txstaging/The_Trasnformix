@@ -60,10 +60,10 @@ export function AboutEcosystem() {
 
       <Reveal as="p" className={styles.lead} delay={120}>
         <span className={styles.leadIntro}>
-          {" A digital solutions and transformation company founded to bridge the gap between business needs and the possibilities of technology. "}</span>
+          {" TransformiX is a digital solutions and transformation company founded to bridge the gap between business needs and the possibilities of technology. "}</span>
         <span className={styles.leadJoin}>{"  "}</span>
         <span className={styles.leadBody}>
-          {" We view websites, ERP systems, marketing campaigns, and AI solutions as parts of one connected business. We start by understanding your business model, operations, customers, data, and goals, then identify where technology and creativity can make a real difference. Our capabilities include: "}</span>
+          {" We view websites, ERP systems, marketing campaigns, and AI solutions as parts of one connected business system. We start by understanding your business model, operations, customers, data, and goals, then identify where technology and creativity can make a real difference. Our capabilities include: "}</span>
       </Reveal>
 
       <ul className={styles.grid}>

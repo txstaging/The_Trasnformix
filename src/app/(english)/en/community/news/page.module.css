@@ -334,5 +334,7 @@
   }
 }
 
-/* The copy sits on the left in English, so the photo and its shade turn with it. */
+/* The copy sits on the left in English, so the photo and its shade turn with it;
+   the picture turns back so the figures on its screen still read the right way. */
 .heroMedia { transform: scaleX(-1); }
+.heroImage { transform: scaleX(-1); }

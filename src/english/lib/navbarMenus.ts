@@ -1,4 +1,5 @@
 import { COMMUNITY_HREF, COMMUNITY_NAV, communityHref } from "@/english/lib/communityNav";
+import { INSIGHTS_HREF, INSIGHTS_LABEL } from "@/english/lib/insightsNav";
 import {
   AI_SUITE_WEBSITE,
   EXTRA_SERVICES,
@@ -6,10 +7,12 @@ import {
   MANUFACTURING_WEBSITE,
   PRODUCT_WEBSITES,
 } from "@/english/lib/serviceNavigation";
+import { TRUST_HREF, TRUST_LABEL, TRUST_NAV, trustHref } from "@/english/lib/trustNav";
 
-/* The v1 navbar (Figma 4305:4654 الخدمات, 4305:4657 المنتجات, 4305:4660
-   الموارد): five labels in a white 64px bar, three of which open a full-width
-   panel — a grey sidebar of tabs beside up to three columns of links.
+/* The v1 navbar (Figma 4305:4654): five labels in a white 64px bar, three of
+   which open a full-width panel drawn as the V2 header's menus (Figma 4612:57
+   الخدمات, 4612:136 المنتجات, 4612:222 الموارد) — a grey rail of tabs beside
+   columns of links.
 
    Every destination is one the site already has. An entry without a page of
    its own opens the overview it belongs to (/services, /products, /sectors)
@@ -40,11 +43,6 @@ export type NavMenuId = "services" | "products" | "resources";
 
 export type NavMenu = {
   id: NavMenuId;
-  /** The sidebar arrow is drawn a hair heavier on the services artboard. */
-  arrow: string;
-  /** Services list unheaded links 28px apart; the others head each column
-      and space their links 19px apart. */
-  plain?: boolean;
   /** Everything the menu holds, shown as it opens until a tab is pointed at. */
   overview: NavBlock[][];
   /** The sidebar rows, under the menu's own label. */
@@ -69,7 +67,7 @@ const TECH_SOLUTIONS: NavBlock[][] = [
   [{
     links: [
       site("AI & Intelligent Automation", AI_SUITE_WEBSITE),
-      site("Data Science & Digital Intelligence", getServiceWebsite("data")),
+      { label: "Data Science & Digital Intelligence", href: "/en/services/data-science" },
       {
         label: "Software Engineering & Applications",
         href: "/en/services/software-engineering",
@@ -84,7 +82,7 @@ const TECH_SOLUTIONS: NavBlock[][] = [
   [{
     links: [
       { label: "E-commerce & Multi-Vendor Marketplaces", href: "/en/services/ecommerce" },
-      { label: "Reservations & Tourism Platforms", href: "/en/services" },
+      { label: "Reservations & Tourism Platforms", href: "/en/services/tourism" },
       site("Creative & Omnichannel Digital Marketing", getServiceWebsite("marketing")),
     ],
   }],
@@ -119,7 +117,7 @@ const PLATFORMS: NavBlock = {
   links: [
     site("Enterprise Resource Planning", getServiceWebsite("erp")),
     site("Investor & Cooperative Management Platform", PRODUCT_WEBSITES.cooperatives),
-    { label: "Closed Joint-Stock Company Governance Platform", href: "/en/products" },
+    site("Closed Joint-Stock Company Governance Platform", PRODUCT_WEBSITES.governance),
     site("Logistics Management Platform", PRODUCT_WEBSITES.logistics),
   ],
 };
@@ -133,9 +131,10 @@ const MORE_PLATFORMS: NavBlock = {
   ],
 };
 
-/* الموارد — the sectors, the academies and TX Community, with the portfolio
-   (أعمالنا), which the new bar no longer shows on its own. Manufacturing
-   leaves for its own site, as everywhere else. */
+/* الموارد — the sectors, the academies, trust and governance, TX Community,
+   the portfolio (أعمالنا), the company (من نحن now lives here rather than on
+   the bar) and what we publish. Manufacturing leaves for its own site, as
+   everywhere else. */
 const SECTORS: NavBlock = {
   title: { label: "Industries", href: "/en/sectors" },
   links: [
@@ -145,6 +144,7 @@ const SECTORS: NavBlock = {
     { label: "E-commerce & Retail", href: "/en/sectors" },
     { label: "Tourism, Services & Reservations", href: "/en/sectors" },
     { label: "Logistics", href: "/en/sectors" },
+    { label: "Smart Sports", href: "/en/sectors/sports" },
   ],
 };
 
@@ -157,6 +157,13 @@ const ACADEMIES: NavBlock = {
   ],
 };
 
+/* الثقة والحوكمة — our ethics, the code of conduct and regulatory compliance
+   (lib/trustNav.ts). The heading opens the first of them. */
+const TRUST: NavBlock = {
+  title: { label: TRUST_LABEL, href: trustHref("ethics") },
+  links: TRUST_NAV.map(({ slug, label }) => ({ label, href: trustHref(slug) })),
+};
+
 /* TX Community — the hub, then a page per activity (lib/communityNav.ts). Its
    own tab splits the list over two columns. */
 const COMMUNITY_LINKS: NavLink[] = COMMUNITY_NAV.map(({ slug, label }) => ({ label, href: communityHref(slug) }));
@@ -166,9 +173,35 @@ const COMMUNITY_SPLIT = Math.ceil(COMMUNITY_LINKS.length / 2);
 const COMMUNITY_FIRST: NavBlock = { title: COMMUNITY_TITLE, links: COMMUNITY_LINKS.slice(0, COMMUNITY_SPLIT) };
 const COMMUNITY_REST: NavBlock = { continues: true, links: COMMUNITY_LINKS.slice(COMMUNITY_SPLIT) };
 
+/* The portfolio's case studies. The overview lists them under المعرفة
+   والأخبار, as the artboard does; the أعمالنا tab still shows them alone. */
+const CASE_STUDIES: NavLink = { label: "Case Studies", href: "/en/works" };
+
 const WORKS: NavBlock = {
   title: { label: "Our work", href: "/en/works" },
-  links: [{ label: "All projects", href: "/en/works" }],
+  links: [CASE_STUDIES],
+};
+
+/* عن الشركة وأثرها — the about page and its labs, then the community and
+   contact pages that cover impact and partnership until each has its own. */
+const COMPANY: NavBlock = {
+  title: { label: "Company & Impact", href: "/en/about" },
+  links: [
+    { label: "About us", href: "/en/about" },
+    { label: "Our Labs & Expertise", href: "/en/about#labs" },
+    { label: "Sustainability & Social Responsibility", href: communityHref("impact") },
+    { label: "Technology for Good", href: communityHref("impact") },
+    { label: "Partnerships & Collaboration", href: "/en/contact#ways" },
+  ],
+};
+
+const KNOWLEDGE: NavBlock = {
+  title: { label: "Knowledge & News", href: INSIGHTS_HREF },
+  links: [
+    { label: INSIGHTS_LABEL, href: INSIGHTS_HREF },
+    { label: "News & Updates", href: communityHref("news") },
+    CASE_STUDIES,
+  ],
 };
 
 /** Right-to-left reading order, so the first entry sits beside the logo. */
@@ -179,8 +212,6 @@ export const NAV_ITEMS: NavItem[] = [
     routes: ["/en/services", "/en/ventures"],
     menu: {
       id: "services",
-      arrow: "/icons/nav/tab-arrow-services.svg",
-      plain: true,
       overview: [...TECH_SOLUTIONS, ...CONSULTING],
       tabs: [
         { label: "Our Technology Solutions", href: "/en/services", columns: TECH_SOLUTIONS },
@@ -194,7 +225,6 @@ export const NAV_ITEMS: NavItem[] = [
     routes: ["/en/products"],
     menu: {
       id: "products",
-      arrow: "/icons/nav/tab-arrow.svg",
       overview: [[AGENTS], [PLATFORMS], [MORE_PLATFORMS]],
       tabs: [
         { label: "AI Agents Suite", href: "/en/products#ai-agents", columns: [[AGENTS]] },
@@ -204,22 +234,21 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "Resources",
-    routes: ["/en/sectors", "/en/academy", "/en/works", "/en/community"],
+    routes: ["/en/sectors", "/en/academy", TRUST_HREF, "/en/works", "/en/community", "/en/about", INSIGHTS_HREF],
     menu: {
       id: "resources",
-      arrow: "/icons/nav/tab-arrow.svg",
-      overview: [[SECTORS], [ACADEMIES, WORKS], [COMMUNITY]],
+      overview: [[SECTORS], [ACADEMIES, TRUST], [COMMUNITY], [COMPANY, KNOWLEDGE]],
       tabs: [
         { label: "Industries", href: "/en/sectors", columns: [[SECTORS]] },
         { label: "Academies", href: "/en/academy", columns: [[ACADEMIES]] },
+        { label: TRUST_LABEL, href: trustHref("ethics"), columns: [[TRUST]] },
         { label: "Community", href: COMMUNITY_HREF, columns: [[COMMUNITY_FIRST], [COMMUNITY_REST]] },
         { label: "Our work", href: "/en/works", columns: [[WORKS]] },
+        { label: "Company & Impact", href: "/en/about", columns: [[COMPANY]] },
+        { label: "Knowledge & News", href: INSIGHTS_HREF, columns: [[KNOWLEDGE]] },
       ],
     },
   },
-  /* من نحن is not drawn on the new bar; it keeps its place among the
-     company links rather than hiding inside a menu. */
-  { label: "About us", href: "/en/about", routes: ["/en/about"] },
   { label: "Careers", href: "/en/careers", routes: ["/en/careers"] },
   { label: "Contact us", href: "/en/contact", routes: ["/en/contact"] },
 ];

@@ -471,7 +471,9 @@
 }
 
 /* The copy sits on the left in English, so the photo and its shade turn
-   to keep the dark side behind it, and the card arrows point onward. */
+   to keep the dark side behind it, and the card arrows point onward. The
+   picture turns back so the figures on its screen still read the right way. */
 .heroMedia { transform: scaleX(-1); }
+.heroImage { transform: scaleX(-1); }
 .arrow { transform: scaleX(-1); }
 .cardLink:hover .arrow { transform: scaleX(-1) translateX(-0.4rem); }

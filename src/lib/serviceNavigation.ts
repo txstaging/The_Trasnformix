@@ -43,6 +43,7 @@ export const AI_SUITE_WEBSITE = "https://ai.thetransformix.com/";
 /** The product platforms that run on sites of their own. */
 export const PRODUCT_WEBSITES = {
   cooperatives: "https://cooperatives.thetransformix.com/",
+  governance: "https://governance.thetransformix.com/",
   logistics: "https://logistics.thetransformix.com/",
   marketplaces: "https://marketplaces.thetransformix.com/",
   xt: "https://xt.thetransformix.com/",

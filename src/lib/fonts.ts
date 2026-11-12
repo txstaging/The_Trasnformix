@@ -1,4 +1,4 @@
-import { Alexandria, Inter, Noto_Serif, Plus_Jakarta_Sans } from "next/font/google";
+import { Alexandria, Inter, Noto_Serif } from "next/font/google";
 import localFont from "next/font/local";
 
 /* Secondary faces the artboards call for. Neither is preloaded: each covers a
@@ -26,6 +26,8 @@ export const tajawal = localFont({
   src: [
     { path: "../app/fonts/Tajawal-Regular.woff2", weight: "400", style: "normal" },
     { path: "../app/fonts/Tajawal-Bold.woff2", weight: "700", style: "normal" },
+    /* The V2 page banner's tablet and mobile titles (Figma 4642:1171). */
+    { path: "../app/fonts/Tajawal-ExtraBold.woff2", weight: "800", style: "normal" },
   ],
   declarations: [
     { prop: "ascent-override", value: "64.3%" },
@@ -57,13 +59,21 @@ export const notoSerif = Noto_Serif({
   preload: false,
 });
 
-/** Plus Jakarta Sans — the Latin labels and card numbers of the contact and
-    service pages (Figma 4431:12108, 4431:12464, 4431:12992), and the TX
-    Community event covers (4416:4905). */
-export const jakarta = Plus_Jakarta_Sans({
+/**
+ * Plus Jakarta Sans — the Latin labels and card numbers of the contact and
+ * service pages (Figma 4431:12108, 4431:12464, 4431:12992), and the TX
+ * Community event covers (4416:4905). Self-hosted (OFL, see
+ * app/fonts/PlusJakartaSans-OFL.txt): Google Fonts at times answers this
+ * family with `fonts.gstatic.com/l/font?kit=…&…` links, which Turbopack's
+ * next/font/google cannot parse ("queries have exactly one entry"), failing
+ * every page until the cache is cleared. The file is Google's latin subset of
+ * the variable font, so it carries every weight from 200 to 800.
+ */
+export const jakarta = localFont({
   variable: "--font-jakarta",
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  src: "../app/fonts/PlusJakartaSans-Latin.woff2",
+  weight: "200 800",
+  style: "normal",
   display: "swap",
   preload: false,
 });

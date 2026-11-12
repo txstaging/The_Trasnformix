@@ -107,7 +107,7 @@ export default function ContactPage() {
             <div className={styles.heroPhoto}>
               <Image
                 className={styles.heroImage}
-                src="/images/contact/partnerships-hero.jpg"
+                src="/images/contact/build-together.jpg"
                 alt=""
                 fill
                 preload

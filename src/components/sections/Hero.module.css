@@ -1,8 +1,9 @@
 /* The hero fills the screen under the sticky navbar: the artwork covers it
    edge to edge and the copy is layered on top, on the reading-start side.
-   The artwork is drawn with its logo on the right, so in Arabic it is
-   mirrored to put the logo on the left and leave the right open for the copy;
-   English keeps it as drawn, with the copy on the left. */
+   The logo sits on the far side of the copy in both languages: Arabic's
+   banner has it on the left, English's own copy on the right. Neither is
+   mirrored, so the logo always reads the right way; each crop is held by its
+   logo side. */
 .hero {
   --hero-nav: 6.4rem; /* the navbar's height */
   --hero-h: calc(100svh - var(--hero-nav));
@@ -22,8 +23,8 @@
   align-items: center;
   width: 100%;
   min-height: var(--hero-h);
-  /* The artwork's own navy, shown until it decodes. */
-  background: #000c2d;
+  /* The banner's own blue along its top edge, shown until it decodes. */
+  background: #0b4a98;
   color: #fff;
 }
 
@@ -59,28 +60,40 @@
   overflow: hidden;
 }
 
-.media:dir(rtl) {
-  transform: scaleX(-1);
-}
-
-/* A soft scrim over the artwork's open side keeps the white copy legible
-   without dimming the logo. It is mirrored along with the artwork. */
+/* A scrim over the artwork's open side keeps the white copy legible without
+   dimming the logo; it darkens toward the reading-start side, and is deep
+   enough by the copy's far edge to quiet the bright rings running under it. */
 .media::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     90deg,
-    rgba(0, 8, 32, 0.55) 0%,
-    rgba(0, 8, 32, 0.3) 40%,
-    rgba(0, 8, 32, 0) 62%
+    rgba(0, 8, 32, 0.7) 0%,
+    rgba(0, 8, 32, 0.6) 35%,
+    rgba(0, 8, 32, 0.38) 52%,
+    rgba(0, 8, 32, 0) 70%
   );
   pointer-events: none;
 }
 
+.media:dir(rtl)::after {
+  background: linear-gradient(
+    270deg,
+    rgba(0, 8, 32, 0.7) 0%,
+    rgba(0, 8, 32, 0.6) 35%,
+    rgba(0, 8, 32, 0.38) 52%,
+    rgba(0, 8, 32, 0) 70%
+  );
+}
+
 .image {
   object-fit: cover;
-  object-position: 60% 50%;
+  object-position: 100% 50%;
+}
+
+.image:dir(rtl) {
+  object-position: 0% 50%;
 }
 
 /* The artwork fades in and settles from a slight zoom. On the Arabic home it
@@ -128,6 +141,10 @@
   gap: 1.8rem;
   width: 100%;
   text-align: start;
+  /* Lifts the lines that cross the banner's glowing rings. */
+  text-shadow:
+    0 0.1rem 0.4rem rgba(0, 8, 32, 0.55),
+    0 0.2rem 1.6rem rgba(0, 8, 32, 0.6);
 }
 
 /* Scoped under the stage so it outranks the home page's navy heading colour. */
@@ -234,7 +251,11 @@
 
   /* Frame the logo in the narrower crop. */
   .image {
-    object-position: 80% 50%;
+    object-position: 92% 50%;
+  }
+
+  .image:dir(rtl) {
+    object-position: 8% 50%;
   }
 
   .stage .title {

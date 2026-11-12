@@ -1,0 +1,142 @@
+/* A service page's request card (Figma 4473:9612): cream, 24px corners and
+   a 32px inset, the title over the fields and the send centred under them.
+   The fields come from careers/ApplicationForm.module.css (.soft). */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2.4rem;
+  width: 100%;
+  padding: 3.2rem;
+  border: 0.1rem solid #e5e7eb;
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+  /* Clears the slim navbar when a call scrolls the form into view. */
+  scroll-margin-top: 12rem;
+}
+
+.title {
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.trap {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.submitError {
+  font-size: 1.4rem;
+  color: #d92d20;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+.submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 2.3rem;
+  border: 0.1rem solid var(--primary);
+  border-radius: 4.4rem;
+  background: var(--primary);
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+  color: var(--text-inverse);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.submit:hover {
+  background: var(--blue-dark);
+  box-shadow: 0 1.2rem 2.4rem rgba(28, 68, 153, 0.24);
+  transform: translateY(-0.2rem);
+}
+
+.submit:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.3rem;
+}
+
+.submit:disabled {
+  cursor: progress;
+  opacity: 0.7;
+  transform: none;
+}
+
+/* ---- Sent ------------------------------------------------------------------ */
+.done {
+  justify-content: center;
+  align-items: center;
+  gap: 1.6rem;
+  min-height: 40rem;
+  text-align: center;
+}
+
+.doneTitle {
+  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+.doneText {
+  max-width: 64rem;
+  font-size: 1.6rem;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+
+.again {
+  font: inherit;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .submit:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .card {
+    gap: 2rem;
+    padding: 2.4rem 1.6rem;
+    border-radius: 1.6rem;
+  }
+
+  .fields {
+    gap: 2rem;
+  }
+
+  .submit {
+    width: 100%;
+  }
+}

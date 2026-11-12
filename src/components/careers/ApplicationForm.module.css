@@ -420,6 +420,39 @@
   color: var(--primary);
 }
 
+/* The service pages' request (Figma 4473:9612): white 12px-radius surfaces
+   on a 24px grid, 14px medium Kufi throughout. */
+.soft .grid {
+  gap: 2.4rem;
+}
+
+.soft .label {
+  font-weight: 500;
+  line-height: 1.8;
+}
+
+.soft .required {
+  color: inherit;
+}
+
+.soft .input {
+  border-radius: 1.2rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.8;
+}
+
+.soft .textarea {
+  height: 14.4rem;
+  min-height: 14.4rem;
+}
+
+.soft .selectChevron {
+  width: 2rem;
+  height: 2rem;
+  color: var(--primary);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .extra {
     animation: none;

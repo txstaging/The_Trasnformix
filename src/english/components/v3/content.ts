@@ -113,7 +113,7 @@ export const processSteps = [
   },
   {
     "title": "Testing and launch",
-    "text": "We move into design and software development through flexible delivery cycles, with regular reviews to keep every output aligned with the agreed goals.",
+    "text": "We test the solution to verify functionality, performance and reliability, address identified issues, and prepare it for launch.",
     "bullets": [
       "Design and develop the software",
       "Build interactive prototypes",
@@ -223,7 +223,7 @@ export const faqs = [
   {
     "number": "03",
     "question": "Do you improve existing systems?",
-    "answer": "Yes. We review existing systems, identify opportunities for improvement, and develop or integrate them with other systems without necessarily rebuilding from scratch."
+    "answer": "Yes. We review existing systems, identify opportunities for improvement, and enhance or integrate them with other systems without necessarily rebuilding them from scratch."
   },
   {
     "number": "04",

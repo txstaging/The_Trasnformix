@@ -25,7 +25,7 @@ const STEPS: Step[] = [
   },
   {
     number: "02",
-    label: "We analyze",
+    label: "Analyze",
     icon: "/icons/about-step-analyse.svg",
     iconX: 42,
     iconY: 41,

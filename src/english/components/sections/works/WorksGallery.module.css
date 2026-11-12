@@ -243,34 +243,6 @@ a.card:hover .title {
   text-align: center;
 }
 
-.more {
-  display: block;
-  width: 11.2rem;
-  height: 3.8rem;
-  margin-top: 4rem;
-  border-bottom: 0.15rem solid #18181b;
-  font-size: 1.8rem;
-  font-weight: 500;
-  color: #18181b;
-  text-align: center;
-  transition:
-    color var(--dur-fast) var(--ease-out),
-    border-color var(--dur-fast) var(--ease-out);
-}
-
-.filtered .more {
-  margin-top: 8rem;
-}
-
-.more:not([aria-disabled="true"]):hover {
-  color: var(--primary);
-  border-color: var(--primary);
-}
-
-.more[aria-disabled="true"] {
-  cursor: default;
-}
-
 .visuallyHidden {
   position: absolute;
   width: 1px;
@@ -334,10 +306,6 @@ a.card:hover .title {
     gap: 1.2rem;
   }
 
-  .filtered .more {
-    margin-top: 4rem;
-  }
-
   .title {
     font-size: 2rem;
   }
@@ -392,9 +360,5 @@ a.card:hover .title {
     height: 3rem;
     padding: 0 1rem;
     font-size: 1.1rem;
-  }
-
-  .more {
-    font-size: 1.6rem;
   }
 }

@@ -5,8 +5,9 @@ import { tajawal } from "@/lib/fonts";
 import styles from "@/english/components/sections/Hero.module.css";
 
 /* Headline, lead and the two calls to action, layered over the full-screen
-   hero artwork on the reading-start side. Hero.module.css mirrors the artwork
-   in Arabic so its logo faces the copy from the other side.
+   hero artwork on the reading-start side. The banner is drawn with its logo
+   on the left, facing the Arabic copy; English uses its own copy of it with
+   the logo moved to the right (not mirrored, so the logo still reads true).
 
    The hero then stays pinned while the full-screen showreel scrolls up over
    it like a curtain, and the page carries on once the reel has covered it. */
@@ -16,7 +17,7 @@ export function Hero() {
       <div className={styles.stage}>
         <div className={styles.media}>
           <Image
-            src="/images/hero/hero.png"
+            src="/images/hero/banner-en.jpg"
             alt=""
             fill
             preload

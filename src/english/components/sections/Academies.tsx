@@ -13,7 +13,7 @@ import styles from "@/english/components/sections/Academies.module.css";
 const ACADEMIES = [
   {
     title: "Cooperatives Academy",
-    text: "Practical programmes for boards and executive and operational teams in digital governance, member management, enterprise systems and AI, applied to running cooperative work.",
+    text: "Practical programmes for boards of directors, executive teams and operational teams in digital governance, member management, enterprise systems and AI, applied to cooperative operations.",
     cta: "Explore Cooperatives Academy",
     href: "/en/academy#cooperatives",
     image: "/images/sectors/cooperatives-1.png",
@@ -27,7 +27,7 @@ const ACADEMIES = [
   },
   {
     title: "Youth & Digital Skills Academy",
-    text: "Practical paths in the fundamentals of enterprise systems, programming, data and AI, with hands-on projects and career mentoring that connect learning to what tech jobs require.",
+    text: "Practical paths in the fundamentals of enterprise systems, programming, data and AI, with hands-on projects and career mentoring that connect learning to the requirements of technology-related jobs.",
     cta: "Explore Youth Programs",
     href: "/en/academy#vocational",
     image: "/images/sectors/education-2.png",
@@ -50,7 +50,7 @@ export function Academies() {
         <div className={styles.head}>
           <Reveal as="h2" id="academies-heading" className={styles.title}>{"Academies & Professional Learning"}</Reveal>
           <Reveal as="p" className={styles.subtitle} delay={120}>
-            {" Applied learning programmes and specialised training paths that tie digital skills to the needs of work, drawing on our teams' experience in enterprise systems, data, AI and product development. "}</Reveal>
+            {" Applied learning programmes and specialised training paths that connect digital skills to workplace needs, drawing on our teams' experience in enterprise systems, data, AI and product development. "}</Reveal>
         </div>
 
         <ol className={styles.list}>

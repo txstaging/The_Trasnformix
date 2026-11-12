@@ -1,0 +1,221 @@
+/* The trust and governance pages (Figma "Website Redesign V2"): أخلاقياتنا
+   4796:6202, مدونة السلوك المهني 4796:6403 and الامتثال التنظيمي والمعايير
+   4797:6416 at 1440, with their 390 frames 4798:6787, 4798:7308 and
+   4798:7819. Noto Kufi throughout, on the academies' 1240px column. The
+   banner is the sector pages' V2 page banner, tuned through its variables.
+   Tablets, which have no frames of their own, take the phones' arrangement
+   on the 40px column. */
+.page {
+  --heading-font: var(--font-kufi), "Noto Kufi Arabic", sans-serif;
+}
+
+/* ---- Banner: 48/66 extra bold, white copy, the 520px band under the
+   navbar with the copy centred in it. ---------------------------------------- */
+.banner {
+  --banner-pad: 8.4rem;
+  --banner-title-size: 4.8rem;
+  --banner-title-weight: 800;
+  --banner-title-leading: 6.6rem;
+  --banner-title-tracking: -0.05rem;
+  --banner-text: var(--text-inverse);
+}
+
+.bannerCompact {
+  --banner-text-size: 1.8rem;
+  --banner-text-leading: 3.4rem;
+}
+
+/* ---- Parts: the title in a 380px column beside 764px of clauses, 96px
+   apart. ---------------------------------------------------------------------- */
+.part {
+  padding: 10.4rem var(--column);
+  scroll-margin-top: 6.4rem;
+}
+
+.tinted {
+  background: var(--bg-card);
+}
+
+.split {
+  display: flex;
+  align-items: flex-start;
+  gap: 9.6rem;
+}
+
+/* Stays in view, under the navbar, while its part scrolls past. */
+.header {
+  position: sticky;
+  top: 10.4rem;
+  display: flex;
+  flex: 0 0 38rem;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.number,
+.title {
+  font-size: 3.4rem;
+  font-weight: 700;
+  line-height: 4.8rem;
+}
+
+.number {
+  flex-shrink: 0;
+  color: var(--primary);
+}
+
+.title {
+  color: var(--text-primary);
+}
+
+.body {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 2.8rem;
+  min-width: 0;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.intro p {
+  font-size: 2rem;
+  line-height: 3.8rem;
+  color: var(--text-secondary);
+}
+
+.intro p:first-child {
+  color: var(--text-primary);
+}
+
+.clauses {
+  display: flex;
+  flex-direction: column;
+}
+
+/* A hairline above each clause, 28px of air above and below it. */
+.clause {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding-block: 2.8rem;
+  border-top: 0.1rem solid var(--line);
+}
+
+.clauseHeading {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.clauseNumber {
+  flex-shrink: 0;
+  padding: 0.2rem 1rem;
+  border-radius: 0.8rem;
+  background: var(--blue-light);
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  color: var(--primary);
+}
+
+.clause p {
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+  color: var(--text-secondary);
+}
+
+/* ---- The copy the stacked banner hands on (phones and tablets only) ------ */
+.lede {
+  display: none;
+}
+
+/* ---- Tablet: the phones' arrangement on the 40px column ------------------- */
+@media (max-width: 1024px) {
+  .banner {
+    --banner-title-tracking: normal;
+  }
+
+  /* The banner keeps its first line; the rest opens the page (.lede). */
+  .wide {
+    display: none;
+  }
+
+  .lede {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+    padding: 8rem var(--column);
+  }
+
+  .lede p {
+    font-size: 1.8rem;
+    line-height: 3.4rem;
+    color: var(--text-secondary);
+  }
+
+  .lede p:first-child {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 3.2rem;
+    color: var(--text-primary);
+  }
+
+  .part {
+    padding-block: 8rem;
+  }
+
+  /* The number and title share a line above the part. */
+  .split {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2.4rem;
+  }
+
+  .header {
+    position: static;
+    flex: none;
+    flex-direction: row;
+    gap: 1.2rem;
+  }
+
+  .number,
+  .title {
+    font-size: 3rem;
+    line-height: 4.2rem;
+  }
+
+  .clauseNumber {
+    background: var(--tile);
+  }
+}
+
+/* ---- Mobile (Figma 4798:6787) ------------------------------------------------ */
+@media (max-width: 640px) {
+  .lede,
+  .part {
+    padding-block: 6.4rem;
+  }
+
+  .split {
+    gap: 2rem;
+  }
+
+  .number,
+  .title {
+    font-size: 2.4rem;
+    line-height: 3.6rem;
+  }
+
+  .intro p {
+    font-size: 1.8rem;
+    line-height: 3.4rem;
+  }
+}

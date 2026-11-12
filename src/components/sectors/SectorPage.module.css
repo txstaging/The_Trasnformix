@@ -1,0 +1,323 @@
+/* The V2 sector pages (Figma "Website Redesign V2", first القطاع الرياضي
+   4781:5929, with its tablet 4782:6068 and mobile 4782:6388 frames). They
+   reuse the academies parts (components/academies) and set what differs:
+   Noto Kufi headings on desktop, Tajawal from tablets down, a brand-blue
+   closing title, and closing calls that stay side by side on tablets. */
+.page {
+  --heading-font: var(--font-kufi), "Noto Kufi Arabic", sans-serif;
+  --closing-title: var(--primary);
+  --closing-row: row;
+  --closing-gap: 2.4rem;
+}
+
+/* ---- Banner (Figma V2/Page Banner 4642:1171) ----------------------------- */
+.banner {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 52rem;
+  padding: var(--banner-pad, 12rem) var(--column);
+  overflow: hidden;
+  background: var(--primary);
+  color: var(--text-inverse);
+}
+
+.bannerMedia {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.bannerImage {
+  object-fit: cover;
+}
+
+/* Solid brand blue behind the copy, clearing towards the photo's side. */
+.bannerShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    270deg,
+    rgba(28, 68, 153, 0.96) 0%,
+    rgba(28, 68, 153, 0.9) 40%,
+    rgba(28, 68, 153, 0.55) 60%,
+    rgba(28, 68, 153, 0) 82%
+  );
+}
+
+.bannerCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.8rem;
+  width: 66rem;
+  max-width: 100%;
+}
+
+/* Desktop values come from variables, so a page can tune them (see
+   components/trust); the tablet and mobile sizes below apply to every page. */
+.bannerTitle {
+  font-family: var(--heading-font);
+  font-size: var(--banner-title-size, 4rem);
+  font-weight: var(--banner-title-weight, 700);
+  line-height: var(--banner-title-leading, 5.6rem);
+  letter-spacing: var(--banner-title-tracking, normal);
+}
+
+.bannerText {
+  font-size: var(--banner-text-size, 2rem);
+  line-height: var(--banner-text-leading, 3.8rem);
+  color: var(--banner-text, var(--text-inverse-li));
+}
+
+/* globals.css resets paragraphs to `line-height: normal`. */
+.bannerText p {
+  line-height: inherit;
+}
+
+.bannerActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  padding-top: 0.8rem;
+}
+
+/* The shade sweeps in from the photo's side as the title rises
+   (300px, 1.4s, ease-out). */
+@media (prefers-reduced-motion: no-preference) {
+  .bannerShade {
+    animation: banner-shade 1400ms var(--ease-design) both;
+  }
+
+  .banner {
+    --word-ms: 690ms;
+    --word-step: 310ms;
+  }
+}
+
+@keyframes banner-shade {
+  from {
+    transform: translateX(-30rem);
+  }
+}
+
+/* ---- Story sections -------------------------------------------------------- */
+.tinted {
+  background: var(--bg-card);
+}
+
+.subtitle {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--primary);
+}
+
+.storyAction {
+  display: flex;
+  padding-top: 0.4rem;
+}
+
+/* ---- The operating-model diagram (Figma 4781:5989) ------------------------- */
+.model {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 4.8rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+  text-align: center;
+}
+
+.modelTitle {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 4rem;
+  color: var(--text-primary);
+}
+
+.modelRow {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  gap: 1.6rem;
+  width: 100%;
+  max-width: 86rem;
+}
+
+.modelRoles {
+  max-width: 64rem;
+}
+
+.modelNode,
+.modelCore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1.8rem 2rem;
+  border-radius: 1.6rem;
+}
+
+.modelNode {
+  border: 0.1rem solid var(--line);
+  background: var(--bg-main);
+}
+
+.modelCore {
+  width: 100%;
+  max-width: 64rem;
+  background: var(--tile);
+}
+
+.modelNodeTitle {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+  color: var(--text-primary);
+}
+
+.modelNodeText {
+  font-size: 1.6rem;
+  line-height: 3rem;
+  color: var(--text-secondary);
+}
+
+.modelCoreTitle {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.modelCoreText {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+  color: var(--primary);
+}
+
+.modelArrow {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 4rem;
+  color: var(--primary);
+}
+
+.modelNote {
+  max-width: 64rem;
+  font-size: 1.6rem;
+  line-height: 3rem;
+  color: var(--text-secondary);
+}
+
+/* ---- Tablet (Figma 4782:6068) ----------------------------------------------- */
+@media (max-width: 1024px) {
+  .page {
+    --heading-font: var(--tajawal);
+  }
+
+  /* The copy settles at the foot of a taller band, the shade rising from
+     beneath it; never taller than the screen under the navbar. */
+  .banner {
+    justify-content: flex-end;
+    min-height: min(79.6rem, calc(100svh - 7.2rem));
+    padding: 23.6rem var(--column) 6.4rem;
+  }
+
+  .bannerShade {
+    background: linear-gradient(
+      0deg,
+      rgba(28, 68, 153, 0.97) 0%,
+      rgba(28, 68, 153, 0.92) 45%,
+      rgba(28, 68, 153, 0.55) 66%,
+      rgba(28, 68, 153, 0) 88%
+    );
+  }
+
+  .bannerCopy {
+    gap: 2.4rem;
+    width: 100%;
+  }
+
+  .bannerTitle {
+    font-size: 4.4rem;
+    font-weight: 800;
+    line-height: 6rem;
+  }
+
+  .bannerText {
+    color: var(--text-inverse);
+  }
+
+  .model {
+    padding: 4rem;
+  }
+
+  .modelTitle {
+    font-family: var(--font-kufi), "Noto Kufi Arabic", sans-serif;
+  }
+
+  .modelRow,
+  .modelRoles,
+  .modelCore,
+  .modelNote {
+    max-width: none;
+  }
+}
+
+/* ---- Mobile (Figma 4782:6388) ------------------------------------------------ */
+@media (max-width: 640px) {
+  .banner {
+    min-height: min(87.6rem, calc(100svh - 7.2rem));
+    padding: 31.6rem var(--column) 4.8rem;
+  }
+
+  .bannerCopy {
+    gap: 2rem;
+  }
+
+  .bannerTitle {
+    font-size: 3.4rem;
+    line-height: 4.8rem;
+  }
+
+  .bannerText {
+    font-size: 1.8rem;
+    line-height: 3.4rem;
+  }
+
+  .bannerActions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .model {
+    gap: 2rem;
+    padding: 2.8rem 1.6rem;
+  }
+
+  .modelTitle,
+  .modelArrow {
+    font-family: var(--tajawal);
+    font-size: 2.4rem;
+    line-height: 3.6rem;
+  }
+
+  /* The four operators two by two; the roles one under another. */
+  .modelRow {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.2rem;
+  }
+
+  .modelRoles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

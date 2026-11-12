@@ -2,6 +2,7 @@ import { createTransport } from "nodemailer";
 import { clean, validate, visibleFields } from "@/components/careers/forms";
 import {
   getPartnershipPath,
+  isPageFormId,
   isPartnershipPathId,
   PARTNERSHIP_FORMS,
 } from "@/lib/partnerships";
@@ -46,6 +47,12 @@ const escapeHtml = (value: string) =>
 
 const oneLine = (value: string) => value.replace(/\s+/g, " ").trim();
 
+/** Where on the site a form is sent from, for the email's footer. */
+const SOURCES: Partial<Record<string, string>> = {
+  contact: "صفحة تواصل معنا",
+  tourism: "صفحة السياحة والضيافة والتراث",
+};
+
 export async function POST(request: Request) {
   let body: unknown;
   try {
@@ -65,8 +72,9 @@ export async function POST(request: Request) {
   }
 
   const path = getPartnershipPath(input.path);
-  /* The /contact page asks every path with its own short form. */
-  const spec = PARTNERSHIP_FORMS[input.form === "contact" ? "contact" : path.form];
+  /* The /contact page asks every path with its own short form, and the
+     tourism service page has a form of its own. */
+  const spec = PARTNERSHIP_FORMS[isPageFormId(input.form) ? input.form : path.form];
   const values = clean(spec, input.values as Record<string, unknown>);
   if (Object.keys(validate(spec, values, input.consent === true)).length > 0) {
     return Response.json({ error: "invalid_submission" }, { status: 422 });
@@ -125,7 +133,7 @@ export async function POST(request: Request) {
         .join("\n      ")}
       <tr>
         <td style="padding:16px 28px;font-size:12px;color:#57585b;text-align:right;">
-          أُرسل من ${spec.id === "contact" ? "صفحة تواصل معنا" : "نافذة التواصل والشراكات"} في موقع ترانسفورمكس. الرد على هذه الرسالة يصل إلى ${escapeHtml(email)}.
+          أُرسل من ${SOURCES[spec.id] ?? "نافذة التواصل والشراكات"} في موقع ترانسفورمكس. الرد على هذه الرسالة يصل إلى ${escapeHtml(email)}.
         </td>
       </tr>
     </table>

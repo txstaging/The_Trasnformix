@@ -40,7 +40,7 @@ const SERVICES: { key: string; title: string; text: string; image: string; cta: 
     text: "حلول متقدمة لتحليل البيانات والتنقيب عنها، وتطوير نماذج تعلم الآلة والتحليلات التنبؤية وذكاء الأعمال والأسواق. تساعد على اكتشاف الأنماط والفرص، وفهم الأداء، وتحويل البيانات التشغيلية والتجارية إلى رؤى قابلة للتطبيق.",
     image: IMAGES.data,
     cta: "اكتشف حلول البيانات",
-    href: getServiceWebsite("data"),
+    href: "/services/data-science",
   },
   {
     key: "software",
@@ -63,6 +63,7 @@ const SERVICES: { key: string; title: string; text: string; image: string; cta: 
     text: "نطوّر منصات إلكترونية للحجوزات والمواعيد والخدمات السياحية، تشمل إدارة التوافر والحجز والتأكيد والدفع والتواصل مع العملاء ومقدمي الخدمات. تتيح هذه المنصات تحسين تجربة الحجز، وتوسيع الوصول إلى العملاء، وتنسيق العمليات التشغيلية من خلال مواقع الويب وتطبيقات الهواتف الذكية.",
     image: IMAGES.reservations,
     cta: "استكشف منصات الحجوزات",
+    href: "/services/tourism",
   },
   {
     key: "marketing",

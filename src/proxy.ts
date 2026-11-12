@@ -3,7 +3,8 @@ import { NextResponse, type NextRequest } from "next/server";
 /* Versions 2–4 stay in the code for review but are not public yet: in
    production their pages answer like any unknown URL. `npm run dev` still
    serves them. Files with an extension pass through, because version 1 uses
-   a few icons from /public/v2. Delete this file to publish them again. */
+   a few icons from /public/v2. Delete this file to publish them again.
+   /academy/old, the first academy design, is kept the same way. */
 export function proxy(request: NextRequest) {
   if (process.env.NODE_ENV !== "production") return NextResponse.next();
   if (/\.[a-z0-9]+$/i.test(request.nextUrl.pathname)) return NextResponse.next();
@@ -19,5 +20,7 @@ export const config = {
     "/en/v3/:path*",
     "/en/v4/:path*",
     "/api/v2/:path*",
+    "/academy/old",
+    "/en/academy/old",
   ],
 };

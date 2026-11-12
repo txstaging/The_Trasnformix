@@ -64,7 +64,7 @@ function Extras({ links, onNavigate, pathname }: { links: NavLink[]; onNavigate:
   );
 }
 
-/** Figma 4305:4659 — the grey sidebar of tabs under the menu's own name, then
+/** Figma 4612:277 — the grey rail of tabs under the menu's own name, then
     the selected tab's columns, or all of them until one is picked. Pointing
     at or focusing a tab shows its columns; its label opens its page. */
 function MegaMenu({ title, menu, tab, onTab, onNavigate, pathname }: {
@@ -79,7 +79,7 @@ function MegaMenu({ title, menu, tab, onTab, onNavigate, pathname }: {
   const shownKey = tab ?? "all";
 
   return (
-    <div className={cx(styles.mega, menu.plain && styles.megaPlain)}>
+    <div className={styles.mega}>
       <div className={styles.side}>
         <p className={styles.sideTitle}>{title}</p>
         <ul className={styles.tabs}>
@@ -90,21 +90,15 @@ function MegaMenu({ title, menu, tab, onTab, onNavigate, pathname }: {
               onPointerEnter: () => onTab(index),
               onFocus: () => onTab(index),
             };
-            const content = (
-              <>
-                <span>{item.label}</span>
-                <Image className={styles.tabArrow} src={menu.arrow} alt="" width={20} height={20} />
-              </>
-            );
             return (
               <li key={item.label}>
                 {item.href ? (
                   <Link href={item.href} {...props} aria-current={item.href === pathname ? "page" : undefined} onClick={onNavigate}>
-                    {content}
+                    {item.label}
                   </Link>
                 ) : (
                   <button type="button" {...props} aria-pressed={selected} onClick={() => onTab(index)}>
-                    {content}
+                    {item.label}
                   </button>
                 )}
               </li>

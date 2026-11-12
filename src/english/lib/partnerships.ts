@@ -6,7 +6,7 @@ import type { Field, FormSpec, Option, Values } from "@/english/components/caree
    two forms. /api/partnerships validates against the same specs and emails
    the request. */
 
-export type PartnershipFormId = "inquiry" | "proposal" | "contact";
+export type PartnershipFormId = "inquiry" | "proposal" | "contact" | "tourism";
 
 export type PartnershipPathId =
   | "business"
@@ -278,7 +278,71 @@ const contact: PartnershipForm = {
   submit: "Send your request",
 };
 
-export const PARTNERSHIP_FORMS: Record<PartnershipFormId, PartnershipForm> = { inquiry, proposal, contact };
+/* The tourism service page's request (Figma 4473:9612): who is asking,
+   their activity, the solution area they lean to and the outcome they want.
+   It reaches the team on the business path. */
+const tourism: PartnershipForm = {
+  id: "tourism",
+  eyebrow: "Tourism, Hospitality & Heritage · Discussion Request",
+  title: "Discussion request from the Tourism, Hospitality & Heritage page",
+  sections: [
+    {
+      fields: [
+        { name: "fullName", label: "Name", kind: "text", required: true, autoComplete: "name", placeholder: "Enter your full name" },
+        { name: "company", label: "Organization", kind: "text", required: true, autoComplete: "organization", placeholder: "Company or organization name" },
+        { name: "email", label: "Email", kind: "email", required: true, autoComplete: "email", placeholder: "name@organization.com" },
+        { name: "country", label: "Country", kind: "select", required: true, placeholder: "Choose a country", options: COUNTRIES },
+        {
+          name: "activity",
+          label: "Activity",
+          kind: "select",
+          required: true,
+          placeholder: "Choose your type of activity",
+          options: [
+            { value: "operators", label: "Activity & experience operators and tourism companies" },
+            { value: "umrah", label: "Umrah companies & visitor services" },
+            { value: "heritage", label: "Museums & heritage sites" },
+            { value: "guides", label: "Guides & membership bodies" },
+            { value: "other", label: "Another activity" },
+          ],
+        },
+        {
+          name: "interest",
+          label: "Main interest",
+          kind: "select",
+          placeholder: "Choose the relevant solution area",
+          options: [
+            { value: "distribution", label: "Tourism distribution management" },
+            { value: "platforms", label: "Tourism platform & app development" },
+            { value: "operations", label: "Operations, customer & integration management" },
+            { value: "heritage", label: "Museum technology & immersive experiences" },
+            { value: "analytics", label: "Tourism analytics & AI" },
+            { value: "undecided", label: "Not decided yet" },
+          ],
+        },
+        {
+          name: "details",
+          label: "Your goal",
+          kind: "textarea",
+          required: true,
+          wide: true,
+          placeholder: "What do you want to develop? Tell us your goal and the systems or channels you use today…",
+        },
+      ],
+    },
+  ],
+  ...COMMON,
+  consent: "",
+  submit: "Send discussion request",
+};
+
+export const PARTNERSHIP_FORMS: Record<PartnershipFormId, PartnershipForm> = { inquiry, proposal, contact, tourism };
+
+/** The forms a page shows on its own rather than one a path leads to. */
+const PAGE_FORM_IDS: readonly PartnershipFormId[] = ["contact", "tourism"];
+
+export const isPageFormId = (value: unknown): value is PartnershipFormId =>
+  PAGE_FORM_IDS.includes(value as PartnershipFormId);
 
 /** The request types the /contact form offers, one per path, in reading order. */
 export const CONTACT_REQUEST_TYPES: readonly { id: PartnershipPathId; label: string }[] = [

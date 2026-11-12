@@ -5,9 +5,10 @@ import { ServiceAction } from "@/english/components/services/ServiceAction";
 import kit from "@/english/components/services/ServiceKit.module.css";
 
 /* The pieces the service pages share (Figma 4431:12464 Transformix GBS,
-   4431:12992 خدمات Odoo, and 4365:10797 هندسة البرمجيات where it draws the
-   same parts): the photo hero, section introductions, the service rows, the
-   blue process, the questions and the closing band. */
+   4431:12992 خدمات Odoo, 4473:8787 علوم البيانات, 4473:9198 السياحة, and
+   4365:10797 هندسة البرمجيات where it draws the same parts): the photo hero,
+   section introductions, the service rows, the flow diagrams, the blue
+   process, the questions and the closing band. */
 
 export { kit };
 
@@ -40,16 +41,21 @@ export function ActionButton({ action, className }: { action: Action; className?
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 
 /** The 1440 × 600 hero: a photo on the far side darkening into the copy. */
-export function ServiceHero({ id, image, eyebrow, title, text, actions, labels }: {
+export function ServiceHero({ id, image, eyebrow, kicker, title, text, actions, labels, wide }: {
   id: string;
   image: string;
-  eyebrow: string;
+  /** A Latin label over the title. */
+  eyebrow?: string;
+  /** An Arabic label over the title, set in Tajawal. */
+  kicker?: string;
   title: string;
   text: string;
   /** In reading order, the first beside the edge. */
   actions: readonly Action[];
   /** A Latin line of keywords under the calls. */
   labels?: string;
+  /** The copy runs 720px wide rather than 692. */
+  wide?: boolean;
 }) {
   return (
     <section className={kit.hero} aria-labelledby={id}>
@@ -58,10 +64,17 @@ export function ServiceHero({ id, image, eyebrow, title, text, actions, labels }
           <Image className={kit.heroImage} src={image} alt="" fill preload sizes="(max-width: 900px) 100vw, 67vw" />
         </div>
       </div>
-      <div className={kit.heroCopy}>
-        <Reveal as="p" className={kit.heroEyebrow} lang="en">
-          {eyebrow}
-        </Reveal>
+      <div className={wide ? `${kit.heroCopy} ${kit.heroCopyWide}` : kit.heroCopy}>
+        {kicker && (
+          <Reveal as="p" className={kit.heroKicker}>
+            {kicker}
+          </Reveal>
+        )}
+        {eyebrow && (
+          <Reveal as="p" className={kit.heroEyebrow} lang="en">
+            {eyebrow}
+          </Reveal>
+        )}
         <Reveal as="h1" id={id} className={kit.heroTitle} delay={60}>
           {title}
         </Reveal>
@@ -83,10 +96,13 @@ export function ServiceHero({ id, image, eyebrow, title, text, actions, labels }
   );
 }
 
-/** A section's heading block: an optional Latin label, the title and its lead. */
-export function SectionIntro({ id, eyebrow, title, text, center, children }: {
+/** A section's heading block: an optional label, the title and its lead. */
+export function SectionIntro({ id, eyebrow, kicker, title, text, center, children }: {
   id: string;
+  /** A Latin label over the title. */
   eyebrow?: string;
+  /** An Arabic label over the title, set in Tajawal. */
+  kicker?: string;
   title: string;
   text?: ReactNode;
   center?: boolean;
@@ -99,6 +115,7 @@ export function SectionIntro({ id, eyebrow, title, text, center, children }: {
           {eyebrow}
         </p>
       )}
+      {kicker && <p className={kit.kicker}>{kicker}</p>}
       <h2 id={id} className={kit.title}>
         {title}
       </h2>
@@ -148,14 +165,58 @@ export function DetailList({ items }: { items: readonly Detail[] }) {
   );
 }
 
+export type FlowStep = string | {
+  label: string;
+  /** A Latin line under the label. */
+  en: string;
+};
+
+/** The concept boxes joined by arrows (Figma "Editable flow diagram",
+    4473:8842), in reading order: each after the first is led in by an
+    arrow, and an optional line runs under the row. */
+export function FlowDiagram({ steps, note, className }: {
+  steps: readonly FlowStep[];
+  note?: string;
+  className?: string;
+}) {
+  return (
+    <div className={className ? `${kit.flow} ${className}` : kit.flow}>
+      <ol className={kit.flowSteps}>
+        {steps.map((step, index) => {
+          const label = typeof step === "string" ? step : step.label;
+          /* On the English site the label is already the Latin line. */
+          const en = typeof step === "string" || step.en === label ? null : step.en;
+          return (
+            <li key={label} className={kit.flowUnit}>
+              {index > 0 && (
+                <span className={`${kit.flowArrow} ${kit.arrow}`} aria-hidden="true">
+                  ←
+                </span>
+              )}
+              <span className={kit.flowConcept}>
+                {label}
+                {en && <span lang="en">{en}</span>}
+              </span>
+            </li>
+          );
+        })}
+      </ol>
+      {note && <p className={kit.flowNote}>{note}</p>}
+    </div>
+  );
+}
+
 /** The blue delivery steps (Figma 3503:34000), right to left. */
-export function ProcessSteps({ steps, tall }: {
+export function ProcessSteps({ steps, tall, roomy }: {
   steps: readonly { title: string; text: string }[];
   /** The Odoo artboard draws the steps 310px tall rather than 255. */
   tall?: boolean;
+  /** Three wide steps, 360px tall on a 24px inset (Figma 4473:8860). */
+  roomy?: boolean;
 }) {
+  const variant = tall ? kit.processTall : roomy ? kit.processRoomy : null;
   return (
-    <ol className={tall ? `${kit.process} ${kit.processTall}` : kit.process}>
+    <ol className={variant ? `${kit.process} ${variant}` : kit.process}>
       {steps.map((step, index) => (
         <Reveal as="li" key={step.title} className={kit.step} delay={index * 60}>
           <span className={kit.stepNumber} aria-hidden="true">

@@ -1,5 +1,36 @@
 // Small English-only adaptations applied after translating the original source.
 export function adjustEnglishSource(file, code) {
+  // Corrections from the English website review that need page context.
+  if (file === "src/components/sections/about/AboutProcess.tsx") {
+    code = code.replace('label: "We analyze"', 'label: "Analyze"');
+  }
+  if (file === "src/components/v3/content.ts") {
+    code = code.replace(
+      /("title": "Testing and launch",\s*"text": )"[^"]*"/,
+      '$1"We test the solution to verify functionality, performance and reliability, address identified issues, and prepare it for launch."',
+    );
+  }
+  if (file === "src/components/sections/Products.tsx") {
+    code = code
+      .replace('import Image from "next/image";', 'import Image from "next/image";\nimport Link from "next/link";')
+      .replace('import { getServiceWebsite, PRODUCT_WEBSITES }', 'import { AI_SUITE_WEBSITE, getServiceWebsite, PRODUCT_WEBSITES }')
+      .replace('details?: string[];', 'details?: string[];\n  readMoreHref?: string;')
+      .replace('name: "TX AI Suite",', 'name: "TX AI Suite",\n    website: AI_SUITE_WEBSITE,')
+      .replace('title: "Investor & Cooperative Management Platform",', 'title: "Investor & Cooperative Management Platform",\n    readMoreHref: "/en/products#cooperatives",')
+      .replace('(product.details || product.website)', '(product.details || product.readMoreHref || product.website)')
+      .replace('<div className={styles.actions}>', `<div className={styles.actions}>
+                      {product.readMoreHref && (
+                        <Link href={product.readMoreHref} className={styles.more}>
+                          {"Read More"}
+                        </Link>
+                      )}`);
+  }
+  if (file === "src/components/sections/Faq.module.css") {
+    code = code.replace(
+      'grid-template-columns: repeat(2, minmax(0, 1fr));',
+      'grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);',
+    );
+  }
   if (file === "src/components/sections/Testimonials.tsx") {
     code = code.replace("position * step - offset", "offset - position * step");
   }
@@ -43,8 +74,8 @@ export function adjustEnglishSource(file, code) {
   if (file === "src/components/sections/about/AboutVision.module.css") code += '\n.title { white-space: normal; }\n@media (min-width: 1025px) { .title { font-size: 3.2rem; } }\n';
   if (file === "src/components/sections/about/AboutPartners.module.css") code += '\n.text { height: auto; }\n';
   if (file === "src/components/sections/Navbar.module.css") {
-    code += `\n/* The sidebar arrow points into the columns, which now sit to its right. */
-.tabArrow { transform: scaleX(-1); }
+    code += `\n/* The Latin rail labels run wider than the Arabic ones, so they may wrap. */
+.sideTitle, .tab { white-space: normal; }
 /* The Latin labels run wider than the Arabic ones; this keeps the bar on one
    line at 1440 and below. */
 @media (min-width: 1025px) {
@@ -69,22 +100,45 @@ export function adjustEnglishSource(file, code) {
   }
   if (file === "src/app/(arabic)/contact/page.module.css") {
     code += `\n/* The copy sits on the left in English, so the photo and its shade turn
-   to keep the dark side behind it, and the card arrows point onward. */
+   to keep the dark side behind it, and the card arrows point onward. The
+   picture turns back so the figures on its screen still read the right way. */
 .heroMedia { transform: scaleX(-1); }
+.heroImage { transform: scaleX(-1); }
 .arrow { transform: scaleX(-1); }
 .cardLink:hover .arrow { transform: scaleX(-1) translateX(-0.4rem); }\n`;
   }
   if (file === "src/components/services/ServiceKit.module.css") {
     code += `\n/* The copy sits on the left in English, so the photo and its shade turn
-   to keep the dark side behind it, and the card arrows point onward. */
+   to keep the dark side behind it, and the card arrows point onward. The
+   picture turns back so the screens in it still read the right way. */
 .heroMedia { transform: scaleX(-1); }
+.heroImage { transform: scaleX(-1); }
 .arrow { transform: scaleX(-1); }
 .cardLink:hover .arrow { transform: scaleX(-1) translateX(-0.4rem); }\n`;
   }
   if (file === "src/app/(arabic)/community/news/page.module.css") {
+    code += '\n/* The copy sits on the left in English, so the photo and its shade turn with it;\n   the picture turns back so the figures on its screen still read the right way. */\n.heroMedia { transform: scaleX(-1); }\n.heroImage { transform: scaleX(-1); }\n';
+  }
+  if (file === "src/app/(arabic)/insights/page.module.css") {
     code += '\n/* The copy sits on the left in English, so the photo and its shade turn with it. */\n.heroMedia { transform: scaleX(-1); }\n';
   }
+  if (file === "src/components/insights/InsightCard.module.css") {
+    code += `\n/* The arrow points the way the text reads. */
+.arrow { transform: scaleX(-1); }
+.more:hover .arrow { transform: scaleX(-1) translateX(-0.4rem); }\n`;
+  }
+  if (file === "src/app/(arabic)/insights/[slug]/page.module.css") {
+    code += '\n/* The chain reads left to right in English; stacked, its arrows still point down. */\n@media (min-width: 641px) { .stepArrow { transform: scaleX(-1); } }\n';
+  }
   if (file === "src/app/(arabic)/services/software-engineering/page.module.css") {
+    code += '\n/* The copy sits on the left in English, so the photo and its shade turn with it. */\n.heroMedia { transform: scaleX(-1); }\n';
+  }
+  if (file === "src/components/sections/Hero.tsx") {
+    // The banner's logo would read backwards if mirrored, so English has its own
+    // copy with the logo moved to the copy's far side.
+    code = code.replace('src="/images/hero/banner.jpg"', 'src="/images/hero/banner-en.jpg"');
+  }
+  if (file === "src/app/(arabic)/about/page.module.css") {
     code += '\n/* The copy sits on the left in English, so the photo and its shade turn with it. */\n.heroMedia { transform: scaleX(-1); }\n';
   }
   if (file === "src/app/(arabic)/services/ecommerce/page.module.css") {
@@ -92,6 +146,23 @@ export function adjustEnglishSource(file, code) {
 @media (min-width: 641px) {
   .heroMedia::after { background: linear-gradient(270deg, rgba(6, 15, 33, 0.06), rgba(6, 15, 33, 0.78) 47%, rgba(6, 15, 33, 0.97)); }
 }\n`;
+  }
+  if (file === "src/components/academies/Academies.module.css") {
+    code += `\n/* The copy sits on the left in English, so the banner and its shade turn
+   with it (the photo faces its original way again), the arrows point onward,
+   and the "read more" fade sits on its other side. */
+.heroMedia { transform: scaleX(-1); }
+.arrow { transform: scaleX(-1); }
+.button:hover .arrow { transform: scaleX(-1) translateX(-0.4rem); }
+.moreFade { transform: scaleX(-1); }
+@media (prefers-reduced-motion: reduce) { .button:hover .arrow { transform: scaleX(-1); } }\n`;
+  }
+  if (file === "src/components/sectors/SectorPage.module.css") {
+    code += `\n/* The copy sits on the left in English, so the banner and its shade turn
+   with it; the photo turns back so the laptop screen in it still reads the
+   right way. */
+.bannerMedia { transform: scaleX(-1); }
+.bannerImage { transform: scaleX(-1); }\n`;
   }
   if (file === "src/components/sections/about/AboutProcess.module.css") {
     code += `\n@media (max-width: 640px) { .title { width: 100%; max-width: 100%; height: auto; white-space: normal; } }\n`;

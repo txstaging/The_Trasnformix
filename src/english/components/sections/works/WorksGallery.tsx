@@ -6,8 +6,6 @@ import { Reveal } from "@/english/components/ui/Reveal";
 import { WORK_FILTERS, type WorkFilter, type WorkProject } from "@/english/components/sections/works/projects";
 import styles from "@/english/components/sections/works/WorksGallery.module.css";
 
-const PAGE_SIZE = 16;
-
 const CARD_WIDTH = 604;
 const FRAME = 462;
 
@@ -110,7 +108,6 @@ function WorkCard({ project, index }: { project: WorkProject; index: number }) {
 export function WorksGallery() {
   const [filterId, setFilterId] = useState<WorkFilter["id"]>("all");
   const [query, setQuery] = useState("");
-  const [pages, setPages] = useState(1);
   const searchId = useId();
 
   const filter = WORK_FILTERS.find((item) => item.id === filterId) ?? WORK_FILTERS[0];
@@ -120,13 +117,7 @@ export function WorksGallery() {
     [filter, query],
   );
 
-  const visible = results.slice(0, pages * PAGE_SIZE);
-  const hasMore = results.length > visible.length;
-
-  const selectFilter = (id: WorkFilter["id"]) => {
-    setFilterId(id);
-    setPages(1);
-  };
+  const selectFilter = (id: WorkFilter["id"]) => setFilterId(id);
 
   return (
     <section className={styles.section} aria-labelledby={`${searchId}-heading`}>
@@ -181,7 +172,6 @@ export function WorksGallery() {
               value={query}
               onChange={(event) => {
                 setQuery(event.target.value);
-                setPages(1);
               }}
             />
             <Image
@@ -199,9 +189,9 @@ export function WorksGallery() {
           {results.length === 0 ? "No results" : `${results.length} Projects`}
         </p>
 
-        {visible.length > 0 ? (
+        {results.length > 0 ? (
           <div className={styles.grid}>
-            {visible.map((project, index) => (
+            {results.map((project, index) => (
               <WorkCard
                 key={`${filter.id}-${project.key}`}
                 project={project}
@@ -216,16 +206,6 @@ export function WorksGallery() {
               : "There are no projects in this category yet."}
           </p>
         )}
-
-        {/* Drawn under every state of the grid. It pages through the list,
-            and stays in place (inert) once everything is showing. */}
-        <button
-          type="button"
-          className={styles.more}
-          aria-disabled={!hasMore}
-          onClick={() => hasMore && setPages((count) => count + 1)}
-        >
-          {" Show more "}</button>
       </div>
     </section>
   );
