@@ -1,0 +1,1531 @@
+.sectionNav {
+  position: sticky;
+  top: 6.4rem;
+  z-index: 40;
+  overflow-x: auto;
+  background: #e5e9f2;
+  scrollbar-width: thin;
+}
+
+.sectionNavInner {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  width: max-content;
+  min-width: 100%;
+  min-height: 6rem;
+  padding-inline: clamp(1rem, 8vw, 9rem);
+  gap: clamp(2rem, 5vw, 6rem);
+}
+
+.sectionLink {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  border-bottom: 0.25rem solid transparent;
+  color: #252a2b;
+  font-size: clamp(1.3rem, 1.1vw, 1.6rem);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sectionLink:hover,
+.active {
+  border-bottom-color: #1c4499;
+  color: #1c4499;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: clamp(46rem, 41vw, 62rem);
+  padding: clamp(4rem, 7vw, 9rem) clamp(2.4rem, 7.4vw, 12rem);
+  overflow: hidden;
+  background-image:
+    linear-gradient(90deg, rgba(7, 22, 52, 0.08) 0%, rgba(9, 28, 68, 0.52) 43%, rgba(9, 25, 61, 0.96) 100%),
+    url("/images/p1.jpg");
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+}
+
+.heroContent {
+  width: min(100%, 72rem);
+  margin-inline-end: auto;
+  text-align: right;
+}
+
+.hero h1,
+.hero h2 {
+  max-width: 68rem;
+  margin: 0 0 2.6rem;
+  font-size: clamp(3rem, 4vw, 5.1rem);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.managementHero {
+  min-height: 60.6rem;
+  scroll-margin-top: 12.4rem;
+}
+
+.managementContent {
+  width: min(100%, 57rem);
+}
+
+.managementContent h2 {
+  font-size: clamp(3.2rem, 2.8vw, 4rem);
+  font-weight: 700;
+}
+
+.planningHero {
+  min-height: 50.2rem;
+  background-image:
+    linear-gradient(90deg, rgba(25, 56, 138, 0.28) 0%, rgba(28, 68, 153, 0.17) 28%, rgba(21, 50, 113, 0.73) 68%, rgba(9, 22, 50, 0.9) 100%),
+    url("/images/p4.png");
+  background-position: center;
+}
+
+.planningContent {
+  width: min(100%, 84.3rem);
+}
+
+.planningContent h1 {
+  max-width: 72rem;
+  margin-bottom: 1.8rem;
+  font-size: clamp(3.2rem, 2.8vw, 4rem);
+}
+
+.planningContent .planningLead {
+  margin: 0 0 1.2rem;
+  font-size: clamp(1.7rem, 1.4vw, 2rem);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.planningContent > p:not(.planningLead) {
+  font-size: clamp(1.55rem, 1.25vw, 1.8rem);
+  line-height: 1.65;
+}
+
+.analyticsHero {
+  min-height: 50.2rem;
+  background-image:
+    linear-gradient(90deg, rgba(25, 56, 138, 0.28) 0%, rgba(28, 68, 153, 0.17) 28%, rgba(21, 50, 113, 0.73) 68%, rgba(9, 22, 50, 0.9) 100%),
+    url("/images/p5.png");
+  background-position: center;
+}
+
+.analyticsContent {
+  width: min(100%, 66rem);
+}
+
+.analyticsContent h1 {
+  max-width: 56.7rem;
+  margin-bottom: 2rem;
+  font-size: clamp(3.2rem, 2.8vw, 4rem);
+}
+
+.analyticsContent p {
+  font-size: clamp(1.55rem, 1.25vw, 1.8rem);
+  line-height: 1.9;
+}
+
+.academyHero {
+  min-height: 44.9rem;
+  background-image:
+    linear-gradient(90deg, rgba(25, 56, 138, 0.24) 0%, rgba(28, 68, 153, 0.19) 32%, rgba(21, 50, 113, 0.76) 68%, rgba(9, 22, 50, 0.92) 100%),
+    url("/images/p8.png");
+  background-position: center;
+}
+
+.academyContent {
+  width: min(100%, 66rem);
+}
+
+.academyContent h1 {
+  max-width: 66rem;
+  margin-bottom: 1.8rem;
+  font-size: clamp(3.2rem, 2.8vw, 4rem);
+}
+
+.academyContent > p {
+  font-size: clamp(1.6rem, 1.3vw, 1.9rem);
+  line-height: 1.8;
+}
+
+.academyOverview {
+  padding: 8rem clamp(2.4rem, 7vw, 10rem) 10rem;
+  background: #fff;
+  color: #1f1f1f;
+}
+
+.academyOverviewInner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: 2.4rem;
+  width: min(100%, 124rem);
+  margin-inline: auto;
+  direction: rtl;
+}
+
+.academyOverviewCopy h2 {
+  margin: 0 0 2rem;
+  font-size: clamp(2.8rem, 2.5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.academyOverviewCopy p {
+  margin: 0;
+  font-size: clamp(1.55rem, 1.25vw, 1.8rem);
+  line-height: 1.9;
+}
+
+.academyOverviewImage {
+  width: 100%;
+  aspect-ratio: 1.35;
+  border-radius: 2.4rem;
+  background: center / cover no-repeat url("/images/P9.png");
+}
+
+.academyFactory {
+  padding: 0 clamp(2.4rem, 7vw, 10rem) 10rem;
+  background: #fff;
+  color: #1f1f1f;
+}
+
+.academyFactoryInner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: center;
+  width: min(100%, 124rem);
+  margin-inline: auto;
+  direction: ltr;
+}
+
+.academyFactoryCopy {
+  padding: 2rem 4rem 2rem 0;
+  direction: rtl;
+  text-align: right;
+}
+
+.academyFactoryCopy h2 {
+  margin: 0 0 2rem;
+  font-size: clamp(2.8rem, 2.5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.academyFactoryCopy p {
+  margin: 0;
+  font-size: clamp(1.55rem, 1.25vw, 1.8rem);
+  line-height: 1.9;
+}
+
+.academyFactoryImage {
+  width: 100%;
+  aspect-ratio: 1.35;
+  border-radius: 2.4rem;
+  background: center / cover no-repeat url("/images/p1.jpg");
+}
+
+.learningAnalytics {
+  padding: 2rem clamp(2.4rem, 7vw, 10rem) 10rem;
+  background: #fff;
+  color: #1f1f1f;
+}
+
+.learningAnalyticsInner {
+  width: min(100%, 124rem);
+  margin-inline: auto;
+  text-align: center;
+}
+
+.learningAnalytics h2 {
+  margin: 0 0 1.8rem;
+  color: #1c4499;
+  font-size: clamp(2.8rem, 2.5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.learningAnalytics p {
+  margin: 0;
+  font-size: clamp(1.5rem, 1.25vw, 1.8rem);
+  line-height: 1.8;
+}
+
+.analyticsOrchestration {
+  padding: 8rem clamp(2.4rem, 7vw, 10rem) 12rem;
+  background: #fff;
+  color: #252525;
+}
+
+.analyticsOrchestrationInner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(3.2rem, 5vw, 7rem);
+  width: min(100%, 130rem);
+  margin-inline: auto;
+  direction: rtl;
+}
+
+.analyticsOrchestrationCopy h2 {
+  margin: 0 0 2rem;
+  font-size: clamp(2.6rem, 2.2vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.analyticsOrchestrationCopy p {
+  margin: 0;
+  font-size: clamp(1.55rem, 1.25vw, 1.8rem);
+  line-height: 1.9;
+}
+
+.analyticsOrchestrationCopy strong {
+  font-weight: 800;
+}
+
+.analyticsOrchestrationImage {
+  width: 100%;
+  aspect-ratio: 1.25;
+  border-radius: 2rem;
+  background: center / contain no-repeat url("/images/p6.jpg");
+}
+
+.analyticsCallout {
+  width: min(100%, 130rem);
+  margin: 5.6rem auto 0;
+  padding: 3rem 3.6rem;
+  border-right: 0.4rem solid #1c4499;
+  border-radius: 1.6rem;
+  background: #f0f0f0;
+  text-align: right;
+}
+
+.analyticsCallout h3 {
+  margin: 0 0 0.8rem;
+  font-size: clamp(1.9rem, 1.5vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.analyticsCallout p {
+  margin: 0;
+  font-size: clamp(1.45rem, 1.1vw, 1.65rem);
+  line-height: 1.8;
+}
+
+.equipmentIntegration {
+  padding: 0 clamp(2.4rem, 7vw, 10rem) 12rem;
+  background: #fff;
+  color: #1f1f1f;
+}
+
+.equipmentIntegrationInner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: center;
+  width: min(100%, 124rem);
+  margin-inline: auto;
+  direction: ltr;
+}
+
+.equipmentIntegrationCopy {
+  padding: 2rem 4rem 2rem 0;
+  direction: rtl;
+  text-align: right;
+}
+
+.equipmentIntegrationCopy h2 {
+  margin: 0 0 2rem;
+  font-size: clamp(2.8rem, 2.5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.equipmentIntegrationCopy p {
+  margin: 0;
+  font-size: clamp(1.55rem, 1.2vw, 1.75rem);
+  line-height: 1.85;
+}
+
+.equipmentIntegrationCopy p + p {
+  margin-top: 2rem;
+  color: #656565;
+}
+
+.equipmentIntegrationImage {
+  width: 100%;
+  aspect-ratio: 1.04;
+  border-radius: 2.4rem;
+  background: center / cover no-repeat url("/images/p7.jpg");
+}
+
+.planningPaths {
+  padding: 9rem clamp(2.4rem, 7vw, 10rem) 10rem;
+  background: #fff;
+  color: #1f1f1f;
+}
+
+.planningPathsInner {
+  width: min(100%, 130rem);
+  margin-inline: auto;
+}
+
+.planningPaths h2 {
+  max-width: 94rem;
+  margin: 0 auto 3rem;
+  font-size: clamp(2.4rem, 2vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.planningPathsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.6rem;
+  width: min(100%, 124rem);
+  margin-inline: auto;
+  direction: rtl;
+}
+
+.planningPathCard {
+  display: flex;
+  min-height: 18.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2.4rem;
+  border: 1px solid #e3e5e9;
+  border-radius: 2.2rem;
+  background: #fcfbfa;
+  text-align: right;
+}
+
+.planningPathIcon {
+  display: grid;
+  width: 4rem;
+  height: 4rem;
+  place-items: center;
+  margin-bottom: 1.2rem;
+  border-radius: 1.2rem;
+  background: #e1e8f5;
+  color: #1c4499;
+}
+
+.planningPathIcon svg {
+  width: 2rem;
+  height: 2rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.planningPathCard h3 {
+  width: 100%;
+  margin: 0 0 1rem;
+  font-size: clamp(1.75rem, 1.35vw, 2rem);
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.planningPathExcerpt,
+.planningPathDetails p {
+  margin: 0;
+  color: #707070;
+  font-size: clamp(1.35rem, 1vw, 1.5rem);
+  line-height: 1.75;
+}
+
+.planningPathExcerpt {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.planningPathDetails {
+  color: #1c4499;
+  font-size: clamp(1.3rem, 1vw, 1.45rem);
+  line-height: 1.7;
+}
+
+.planningPathDetails summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.planningPathDetails summary::-webkit-details-marker {
+  display: none;
+}
+
+.planningPathDetails summary::before {
+  content: "… ";
+}
+
+.planningPathDetails[open] summary {
+  margin-top: 0.6rem;
+}
+
+.planningPathDetails[open] p {
+  margin-top: 0.5rem;
+}
+
+.manufacturingCycle {
+  padding: 8rem clamp(2.4rem, 7vw, 10rem) 12rem;
+  background: #fff;
+  color: #1f1f1f;
+}
+
+.manufacturingCycleInner {
+  width: min(100%, 130rem);
+  margin-inline: auto;
+}
+
+.manufacturingCycle h2 {
+  margin: 0 0 4rem;
+  font-size: clamp(2.8rem, 2.5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.4;
+  text-align: right;
+}
+
+.manufacturingCycleGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.6rem;
+  direction: rtl;
+}
+
+.cycleCard {
+  display: flex;
+  min-height: 21rem;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2.4rem;
+  border: 1px solid #e3e5e9;
+  border-radius: 2.2rem;
+  background: #fcfbfa;
+  text-align: right;
+}
+
+.cycleIcon {
+  display: grid;
+  width: 4rem;
+  height: 4rem;
+  place-items: center;
+  margin-bottom: 1.2rem;
+  border-radius: 1.2rem;
+  background: #e1e8f5;
+  color: #1c4499;
+}
+
+.cycleIcon svg {
+  width: 2rem;
+  height: 2rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.cycleCard h3 {
+  width: 100%;
+  margin: 0 0 1rem;
+  font-size: clamp(1.7rem, 1.3vw, 1.95rem);
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.cycleExcerpt,
+.cycleDetails p {
+  margin: 0;
+  color: #707070;
+  font-size: clamp(1.3rem, 0.95vw, 1.45rem);
+  line-height: 1.75;
+}
+
+.cycleExcerpt {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.cycleDetails {
+  color: #1c4499;
+  font-size: clamp(1.25rem, 0.95vw, 1.4rem);
+  line-height: 1.7;
+}
+
+.cycleDetails summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.cycleDetails summary::-webkit-details-marker {
+  display: none;
+}
+
+.cycleDetails summary::before {
+  content: "… ";
+}
+
+.cycleDetails[open] summary {
+  margin-top: 0.6rem;
+}
+
+.cycleDetails[open] p {
+  margin-top: 0.5rem;
+}
+
+.managementOverview {
+  padding: 8rem clamp(2.4rem, 7vw, 10rem) 10rem;
+  background: #fff;
+  color: #252525;
+}
+
+.managementOverviewInner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(3.2rem, 5vw, 7rem);
+  width: min(100%, 130rem);
+  margin-inline: auto;
+  direction: rtl;
+}
+
+.managementOverviewCopy {
+  display: grid;
+  gap: 2rem;
+  font-size: clamp(1.55rem, 1.3vw, 1.8rem);
+  line-height: 1.8;
+  text-align: right;
+}
+
+.managementOverviewCopy p {
+  margin: 0;
+}
+
+.managementOverviewCopy strong {
+  font-weight: 800;
+}
+
+.managementOverviewImage {
+  width: 100%;
+  aspect-ratio: 1.25;
+  border-radius: 2.4rem;
+  background: center / cover no-repeat url("/images/p3.jpg");
+}
+
+.managementInfo {
+  padding: 0 clamp(2.4rem, 7vw, 10rem) 10rem;
+  background: #fff;
+}
+
+.managementInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  width: min(100%, 124rem);
+  margin-inline: auto;
+  direction: rtl;
+}
+
+.managementInfoCard {
+  min-height: 25rem;
+  padding: 3rem 3.2rem;
+  border: 1px solid #f0f0f0;
+  border-right: 0.3rem solid #1c4499;
+  border-radius: 1.6rem;
+  background: #fcfbfa;
+  text-align: right;
+}
+
+.managementInfoCard h2 {
+  margin: 0 0 1.2rem;
+  font-size: clamp(1.9rem, 1.5vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.managementInfoCard p {
+  margin: 0;
+  color: #333;
+  font-size: clamp(1.45rem, 1.1vw, 1.65rem);
+  line-height: 1.8;
+}
+
+.hero p {
+  margin: 0;
+  font-size: clamp(1.6rem, 1.55vw, 2.05rem);
+  font-weight: 500;
+  line-height: 1.9;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: 3rem;
+}
+
+.actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 5.2rem;
+  padding: 0.8rem 2.4rem;
+  border: 1px solid #fff;
+  border-radius: 99rem;
+  font-size: 1.55rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.primaryAction {
+  background: #fff;
+  color: #20252b;
+}
+
+.primaryAction:hover {
+  background: #e5e9f2;
+}
+
+.secondaryAction {
+  background: transparent;
+  color: #fff;
+}
+
+.secondaryAction:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.capabilities {
+  scroll-margin-top: 12.5rem;
+  padding: 8rem clamp(2.4rem, 7vw, 10rem) 10rem;
+  background: #fff;
+  color: #1f1f1f;
+}
+
+.capabilitiesInner {
+  width: min(100%, 130rem);
+  margin-inline: auto;
+}
+
+.capabilities h2 {
+  margin: 0 0 1.8rem;
+  font-size: clamp(2.8rem, 2.4vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.capabilitiesIntro {
+  max-width: 112rem;
+  margin-inline: auto;
+  color: #686868;
+  font-size: clamp(1.45rem, 1.15vw, 1.7rem);
+  line-height: 1.8;
+  text-align: center;
+}
+
+.capabilitiesIntro p {
+  margin: 0;
+}
+
+.capabilitiesIntro p + p {
+  margin-top: 0.4rem;
+}
+
+.capabilityGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.6rem;
+  margin-top: 4rem;
+}
+
+.capabilityCard {
+  display: flex;
+  min-height: 26.4rem;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2.6rem 2.4rem 2rem;
+  border: 1px solid #e3e5e9;
+  border-radius: 2.4rem;
+  background: #fcfbfa;
+  color: inherit;
+  text-align: right;
+  text-decoration: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.capabilityCard:hover {
+  transform: translateY(-0.3rem);
+  border-color: #b9c8e8;
+  box-shadow: 0 1rem 2.4rem rgba(28, 68, 153, 0.08);
+}
+
+.capabilityCard h3 {
+  width: 100%;
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.8rem, 1.35vw, 2.1rem);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.capabilityCard p {
+  margin: 0;
+  color: #717171;
+  font-size: clamp(1.35rem, 1.05vw, 1.55rem);
+  line-height: 1.75;
+}
+
+.cardArrow {
+  align-self: flex-end;
+  margin-top: auto;
+  padding-top: 1.5rem;
+  color: #1c4499;
+  font-size: 2.1rem;
+  line-height: 1;
+}
+
+.delivery {
+  scroll-margin-top: 12.5rem;
+  padding: 7rem clamp(2.4rem, 7vw, 10rem) 10rem;
+  background: #fff;
+  color: #1f1f1f;
+}
+
+.deliveryInner {
+  width: min(100%, 130rem);
+  margin-inline: auto;
+}
+
+.delivery h2 {
+  margin: 0 0 1.4rem;
+  font-size: clamp(2.8rem, 2.5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.deliveryIntro {
+  max-width: 112rem;
+  margin: 0 auto;
+  color: #686868;
+  font-size: clamp(1.45rem, 1.15vw, 1.7rem);
+  line-height: 1.8;
+  text-align: center;
+}
+
+.deliveryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.6rem;
+  margin-top: 4rem;
+}
+
+.deliveryCard {
+  display: flex;
+  min-height: 19rem;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2rem 2.4rem 2.2rem;
+  border: 1px solid #e3e5e9;
+  border-radius: 2.4rem;
+  background: #fcfbfa;
+}
+
+.deliveryIcon {
+  display: grid;
+  width: 4.2rem;
+  height: 4.2rem;
+  place-items: center;
+  margin-bottom: 1.2rem;
+  border-radius: 1.2rem;
+  background: #e1e8f5;
+  color: #1c4499;
+}
+
+.deliveryIcon svg {
+  width: 2.2rem;
+  height: 2.2rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+.deliveryCard h3 {
+  width: 100%;
+  margin: 0 0 1rem;
+  font-size: clamp(1.8rem, 1.35vw, 2.1rem);
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.deliveryExcerpt,
+.deliveryDetails p {
+  margin: 0;
+  color: #717171;
+  font-size: clamp(1.35rem, 1.05vw, 1.55rem);
+  line-height: 1.75;
+}
+
+.deliveryDetails {
+  color: #1c4499;
+  font-size: clamp(1.3rem, 1vw, 1.5rem);
+  line-height: 1.7;
+}
+
+.deliveryDetails summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.deliveryDetails summary::-webkit-details-marker {
+  display: none;
+}
+
+.deliveryDetails summary::before {
+  content: "… ";
+}
+
+.deliveryDetails[open] summary {
+  margin-top: 0.7rem;
+}
+
+.deliveryDetails[open] p {
+  margin-top: 0.6rem;
+}
+
+.layers {
+  scroll-margin-top: 12.5rem;
+  padding: 8rem clamp(2.4rem, 7vw, 10rem) 10rem;
+  background: #fff;
+  color: #1f1f1f;
+}
+
+.layersInner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(3.2rem, 5vw, 7rem);
+  width: min(100%, 130rem);
+  margin-inline: auto;
+  direction: rtl;
+}
+
+.layersCopy h2 {
+  margin: 0 0 2rem;
+  font-size: clamp(2.8rem, 2.5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.layersCopy p {
+  margin: 0;
+  color: #424242;
+  font-size: clamp(1.55rem, 1.3vw, 1.8rem);
+  line-height: 1.9;
+}
+
+.layersImage {
+  width: 100%;
+  aspect-ratio: 1.23;
+  border-radius: 2.4rem;
+  background: center / cover no-repeat url("/images/p2.png");
+}
+
+.gettingStarted {
+  padding: 8rem clamp(2.4rem, 7vw, 10rem) 10rem;
+  background: #fff;
+  color: #1f1f1f;
+}
+
+.gettingStartedInner {
+  width: min(100%, 130rem);
+  margin-inline: auto;
+}
+
+.gettingStarted h2 {
+  margin: 0 0 3rem;
+  font-size: clamp(2.8rem, 2.5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3.4rem 2.6rem;
+  width: min(100%, 95.2rem);
+  margin-inline: auto;
+  direction: rtl;
+}
+
+.stepCard {
+  min-height: 22rem;
+  padding: 2.4rem 2.6rem;
+  border: 1px solid #e3e5e9;
+  border-radius: 2.4rem;
+  background: #fcfbfa;
+  text-align: right;
+}
+
+.stepNumber {
+  display: grid;
+  width: 4rem;
+  height: 4rem;
+  place-items: center;
+  margin-bottom: 1.4rem;
+  border-radius: 50%;
+  background: #e1e8f5;
+  color: #1c4499;
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.stepCard h3 {
+  margin: 0 0 1.2rem;
+  font-size: clamp(1.8rem, 1.35vw, 2.1rem);
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.stepCard p {
+  margin: 0;
+  color: #717171;
+  font-size: clamp(1.4rem, 1.05vw, 1.6rem);
+  line-height: 1.8;
+}
+
+.closingCta {
+  padding: 5rem clamp(2rem, 7vw, 10rem) 6rem;
+  background: #fff;
+}
+
+.closingCtaCard {
+  display: flex;
+  min-height: 31rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem clamp(2rem, 6vw, 8rem);
+  border: 1px solid #e3e5e9;
+  border-radius: 2.4rem;
+  background: #fcfbfa;
+  text-align: center;
+}
+
+.closingCta h2 {
+  margin: 0 0 1.4rem;
+  color: #1c4499;
+  font-size: clamp(2.8rem, 2.6vw, 4rem);
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.closingCta p {
+  max-width: 86rem;
+  margin: 0;
+  color: #393939;
+  font-size: clamp(1.5rem, 1.2vw, 1.75rem);
+  line-height: 1.8;
+}
+
+.closingActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.8rem;
+  margin-top: 3rem;
+}
+
+.closingActions a {
+  display: inline-flex;
+  min-width: 19.5rem;
+  min-height: 5.2rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.8rem 2rem;
+  border: 1px solid #1c4499;
+  border-radius: 99rem;
+  font-size: 1.55rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.closingPrimary {
+  background: #1c4499;
+  color: #fff;
+}
+
+.closingPrimary:hover {
+  background: #153778;
+}
+
+.closingSecondary {
+  background: transparent;
+  color: #1c4499;
+}
+
+.closingSecondary:hover {
+  background: #edf1f8;
+}
+
+@media (max-width: 640px) {
+  .sectionNav {
+    top: 5.6rem;
+  }
+
+  .sectionNavInner {
+    justify-content: flex-start;
+    min-height: 5.2rem;
+    padding-inline: 1.6rem;
+    gap: 2.4rem;
+  }
+
+  .hero {
+    min-height: 60rem;
+    padding: 5.6rem 2rem;
+    background-position: 38% center;
+    background-image:
+      linear-gradient(0deg, rgba(9, 25, 61, 0.96) 0%, rgba(9, 25, 61, 0.78) 58%, rgba(7, 22, 52, 0.25) 100%),
+      url("/images/p1.jpg");
+  }
+
+  .managementHero {
+    min-height: 60rem;
+    padding: 5.6rem 2rem;
+  }
+
+  .planningHero {
+    min-height: 60rem;
+    padding: 5.6rem 2rem;
+    background-image:
+      linear-gradient(0deg, rgba(9, 22, 50, 0.94) 0%, rgba(9, 22, 50, 0.78) 55%, rgba(9, 22, 50, 0.45) 100%),
+      url("/images/p4.png");
+    background-position: 42% center;
+  }
+
+  .analyticsHero {
+    min-height: 60rem;
+    padding: 5.6rem 2rem;
+    background-image:
+      linear-gradient(0deg, rgba(9, 22, 50, 0.94) 0%, rgba(9, 22, 50, 0.78) 55%, rgba(9, 22, 50, 0.45) 100%),
+      url("/images/p5.png");
+    background-position: 42% center;
+  }
+
+  .academyHero {
+    min-height: 60rem;
+    padding: 5.6rem 2rem;
+    background-image:
+      linear-gradient(0deg, rgba(9, 22, 50, 0.94) 0%, rgba(9, 22, 50, 0.78) 55%, rgba(9, 22, 50, 0.45) 100%),
+      url("/images/p8.png");
+    background-position: center;
+  }
+
+  .hero h1 {
+    font-size: 3.2rem;
+  }
+
+  .hero h2 {
+    font-size: 3.2rem;
+  }
+
+  .planningContent h1 {
+    font-size: 3.2rem;
+  }
+
+  .planningContent .planningLead,
+  .planningContent > p:not(.planningLead) {
+    font-size: 1.55rem;
+  }
+
+  .analyticsContent h1 {
+    font-size: 3.2rem;
+  }
+
+  .analyticsContent p {
+    font-size: 1.55rem;
+  }
+
+  .academyContent h1 {
+    font-size: 3.2rem;
+  }
+
+  .academyContent > p {
+    font-size: 1.55rem;
+  }
+
+  .academyOverview {
+    padding: 5.5rem 2rem 6rem;
+  }
+
+  .academyOverviewInner {
+    grid-template-columns: 1fr;
+    gap: 2.8rem;
+  }
+
+  .academyOverviewCopy h2 {
+    font-size: 2.6rem;
+  }
+
+  .academyOverviewCopy p {
+    font-size: 1.55rem;
+  }
+
+  .academyFactory {
+    padding: 0 2rem 7rem;
+  }
+
+  .academyFactoryInner {
+    grid-template-columns: 1fr;
+    gap: 2.8rem;
+  }
+
+  .academyFactoryCopy {
+    padding: 0;
+  }
+
+  .academyFactoryCopy h2 {
+    font-size: 2.6rem;
+  }
+
+  .academyFactoryCopy p {
+    font-size: 1.55rem;
+  }
+
+  .learningAnalytics {
+    padding: 1rem 2rem 6rem;
+  }
+
+  .learningAnalytics h2 {
+    margin-bottom: 1.4rem;
+    font-size: 2.6rem;
+  }
+
+  .learningAnalytics p {
+    font-size: 1.5rem;
+  }
+
+  .analyticsOrchestration {
+    padding: 5.5rem 2rem 7rem;
+  }
+
+  .analyticsOrchestrationInner {
+    grid-template-columns: 1fr;
+    gap: 2.8rem;
+  }
+
+  .analyticsOrchestrationCopy h2 {
+    font-size: 2.6rem;
+  }
+
+  .analyticsOrchestrationCopy p {
+    font-size: 1.55rem;
+  }
+
+  .analyticsCallout {
+    margin-top: 3rem;
+    padding: 2.4rem 2rem;
+  }
+
+  .analyticsCallout h3 {
+    font-size: 1.9rem;
+  }
+
+  .analyticsCallout p {
+    font-size: 1.5rem;
+  }
+
+  .equipmentIntegration {
+    padding: 0 2rem 7rem;
+  }
+
+  .equipmentIntegrationInner {
+    grid-template-columns: 1fr;
+    gap: 2.8rem;
+  }
+
+  .equipmentIntegrationCopy {
+    padding: 0;
+  }
+
+  .equipmentIntegrationCopy h2 {
+    font-size: 2.6rem;
+  }
+
+  .equipmentIntegrationCopy p {
+    font-size: 1.55rem;
+  }
+
+  .planningPaths {
+    padding: 5.5rem 2rem 6rem;
+  }
+
+  .planningPaths h2 {
+    margin-bottom: 2.5rem;
+    font-size: 2.4rem;
+  }
+
+  .planningPathsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .manufacturingCycle {
+    padding: 5.5rem 2rem 7rem;
+  }
+
+  .manufacturingCycle h2 {
+    margin-bottom: 2.5rem;
+    font-size: 2.6rem;
+  }
+
+  .manufacturingCycleGrid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .cycleCard {
+    min-height: 19rem;
+    padding: 2rem;
+  }
+
+  .managementOverview {
+    padding: 5.5rem 2rem 6rem;
+  }
+
+  .managementOverviewInner {
+    grid-template-columns: 1fr;
+    gap: 2.8rem;
+  }
+
+  .managementOverviewCopy {
+    gap: 1.6rem;
+    font-size: 1.55rem;
+  }
+
+  .managementInfo {
+    padding: 0 2rem 6rem;
+  }
+
+  .managementInfoGrid {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+
+  .managementInfoCard {
+    min-height: 0;
+    padding: 2.4rem 2rem;
+  }
+
+  .managementInfoCard p {
+    font-size: 1.5rem;
+  }
+
+  .hero p {
+    font-size: 1.55rem;
+  }
+
+  .actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .capabilities {
+    padding: 5.5rem 2rem 6rem;
+  }
+
+  .capabilities h2 {
+    font-size: 2.6rem;
+  }
+
+  .capabilitiesIntro {
+    font-size: 1.5rem;
+    text-align: right;
+  }
+
+  .capabilityGrid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-top: 2.8rem;
+  }
+
+  .capabilityCard {
+    min-height: 20rem;
+  }
+
+  .delivery {
+    padding: 5.5rem 2rem 6rem;
+  }
+
+  .delivery h2 {
+    font-size: 2.6rem;
+  }
+
+  .deliveryIntro {
+    font-size: 1.5rem;
+    text-align: right;
+  }
+
+  .deliveryGrid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin-top: 2.8rem;
+  }
+
+  .layers {
+    padding: 5.5rem 2rem 6rem;
+  }
+
+  .layersInner {
+    grid-template-columns: 1fr;
+    gap: 2.8rem;
+  }
+
+  .layersCopy h2 {
+    font-size: 2.6rem;
+  }
+
+  .layersCopy p {
+    font-size: 1.55rem;
+  }
+
+  .gettingStarted {
+    padding: 5.5rem 2rem 6rem;
+  }
+
+  .gettingStarted h2 {
+    margin-bottom: 2.5rem;
+    font-size: 2.6rem;
+  }
+
+  .stepsGrid {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+
+  .stepCard {
+    min-height: 19rem;
+    padding: 2rem;
+  }
+
+  .closingCta {
+    padding: 2rem 2rem 4rem;
+  }
+
+  .closingCtaCard {
+    min-height: 0;
+    padding: 4rem 2rem;
+  }
+
+  .closingCta h2 {
+    font-size: 2.6rem;
+  }
+
+  .closingCta p {
+    font-size: 1.5rem;
+  }
+
+  .closingActions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .closingActions a {
+    width: 100%;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .hero {
+    min-height: 64rem;
+    padding: 8rem 4rem 7.2rem;
+  }
+
+  .managementHero {
+    min-height: 64rem;
+    padding: 8rem 4rem 7.2rem;
+  }
+
+  .planningHero {
+    min-height: 64rem;
+    padding: 8rem 4rem 7.2rem;
+    background-image:
+      linear-gradient(90deg, rgba(25, 56, 138, 0.28) 0%, rgba(28, 68, 153, 0.17) 28%, rgba(21, 50, 113, 0.73) 68%, rgba(9, 22, 50, 0.9) 100%),
+      url("/images/p4.png");
+  }
+
+  .analyticsHero {
+    min-height: 64rem;
+    padding: 8rem 4rem 7.2rem;
+    background-image:
+      linear-gradient(90deg, rgba(25, 56, 138, 0.28) 0%, rgba(28, 68, 153, 0.17) 28%, rgba(21, 50, 113, 0.73) 68%, rgba(9, 22, 50, 0.9) 100%),
+      url("/images/p5.png");
+  }
+
+  .academyHero {
+    min-height: 64rem;
+    padding: 8rem 4rem 7.2rem;
+    background-image:
+      linear-gradient(90deg, rgba(25, 56, 138, 0.24) 0%, rgba(28, 68, 153, 0.19) 32%, rgba(21, 50, 113, 0.76) 68%, rgba(9, 22, 50, 0.92) 100%),
+      url("/images/p8.png");
+  }
+
+  .capabilityGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .deliveryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .deliveryCard:last-child {
+    grid-column: 1 / -1;
+    width: calc(50% - 0.8rem);
+    justify-self: center;
+  }
+
+  .manufacturingCycleGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .equipmentIntegrationInner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2.4rem;
+  }
+
+  .equipmentIntegrationCopy {
+    padding-right: 0;
+  }
+
+  .academyFactoryInner {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2.4rem;
+  }
+
+  .academyFactoryCopy {
+    padding-right: 0;
+  }
+}
