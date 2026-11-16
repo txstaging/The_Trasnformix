@@ -4,7 +4,6 @@ import {
   AI_SUITE_WEBSITE,
   EXTRA_SERVICES,
   getServiceWebsite,
-  MANUFACTURING_WEBSITE,
   PRODUCT_WEBSITES,
 } from "./serviceNavigation";
 import { TRUST_HREF, TRUST_LABEL, TRUST_NAV, trustHref } from "./trustNav";
@@ -139,7 +138,7 @@ const SECTORS: NavBlock = {
   title: { label: "القطاعات", href: "/sectors" },
   links: [
     { label: "التعاونيات والجمعيات", href: "/sectors#cooperatives" },
-    site("الصناعة والتصنيع", MANUFACTURING_WEBSITE),
+    { label: "الصناعة والتصنيع", href: "/manufacturing" },
     { label: "التعليم والتدريب", href: "/sectors#education" },
     { label: "التجارة الإلكترونية والتجزئة", href: "/sectors" },
     { label: "السياحة والخدمات والحجوزات", href: "/sectors" },
@@ -234,7 +233,7 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "الموارد",
-    routes: ["/sectors", "/academy", TRUST_HREF, "/works", "/community", "/about", INSIGHTS_HREF],
+    routes: ["/sectors", "/manufacturing", "/academy", TRUST_HREF, "/works", "/community", "/about", INSIGHTS_HREF],
     menu: {
       id: "resources",
       overview: [[SECTORS], [ACADEMIES, TRUST], [COMMUNITY], [COMPANY, KNOWLEDGE]],
