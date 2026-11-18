@@ -6,7 +6,7 @@ import type { Field, FormSpec, Option, Values } from "@/components/careers/forms
    two forms. /api/partnerships validates against the same specs and emails
    the request. */
 
-export type PartnershipFormId = "inquiry" | "proposal" | "contact" | "tourism";
+export type PartnershipFormId = "inquiry" | "proposal" | "contact" | "tourism" | "creative" | "mediaBuying";
 
 export type PartnershipPathId =
   | "business"
@@ -336,10 +336,129 @@ const tourism: PartnershipForm = {
   submit: "أرسل طلب المناقشة",
 };
 
-export const PARTNERSHIP_FORMS: Record<PartnershipFormId, PartnershipForm> = { inquiry, proposal, contact, tourism };
+/* The creative and digital-marketing hub's request (Figma 4854:7820, the
+   closing form): who is asking, the service they want and a note on the
+   project. Each service page's calls drop to it with the service chosen.
+   It reaches the team on the business path and asks no consent, as the
+   artboard draws none. */
+const creative: PartnershipForm = {
+  id: "creative",
+  eyebrow: "Creative & Digital Marketing · Project Request",
+  title: "طلب مناقشة من صفحة الإبداع والتسويق الرقمي",
+  sections: [
+    {
+      fields: [
+        { name: "fullName", label: "الاسم الكامل", kind: "text", required: true, autoComplete: "name", placeholder: "اكتب اسمك" },
+        { name: "company", label: "الشركة أو النشاط", kind: "text", autoComplete: "organization", placeholder: "اسم الشركة" },
+        { name: "email", label: "البريد الإلكتروني", kind: "email", required: true, autoComplete: "email", placeholder: "بريدك الإلكتروني" },
+        { name: "phone", label: "رقم الجوال", kind: "tel", autoComplete: "tel", placeholder: "+966" },
+        {
+          name: "service",
+          label: "الخدمة المطلوبة",
+          kind: "select",
+          wide: true,
+          placeholder: "اختر الخدمة",
+          options: [
+            { value: "brand", label: "استراتيجية العلامة التجارية والهوية" },
+            { value: "media-buying", label: "الحملات الإعلانية والتسويق بالأداء" },
+            { value: "social", label: "إدارة منصات التواصل الاجتماعي" },
+            { value: "seo", label: "تحسين الظهور والبحث الرقمي" },
+            { value: "content", label: "التسويق بالمحتوى والعلاقات العامة الرقمية" },
+            { value: "production", label: "التصميم الإبداعي والإنتاج الإعلامي" },
+            { value: "uiux", label: "تصميم تجربة المستخدم والواجهات" },
+            { value: "automation", label: "أتمتة التسويق وتحليل الأداء" },
+            { value: "undecided", label: "لم أحدد بعد" },
+          ],
+        },
+        {
+          name: "details",
+          label: "نبذة عن المشروع",
+          kind: "textarea",
+          required: true,
+          wide: true,
+          placeholder: "أخبرنا بطبيعة نشاطك والجمهور الذي تستهدفه",
+        },
+      ],
+    },
+  ],
+  ...COMMON,
+  consent: "",
+  submit: "ناقش مشروعك",
+};
+
+/* The media-buying page's request (Figma 4973:8825, the closing form): who is
+   asking, where and on which platforms, the goal, the budget and the start.
+   The artboard draws the fields only; the choices behind its selects are the
+   page's own (the platforms and goals it lists). Reads in the same business
+   path as the creative hub's and asks no consent. */
+const mediaBuying: PartnershipForm = {
+  id: "mediaBuying",
+  eyebrow: "Creative & Digital Marketing · Campaign Request",
+  title: "طلب مناقشة حملة إعلانية",
+  sections: [
+    {
+      fields: [
+        { name: "company", label: "اسم النشاط", kind: "text", required: true, autoComplete: "organization", placeholder: "اسم النشاط" },
+        { name: "fullName", label: "اسم جهة التواصل", kind: "text", required: true, autoComplete: "name", placeholder: "الاسم" },
+        { name: "contact", label: "البريد أو الهاتف", kind: "text", required: true, autoComplete: "email", placeholder: "بريدك الإلكتروني أو رقم الجوال" },
+        { name: "market", label: "الدولة أو السوق المستهدف", kind: "text", placeholder: "الدولة أو السوق" },
+        {
+          name: "goal",
+          label: "هدف الحملة",
+          kind: "select",
+          placeholder: "اختر الهدف",
+          options: [
+            { value: "sales", label: "زيادة المبيعات والطلبات" },
+            { value: "leads", label: "استقطاب عملاء للشركات" },
+            { value: "launch", label: "إطلاق علامة أو منتج" },
+            { value: "expansion", label: "التوسع في سوق جديد" },
+            { value: "events", label: "الترويج للفعاليات والبرامج" },
+            { value: "undecided", label: "لم أحدد بعد" },
+          ],
+        },
+        {
+          name: "platforms",
+          label: "المنصات المطلوبة",
+          kind: "select",
+          placeholder: "اختر المنصات",
+          options: [
+            { value: "google", label: "إعلانات جوجل" },
+            { value: "instagram", label: "إعلانات إنستجرام" },
+            { value: "facebook", label: "إعلانات فيسبوك" },
+            { value: "tiktok", label: "إعلانات تيك توك" },
+            { value: "snapchat", label: "إعلانات سناب شات" },
+            { value: "linkedin", label: "إعلانات لينكدإن" },
+            { value: "youtube", label: "إعلانات يوتيوب" },
+            { value: "multi", label: "أكثر من منصة" },
+            { value: "undecided", label: "أحتاج إلى توصية" },
+          ],
+        },
+        { name: "budget", label: "الميزانية الإعلانية الشهرية التقريبية", kind: "text", placeholder: "المبلغ والعملة" },
+        {
+          name: "accounts",
+          label: "وجود حسابات إعلانية حالية",
+          kind: "select",
+          placeholder: "اختر",
+          options: [
+            { value: "yes", label: "نعم، لدينا حسابات إعلانية" },
+            { value: "no", label: "لا، نحتاج إلى إعدادها" },
+            { value: "unsure", label: "لست متأكدًا" },
+          ],
+        },
+        { name: "start", label: "موعد بدء الحملة", kind: "text", wide: true, placeholder: "التاريخ المتوقع" },
+        { name: "details", label: "تفاصيل إضافية", kind: "textarea", wide: true, placeholder: "أخبرنا بما تريد تحقيقه" },
+      ],
+    },
+  ],
+  ...COMMON,
+  consent: "",
+  submit: "ناقش حملتك الإعلانية",
+};
+
+export const PARTNERSHIP_FORMS: Record<PartnershipFormId, PartnershipForm> = { inquiry, proposal, contact, tourism, creative, mediaBuying };
 
 /** The forms a page shows on its own rather than one a path leads to. */
-const PAGE_FORM_IDS: readonly PartnershipFormId[] = ["contact", "tourism"];
+const PAGE_FORM_IDS: readonly PartnershipFormId[] = ["contact", "tourism", "creative", "mediaBuying"];
 
 export const isPageFormId = (value: unknown): value is PartnershipFormId =>
   PAGE_FORM_IDS.includes(value as PartnershipFormId);

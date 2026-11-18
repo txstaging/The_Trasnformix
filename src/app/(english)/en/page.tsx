@@ -35,14 +35,16 @@ export default function Home() {
           <Products />
         </HomeSection>
         <HomeSection>
-          <Process />
+          <Partners />
         </HomeSection>
         <HomeSection tone="ice">
           <Academies />
         </HomeSection>
         <HomeSection>
+          <Process />
+        </HomeSection>
+        <HomeSection>
           <Works />
-          <Partners />
         </HomeSection>
         <HomeSection>
           <CtaChallenge />

@@ -1,0 +1,301 @@
+/* تصميم تجربة المستخدم والواجهات الرقمية (Figma 4843:6923). Tablet and phone
+   follow the V2 family: 1024 and 640. */
+
+/* ---- Banner (V2/Page Banner 4985:9705): a wider copy column than the sectors' - */
+.banner {
+  --banner-copy-w: 82rem;
+  --banner-title-size: 3.6rem;
+  --banner-title-tracking: -0.03rem;
+  --banner-text-size: 1.8rem;
+  --banner-text-leading: 3.4rem;
+}
+
+/* ---- Overview: the subtitle over the two paragraphs (4945:40247) ----------- */
+.subtitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 4rem;
+  color: var(--primary);
+}
+
+.valueLabel {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ---- Framework: smaller heading and lead over three cards (4845:7043) ------- */
+.frameworkHead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  text-align: center;
+}
+
+.frameworkTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 4.2rem;
+  color: var(--text-primary);
+}
+
+.frameworkLead {
+  font-size: 1.8rem;
+  line-height: 3rem;
+  color: var(--text-secondary);
+}
+
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 114.4rem;
+  margin-inline: auto;
+}
+
+.pillar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding: 3.2rem 2.4rem 2.4rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2rem;
+  background: var(--bg-card);
+}
+
+.pillarHead,
+.engagementHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5.2rem;
+  height: 5.2rem;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+.numeral {
+  font-size: 4.8rem;
+  font-weight: 700;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 0.15rem var(--blue-light-active);
+}
+
+.pillarTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.chip {
+  padding: 0.9rem 1.3rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 99.9rem;
+  background: var(--bg-main);
+  font-size: 1.4rem;
+  line-height: 2.2rem;
+  color: var(--text-secondary);
+}
+
+/* ---- Experiences: 3 x 2 (4846:7040) ---------------------------------------- */
+.experiences {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.experience {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+  min-height: 27.4rem;
+  padding: 3.2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+.experienceTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.experienceText {
+  font-size: 1.6rem;
+  line-height: 3rem;
+  color: var(--text-secondary);
+}
+
+/* ---- Callout (V2/Callout 4845:7030): tint, with a 4px blue rule at the start - */
+.callout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 2.8rem 3.2rem;
+  padding-inline-start: 5.2rem;
+  border-radius: 1.6rem;
+  background: var(--blue-light);
+}
+
+.callout::before {
+  content: "";
+  position: absolute;
+  inset-block: 2.8rem;
+  inset-inline-start: 2.4rem;
+  width: 0.4rem;
+  border-radius: 0.2rem;
+  background: var(--primary);
+}
+
+.calloutLabel {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--primary);
+}
+
+.calloutText {
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+  color: var(--text-primary);
+}
+
+/* ---- Engagement: the cream band and its 2 x 2 cards (4846:7237) ------------- */
+.band {
+  background: var(--bg-card);
+}
+
+.engagements {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.engagement {
+  display: flex;
+  gap: 2rem;
+  padding: 1.2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-main);
+}
+
+.engagementText {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 1.2rem;
+  min-width: 0;
+  padding: 1.2rem 0 1.2rem 0;
+  padding-inline-start: 1.2rem;
+}
+
+.engagementIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 50%;
+  background: var(--tile);
+}
+
+.engagementTitle {
+  margin-top: auto;
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.engagementCopy {
+  font-size: 1.6rem;
+  line-height: 3rem;
+  color: var(--text-secondary);
+}
+
+.engagementMedia {
+  position: relative;
+  flex: 0 0 22rem;
+  min-height: 22.4rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+}
+
+.engagementImage {
+  object-fit: cover;
+}
+
+/* ---- Tablet ---------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .pillars,
+  .experiences {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .engagements {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .subtitle {
+    font-size: 2.4rem;
+    line-height: 3.6rem;
+  }
+}
+
+/* ---- Phone ----------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .pillars,
+  .experiences {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .frameworkTitle {
+    font-size: 2.6rem;
+    line-height: 3.6rem;
+  }
+
+  .experience {
+    min-height: 0;
+    padding: 2.4rem;
+  }
+
+  .engagement {
+    flex-direction: column-reverse;
+  }
+
+  .engagementMedia {
+    flex-basis: auto;
+    min-height: 18rem;
+  }
+
+  .engagementText {
+    padding: 0.8rem;
+  }
+}

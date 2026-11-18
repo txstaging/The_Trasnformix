@@ -1,0 +1,796 @@
+/* إدارة منصات التواصل الاجتماعي (Figma 4977:8988, desktop 1440). The page sits
+   on the V2 academies and sector parts and the creative kit; this file holds
+   what only it draws. Tokens come from the page's main element (--column,
+   --line, --tajawal, --heading-font). Breakpoints match the academies: 1024
+   and 640. */
+
+/* ---- The banner: the copy runs 817px wide on the artboard. ------------------- */
+.banner {
+  --banner-title-tracking: -0.03rem;
+  --banner-title-leading: 5.6rem;
+  --banner-text-size: 1.8rem;
+  --banner-text-leading: 3.4rem;
+}
+
+.banner > div:last-child {
+  width: 71.1rem;
+}
+
+/* The artboard's banner is 600px tall (the shared one is 520), and its lead
+   line is bold. */
+@media (min-width: 1025px) {
+  section.banner {
+    min-height: 60rem;
+    padding-block: 6rem;
+  }
+}
+
+.banner strong {
+  font-weight: 700;
+}
+
+/* ---- Sections -------------------------------------------------------------- */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 5.6rem;
+  padding: 12rem var(--column);
+  scroll-margin-top: 8rem;
+}
+
+.compact {
+  gap: 4.8rem;
+  padding-block: 10rem;
+}
+
+/* The artboard's grey (#f5f5f5) and cream (--bg-card) bands. */
+.subtle {
+  background: #f5f5f5;
+}
+
+.cream {
+  background: var(--bg-card);
+}
+
+.coverImage {
+  object-fit: cover;
+}
+
+/* ---- Overview (Figma 4977:8990) -------------------------------------------- */
+.overview {
+  display: flex;
+  align-items: center;
+  gap: 6.4rem;
+}
+
+.overviewCopy {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 3.2rem;
+  min-width: 0;
+}
+
+.overviewTitle {
+  max-width: 51.4rem;
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 4rem;
+  color: var(--primary);
+}
+
+.overviewText {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  color: var(--text-primary);
+}
+
+.overviewLead {
+  font-size: 2rem;
+  line-height: 3.8rem;
+}
+
+.overviewBody {
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+}
+
+.overviewMedia {
+  position: relative;
+  flex: 0 0 58rem;
+  height: 29.4rem;
+  overflow: hidden;
+  border-radius: 2.4rem;
+}
+
+/* A veil that clears over the top third and settles on brand blue at the foot. */
+.overviewTint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(11, 19, 36, 0) 30%, rgba(21, 55, 127, 0.75));
+}
+
+/* ---- Sticky scroll reveal (Figma 4984:9685): a 1240 × 480 box whose text
+   column scrolls inside it, 72px in from each side; the card is 440 × 330 on
+   the far side, 56px down, with its title over the photo. ------------------- */
+.sticky {
+  position: relative;
+  height: 48rem;
+  overflow: hidden;
+  border-radius: 2.4rem;
+  background: var(--blue-light);
+}
+
+.stickyScroller {
+  position: absolute;
+  inset: 0;
+  padding-inline: 7.2rem;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.stickyScroller::-webkit-scrollbar {
+  display: none;
+}
+
+.stickyScroller:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: -0.4rem;
+  border-radius: 2.4rem;
+}
+
+/* The column is what is left beside the 440px card and its 56px gap. */
+.stickyList {
+  display: flex;
+  flex-direction: column;
+  gap: 7.2rem;
+  width: calc(100% - 49.6rem);
+  padding-block: 8rem 16rem;
+}
+
+.stickyItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.4rem;
+  opacity: 0.3;
+  transition: opacity 400ms var(--ease-out);
+}
+
+.stickyItemActive,
+.stickyItem:focus-within {
+  opacity: 1;
+}
+
+.stickyTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 4rem;
+  color: var(--text-primary);
+}
+
+.stickyLead,
+.stickyText {
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+}
+
+.stickyLead {
+  color: var(--text-primary);
+}
+
+.stickyText {
+  color: var(--text-secondary);
+}
+
+/* Over the scroller, and out of the way of its wheel. */
+.stickyCard {
+  position: absolute;
+  top: 5.6rem;
+  inset-inline-end: 7.2rem;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44rem;
+  height: 33rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+  background: var(--blue-dark);
+  pointer-events: none;
+}
+
+.stickyCardImage {
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 400ms var(--ease-out);
+}
+
+.stickyCardImageActive {
+  opacity: 1;
+}
+
+/* Brand gradient over the photo. */
+.stickyCardShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(143.13deg, rgba(28, 68, 153, 0.15) 14.286%, rgba(21, 55, 127, 0.7) 85.714%);
+}
+
+.stickyCardLabel {
+  position: relative;
+  width: 37.6rem;
+  max-width: 100%;
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 4rem;
+  text-align: center;
+  color: var(--text-inverse);
+}
+
+/* Each item's own photo stands in for the card where the box stacks. */
+.stickyPhoto {
+  display: none;
+}
+
+.stickyPhotoImage {
+  object-fit: cover;
+}
+
+@media (max-width: 1200px) {
+  .stickyScroller {
+    padding-inline: 4.8rem;
+  }
+
+  .stickyCard {
+    inset-inline-end: 4.8rem;
+    width: 34rem;
+    height: 25.5rem;
+  }
+
+  .stickyCardLabel {
+    font-size: 2.4rem;
+    line-height: 3.4rem;
+  }
+
+  .stickyList {
+    width: calc(100% - 39.6rem);
+  }
+}
+
+@media (max-width: 1024px) {
+  .sticky {
+    height: auto;
+  }
+
+  .stickyScroller {
+    position: static;
+    padding-inline: 2.4rem;
+    overflow: visible;
+  }
+
+  .stickyScroller:focus-visible {
+    outline: none;
+  }
+
+  .stickyCard {
+    display: none;
+  }
+
+  .stickyList {
+    width: 100%;
+    gap: 5.6rem;
+    padding-block: 3.2rem;
+  }
+
+  .stickyItem {
+    opacity: 1;
+  }
+
+  .stickyPhoto {
+    position: relative;
+    display: block;
+    align-self: stretch;
+    aspect-ratio: 4 / 3;
+    max-height: 33rem;
+    overflow: hidden;
+    border-radius: 1.6rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .stickyTitle {
+    font-size: 2.4rem;
+    line-height: 3.4rem;
+  }
+
+  .stickyLead,
+  .stickyText {
+    font-size: 1.6rem;
+    line-height: 3rem;
+  }
+}
+
+/* ---- Cards (Figma 4977:9002 platforms, 4977:9020 sectors): 32px inside, a
+   52px tile, 22px name, 16px note; rows stay centred. ------------------------- */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+  padding: 3.2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+.cardsFour .card {
+  flex: 0 0 calc((100% - 6rem) / 4);
+}
+
+.cardsThree .card {
+  flex: 0 0 calc((100% - 4rem) / 3);
+}
+
+.tile {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 5.2rem;
+  height: 5.2rem;
+  border-radius: 1.6rem;
+  background: var(--blue-light);
+}
+
+.cardTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.cardText {
+  font-size: 1.6rem;
+  line-height: 3rem;
+  color: var(--text-secondary);
+}
+
+.sectionAction {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.2rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.4rem;
+}
+
+/* ---- Connected services (Figma 4977:9089): a 540 × 560 photo, 64px from the
+   copy; the list rules are the brand tint. ----------------------------------- */
+.connected {
+  display: flex;
+  align-items: center;
+  gap: 6.4rem;
+}
+
+.connectedCopy {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.4rem;
+  min-width: 0;
+}
+
+.connectedTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 3.4rem;
+  font-weight: 700;
+  line-height: 4.8rem;
+  letter-spacing: -0.02rem;
+  color: var(--text-primary);
+}
+
+.connectedLead {
+  font-size: 2rem;
+  line-height: 3.8rem;
+  color: var(--text-primary);
+}
+
+.linked {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.linkedItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.4rem;
+  padding-block: 1.4rem;
+  border-bottom: 0.1rem solid var(--blue-light);
+}
+
+.linkedIcon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 2rem;
+  background: var(--blue-light);
+}
+
+.linkedText {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.linkedTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.linkedNote {
+  font-size: 1.6rem;
+  line-height: 3rem;
+  color: var(--text-secondary);
+}
+
+.connectedAction {
+  display: flex;
+  padding-top: 1.2rem;
+}
+
+.connectedMedia {
+  position: relative;
+  flex: 0 0 54rem;
+  height: 56rem;
+  overflow: hidden;
+  border-radius: 2.4rem;
+}
+
+/* ---- Engagement models (Figma 4977:9099): 2 × 2 white cards, 12px around the
+   photo, 28px on the text's side. ------------------------------------------- */
+.models {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.model {
+  display: flex;
+  gap: 2.4rem;
+  min-height: 25rem;
+  padding: 1.2rem;
+  padding-inline-start: 2.8rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-main);
+}
+
+.modelText {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+  padding-block: 1.6rem;
+}
+
+.modelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modelIcon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 50%;
+  background: var(--blue-light);
+}
+
+/* Only its outline is drawn, at 40%. */
+.modelNumber {
+  font-size: 5.6rem;
+  font-weight: 800;
+  line-height: 6.6rem;
+  letter-spacing: -0.05rem;
+  color: transparent;
+  -webkit-text-stroke: 0.15rem var(--primary);
+  opacity: 0.4;
+}
+
+.modelTitle {
+  margin-top: auto;
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.modelNote {
+  font-size: 1.6rem;
+  line-height: 3rem;
+  color: var(--text-secondary);
+}
+
+.modelMedia {
+  position: relative;
+  flex: 0 0 22rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+}
+
+.footnote {
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+/* ---- Closing request (Figma 4984:9792): a cream card, the form 620px wide
+   beside 469px of copy. ------------------------------------------------------ */
+.closingSection {
+  padding: 12rem var(--column) 12.8rem;
+}
+
+.closing {
+  display: flex;
+  align-items: center;
+  gap: 6.4rem;
+  padding: 6.4rem 3.2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+.closingCopy {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  min-width: 0;
+  padding-inline: 3.2rem 0;
+}
+
+.closingTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 5.6rem;
+  letter-spacing: -0.03rem;
+  color: var(--primary);
+}
+
+.closingText {
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+  line-height: 3.8rem;
+  color: var(--text-primary);
+}
+
+.closingActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  padding-top: 0.8rem;
+}
+
+.closingForm {
+  flex: 0 0 62rem;
+  min-width: 0;
+}
+
+/* The artboard's form card is white and carries no title of its own; the
+   heading stays for assistive technology. */
+.closingForm > form {
+  background: var(--bg-main);
+}
+
+.closingForm > form > h3 {
+  position: absolute;
+  width: 0.1rem;
+  height: 0.1rem;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stickyItem,
+  .stickyCardImage {
+    transition: none;
+  }
+}
+
+/* ---- Tablet ------------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  .banner > div:last-child {
+    width: 100%;
+  }
+
+  .section {
+    gap: 4.8rem;
+    padding-block: 9.6rem;
+  }
+
+  .compact {
+    padding-block: 7.2rem;
+  }
+
+  .overview,
+  .connected,
+  .closing {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4rem;
+  }
+
+  .overviewMedia {
+    flex: none;
+    width: 100%;
+    height: 32rem;
+    order: -1;
+  }
+
+  .connectedMedia {
+    flex: none;
+    width: 100%;
+    height: 40rem;
+    order: -1;
+  }
+
+  .cardsFour .card,
+  .cardsThree .card {
+    flex-basis: calc((100% - 2rem) / 2);
+  }
+
+  .models {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .closingSection {
+    padding-block: 9.6rem;
+  }
+
+  .closing {
+    padding: 4rem;
+  }
+
+  .closingCopy {
+    padding-inline: 0;
+  }
+
+  .closingForm {
+    flex: none;
+  }
+
+  .overviewTitle,
+  .connectedTitle,
+  .closingTitle {
+    max-width: none;
+  }
+}
+
+/* ---- Mobile ------------------------------------------------------------------ */
+@media (max-width: 640px) {
+  .section {
+    gap: 3.2rem;
+    padding-block: 7.2rem;
+  }
+
+  .compact {
+    padding-block: 5.6rem;
+  }
+
+  .cardsFour .card,
+  .cardsThree .card {
+    flex-basis: 100%;
+  }
+
+  .card {
+    padding: 2.4rem;
+  }
+
+  .overviewTitle {
+    font-size: 2.4rem;
+    line-height: 3.6rem;
+  }
+
+  .overviewLead,
+  .connectedLead,
+  .closingText {
+    font-size: 1.8rem;
+    line-height: 3.4rem;
+  }
+
+  .overviewMedia {
+    height: 24rem;
+  }
+
+  .connectedMedia {
+    height: 30rem;
+  }
+
+  .connectedTitle {
+    font-size: 2.8rem;
+    line-height: 4rem;
+  }
+
+  .linkedTitle,
+  .modelTitle {
+    font-size: 2rem;
+    line-height: 3rem;
+  }
+
+  .model {
+    flex-direction: column-reverse;
+    min-height: 0;
+    padding: 1.2rem;
+    padding-inline-start: 1.2rem;
+  }
+
+  .modelText {
+    padding: 1.2rem 1.6rem 1.6rem;
+  }
+
+  .modelMedia {
+    flex: none;
+    height: 20rem;
+  }
+
+  .modelNumber {
+    font-size: 4.8rem;
+    line-height: 5.6rem;
+  }
+
+  .closingSection {
+    padding-block: 7.2rem;
+  }
+
+  .closing {
+    padding: 2rem;
+  }
+
+  .closingTitle {
+    font-size: 3rem;
+    line-height: 4.2rem;
+  }
+
+  .closingActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

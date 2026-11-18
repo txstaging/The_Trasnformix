@@ -1,0 +1,508 @@
+/* الإبداع والتسويق الرقمي — the hub and its service pages (Figma "Website
+   Redesign V2": hub 4854:7820, تحسين الظهور 4852:7590, تصميم التجربة
+   4843:6923, الحملات الإعلانية 4973:8579, إدارة المنصات 4977:8988). They sit
+   on the academies and sector parts (see components/sectors); this file holds
+   only what those do not: the local nav, the sticky scroll reveal, the step
+   cards and the work grid. Breakpoints match the academies: 1024 and 640. */
+.titleBlue {
+  color: var(--primary);
+}
+
+.titleDark {
+  color: #11295c;
+}
+
+/* ---- Local nav (Figma V2/Local Nav 4923:9136): 64px, 14px Noto Kufi Medium,
+   the current tab bold in brand blue over a 2px line. ------------------------ */
+.localNav {
+  background: var(--bg-main);
+  border-bottom: 0.1rem solid var(--line);
+}
+
+.localNavList {
+  display: flex;
+  align-items: stretch;
+  gap: 1.2rem;
+  height: 6.4rem;
+  padding-inline: 4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.localNavList::-webkit-scrollbar {
+  display: none;
+}
+
+.localNavItem {
+  display: flex;
+  flex-shrink: 0;
+}
+
+/* Centres the row while it fits and lets it scroll from its start when not. */
+.localNavItem:first-child {
+  margin-inline-start: auto;
+}
+
+.localNavItem:last-child {
+  margin-inline-end: auto;
+}
+
+.localNavLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 2.6rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.localNavLink:hover {
+  color: var(--primary);
+}
+
+.localNavLink:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: -0.2rem;
+  border-radius: 0.4rem;
+}
+
+.localNavCurrent {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.localNavCurrent::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -0.1rem;
+  height: 0.2rem;
+  background: var(--primary);
+}
+
+/* ---- Sticky scroll reveal (Figma 4901:9129): a 1240 × 480 card whose text
+   column scrolls inside it, 72px in from each side; the photo card is 440 × 330
+   on the far side, 56px down. -------------------------------------------------- */
+.sticky {
+  position: relative;
+  height: 48rem;
+  overflow: hidden;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+/* A box the artboard draws with neither a rule nor a fill. */
+.stickyBare {
+  border-color: transparent;
+  background: transparent;
+}
+
+.stickyScroller {
+  position: absolute;
+  inset: 0;
+  padding-inline: 7.2rem;
+  overflow-y: auto;
+  overscroll-behavior: auto;
+  scrollbar-width: none;
+}
+
+.stickyScroller::-webkit-scrollbar {
+  display: none;
+}
+
+.stickyScroller:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: -0.4rem;
+  border-radius: 2.4rem;
+}
+
+/* The column is what is left beside the 440px card and its 56px gap. */
+.stickyList {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 7.2rem;
+  width: calc(100% - 49.6rem);
+  padding-block: 8rem 16rem;
+}
+
+.stickyItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.4rem;
+  opacity: 0.3;
+  transition: opacity 400ms var(--ease-out);
+}
+
+.stickyItemActive,
+.stickyItem:focus-within {
+  opacity: 1;
+}
+
+.stickyTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 4rem;
+  color: var(--text-primary);
+}
+
+.stickyText {
+  max-width: 48rem;
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+  color: var(--text-secondary);
+}
+
+.stickyTextLead {
+  color: var(--text-primary);
+}
+
+/* Over the scroller, and out of the way of its wheel. */
+.stickyCard {
+  position: absolute;
+  top: 5.6rem;
+  inset-inline-end: 7.2rem;
+  z-index: 1;
+  width: 44rem;
+  height: 33rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+  background: var(--blue-dark);
+  pointer-events: none;
+}
+
+.stickyCardImage {
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 400ms var(--ease-out);
+}
+
+.stickyCardImageActive {
+  opacity: 1;
+}
+
+/* Brand gradient over the photo. */
+.stickyCardShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(143.13deg, rgba(28, 68, 153, 0.15) 14.286%, rgba(21, 55, 127, 0.7) 85.714%);
+}
+
+/* Each item's own photo stands in for the card where the box stacks. */
+.stickyPhoto {
+  display: none;
+}
+
+.stickyPhotoImage {
+  object-fit: cover;
+}
+
+@media (max-width: 1200px) {
+  .stickyScroller {
+    padding-inline: 4.8rem;
+  }
+
+  .stickyCard {
+    inset-inline-end: 4.8rem;
+    width: 34rem;
+    height: 25.5rem;
+  }
+
+  .stickyList {
+    width: calc(100% - 39.6rem);
+  }
+}
+
+@media (max-width: 1024px) {
+  .sticky {
+    height: auto;
+  }
+
+  .stickyScroller {
+    position: static;
+    padding-inline: 2.4rem;
+    overflow: visible;
+  }
+
+  .stickyScroller:focus-visible {
+    outline: none;
+  }
+
+  .stickyCard {
+    display: none;
+  }
+
+  .stickyList {
+    width: 100%;
+    gap: 5.6rem;
+    padding-block: 3.2rem;
+  }
+
+  .stickyItem {
+    opacity: 1;
+  }
+
+  .stickyPhoto {
+    position: relative;
+    display: block;
+    align-self: stretch;
+    aspect-ratio: 4 / 3;
+    max-height: 33rem;
+    overflow: hidden;
+    border-radius: 1.6rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .stickyTitle {
+    font-size: 2.4rem;
+    line-height: 3.4rem;
+  }
+
+  .stickyText {
+    font-size: 1.6rem;
+    line-height: 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stickyItem,
+  .stickyCardImage {
+    transition: none;
+  }
+}
+
+/* ---- Step cards (Figma "Process cards" 4891:8124): 28px inside, 24px
+   corners, 20px apart; the bar fills one part further on each. ---------------- */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.stepsThree {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* Five steps (Figma "Process cards" 5036:9597): the row is 491px tall. */
+.stepsFive {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.stepsFive .step {
+  min-height: 49.1rem;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  min-height: 35.1rem;
+  padding: 2.8rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-main);
+}
+
+.stepTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* The artboard's tile is 12px-cornered on the lighter brand tint. */
+.stepTop > span:last-child {
+  border-radius: 1.2rem;
+  background: var(--blue-light);
+}
+
+.stepNumber {
+  font-size: 4.8rem;
+  font-weight: 800;
+  line-height: 6.6rem;
+  letter-spacing: -0.05rem;
+  color: var(--primary);
+  opacity: 0.22;
+}
+
+.stepTitle {
+  padding-top: 0.8rem;
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.stepText {
+  font-size: 1.6rem;
+  line-height: 3rem;
+  color: var(--text-secondary);
+}
+
+.stepBar {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: auto;
+  padding-top: 1.6rem;
+}
+
+.stepPart {
+  flex: 1 1 0;
+  height: 0.4rem;
+  border-radius: 0.2rem;
+  background: var(--line);
+}
+
+.stepPartOn {
+  background: var(--primary);
+}
+
+@media (max-width: 1024px) {
+  .steps,
+  .stepsThree,
+  .stepsFive {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .step,
+  .stepsFive .step {
+    min-height: 0;
+  }
+
+  .stepsFive .step:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .steps,
+  .stepsThree,
+  .stepsFive {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .step {
+    padding: 2.4rem;
+  }
+}
+
+/* ---- Work grid (Figma "Portfolio" 4854:7966): 585 and 557px columns with a
+   98px gap, covers 415 or 394px tall, the title 22px over a 46px arrow. ------- */
+.works {
+  display: grid;
+  grid-template-columns: minmax(0, 585fr) minmax(0, 557fr);
+  column-gap: 9.8rem;
+  row-gap: 10rem;
+}
+
+.workLink {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.workLink:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.6rem;
+  border-radius: 0.4rem;
+}
+
+.workCover {
+  position: relative;
+  display: block;
+  height: var(--cover-h);
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.workImage {
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.workLink:hover .workImage {
+  transform: scale(1.03);
+}
+
+/* No cover drawn: a brand-blue block, with a play mark for a film. */
+.workBlank {
+  background: linear-gradient(135deg, var(--primary), var(--blue-dark));
+}
+
+.workPlay {
+  position: absolute;
+  inset: 0;
+  width: 7.2rem;
+  height: 7.2rem;
+  margin: auto;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.workPlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 2.2rem;
+  height: 2.8rem;
+  margin: auto;
+  background: var(--text-inverse);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  transform: translateX(-0.2rem);
+}
+
+.workCaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6rem;
+}
+
+.workTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.workArrow {
+  flex-shrink: 0;
+  transition: transform 250ms var(--ease-out);
+}
+
+.workLink:hover .workArrow {
+  transform: translateX(-0.4rem);
+}
+
+@media (max-width: 1024px) {
+  .works {
+    column-gap: 3.2rem;
+    row-gap: 5.6rem;
+  }
+
+  .workCover {
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (max-width: 640px) {
+  .works {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workImage,
+  .workArrow {
+    transition: none;
+  }
+}

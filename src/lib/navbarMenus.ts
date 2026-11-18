@@ -1,4 +1,5 @@
 import { COMMUNITY_HREF, COMMUNITY_NAV, communityHref } from "./communityNav";
+import { CREATIVE_HREF } from "./creativeNav";
 import { INSIGHTS_HREF, INSIGHTS_LABEL } from "./insightsNav";
 import {
   AI_SUITE_WEBSITE,
@@ -83,7 +84,7 @@ const TECH_SOLUTIONS: NavBlock[][] = [
     links: [
       { label: "التجارة الإلكترونية والأسواق متعددة البائعين", href: "/services/ecommerce" },
       { label: "منصات الحجوزات والخدمات السياحية", href: "/services/tourism" },
-      site("الإبداع والتسويق الرقمي متعدد القنوات", getServiceWebsite("marketing")),
+      { label: "الإبداع والتسويق الرقمي متعدد القنوات", href: CREATIVE_HREF },
     ],
   }],
 ];
@@ -131,10 +132,12 @@ const MORE_PLATFORMS: NavBlock = {
   ],
 };
 
-/* الموارد — the sectors, the academies, trust and governance, TX Community,
-   the portfolio (أعمالنا), the company (من نحن now lives here rather than on
-   the bar) and what we publish. Manufacturing leaves for its own site, as
-   everywhere else. */
+/* القطاعات — now a tab of الخدمات. Manufacturing leaves for its own site, as
+   everywhere else.
+
+   الموارد — the academies, trust and governance, TX Community, the portfolio
+   (أعمالنا), the company (من نحن now lives here rather than on the bar) and
+   what we publish. */
 const SECTORS: NavBlock = {
   title: { label: "القطاعات", href: "/sectors" },
   links: [
@@ -188,7 +191,7 @@ const COMPANY: NavBlock = {
   title: { label: "عن الشركة وأثرها", href: "/about" },
   links: [
     { label: "من نحن", href: "/about" },
-    { label: "مختبراتنا وخبراتنا", href: "/about#labs" },
+    { label: "مختبراتنا وخبراتنا", href: "/labs" },
     { label: "الاستدامة والمسؤولية المجتمعية", href: communityHref("impact") },
     { label: "التكنولوجيا من أجل الخير", href: communityHref("impact") },
     { label: "الشراكات والتعاون", href: "/contact#ways" },
@@ -209,13 +212,14 @@ export const NAV_ITEMS: NavItem[] = [
   {
     label: "الخدمات",
     href: "/services",
-    routes: ["/services", "/ventures"],
+    routes: ["/services", "/ventures", "/sectors"],
     menu: {
       id: "services",
-      overview: [...TECH_SOLUTIONS, ...CONSULTING],
+      overview: [...TECH_SOLUTIONS, ...CONSULTING, [SECTORS]],
       tabs: [
         { label: "حلولنا التقنية", href: "/services", columns: TECH_SOLUTIONS },
         { label: "الاستشارات وبناء المشروعات", href: "/ventures", columns: CONSULTING },
+        { label: "القطاعات", href: "/sectors", columns: [[SECTORS]] },
       ],
     },
   },
@@ -234,12 +238,11 @@ export const NAV_ITEMS: NavItem[] = [
   },
   {
     label: "الموارد",
-    routes: ["/sectors", "/academy", TRUST_HREF, "/works", "/community", "/about", INSIGHTS_HREF],
+    routes: ["/academy", TRUST_HREF, "/works", "/community", "/about", INSIGHTS_HREF],
     menu: {
       id: "resources",
-      overview: [[SECTORS], [ACADEMIES, TRUST], [COMMUNITY], [COMPANY, KNOWLEDGE]],
+      overview: [[ACADEMIES, TRUST], [COMMUNITY], [COMPANY, KNOWLEDGE]],
       tabs: [
-        { label: "القطاعات", href: "/sectors", columns: [[SECTORS]] },
         { label: "الأكاديميات", href: "/academy", columns: [[ACADEMIES]] },
         { label: TRUST_LABEL, href: trustHref("ethics"), columns: [[TRUST]] },
         { label: "المجتمع", href: COMMUNITY_HREF, columns: [[COMMUNITY_FIRST], [COMMUNITY_REST]] },

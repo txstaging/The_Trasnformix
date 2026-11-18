@@ -52,7 +52,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 2.8rem;
-  width: 66rem;
+  width: var(--banner-copy-w, 66rem);
   max-width: 100%;
 }
 

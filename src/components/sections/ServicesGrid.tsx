@@ -4,6 +4,7 @@ import Image from "next/image";
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
 import { useLayoutEffect, useRef, useState } from "react";
 import { Reveal, ease } from "@/components/v3/Motion";
+import { CREATIVE_HREF } from "@/lib/creativeNav";
 import { tajawal } from "@/lib/fonts";
 import { AI_SUITE_WEBSITE, EXTRA_SERVICES, getServiceWebsite } from "@/lib/serviceNavigation";
 import styles from "./ServicesGrid.module.css";
@@ -71,7 +72,7 @@ const SERVICES: { key: string; title: string; text: string; image: string; cta: 
     text: "هوية تجارية مميزة، ومحتوى إبداعي، وتجارب رقمية متكاملة، مدعومة باستراتيجيات تسويق متعدد القنوات، والحملات الإعلانية المدفوعة، وتحسين محركات البحث، لزيادة الوصول إلى العملاء وتعزيز التفاعل وتحقيق نمو قابل للقياس.",
     image: IMAGES.marketing,
     cta: "اطّلع على خدمات التسويق",
-    href: getServiceWebsite("marketing"),
+    href: CREATIVE_HREF,
   },
   {
     key: "research",

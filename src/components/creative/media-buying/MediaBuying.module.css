@@ -1,0 +1,550 @@
+/* إدارة الحملات الإعلانية والتسويق بالأداء (Figma 4973:8579): what only this
+   page draws. Breakpoints match the academies: 1024 and 640. */
+
+.grey {
+  background: #f5f5f5;
+}
+
+/* The banner's copy runs 711px wide on this artboard. */
+.banner {
+  --banner-title-size: 3.8rem;
+  --banner-title-leading: 5.6rem;
+  --banner-text-size: 1.8rem;
+  --banner-text-leading: 3.4rem;
+}
+
+.banner > :last-child {
+  width: 71.1rem;
+}
+
+/* The artboard's banner is 600px tall (the shared one is 520), and its lead
+   line is bold. */
+@media (min-width: 1025px) {
+  section.banner {
+    min-height: 60rem;
+    padding-block: 6rem;
+  }
+}
+
+.banner strong {
+  font-weight: 700;
+}
+
+/* The overview's title is brand blue. */
+.overviewTitle {
+  font-size: 3.2rem;
+  line-height: 4.4rem;
+  color: var(--primary);
+}
+
+/* ---- Platforms (4989:9381): the list, then a 480px photo -------------------- */
+.platforms {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 48rem;
+  gap: 6.4rem;
+  align-items: stretch;
+}
+
+.platformList {
+  display: flex;
+  flex-direction: column;
+}
+
+.platform {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.6rem;
+  padding-block: 2.4rem;
+  border-bottom: 0.1rem solid var(--line);
+}
+
+.platform:first-child {
+  padding-top: 1.6rem;
+}
+
+.platform:last-child {
+  border-bottom: 0;
+}
+
+.platformIcon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  background: var(--blue-light);
+}
+
+.platformCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding-inline-end: 0.8rem;
+}
+
+.platformTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.platformText {
+  font-size: 1.6rem;
+  line-height: 3rem;
+  color: var(--text-secondary);
+}
+
+.platformPhoto {
+  position: relative;
+  min-height: 87rem;
+  overflow: hidden;
+  border-radius: 2.4rem;
+}
+
+.platformImage {
+  object-fit: cover;
+  object-position: 55% center;
+}
+
+.note {
+  max-width: 124rem;
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* ---- Sticky scroll reveal (4973:8629): a 1240 × 480 box on the blue tint -- */
+.sticky {
+  position: relative;
+  height: 48rem;
+  overflow: hidden;
+  border-radius: 2.4rem;
+  background: var(--blue-light);
+}
+
+.stickyScroller {
+  position: absolute;
+  inset: 0;
+  padding-inline: 7.2rem;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.stickyScroller::-webkit-scrollbar {
+  display: none;
+}
+
+.stickyScroller:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: -0.4rem;
+  border-radius: 2.4rem;
+}
+
+.stickyList {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 7.2rem;
+  width: calc(100% - 49.6rem);
+  padding-block: 5.6rem 16rem;
+}
+
+.stickyItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  opacity: 0.3;
+  transition: opacity 400ms var(--ease-out);
+}
+
+.stickyItemActive,
+.stickyItem:focus-within {
+  opacity: 1;
+}
+
+.stickyTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 4rem;
+  color: var(--text-primary);
+}
+
+.stickyText {
+  max-width: 48rem;
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+  color: var(--text-secondary);
+}
+
+.stickyCard {
+  position: absolute;
+  top: 5.6rem;
+  inset-inline-end: 7.2rem;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44rem;
+  height: 33rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+  background: var(--blue-dark);
+  pointer-events: none;
+}
+
+.stickyImage {
+  object-fit: cover;
+}
+
+.stickyShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(143.13deg, rgba(28, 68, 153, 0.15) 14.286%, rgba(21, 55, 127, 0.7) 85.714%);
+}
+
+.stickyCardTitle {
+  position: relative;
+  max-width: 38rem;
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 4rem;
+  color: var(--text-inverse);
+  text-align: center;
+}
+
+/* ---- Goals (4973:9160): three over two, the second row centred ------------ */
+.goals {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.goal {
+  display: flex;
+  flex: 0 0 calc((100% - 4rem) / 3);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+  min-height: 27.1rem;
+  padding: 3.2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+.goalTitle {
+  padding-top: 0.8rem;
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.goalText {
+  font-size: 1.6rem;
+  line-height: 3rem;
+  color: var(--text-secondary);
+}
+
+/* ---- Engagement (4973:8718): 2 × 2 cards with a photo -------------------- */
+.engagements {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+/* The text sits on the left, the photo on the right (Figma 4973:8715). */
+.engagement {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: stretch;
+  gap: 2.4rem;
+  min-height: 25rem;
+  padding: 1.2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-main);
+}
+
+.engagementBody {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 1.2rem;
+  min-width: 0;
+  padding: 1.2rem 0 1.2rem 1.2rem;
+}
+
+.engagementHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.engagementIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 50%;
+  background: var(--blue-light);
+}
+
+.engagementNumber {
+  font-size: 6.4rem;
+  font-weight: 800;
+  line-height: 6.4rem;
+  color: transparent;
+  -webkit-text-stroke: 0.15rem var(--blue-light-active);
+}
+
+.engagementTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.engagementText {
+  font-size: 1.6rem;
+  line-height: 3rem;
+  color: var(--text-secondary);
+}
+
+.engagementPhoto {
+  position: relative;
+  flex: 0 0 22rem;
+  min-height: 22.4rem;
+  overflow: hidden;
+  border-radius: 1.2rem;
+}
+
+.engagementImage {
+  object-fit: cover;
+}
+
+/* ---- Selected work: the two calls under the lead ------------------------- */
+.workActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.6rem;
+}
+
+/* ---- Closing request (4975:8964): the form beside the call --------------- */
+.request {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 62rem;
+  gap: 6.4rem;
+  align-items: center;
+  padding: 6.5rem 3.3rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+.requestCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding-inline-start: 3.2rem;
+}
+
+.requestTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 5.6rem;
+  letter-spacing: -0.03rem;
+  color: var(--primary);
+}
+
+.requestText {
+  font-size: 2rem;
+  line-height: 3.8rem;
+  color: var(--text-primary);
+}
+
+.requestActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  padding-top: 0.8rem;
+}
+
+@media (max-width: 1200px) {
+  .stickyScroller {
+    padding-inline: 4.8rem;
+  }
+
+  .stickyCard {
+    inset-inline-end: 4.8rem;
+    width: 34rem;
+    height: 25.5rem;
+  }
+
+  .stickyList {
+    width: calc(100% - 39.6rem);
+  }
+
+  .stickyCardTitle {
+    font-size: 2.4rem;
+    line-height: 3.4rem;
+  }
+
+  .request {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4rem;
+  }
+
+  .requestCopy {
+    padding-inline-start: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .banner > :last-child {
+    width: 100%;
+  }
+
+  .platforms {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4rem;
+  }
+
+  .platformPhoto {
+    order: -1;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .sticky {
+    height: auto;
+  }
+
+  .stickyScroller {
+    position: static;
+    padding-inline: 2.4rem;
+    overflow: visible;
+  }
+
+  .stickyScroller:focus-visible {
+    outline: none;
+  }
+
+  .stickyCard {
+    position: relative;
+    top: 0;
+    inset-inline-end: 0;
+    width: 100%;
+    height: 28rem;
+    border-radius: 2.4rem 2.4rem 0 0;
+  }
+
+  .stickyCardTitle {
+    display: none;
+  }
+
+  .stickyList {
+    width: 100%;
+    gap: 4.8rem;
+    padding-block: 3.2rem;
+  }
+
+  .stickyItem {
+    opacity: 1;
+  }
+
+  .goal {
+    flex-basis: calc((100% - 2rem) / 2);
+  }
+
+  .engagements {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .platform {
+    padding-block: 2rem;
+  }
+
+  .platformTitle,
+  .goalTitle,
+  .engagementTitle {
+    font-size: 2rem;
+    line-height: 3rem;
+  }
+
+  .stickyTitle {
+    font-size: 2.4rem;
+    line-height: 3.4rem;
+  }
+
+  .stickyText {
+    font-size: 1.6rem;
+    line-height: 3rem;
+  }
+
+  .goal {
+    flex-basis: 100%;
+    min-height: 0;
+    padding: 2.4rem;
+  }
+
+  .engagement {
+    flex-direction: column-reverse;
+    gap: 1.6rem;
+  }
+
+  .engagementBody {
+    padding: 0.8rem 1.2rem 1.2rem;
+  }
+
+  .engagementPhoto {
+    flex-basis: auto;
+    aspect-ratio: 16 / 10;
+    min-height: 0;
+  }
+
+  .engagementNumber {
+    font-size: 5.2rem;
+    line-height: 5.2rem;
+  }
+
+  .request {
+    padding: 2.4rem 1.6rem;
+  }
+
+  .requestTitle {
+    font-size: 3.2rem;
+    line-height: 4.4rem;
+  }
+
+  .requestText {
+    font-size: 1.8rem;
+    line-height: 3.4rem;
+  }
+
+  .note {
+    font-size: 1.6rem;
+    line-height: 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stickyItem {
+    transition: none;
+  }
+}

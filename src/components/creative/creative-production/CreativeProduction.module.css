@@ -1,0 +1,335 @@
+/* التصميم الإبداعي والإنتاج الإعلامي (Figma 4850:7981, desktop 1440). The page
+   sits on the V2 sector parts and the creative kit; this file holds what only
+   it draws. Tokens come from the page's main element (--column, --line,
+   --tajawal, --heading-font). Breakpoints match the academies: 1024 and 640. */
+
+/* ---- The banner: the copy runs 711px wide, the title 38px. ------------------ */
+.banner {
+  --banner-copy-w: 71.1rem;
+  --banner-title-size: 3.8rem;
+  --banner-title-leading: 6.6rem;
+  --banner-title-weight: 800;
+  --banner-title-tracking: -0.05rem;
+  --banner-text-size: 1.6rem;
+  --banner-text-leading: 3.4rem;
+}
+
+/* The artboard's banner is 600px tall (the shared one is 520), and its lead
+   line is bold. */
+@media (min-width: 1025px) {
+  section.banner {
+    min-height: 60rem;
+    padding-block: 6rem;
+  }
+}
+
+.banner strong {
+  font-weight: 700;
+}
+
+/* ---- Sections --------------------------------------------------------------- */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 5.6rem;
+  padding: 12rem var(--column);
+  scroll-margin-top: 8rem;
+}
+
+.compact {
+  padding-block: 10.4rem;
+}
+
+.subtle {
+  background: #f5f5f5;
+}
+
+.cream {
+  background: var(--bg-card);
+}
+
+/* ---- Callout (Figma V2/Callout 4845:7030): 28px above and below, 24px from the
+   rule, 32px on the far side; the rule is 4px wide. ----------------------------- */
+.callout {
+  display: flex;
+  flex: 1 1 0;
+  align-items: stretch;
+  gap: 2rem;
+  min-width: 0;
+  padding: 2.8rem 2.4rem 2.8rem 3.2rem;
+  border-radius: 1.6rem;
+  background: var(--blue-light);
+}
+
+.calloutBar {
+  flex: 0 0 0.4rem;
+  border-radius: 0.2rem;
+  background: var(--primary);
+}
+
+.calloutBody {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+.calloutLabel {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--primary);
+}
+
+.calloutText {
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+  color: var(--text-primary);
+}
+
+/* ---- Overview (Figma 4850:7984): the paragraph and the callout, half each. -- */
+.overview {
+  display: flex;
+  align-items: center;
+  gap: 6.4rem;
+}
+
+.overviewText {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 3.8rem;
+  color: var(--text-primary);
+}
+
+/* ---- Split layout (Figma 4850:8021, 4850:8112): the heading is 380px, 96px
+   from the content. ------------------------------------------------------------- */
+.split {
+  display: flex;
+  align-items: flex-start;
+  gap: 9.6rem;
+}
+
+.splitHeader {
+  display: flex;
+  flex: 0 0 38rem;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.splitBody {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.eyebrow {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+  color: var(--primary);
+}
+
+.splitTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 3.4rem;
+  font-weight: 700;
+  line-height: 4.8rem;
+  letter-spacing: -0.02rem;
+  color: var(--text-primary);
+}
+
+/* ---- Capabilities (Figma 4850:8399): ruled on top, a number badge before the
+   title, the note in grey. ------------------------------------------------------ */
+.capabilities {
+  display: flex;
+  flex-direction: column;
+}
+
+.capability {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  padding-block: 2.8rem;
+  border-top: 0.1rem solid var(--line);
+}
+
+.capabilityHead {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.capabilityNumber {
+  padding: 0.2rem 1rem;
+  border-radius: 0.8rem;
+  background: var(--blue-light);
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+  color: var(--primary);
+}
+
+.capabilityTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.capabilityText {
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+  color: var(--text-secondary);
+}
+
+/* ---- Cards (Figma 4850:8094, 4851:7513, 4850:8121): 32px inside, a 52px
+   tile, 22px name, 16px note; three across, or four. ----------------------------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.cardsFour {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+  padding: 3.2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+.tile {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 5.2rem;
+  height: 5.2rem;
+  border-radius: 1.6rem;
+  background: var(--blue-light);
+}
+
+.cardTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.cardText {
+  font-size: 1.6rem;
+  line-height: 3rem;
+  color: var(--text-secondary);
+}
+
+/* ---- Process (Figma 4924:8704): the kit's step card, 259px tall. ------------- */
+.process > li {
+  min-height: 25.9rem;
+}
+
+/* ---- Works --------------------------------------------------------------------- */
+.sectionAction {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.2rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.4rem;
+}
+
+/* ---- Tablet ------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .section {
+    gap: 4.8rem;
+    padding-block: 9.6rem;
+  }
+
+  .compact {
+    padding-block: 8rem;
+  }
+
+  .overview,
+  .split {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3.2rem;
+  }
+
+  .splitHeader {
+    flex-basis: auto;
+  }
+
+  .splitTitle {
+    font-size: 3rem;
+    line-height: 4.2rem;
+  }
+
+  .cards,
+  .cardsFour {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .process > li {
+    min-height: 0;
+  }
+}
+
+/* ---- Phone -------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .section {
+    gap: 4rem;
+    padding-block: 7.2rem;
+  }
+
+  .compact {
+    padding-block: 6.4rem;
+  }
+
+  .overviewText {
+    font-size: 1.8rem;
+    line-height: 3.4rem;
+  }
+
+  .callout {
+    padding: 2.4rem 2rem;
+  }
+
+  .calloutLabel,
+  .capabilityTitle {
+    font-size: 2rem;
+    line-height: 3rem;
+  }
+
+  .calloutText,
+  .capabilityText {
+    font-size: 1.6rem;
+    line-height: 3rem;
+  }
+
+  .cards,
+  .cardsFour {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .card {
+    padding: 2.4rem;
+  }
+}

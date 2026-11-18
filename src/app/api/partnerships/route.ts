@@ -51,6 +51,8 @@ const oneLine = (value: string) => value.replace(/\s+/g, " ").trim();
 const SOURCES: Partial<Record<string, string>> = {
   contact: "صفحة تواصل معنا",
   tourism: "صفحة السياحة والضيافة والتراث",
+  creative: "صفحة الإبداع والتسويق الرقمي",
+  mediaBuying: "صفحة إدارة الحملات الإعلانية",
 };
 
 export async function POST(request: Request) {
