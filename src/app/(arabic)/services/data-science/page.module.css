@@ -3,56 +3,411 @@
 
 /* ---- The team and its principle (Figma 4473:8835) --------------------------- */
 .team {
-  display: flex;
-  align-items: flex-start;
-  gap: 3.2rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.6rem;
 }
 
-.teamIntro {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
+.featureCard {
+  display: grid;
+  grid-template-columns: 4.4rem minmax(0, 1fr);
+  align-items: start;
   gap: 1.6rem;
-  min-width: 0;
+  min-height: 19.3rem;
   padding: 2.4rem;
+  border: .1rem solid var(--line);
+  border-radius: 2rem;
+  background: #fcfbfa;
 }
 
-.principle {
-  display: flex;
-  flex: 0 0 38rem;
-  flex-direction: column;
-  gap: 1.6rem;
-  padding: 2.8rem;
-  border-radius: 2.4rem;
-  background: var(--blue-light);
+.featureIcon {
+  display: inline-flex;
+  width: 4.4rem;
+  height: 4.4rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--primary);
 }
+
+.featureIcon img {
+  width: 2.4rem;
+  height: 2.4rem;
+  filter: brightness(0) invert(1);
+}
+
+.featureCard h3 {
+  margin: 0 0 .8rem;
+  font-size: 1.8rem;
+}
+
+.featureCard p { margin: 0; }
+
+.dataFlow {
+  padding: 1.6rem;
+  border: .1rem solid var(--line);
+  border-radius: 2rem;
+  background: #fcfbfa;
+}
+
+.dataFlowSteps {
+  display: flex;
+  gap: 3.2rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.dataFlowSteps li {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem 1.4rem;
+  border-radius: 1.2rem;
+  background: var(--primary);
+  color: #fff;
+  font-size: 1.45rem;
+  font-weight: 700;
+  text-align: right;
+}
+
+.flowNumber {
+  display: inline-flex;
+  width: 2.2rem;
+  height: 2.2rem;
+  flex: 0 0 2.2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e9eef8;
+  color: var(--primary);
+  font: 700 1.2rem Arial, sans-serif;
+}
+
+.flowArrow {
+  position: absolute;
+  top: 50%;
+  left: -2.4rem;
+  color: var(--primary);
+  font-size: 2rem;
+  font-weight: 400;
+  transform: translateY(-50%);
+}
+
+/* Three operational stages under the data delivery framework. */
+.frameworkSection.frameworkSection { background: #fff; }
+
+.frameworkCards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.6rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.frameworkCard {
+  display: flex;
+  min-height: 28.8rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 2.4rem;
+  border: .1rem solid var(--line);
+  border-radius: 2rem;
+  background: #f7f8fa;
+  text-align: right;
+}
+
+.frameworkIcon {
+  display: inline-flex;
+  width: 4.4rem;
+  height: 4.4rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+.frameworkIcon img { filter: brightness(0) invert(1); }
+.frameworkCard h3 { margin: .2rem 0 0; font-size: 2rem; }
+.frameworkCard p { margin: 0; }
 
 /* ---- The RADAR loop (Figma 4473:8885) ---------------------------------------- */
 .radar {
   display: flex;
-  flex-direction: column;
-  gap: 2.4rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3.2rem;
+  min-height: 39.6rem;
   padding: 3.2rem;
   border: 0.1rem solid var(--line);
   border-radius: 2.4rem;
   background: var(--bg-main);
 }
 
+.radarCopy {
+  flex: 0 1 43%;
+  min-width: 0;
+}
+
 .radarTitle {
+  margin: 0 0 1.6rem;
+  text-align: right;
+}
+
+.radarCopy p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 1.6rem;
+  line-height: 1.9;
+}
+
+.radarDiagram {
+  position: relative;
+  width: 64.8rem;
+  max-width: 58%;
+  flex: 0 1 64.8rem;
+  aspect-ratio: 648 / 420;
+}
+
+.radarOrbit {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  width: 50%;
+  aspect-ratio: 1;
+  border: .2rem dashed rgb(28 68 153 / 50%);
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.radarCenter {
+  position: absolute;
+  top: 50%;
+  left: 34.7%;
+  display: flex;
+  width: 12rem;
+  aspect-ratio: 1;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(140deg, #173b88, #2e5fc0);
+  box-shadow: 0 1.2rem 2.4rem rgb(28 68 153 / 18%);
+  color: #fff;
+  font: 700 2.2rem Arial, sans-serif;
+  transform: translate(-50%, -50%);
+}
+
+.radarCenter img {
+  width: 7.6rem;
+  height: 4.9rem;
+  filter: brightness(0) invert(1);
+  object-fit: contain;
+}
+
+.radarNode {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .7rem 1rem;
+  border: .1rem solid #e5e7eb;
+  border-radius: 99rem;
+  background: #fff;
+  box-shadow: 0 .4rem 1.2rem rgb(15 23 42 / 6%);
+  color: var(--text-primary);
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.radarNode b {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font: 700 1.2rem Arial, sans-serif;
+}
+
+.radarNode1 { top: 5%; left: 28%; }
+.radarNode2 { top: 32%; left: 1%; }
+.radarNode3 { bottom: 17%; left: 8%; }
+.radarNode4 { bottom: 18%; left: 43%; }
+.radarNode5 { top: 32%; left: 47%; max-width: 36%; white-space: normal; }
+
+/* ---- Capabilities (Figma 4473:8911) ------------------------------------------ */
+.servicesSection.servicesSection { gap: 3.2rem; background: #fff; }
+
+.servicesHeading {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--tajawal);
+  font-size: 3rem;
+  font-weight: 700;
   text-align: center;
 }
 
-/* The turn from the first row's last step down into the second row. */
-.radarTurn {
+.serviceCapability {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  padding: 5.2rem 6rem;
+  border: .1rem solid var(--line);
+  border-radius: 2rem;
+  background: #fcfbfa;
+}
+
+.serviceCapabilityIntro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.serviceCapabilityIntro h3 {
+  margin: 0;
+  color: var(--text-primary);
   font-family: var(--tajawal);
   font-size: 2.4rem;
   font-weight: 700;
-  line-height: 1.35;
-  color: var(--primary);
-  text-align: end;
+  line-height: 1.4;
 }
 
-/* ---- Capabilities (Figma 4473:8911) ------------------------------------------ */
+.serviceCapabilityIntro p {
+  max-width: 92rem;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 1.4rem;
+  line-height: 1.8;
+}
+
+.serviceCapabilityIntro p strong { color: var(--text-primary); font-weight: 700; }
+
+.serviceCapabilityIntro a {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  color: var(--primary);
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.scopeTitle {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--tajawal);
+  font-size: 1.9rem;
+  font-weight: 700;
+}
+
+.scope {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 0;
+  margin: -1rem 0 0;
+  list-style: none;
+}
+
+.scopeItem {
+  display: grid;
+  grid-template-columns: 2.8rem minmax(0, 1fr);
+  align-items: start;
+  gap: 1rem;
+  min-width: 0;
+  padding: 1.6rem;
+  border: .1rem solid var(--line);
+  border-radius: 1.2rem;
+  background: #fff;
+}
+
+.scopeItem:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+.scopeIcon {
+  display: inline-flex;
+  width: 2.8rem;
+  height: 2.8rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e9eef8;
+}
+
+.scopeIcon img {
+  width: 1.8rem;
+  height: 1.8rem;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(22%) sepia(65%) saturate(1831%) hue-rotate(202deg) brightness(95%) contrast(96%);
+}
+.scopeItem h5 { margin: 0 0 .5rem; color: var(--text-primary); font-family: var(--tajawal); font-size: 1.5rem; font-weight: 700; }
+.scopeItem p { margin: 0; color: var(--text-secondary); font-size: 1.3rem; line-height: 1.7; }
+
+.dataClosing {
+  display: flex;
+  width: calc(100% - 2 * var(--column));
+  min-height: 38rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  margin: 0 auto 8rem;
+  padding: 4rem;
+  border: .1rem solid var(--line);
+  border-radius: 2rem;
+  background: #fcfbfa;
+}
+
+.dataClosingCopy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.8rem;
+  text-align: right;
+}
+
+.dataClosingCopy h2 {
+  margin: 0;
+  color: var(--primary);
+  font-family: var(--tajawal);
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.dataClosingCopy p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 1.8rem;
+  line-height: 1.9;
+}
+
+.dataClosingImage {
+  position: relative;
+  display: block;
+  width: 40%;
+  height: 32rem;
+  flex: 0 0 40%;
+  overflow: hidden;
+  border-radius: 1.8rem;
+}
+
+.dataClosingImage img { object-fit: cover; }
+
 .overview {
   display: flex;
   align-items: center;
@@ -80,6 +435,68 @@
 
 .overviewImage {
   object-fit: cover;
+}
+
+.capabilityShowcase {
+  display: flex;
+  width: calc(100% - 2 * var(--column));
+  min-height: 41rem;
+  align-items: center;
+  gap: 2.4rem;
+  margin-inline: auto;
+  padding: 1.8rem;
+  overflow: hidden;
+  border: .1rem solid var(--line);
+  border-radius: 2rem;
+  background: var(--bg-main);
+}
+
+.capabilityList {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.capabilityTab {
+  position: relative;
+  display: flex;
+  min-height: 5.8rem;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.4rem 1.6rem;
+  border: 0;
+  border-bottom: .1rem solid var(--line);
+  border-radius: 1.2rem;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  text-align: right;
+  cursor: pointer;
+  transition: background-color 220ms ease, min-height 260ms ease;
+}
+
+.capabilityTab:last-child { border-bottom-color: transparent; }
+.capabilityTab b { flex: 0 0 auto; font-size: 1.3rem; }
+.capabilityTab > span:nth-child(2) { flex: 1; font-size: 1.5rem; }
+.capabilityTabActive { min-height: 8rem; border-bottom-color: transparent; background: #e9edf6; font-weight: 700; }
+.capabilityArrow { align-self: flex-start; font-size: 1.8rem; }
+
+.capabilityPreview {
+  position: relative;
+  width: 45%;
+  height: 37.2rem;
+  flex: 0 0 45%;
+  overflow: hidden;
+  border-radius: 1.8rem;
+  background: #eef1f6;
+}
+
+.capabilityPreview img { object-fit: cover; animation: capabilityImageIn 500ms ease both; }
+
+@keyframes capabilityImageIn {
+  from { opacity: .45; transform: scale(1.025); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 /* "When does an organisation need this?" (Figma 4473:8933) */
@@ -132,10 +549,6 @@
 }
 
 @media (max-width: 1024px) {
-  .principle {
-    flex-basis: 32rem;
-  }
-
   .overviewMedia {
     width: 28rem;
     height: 24rem;
@@ -143,20 +556,10 @@
 }
 
 @media (max-width: 900px) {
-  .team {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 1.6rem;
-  }
-
-  .teamIntro {
-    padding: 0;
-  }
-
-  .principle {
-    flex-basis: auto;
-  }
-
+  .dataClosing { width: calc(100% - 2 * var(--gutter)); }
+  .capabilityShowcase { width: calc(100% - 2 * var(--gutter)); }
+  .capabilityPreview { width: 42%; flex-basis: 42%; height: 30rem; }
+  .frameworkCards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .overview {
     flex-direction: column-reverse;
     align-items: stretch;
@@ -173,14 +576,20 @@
     aspect-ratio: 330 / 280;
   }
 
-  /* The flow runs down the page here, so the turn sits in its line. */
-  .radarTurn {
-    text-align: center;
-  }
+  .radar { flex-direction: column; align-items: stretch; }
+  .radarCopy { flex: none; }
+  .radarDiagram { align-self: center; width: min(64.8rem, 100%); max-width: 64.8rem; flex: none; }
 }
 
 @media (max-width: 640px) {
-  .principle,
+  .dataClosing { flex-direction: column; align-items: stretch; gap: 2rem; margin-bottom: 4rem; padding: 2rem; }
+  .dataClosingCopy h2 { font-size: 2.8rem; }
+  .dataClosingCopy p { font-size: 1.6rem; }
+  .dataClosingImage { order: -1; width: 100%; height: auto; flex-basis: auto; aspect-ratio: 4 / 3; }
+  .capabilityShowcase { flex-direction: column; align-items: stretch; gap: 1.6rem; min-height: 0; padding: 1.4rem; }
+  .capabilityPreview { order: -1; width: 100%; height: auto; flex-basis: auto; aspect-ratio: 1.2; }
+  .capabilityTab { min-height: 5rem; padding-inline: 1rem; }
+  .capabilityTabActive { min-height: 6.4rem; }
   .radar {
     padding: 2.4rem;
     border-radius: 1.6rem;
@@ -189,6 +598,10 @@
   .radar {
     padding-inline: 1.6rem;
   }
+
+  .radarCenter { width: 9rem; font-size: 1.8rem; }
+  .radarNode { gap: .4rem; padding: .5rem .6rem; font-size: 1rem; }
+  .radarNode b { width: 1.7rem; height: 1.7rem; flex-basis: 1.7rem; font-size: 1rem; }
 
   .scope {
     grid-template-columns: minmax(0, 1fr);
@@ -201,4 +614,15 @@
   .need {
     padding: 2rem;
   }
+
+  .serviceCapability { gap: 1.8rem; padding: 2.4rem 1.8rem; }
+  .serviceCapabilityIntro h3 { font-size: 2rem; }
+  .scopeItem:last-child:nth-child(odd) { grid-column: auto; }
+
+  .team { grid-template-columns: minmax(0, 1fr); }
+  .featureCard { min-height: 0; padding: 2rem; }
+  .dataFlowSteps { flex-direction: column; gap: 1.6rem; }
+  .flowArrow { top: auto; right: 50%; bottom: -1.7rem; left: auto; transform: translateX(50%) rotate(-90deg); }
+  .frameworkCards { grid-template-columns: minmax(0, 1fr); }
+  .frameworkCard { min-height: 0; }
 }
