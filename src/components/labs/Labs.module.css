@@ -1,0 +1,410 @@
+/* مختبراتنا — the labs page (Figma 5019:9353, desktop 1440). It sits on the
+   sector and academies parts (see components/sectors); this file holds only
+   what those do not. Content runs on the shared 1240px column; breakpoints
+   match the academies: 1024 and 640. */
+.page {
+  --subtle: #f5f5f5;
+  --grad-from: #15377f;
+  --grad-to: #2c5ec4;
+  --on-blue-muted: #b9c2d6;
+  --glass: rgba(255, 255, 255, 0.1);
+  --glass-line: rgba(255, 255, 255, 0.18);
+}
+
+.titleBlue {
+  color: var(--primary);
+}
+
+/* ---- Banner: the copy runs 711px wide on the artboard. ---------------------- */
+.banner {
+  --banner-text-size: 1.8rem;
+  --banner-text-leading: 3.4rem;
+  min-height: 60rem;
+}
+
+.banner > :last-child {
+  width: 71.1rem;
+}
+
+/* The opening line is bold, the paragraph under it regular. */
+.banner p strong {
+  font-weight: 700;
+}
+
+/* ---- Bands: the 100px sections. ---------------------------------------------- */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4.8rem;
+  padding: 10rem var(--column);
+  scroll-margin-top: 8rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+}
+
+/* ---- Labs ecosystem (Figma 5049:10184): the team card on the reading side,
+   the flexibility card 420px wide on the far one. ------------------------------ */
+.bento {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.discOnBlue {
+  display: flex;
+  flex: 0 0 4rem;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.team {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  gap: 2rem;
+  min-width: 0;
+  padding: 3.6rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--subtle);
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.statLabel {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--primary);
+}
+
+.statNumber {
+  font-size: 3.3rem;
+  font-weight: 800;
+  line-height: 6.6rem;
+  letter-spacing: -0.05rem;
+  color: var(--primary);
+}
+
+.teamText {
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+  color: var(--text-secondary);
+}
+
+/* ---- Lab tiles (Figma 5049:10209): two across, each a link down to its lab. -- */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+  width: 100%;
+}
+
+.tile {
+  display: flex;
+}
+
+.tileLink {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  gap: 1.4rem;
+  min-width: 0;
+  padding: 1.6rem 1.8rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 1.6rem;
+  background: var(--bg-main);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+}
+
+.tileLink:hover {
+  border-color: var(--primary);
+  box-shadow: 0 1.2rem 2.4rem rgba(28, 68, 153, 0.12);
+}
+
+.tileLink:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.3rem;
+}
+
+.tileIcon {
+  display: flex;
+  flex: 0 0 4.4rem;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 2.2rem;
+  background: var(--primary);
+}
+
+.tileText {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+}
+
+.tileNumber {
+  color: var(--primary);
+  opacity: 0.6;
+}
+
+.tileTitle {
+  color: var(--text-primary);
+}
+
+.tileArrow {
+  flex-shrink: 0;
+  transition: transform 250ms var(--ease-out);
+}
+
+.tileLink:hover .tileArrow {
+  transform: translateX(-0.4rem);
+}
+
+/* The flexibility card, on the far side: 420px wide, 534px tall. */
+.flexCard {
+  position: relative;
+  display: flex;
+  flex: 0 0 42rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  min-width: 0;
+  min-height: 53.4rem;
+  padding: 3.6rem;
+  overflow: hidden;
+  border-radius: 2.4rem;
+  background: linear-gradient(128.19deg, var(--grad-from) 14.286%, var(--grad-to) 85.714%);
+  color: var(--text-inverse);
+}
+
+/* The artboard's glow box is 320px at (-120, -140); its 480px source
+   overhangs it by a quarter on every side. */
+.glow {
+  position: absolute;
+  top: -22rem;
+  left: -20rem;
+  width: 48rem;
+  height: 48rem;
+  max-width: none;
+  pointer-events: none;
+}
+
+.flexTitle {
+  position: relative;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 4rem;
+}
+
+.flexItems {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+/* The artboard sets these lines in 12px. */
+.flexItem {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 1.4rem 1.6rem;
+  border: 0.1rem solid var(--glass-line);
+  border-radius: 1.4rem;
+  background: var(--glass);
+  font-size: 1.2rem;
+  line-height: 3.4rem;
+}
+
+.flexNote {
+  position: relative;
+  font-size: 1.6rem;
+  line-height: 3rem;
+  color: var(--on-blue-muted);
+}
+
+.values {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.value {
+  padding: 0.6rem 1.6rem;
+  border-radius: 99.9rem;
+  background: var(--bg-main);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+  color: var(--primary);
+}
+
+/* ---- A lab's header ---------------------------------------------------------- */
+.labHead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  text-align: center;
+}
+
+.labHeadWide {
+  gap: 3.2rem;
+}
+
+.labLead {
+  font-size: 2rem;
+  line-height: 3.8rem;
+  color: var(--text-secondary);
+}
+
+.labLead strong {
+  font-weight: 700;
+}
+
+/* ---- Ecosystem band (Figma 5019:9569): the cream card, a blue title. ------- */
+.band {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 3.2rem 4rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+.bandIcon {
+  display: flex;
+  flex: 0 0 5.6rem;
+  align-items: center;
+  justify-content: center;
+  width: 5.6rem;
+  height: 5.6rem;
+  border-radius: 2.8rem;
+}
+
+.bandText {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 0.8rem;
+  min-width: 0;
+}
+
+.bandTitle {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--primary);
+}
+
+.bandText p {
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+  color: var(--text-secondary);
+}
+
+/* ---- Tablet ------------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  .section {
+    gap: 4rem;
+    padding-block: 8rem;
+  }
+
+  .banner > :last-child {
+    width: 100%;
+  }
+
+  .bento {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .flexCard {
+    flex-basis: auto;
+    min-height: 0;
+  }
+}
+
+/* ---- Phone ------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .section {
+    gap: 3.2rem;
+    padding-block: 6.4rem;
+  }
+
+  .team,
+  .flexCard {
+    padding: 2.4rem 2rem;
+  }
+
+  .tiles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .labLead {
+    font-size: 1.8rem;
+    line-height: 3.4rem;
+  }
+
+  .band {
+    flex-direction: column;
+    padding: 2.4rem 2rem;
+  }
+
+  .actions > * {
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tileLink,
+  .tileArrow {
+    transition: none;
+  }
+
+  .tileLink:hover .tileArrow {
+    transform: none;
+  }
+}
+
+/* The creative lab's opening paragraph: ink throughout, its first sentence bold. */
+.splitLead {
+  font-size: 2rem;
+  line-height: 3.8rem;
+  color: var(--text-primary);
+}
+
+.splitLead strong {
+  font-weight: 700;
+}

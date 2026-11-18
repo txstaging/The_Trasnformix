@@ -1,0 +1,476 @@
+/* The creative hub (Figma 4854:7820, desktop 1440). It sits on the academies
+   and sector parts; this file holds what only the hub draws. Breakpoints
+   match the family: 1024 and 640. */
+
+/* ---- Banner: the copy runs 817px wide on the artboard. --------------------- */
+.banner {
+  --banner-text-size: 1.8rem;
+  --banner-text-leading: 3.4rem;
+}
+
+.banner > :last-child {
+  /* The designer's photo keeps its devices on the left and leaves the right
+     half empty, so the copy stays inside that half. */
+  width: 60rem;
+}
+
+/* ---- Bands: the 100px sections (the artboard's 120px ones use the
+   academies' own .section). ---------------------------------------------------- */
+.band {
+  display: flex;
+  flex-direction: column;
+  gap: 4.8rem;
+  padding: 10rem var(--column);
+  scroll-margin-top: 8rem;
+}
+
+.heading {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 5.6rem;
+  color: var(--text-primary);
+}
+
+.headingBlue {
+  color: var(--primary);
+}
+
+.headingCentre {
+  text-align: center;
+}
+
+/* ---- Overview row (Figma 4854:7835): the copy, the orbit on the far side. ---- */
+.overview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.1rem;
+  padding: 10rem var(--column);
+  scroll-margin-top: 8rem;
+}
+
+.overviewCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  width: 72.7rem;
+  max-width: 100%;
+}
+
+.overviewColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 65.8rem;
+}
+
+.overviewLead {
+  font-size: 2rem;
+  line-height: 3.8rem;
+  color: var(--text-primary);
+}
+
+.overviewNote {
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+  color: var(--text-secondary);
+}
+
+/* ---- Channels visual: 502 × 596, placed on the artboard's own coordinates. -- */
+.orbit {
+  position: relative;
+  flex-shrink: 0;
+  width: 50.2rem;
+  height: 59.6rem;
+  overflow: hidden;
+  border-radius: 2.4rem;
+  direction: ltr;
+}
+
+.orbit img {
+  max-width: none;
+}
+
+.orbitRing {
+  position: absolute;
+  left: 3.322rem;
+  top: 8.3rem;
+  width: 44.6rem;
+  height: 44.6rem;
+}
+
+.orbitInner {
+  position: absolute;
+  left: 9.222rem;
+  top: 15.2rem;
+  width: 30.7rem;
+  height: 30.7rem;
+}
+
+.orbitCore {
+  position: absolute;
+  left: 17.422rem;
+  top: 22.3rem;
+  width: 15rem;
+  height: 15rem;
+  overflow: hidden;
+  border-radius: 8.6rem;
+  background: var(--primary);
+  box-shadow: 0 1.6rem 4rem rgba(28, 68, 153, 0.35);
+}
+
+.orbitMark {
+  position: absolute;
+  inset: 26.67% 13.48% 26.28% 12.52%;
+}
+
+.channel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 7.6rem;
+  height: 7.6rem;
+  border-radius: 50%;
+  background: var(--bg-main);
+  box-shadow: 0 0.8rem 2.4rem rgba(11, 19, 36, 0.12);
+}
+
+/* ---- Cross-lab split (Figma 4854:7896): the copy 480px wide, the card on the
+   far side, an 80px gap between. ----------------------------------------------- */
+.split {
+  display: flex;
+  align-items: center;
+  gap: 8rem;
+}
+
+.splitCopy {
+  display: flex;
+  flex: 0 0 48rem;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.splitTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 3.4rem;
+  font-weight: 700;
+  line-height: 4.8rem;
+  letter-spacing: -0.02rem;
+  color: var(--text-primary);
+}
+
+.splitText {
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+  color: var(--text-secondary);
+}
+
+.labs {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1.2rem;
+  min-width: 0;
+  padding: 4rem;
+  border-radius: 2.4rem;
+  background: var(--primary);
+}
+
+.labActive,
+.lab {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 1.4rem 2rem;
+  border-radius: 1.6rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+}
+
+.labActive {
+  align-items: center;
+  background: var(--bg-main);
+  color: var(--primary);
+}
+
+.labGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+
+.lab {
+  min-height: 8.2rem;
+  border: 0.1rem solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-inverse);
+}
+
+/* The software lab's single line sits centred in its tile. */
+.lab:nth-child(3) {
+  align-items: center;
+}
+
+.labActive img,
+.lab img {
+  flex-shrink: 0;
+}
+
+/* ---- Sector cards (Figma 4854:7925): 85px tall, 24px corners. -------------- */
+.sectors {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.sector {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  min-height: 8.5rem;
+  padding: 1.6rem 3.2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+.sectorTile {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 5.2rem;
+  height: 5.2rem;
+  border-radius: 1.6rem;
+  background: var(--blue-light);
+}
+
+.sectorLabel {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+/* ---- Portfolio head: the intro and its two calls, 40px apart. --------------- */
+.workHead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+}
+
+.workActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.4rem;
+  padding-top: 1.2rem;
+}
+
+/* ---- Closing card (Figma 4854:8109): a 620px form on the far side, the copy
+   beside it, 64px between. ----------------------------------------------------- */
+.closingCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6.4rem;
+  padding: 6.4rem 3.2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+.closingCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 48rem;
+  max-width: 100%;
+}
+
+.closingTitle {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 5.6rem;
+  letter-spacing: -0.03rem;
+  color: var(--primary);
+}
+
+.closingText {
+  font-size: 2rem;
+  line-height: 3.8rem;
+  color: var(--text-primary);
+}
+
+.closingActions {
+  display: flex;
+  gap: 1.6rem;
+  padding-top: 0.8rem;
+}
+
+/* The request form is drawn white on the cream card, 20px between its rows
+   and no heading of its own (the card's title stays for assistive technology). */
+.formSlot {
+  flex: 0 0 62rem;
+  max-width: 100%;
+}
+
+.formSlot > form {
+  gap: 2rem;
+  background: var(--bg-main);
+}
+
+/* The send sits on the reading side, as drawn. */
+.formSlot > form > div:last-of-type {
+  justify-content: flex-start;
+}
+
+.formSlot > form h3 {
+  position: absolute;
+  width: 0.1rem;
+  height: 0.1rem;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- Tablet ------------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  .heading,
+  .closingTitle {
+    font-size: 3.6rem;
+    line-height: 5rem;
+  }
+
+  .band,
+  .overview {
+    padding-block: 9.6rem;
+  }
+
+  .overview {
+    flex-direction: column;
+    gap: 4.8rem;
+  }
+
+  .overviewCopy {
+    width: 100%;
+  }
+
+  .split {
+    flex-direction: column;
+    gap: 4.8rem;
+  }
+
+  .splitCopy,
+  .labs {
+    flex: none;
+    width: 100%;
+  }
+
+  .sectors {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .closingCard {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4.8rem;
+    padding: 4rem 2.4rem;
+  }
+
+  .closingCopy {
+    width: 100%;
+  }
+
+  .formSlot {
+    flex: none;
+  }
+}
+
+/* ---- Phone -------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .heading,
+  .closingTitle {
+    font-size: 3rem;
+    line-height: 4.2rem;
+  }
+
+  .band,
+  .overview {
+    gap: 3.2rem;
+    padding-block: 7.2rem;
+  }
+
+  .overview {
+    gap: 3.2rem;
+  }
+
+  .overviewLead {
+    font-size: 1.8rem;
+    line-height: 3.2rem;
+  }
+
+  .overviewNote,
+  .splitText,
+  .closingText {
+    font-size: 1.6rem;
+    line-height: 3rem;
+  }
+
+  .overviewCopy {
+    gap: 2.4rem;
+  }
+
+  /* The orbit shrinks as a whole to fit the 390px screen. */
+  .orbit {
+    zoom: 0.68;
+  }
+
+  .splitTitle {
+    font-size: 2.8rem;
+    line-height: 4rem;
+  }
+
+  .labs {
+    padding: 2rem;
+  }
+
+  .labGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sectors {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.2rem;
+  }
+
+  .sector {
+    padding-inline: 2rem;
+    gap: 1.6rem;
+  }
+
+  .sectorLabel {
+    font-size: 2rem;
+  }
+
+  .closingCard {
+    padding: 2rem;
+  }
+
+  .workActions,
+  .closingActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 1024px) {
+  .closingActions {
+    flex-wrap: wrap;
+  }
+}

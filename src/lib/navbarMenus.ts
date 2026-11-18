@@ -1,4 +1,5 @@
 import { COMMUNITY_HREF, COMMUNITY_NAV, communityHref } from "./communityNav";
+import { CREATIVE_HREF } from "./creativeNav";
 import { INSIGHTS_HREF, INSIGHTS_LABEL } from "./insightsNav";
 import {
   AI_SUITE_WEBSITE,
@@ -57,45 +58,67 @@ export type NavItem = {
   menu?: NavMenu;
 };
 
-const site = (label: string, href: string): NavLink => ({ label, href, external: true });
+const site = (label: string, href: string): NavLink => ({
+  label,
+  href,
+  external: true,
+});
 const extraWebsite = (key: (typeof EXTRA_SERVICES)[number]["key"]) =>
   EXTRA_SERVICES.find((service) => service.key === key)!.website;
 
 /* الخدمات — the nine services of the home page, linked as its grid links them. */
 const TECH_SOLUTIONS: NavBlock[][] = [
-  [{
-    links: [
-      site("الذكاء الاصطناعي والأتمتة الذكية", AI_SUITE_WEBSITE),
-      { label: "علوم البيانات والذكاء الرقمي", href: "/services/data-science" },
-      {
-        label: "هندسة البرمجيات والتطبيقات",
-        href: "/services/software-engineering",
-        extras: [
-          site("تطوير المواقع", getServiceWebsite("web")),
-          site("تطبيقات الموبيل", extraWebsite("mobile")),
-        ],
-      },
-      { label: "خدمات Odoo", href: "/services/odoo" },
-      { label: "أنظمة إدارة المؤسسات", href: "/services/enterprise-systems" },
+  [
+    {
+      links: [
+        site("الذكاء الاصطناعي والأتمتة الذكية", AI_SUITE_WEBSITE),
+        {
+          label: "علوم البيانات والذكاء الرقمي",
+          href: "/services/data-science",
+        },
+        {
+          label: "هندسة البرمجيات والتطبيقات",
+          href: "/services/software-engineering",
+          extras: [
+            site("تطوير المواقع", getServiceWebsite("web")),
+            site("تطبيقات الموبيل", extraWebsite("mobile")),
+          ],
+        },
+        { label: "خدمات Odoo", href: "/services/odoo" },
+        { label: "أنظمة إدارة المؤسسات", href: "/services/enterprise-systems" },
     ],
-  }],
-  [{
-    links: [
-      { label: "التجارة الإلكترونية والأسواق متعددة البائعين", href: "/services/ecommerce" },
-      { label: "منصات الحجوزات والخدمات السياحية", href: "/services/tourism" },
-      site("الإبداع والتسويق الرقمي متعدد القنوات", getServiceWebsite("marketing")),
-    ],
-  }],
+    },
+  ],
+  [
+    {
+      links: [
+        {
+          label: "التجارة الإلكترونية والأسواق متعددة البائعين",
+          href: "/services/ecommerce",
+        },
+        {
+          label: "منصات الحجوزات والخدمات السياحية",
+          href: "/services/tourism",
+        },
+        { label: "الإبداع والتسويق الرقمي متعدد القنوات", href: CREATIVE_HREF },
+      ],
+    },
+  ],
 ];
 
 const CONSULTING: NavBlock[][] = [
-  [{
-    links: [
-      { label: "البحث والابتكار", href: "/services" },
-      { label: "التعهيد التقني وخدمات الأعمال المُدارة", href: "/services/gbs" },
-      { label: "الشركات الناشئة", href: extraWebsite("ventures") },
-    ],
-  }],
+  [
+    {
+      links: [
+        { label: "البحث والابتكار", href: "/services" },
+        {
+          label: "التعهيد التقني وخدمات الأعمال المُدارة",
+          href: "/services/gbs",
+        },
+        { label: "الشركات الناشئة", href: extraWebsite("ventures") },
+      ],
+    },
+  ],
 ];
 
 /* المنتجات — the agents run on the TX AI Suite. Platforms with a site of
@@ -125,16 +148,21 @@ const PLATFORMS: NavBlock = {
 const MORE_PLATFORMS: NavBlock = {
   continues: true,
   links: [
-    site("منصة الأسواق الإلكترونية متعددة البائعين", PRODUCT_WEBSITES.marketplaces),
+    site(
+      "منصة الأسواق الإلكترونية متعددة البائعين",
+      PRODUCT_WEBSITES.marketplaces,
+    ),
     site("منصة التعلم الذكي XT", PRODUCT_WEBSITES.xt),
     { label: "منصة الحجوزات والخدمات السياحية", href: "/products" },
   ],
 };
 
-/* الموارد — the sectors, the academies, trust and governance, TX Community,
-   the portfolio (أعمالنا), the company (من نحن now lives here rather than on
-   the bar) and what we publish. Manufacturing leaves for its own site, as
-   everywhere else. */
+/* القطاعات — now a tab of الخدمات. Manufacturing leaves for its own site, as
+   everywhere else.
+
+   الموارد — the academies, trust and governance, TX Community, the portfolio
+   (أعمالنا), the company (من نحن now lives here rather than on the bar) and
+   what we publish. */
 const SECTORS: NavBlock = {
   title: { label: "القطاعات", href: "/sectors" },
   links: [
@@ -166,12 +194,21 @@ const TRUST: NavBlock = {
 
 /* TX Community — the hub, then a page per activity (lib/communityNav.ts). Its
    own tab splits the list over two columns. */
-const COMMUNITY_LINKS: NavLink[] = COMMUNITY_NAV.map(({ slug, label }) => ({ label, href: communityHref(slug) }));
+const COMMUNITY_LINKS: NavLink[] = COMMUNITY_NAV.map(({ slug, label }) => ({
+  label,
+  href: communityHref(slug),
+}));
 const COMMUNITY_TITLE: NavLink = { label: "المجتمع", href: COMMUNITY_HREF };
 const COMMUNITY: NavBlock = { title: COMMUNITY_TITLE, links: COMMUNITY_LINKS };
 const COMMUNITY_SPLIT = Math.ceil(COMMUNITY_LINKS.length / 2);
-const COMMUNITY_FIRST: NavBlock = { title: COMMUNITY_TITLE, links: COMMUNITY_LINKS.slice(0, COMMUNITY_SPLIT) };
-const COMMUNITY_REST: NavBlock = { continues: true, links: COMMUNITY_LINKS.slice(COMMUNITY_SPLIT) };
+const COMMUNITY_FIRST: NavBlock = {
+  title: COMMUNITY_TITLE,
+  links: COMMUNITY_LINKS.slice(0, COMMUNITY_SPLIT),
+};
+const COMMUNITY_REST: NavBlock = {
+  continues: true,
+  links: COMMUNITY_LINKS.slice(COMMUNITY_SPLIT),
+};
 
 /* The portfolio's case studies. The overview lists them under المعرفة
    والأخبار, as the artboard does; the أعمالنا tab still shows them alone. */
@@ -188,7 +225,7 @@ const COMPANY: NavBlock = {
   title: { label: "عن الشركة وأثرها", href: "/about" },
   links: [
     { label: "من نحن", href: "/about" },
-    { label: "مختبراتنا وخبراتنا", href: "/about#labs" },
+    { label: "مختبراتنا وخبراتنا", href: "/labs" },
     { label: "الاستدامة والمسؤولية المجتمعية", href: communityHref("impact") },
     { label: "التكنولوجيا من أجل الخير", href: communityHref("impact") },
     { label: "الشراكات والتعاون", href: "/contact#ways" },
@@ -209,13 +246,18 @@ export const NAV_ITEMS: NavItem[] = [
   {
     label: "الخدمات",
     href: "/services",
-    routes: ["/services", "/ventures"],
+    routes: ["/services", "/ventures", "/sectors"],
     menu: {
       id: "services",
-      overview: [...TECH_SOLUTIONS, ...CONSULTING],
+      overview: [...TECH_SOLUTIONS, ...CONSULTING, [SECTORS]],
       tabs: [
         { label: "حلولنا التقنية", href: "/services", columns: TECH_SOLUTIONS },
-        { label: "الاستشارات وبناء المشروعات", href: "/ventures", columns: CONSULTING },
+        {
+          label: "الاستشارات وبناء المشروعات",
+          href: "/ventures",
+          columns: CONSULTING,
+        },
+        { label: "القطاعات", href: "/sectors", columns: [[SECTORS]] },
       ],
     },
   },
@@ -227,25 +269,49 @@ export const NAV_ITEMS: NavItem[] = [
       id: "products",
       overview: [[AGENTS], [PLATFORMS], [MORE_PLATFORMS]],
       tabs: [
-        { label: "منظومة الوكلاء الأذكياء", href: "/products#ai-agents", columns: [[AGENTS]] },
-        { label: "المنصات والأنظمة", href: "/products#cooperatives", columns: [[PLATFORMS], [MORE_PLATFORMS]] },
+        {
+          label: "منظومة الوكلاء الأذكياء",
+          href: "/products#ai-agents",
+          columns: [[AGENTS]],
+        },
+        {
+          label: "المنصات والأنظمة",
+          href: "/products#cooperatives",
+          columns: [[PLATFORMS], [MORE_PLATFORMS]],
+        },
       ],
     },
   },
   {
     label: "الموارد",
-    routes: ["/sectors", "/manufacturing", "/academy", TRUST_HREF, "/works", "/community", "/about", INSIGHTS_HREF],
+    routes: [
+      "/sectors",
+      "/manufacturing",
+      "/academy",
+      TRUST_HREF,
+      "/works",
+      "/community",
+      "/about",
+      INSIGHTS_HREF,
+    ],
     menu: {
       id: "resources",
-      overview: [[SECTORS], [ACADEMIES, TRUST], [COMMUNITY], [COMPANY, KNOWLEDGE]],
+      overview: [[ACADEMIES, TRUST], [COMMUNITY], [COMPANY, KNOWLEDGE]],
       tabs: [
-        { label: "القطاعات", href: "/sectors", columns: [[SECTORS]] },
         { label: "الأكاديميات", href: "/academy", columns: [[ACADEMIES]] },
         { label: TRUST_LABEL, href: trustHref("ethics"), columns: [[TRUST]] },
-        { label: "المجتمع", href: COMMUNITY_HREF, columns: [[COMMUNITY_FIRST], [COMMUNITY_REST]] },
+        {
+          label: "المجتمع",
+          href: COMMUNITY_HREF,
+          columns: [[COMMUNITY_FIRST], [COMMUNITY_REST]],
+        },
         { label: "أعمالنا", href: "/works", columns: [[WORKS]] },
         { label: "عن الشركة وأثرها", href: "/about", columns: [[COMPANY]] },
-        { label: "المعرفة والأخبار", href: INSIGHTS_HREF, columns: [[KNOWLEDGE]] },
+        {
+          label: "المعرفة والأخبار",
+          href: INSIGHTS_HREF,
+          columns: [[KNOWLEDGE]],
+        },
       ],
     },
   },
@@ -276,8 +342,17 @@ const fold = (text: string) =>
 function buildIndex(): NavSearchEntry[] {
   const entries: NavSearchEntry[] = [{ ...HOME_LINK, trail: "" }];
   const add = (link: NavLink, trail: string) => {
-    if (!entries.some((entry) => entry.label === link.label && entry.href === link.href)) {
-      entries.push({ label: link.label, href: link.href, external: link.external, trail });
+    if (
+      !entries.some(
+        (entry) => entry.label === link.label && entry.href === link.href,
+      )
+    ) {
+      entries.push({
+        label: link.label,
+        href: link.href,
+        external: link.external,
+        trail,
+      });
     }
     link.extras?.forEach((extra) => add(extra, trail));
   };
@@ -287,7 +362,9 @@ function buildIndex(): NavSearchEntry[] {
     for (const tab of item.menu?.tabs ?? []) {
       if (tab.href) add({ label: tab.label, href: tab.href }, item.label);
       for (const block of tab.columns.flat()) {
-        const trail = block.title ? `${item.label} · ${block.title.label}` : item.label;
+        const trail = block.title
+          ? `${item.label} · ${block.title.label}`
+          : item.label;
         if (block.title) add(block.title, item.label);
         block.links.forEach((link) => add(link, trail));
       }
@@ -296,7 +373,11 @@ function buildIndex(): NavSearchEntry[] {
   return entries;
 }
 
-const INDEX = buildIndex().map((entry) => ({ entry, label: fold(entry.label), trail: fold(entry.trail) }));
+const INDEX = buildIndex().map((entry) => ({
+  entry,
+  label: fold(entry.label),
+  trail: fold(entry.trail),
+}));
 
 /** Pages and menu entries whose label (or section) holds every typed word;
     labels that start with the query rank first. */
@@ -304,15 +385,23 @@ export function searchNav(query: string, limit = 8): NavSearchEntry[] {
   const words = fold(query).split(" ").filter(Boolean);
   if (!words.length) return [];
   const phrase = words.join(" ");
-  return INDEX
-    .filter(({ label, trail }) => words.every((word) => label.includes(word) || trail.includes(word)))
-    .map((item) => ({ ...item, rank: item.label.startsWith(phrase) ? 0 : item.label.includes(phrase) ? 1 : 2 }))
+  return INDEX.filter(({ label, trail }) =>
+    words.every((word) => label.includes(word) || trail.includes(word)),
+  )
+    .map((item) => ({
+      ...item,
+      rank: item.label.startsWith(phrase)
+        ? 0
+        : item.label.includes(phrase)
+          ? 1
+          : 2,
+    }))
     .sort((a, b) => a.rank - b.rank)
     .slice(0, limit)
     .map(({ entry }) => entry);
 }
 
 /** What the search panel offers before anything is typed. */
-export const NAV_SEARCH_SUGGESTIONS: NavSearchEntry[] = INDEX
-  .filter(({ entry }) => !entry.trail)
-  .map(({ entry }) => entry);
+export const NAV_SEARCH_SUGGESTIONS: NavSearchEntry[] = INDEX.filter(
+  ({ entry }) => !entry.trail,
+).map(({ entry }) => entry);

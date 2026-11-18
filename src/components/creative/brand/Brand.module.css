@@ -1,0 +1,454 @@
+/* استراتيجية العلامة التجارية والهوية (Figma 5036:9551, desktop 1440). The page
+   sits on the creative kit and the social-media parts (the sections, the
+   cards, the related-services list, the closing request); this file holds
+   what only it draws: the banner's width, the touchpoints journey and the
+   deliverables showcase. Tokens come from the page's main element (--column,
+   --line, --blue-light, --tajawal, --heading-font). Breakpoints match the
+   academies: 1024 and 640. */
+
+/* ---- The banner: the copy runs 711px wide, the title 38px. ------------------- */
+.banner {
+  --banner-copy-w: 71.1rem;
+  --banner-title-size: 3.8rem;
+  --banner-title-tracking: -0.03rem;
+  --banner-text-size: 1.8rem;
+  --banner-text-leading: 3.4rem;
+}
+
+/* A heading the artboard does not draw, kept for assistive technology. */
+.srOnly {
+  position: absolute;
+  width: 0.1rem;
+  height: 0.1rem;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---- Touchpoints (Figma 5036:9934) ---------------------------------------- */
+.journeyCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+  padding: 4.8rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-main);
+}
+
+.journeyLead {
+  width: 100%;
+  font-size: 2rem;
+  line-height: 3.8rem;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+/* Four equal stops; the line runs from the centre of the first to the centre
+   of the last, deep blue fading to a tint (left to right on the artboard). */
+.journey {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.journey::before {
+  content: "";
+  position: absolute;
+  top: 3.9rem;
+  left: 12.5%;
+  width: 75%;
+  height: 0.2rem;
+  background: linear-gradient(to right, var(--primary), rgba(28, 68, 153, 0.15));
+}
+
+.stop {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  min-width: 0;
+}
+
+.stopIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8rem;
+  height: 8rem;
+  border: 0.15rem solid var(--primary);
+  border-radius: 50%;
+  background: var(--bg-main);
+  box-shadow: 0 1rem 2.4rem -0.6rem rgba(28, 68, 153, 0.12);
+}
+
+.stopNumber {
+  padding: 0.4rem 1.2rem;
+  border-radius: 99.9rem;
+  background: var(--blue-light);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+  color: var(--primary);
+}
+
+.stopName {
+  font-family: var(--heading-font, var(--tajawal));
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.notes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.note {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.6rem;
+  padding: 2.8rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 1.6rem;
+  background: var(--bg-main);
+}
+
+.noteIcon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 4.8rem;
+  height: 4.8rem;
+  border-radius: 2.4rem;
+  background: var(--blue-light);
+}
+
+.noteText {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+  color: var(--text-secondary);
+}
+
+.journeyAction {
+  display: flex;
+  justify-content: center;
+}
+
+/* ---- Deliverables showcase (Figma "Tabs Showcase" 5046:10025): a 24px
+   padded card, a 600px list and the photo on a grey panel, 32px apart. -------- */
+.showcase {
+  display: flex;
+  align-items: flex-start;
+  gap: 3.2rem;
+  padding: 2.4rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-main);
+}
+
+.deliverables {
+  display: flex;
+  flex: 0 0 60rem;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.deliverableItem {
+  border-bottom: 0.1rem solid var(--line);
+}
+
+.deliverableItem:last-child {
+  border-bottom: 0;
+}
+
+.deliverable {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+  padding: 2rem;
+  border: 0;
+  border-radius: 1.2rem;
+  background: transparent;
+  font: inherit;
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  text-align: start;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color 200ms var(--ease-design, ease);
+}
+
+.deliverable:hover {
+  background: var(--bg-card);
+}
+
+.deliverable:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: -0.2rem;
+}
+
+.deliverableNumber {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.deliverableText {
+  flex: 1 1 0;
+  min-width: 0;
+  font-weight: 500;
+}
+
+.deliverableArrow {
+  flex-shrink: 0;
+  opacity: 0;
+}
+
+.deliverableOn,
+.deliverableOn:hover {
+  background: var(--blue-light);
+  color: var(--primary);
+}
+
+.deliverableOn .deliverableNumber,
+.deliverableOn .deliverableText {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.deliverableOn .deliverableArrow {
+  opacity: 1;
+}
+
+.preview {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  align-self: stretch;
+  justify-content: center;
+  min-width: 0;
+  padding: 3.6rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: #f5f5f5;
+}
+
+.previewImage {
+  position: relative;
+  width: 100%;
+  max-width: 49rem;
+  height: 46.2rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+}
+
+.previewImage img {
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deliverable {
+    transition: none;
+  }
+}
+
+/* ---- Tablet ------------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  .banner {
+    --banner-copy-w: 100%;
+  }
+
+  .journeyCard {
+    padding: 3.2rem;
+  }
+
+  .journey {
+    flex-wrap: wrap;
+    row-gap: 4rem;
+  }
+
+  .journey::before {
+    display: none;
+  }
+
+  .stop {
+    flex-basis: 50%;
+  }
+
+  .notes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .showcase {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .deliverables {
+    flex: none;
+  }
+
+  .preview {
+    align-self: auto;
+    padding: 2.4rem;
+  }
+
+  .previewImage {
+    max-width: none;
+    height: 40rem;
+  }
+}
+
+/* ---- Mobile ------------------------------------------------------------------ */
+@media (max-width: 640px) {
+  .journeyCard {
+    padding: 2.4rem;
+  }
+
+  .journeyLead {
+    font-size: 1.8rem;
+    line-height: 3.4rem;
+  }
+
+  .stop {
+    flex-basis: 100%;
+  }
+
+  .stopName {
+    font-size: 2rem;
+    line-height: 3rem;
+  }
+
+  .note {
+    padding: 2.4rem;
+  }
+
+  .showcase {
+    padding: 1.6rem;
+  }
+
+  .deliverable {
+    padding: 1.6rem;
+  }
+
+  .preview {
+    padding: 1.6rem;
+  }
+
+  .previewImage {
+    height: 28rem;
+  }
+}
+
+/* ---- Process flow in motion (the five step cards). -------------------------- */
+/* Armed (script running, motion allowed): the cards wait below their place,
+   then arrive in turn, each 380ms after the last. */
+.flowStep {
+  transition:
+    opacity 600ms var(--ease-out, ease-out),
+    transform 600ms var(--ease-out, ease-out),
+    border-color 350ms var(--ease-out, ease-out),
+    box-shadow 350ms var(--ease-out, ease-out);
+}
+
+.flow .flowStep {
+  opacity: 0;
+  transform: translateY(3.2rem);
+}
+
+.flowShown .flowStep {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(var(--i) * 380ms), calc(var(--i) * 380ms), 0ms, 0ms;
+}
+
+/* The bar's parts fill from the start edge once their card is in. A part
+   that is on grows from a dot-width; the rest stay as the empty track. */
+.flowPart {
+  position: relative;
+  overflow: hidden;
+}
+
+.flowPartOn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--primary);
+}
+
+.flow .flowPartOn::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+.flowShown .flowPartOn::after {
+  transform: scaleX(1);
+  transition: transform 450ms var(--ease-out, ease-out);
+  transition-delay: calc(var(--i) * 380ms + 450ms + var(--p) * 110ms);
+}
+
+/* The lit step: lifted, its rule and tile in the brand blue. */
+.flowStep.flowLit {
+  border-color: var(--primary);
+  box-shadow: 0 1.6rem 3.2rem -0.8rem rgba(28, 68, 153, 0.22);
+  transform: translateY(-0.8rem);
+  transition-delay: 0ms;
+}
+
+.flowShown .flowLit {
+  transform: translateY(-0.8rem);
+  transition-delay: 0ms;
+}
+
+.flowNumber {
+  transition: opacity 350ms var(--ease-out, ease-out);
+}
+
+.flowStep.flowLit .flowNumber {
+  opacity: 0.6;
+}
+
+.flowTile {
+  display: flex;
+  transition: background-color 350ms var(--ease-out, ease-out);
+}
+
+/* The wrapper carries the tint (and the 12px corners from the step card), so
+   the tile inside is clear and the two change together. */
+.flowTile > span {
+  background: transparent;
+}
+
+.flowTile img {
+  transition: filter 350ms var(--ease-out, ease-out);
+}
+
+.flowStep.flowLit .flowTile {
+  background: var(--primary);
+}
+
+.flowStep.flowLit .flowTile img {
+  filter: brightness(0) invert(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flowStep,
+  .flowPart::after,
+  .flowNumber,
+  .flowTile,
+  .flowTile img {
+    transition: none;
+  }
+}

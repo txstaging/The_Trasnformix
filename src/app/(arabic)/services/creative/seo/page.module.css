@@ -1,0 +1,7 @@
+/* The artboard's banner copy runs 817px wide (the sector pages' is 66rem), so
+   the title takes two lines and the two calls sit side by side. */
+@media (min-width: 1025px) {
+  .banner > div:last-child {
+    width: 81.7rem;
+  }
+}
