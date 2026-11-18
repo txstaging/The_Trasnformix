@@ -1,5 +1,4 @@
 import { Reveal } from "@/components/ui/Reveal";
-import { MANUFACTURING_WEBSITE } from "@/lib/serviceNavigation";
 import styles from "./SectorsOverview.module.css";
 
 /* Right-to-left: الصناعة is the right-hand card. It leaves for the
@@ -10,7 +9,7 @@ const SECTORS = [
     number: "01",
     title: "الصناعة",
     text: "تشغيل المصانع، التحول الرقمي، أنظمة MRC والذكاء الاصطناعي.",
-    href: MANUFACTURING_WEBSITE,
+    href: "/manufacturing",
   },
   {
     key: "cooperatives",
