@@ -77,6 +77,7 @@ const TECH_SOLUTIONS: NavBlock[][] = [
         ],
       },
       { label: "Odoo services", href: "/en/services/odoo" },
+      { label: "Enterprise Management Systems", href: "/en/services" },
     ],
   }],
   [{

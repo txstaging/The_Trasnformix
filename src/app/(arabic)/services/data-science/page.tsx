@@ -2,14 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Footer } from "@/components/sections/Footer";
 import { Navbar } from "@/components/sections/Navbar";
+import { PillButton } from "@/components/ui/PillButton";
 import {
-  Closing,
-  FlowDiagram,
   kit,
-  ProcessSteps,
   SectionIntro,
   ServiceHero,
-  type FlowStep,
 } from "@/components/services/ServiceKit";
 import { Reveal } from "@/components/ui/Reveal";
 import flow from "@/components/ui/SectionFlow.module.css";
@@ -33,8 +30,8 @@ const PRINCIPLE = {
   text: "لا بمستوى الدقة التقنية وحده. نراعي قابلية التنفيذ والتشغيل، ووضوح النتائج للمستخدمين، واحتياجات التطوير المستقبلية.",
 };
 
-/* Figma 4473:8842, in reading order. */
-const VALUE_FLOW = ["مصادر وبيانات غير مستثمرة", "حلول ونماذج قابلة للتشغيل", "قرارات ومؤشرات قابلة للقياس"];
+/* Figma 4473:8842, in right-to-left reading order. */
+const VALUE_FLOW = ["قرارات ومؤشرات قابلة للقياس", "حلول ونماذج قابلة للتشغيل", "مصادر وبيانات غير مستثمرة"];
 
 /* Figma 4473:8860 */
 const STEPS = [
@@ -52,17 +49,7 @@ const STEPS = [
   },
 ] as const;
 
-/* Figma 4473:8885 — the RADAR loop in two rows, each in reading order. */
-const RADAR_FIRST: readonly FlowStep[] = [
-  { label: "النتائج", en: "Results" },
-  { label: "المنهج", en: "Approach" },
-  { label: "التطبيق", en: "Deployment" },
-];
-
-const RADAR_SECOND: readonly FlowStep[] = [
-  { label: "التقييم واستخلاص الدروس", en: "Assess & Synthesize" },
-  { label: "التحسين", en: "Refine" },
-];
+const RADAR_STEPS = ["التطبيق", "المنهج", "النتائج", "التحسين", "التقييم واستخلاص الدروس"];
 
 type Capability = {
   slug: string;
@@ -199,7 +186,12 @@ const CAPABILITIES: readonly Capability[] = [
   },
 ];
 
-const pad = (index: number) => String(index + 1).padStart(2, "0");
+const SCOPE_ICONS: Record<string, readonly string[]> = {
+  automation: ["workflow", "home-shield-check", "refresh-cw", "home-network", "home-book-open"],
+  predictive: ["marketing-chart", "clipboard-check", "home-chart-90", "data-chart", "home-shield-check"],
+  customers: ["messages-square", "marketing-sparkles", "target", "marketing-chart", "users-round"],
+  foundations: ["data-database", "refresh-cw", "home-book-open", "home-shield-check"],
+};
 
 /** Figma 4473:8787 — علوم البيانات والذكاء الرقمي. */
 export default function DataSciencePage() {
@@ -209,128 +201,146 @@ export default function DataSciencePage() {
       <main className={`${flow.flow} ${kit.main} ${tajawal.variable} ${jakarta.variable}`}>
         <ServiceHero
           id="data-heading"
-          image="/images/services/data/hero.jpg"
-          kicker="علوم البيانات والذكاء الرقمي"
+          image="/images/p18.png"
           title="ما وراء النماذج: قيمة تجارية قابلة للقياس من بياناتك"
           text="نساعد المؤسسات على الاستفادة من البيانات الموجودة في أنظمتها، حتى عندما تكون موزعة بين الإدارات أو يصعب جمعها وتحليلها. نطوّر حلولًا قابلة للتشغيل، ترتبط بمؤشرات أداء محددة وتدعم قرارات تستند إلى معلومات موثوقة."
-          actions={[{ label: "ناقش مشروع البيانات" }, { label: "استكشف قدراتنا", href: "#capabilities" }]}
+          actions={[{ label: "ناقش مشروع البيانات" }]}
           wide
         />
 
         <section className={kit.section} aria-labelledby="data-team-heading">
           <SectionIntro
             id="data-team-heading"
-            kicker="الخدمة وفريق العمل"
             title="نبدأ بالقرار، لا بالتقنية"
             text="نبدأ بتحديد القرار الذي تحتاج المؤسسة إلى دعمه، ثم نختار الحل التقني المناسب ونقيس نتائجه بعد التشغيل. وبذلك تصبح البيانات أصلًا يمكن الاعتماد عليه في أعمال المؤسسة وتطويرها."
+            center
           />
           <div className={styles.team}>
-            <Reveal className={styles.teamIntro}>
-              <h3 className={kit.cardTitle}>{TEAM.title}</h3>
-              <p className={kit.cardText}>{TEAM.text}</p>
+            <Reveal className={styles.featureCard}>
+              <span className={styles.featureIcon} aria-hidden="true">
+                <Image src="/v2/icons/data-chart.svg" alt="" width={24} height={24} />
+              </span>
+              <div>
+                <h3 className={kit.cardTitle}>{PRINCIPLE.title}</h3>
+                <p className={kit.cardText}>{PRINCIPLE.text}</p>
+              </div>
             </Reveal>
-            <Reveal className={styles.principle} delay={80}>
-              <h3 className={kit.cardTitle}>{PRINCIPLE.title}</h3>
-              <p className={kit.cardText}>{PRINCIPLE.text}</p>
+            <Reveal className={styles.featureCard} delay={80}>
+              <span className={styles.featureIcon} aria-hidden="true">
+                <Image src="/v2/icons/users-round.svg" alt="" width={24} height={24} />
+              </span>
+              <div>
+                <h3 className={kit.cardTitle}>{TEAM.title}</h3>
+                <p className={kit.cardText}>{TEAM.text}</p>
+              </div>
             </Reveal>
           </div>
-          <Reveal>
-            <FlowDiagram steps={VALUE_FLOW} />
+          <Reveal className={styles.dataFlow}>
+            <ol className={styles.dataFlowSteps}>
+              {VALUE_FLOW.map((label, index) => (
+                <li key={label}>
+                  <span className={styles.flowNumber} dir="ltr">{index + 1}</span>
+                  <span>{label}</span>
+                  {index < VALUE_FLOW.length - 1 && <span className={styles.flowArrow} aria-hidden="true">←</span>}
+                </li>
+              ))}
+            </ol>
           </Reveal>
         </section>
 
-        <section className={`${kit.section} ${kit.tinted}`} aria-labelledby="data-framework-heading">
+        <section className={`${kit.section} ${kit.tinted} ${styles.frameworkSection}`} aria-labelledby="data-framework-heading">
           <SectionIntro
             id="data-framework-heading"
             title="من هدف واضح إلى حل يعمل ويتحسّن"
             text="ثلاث مراحل مترابطة: الاتفاق على هدف ومؤشرات لقياسه، ثم تطوير الحل وتشغيله، وأخيرًا متابعة الأداء وتحسينه."
             center
           />
-          <ProcessSteps steps={STEPS} roomy />
+          <ol className={styles.frameworkCards}>
+            {STEPS.map((step, index) => (
+              <Reveal as="li" key={step.title} className={styles.frameworkCard} delay={index * 80}>
+                <span className={styles.frameworkIcon} aria-hidden="true">
+                  <Image
+                    src={["/v2/icons/target.svg", "/v2/icons/web-code-xml.svg", "/icons/lucide-chart-no-axes-combined.svg"][index]}
+                    alt=""
+                    width={24}
+                    height={24}
+                  />
+                </span>
+                <h3 className={kit.cardTitle}>{step.title}</h3>
+                <p className={kit.cardText}>{step.text}</p>
+              </Reveal>
+            ))}
+          </ol>
           <Reveal className={styles.radar}>
-            <h3 className={`${kit.cardTitle} ${styles.radarTitle}`}>
-              حلقة مستمرة للتقييم والتحسين — <span lang="en">RADAR</span>
-            </h3>
-            <FlowDiagram steps={RADAR_FIRST} />
-            <span className={styles.radarTurn} aria-hidden="true">
-              ↓
-            </span>
-            <FlowDiagram
-              steps={RADAR_SECOND}
-              note="↻ يعاد التقييم بعد التحسين لبدء حلقة جديدة؛ نراجع النتائج والمنهج والتطبيق بصورة مستمرة."
-            />
+            <div className={styles.radarCopy}>
+              <h3 className={`${kit.cardTitle} ${styles.radarTitle}`}>
+                حلقة مستمرة للتقييم والتحسين — <span lang="en">RADAR</span>
+              </h3>
+              <p>يعاد التقييم بعد التحسين لبدء حلقة جديدة؛ نراجع النتائج والمنهج والتطبيق بصورة مستمرة.</p>
+            </div>
+            <div className={styles.radarDiagram} role="img" aria-label="مراحل RADAR: التطبيق، المنهج، النتائج، التحسين، التقييم واستخلاص الدروس">
+              <span className={styles.radarOrbit} aria-hidden="true" />
+              <span className={styles.radarCenter}>
+                <Image src="/icons/logo.svg" alt="Transformix" width={76} height={49} />
+              </span>
+              {RADAR_STEPS.map((step, index) => (
+                <span className={`${styles.radarNode} ${styles[`radarNode${index + 1}`]}`} key={step}>
+                  <b dir="ltr">{index + 1}</b>{step}
+                </span>
+              ))}
+            </div>
           </Reveal>
         </section>
 
-        {CAPABILITIES.map((capability, index) => {
-          const heading = `data-${capability.slug}-heading`;
-          const scope = `data-${capability.slug}-scope`;
-          return (
-            <section
-              key={capability.slug}
-              id={index === 0 ? "capabilities" : undefined}
-              className={index % 2 ? `${kit.section} ${kit.tinted}` : kit.section}
-              aria-labelledby={heading}
-            >
-              <div className={styles.overview}>
-                <Reveal className={`${kit.card} ${styles.overviewCard}`}>
-                  <span className={kit.cardNumber} dir="ltr" aria-hidden="true">
-                    {pad(index)}
-                  </span>
-                  <h2 id={heading} className={kit.cardTitle}>
-                    {capability.title}
-                  </h2>
-                  <p className={kit.cardText}>{capability.text}</p>
-                  <a href={`#${scope}`} className={kit.cardLink}>
-                    نطاق تقني مرتبط باحتياج أعمالك
-                  </a>
+        <section id="capabilities" className={`${kit.section} ${kit.tinted} ${styles.servicesSection}`} aria-labelledby="data-services-heading">
+          <Reveal as="h2" id="data-services-heading" className={styles.servicesHeading}>خدماتنا في علوم البيانات</Reveal>
+          {CAPABILITIES.map((capability) => {
+            const heading = `data-${capability.slug}-heading`;
+            const scope = `data-${capability.slug}-scope`;
+            return (
+              <article key={capability.slug} className={styles.serviceCapability} aria-labelledby={heading}>
+                <Reveal className={styles.serviceCapabilityIntro}>
+                  <h3 id={heading}>{capability.title}</h3>
+                  <p>{capability.text} <strong>متى تحتاج المؤسسة إلى هذه الخدمة؟</strong> {capability.need}</p>
+                  <a href={`#${scope}`}>ناقش احتياجك <span aria-hidden="true">←</span></a>
                 </Reveal>
-                <Reveal className={styles.overviewMedia} delay={80}>
-                  <Image
-                    className={styles.overviewImage}
-                    src={capability.image}
-                    alt=""
-                    fill
-                    sizes="(max-width: 900px) 100vw, 330px"
-                  />
-                </Reveal>
-              </div>
 
-              <Reveal className={styles.need}>
-                <p className={styles.label}>متى تحتاج المؤسسة إلى هذه الخدمة؟</p>
-                <p className={kit.cardText}>{capability.need}</p>
-              </Reveal>
+                <h4 id={scope} className={styles.scopeTitle}>نطاق العمل والقدرات</h4>
+                <ul className={styles.scope}>
+                  {capability.scope.map((item, itemIndex) => (
+                    <Reveal as="li" key={item.title} className={styles.scopeItem} delay={(itemIndex % 2) * 60}>
+                      <span className={styles.scopeIcon} aria-hidden="true">
+                        <Image
+                          src={`/v2/icons/${SCOPE_ICONS[capability.slug]?.[itemIndex] ?? "data-chart"}.svg`}
+                          alt=""
+                          width={20}
+                          height={20}
+                        />
+                      </span>
+                      <div>
+                        <h5>{item.title}</h5>
+                        <p>{item.text}</p>
+                      </div>
+                    </Reveal>
+                  ))}
+                </ul>
+              </article>
+            );
+          })}
+        </section>
 
-              <h3 id={scope} className={`${kit.cardTitle} ${styles.scopeTitle}`}>
-                نطاق العمل والقدرات
-              </h3>
-              <ul className={styles.scope}>
-                {capability.scope.map((item, itemIndex) => (
-                  <Reveal as="li" key={item.title} className={styles.scopeItem} delay={(itemIndex % 2) * 60}>
-                    <h4 className={kit.cardTitle}>{item.title}</h4>
-                    <p className={kit.cardText}>{item.text}</p>
-                  </Reveal>
-                ))}
-              </ul>
-
-              <Reveal className={styles.applications}>
-                <p className={styles.label}>تطبيقات تخدم أعمالك</p>
-                <p className={kit.cardText}>{capability.applications}</p>
-              </Reveal>
-
-              <Reveal>
-                <FlowDiagram steps={capability.flow} note={capability.note} />
-              </Reveal>
-            </section>
-          );
-        })}
-
-        <Closing
-          id="data-closing-heading"
-          title="بيانات موثوقة، وتحليل قابل للاستخدام"
-          text="نراجع مع مؤسستك مصادر البيانات واحتياجات فرق العمل، ونحدد الأولويات التي يمكن تحويلها إلى مشروع قابل للتنفيذ والقياس؛ من تأسيس البيانات وتطوير التحليلات إلى تشغيل النماذج والتكامل مع أنظمتك القائمة."
-          actions={[{ label: "ناقش مشروع البيانات" }]}
-        />
+        <section className={styles.dataClosing} aria-labelledby="data-closing-heading">
+          <div className={styles.dataClosingCopy}>
+            <Reveal as="h2" id="data-closing-heading">بيانات موثوقة، وتحليل قابل للاستخدام</Reveal>
+            <Reveal as="p" delay={80}>
+              نراجع مع مؤسستك مصادر البيانات واحتياجات فرق العمل، ونحدد الأولويات التي يمكن تحويلها إلى مشروع قابل للتنفيذ والقياس؛ من تأسيس البيانات وتطوير التحليلات إلى تشغيل النماذج والتكامل مع أنظمتك القائمة.
+            </Reveal>
+            <Reveal delay={160}><PillButton size="compact">ناقش مشروع البيانات</PillButton></Reveal>
+          </div>
+          <Reveal className={styles.dataClosingImage} delay={80}>
+            <Image src="/images/p10.png" alt="لوحة مؤشرات وتحليلات أداء الأعمال" fill sizes="(max-width: 900px) 100vw, 40vw" />
+          </Reveal>
+        </section>
       </main>
       <Footer />
     </>
