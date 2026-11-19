@@ -24,6 +24,14 @@ export function Hero() {
             sizes="100vw"
             className={styles.image}
           />
+          {/* Phones and tablets show the portrait artwork instead. */}
+          <Image
+            src="/images/hero/banner-mobile.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className={styles.imageMobile}
+          />
         </div>
 
         <div className={styles.content}>

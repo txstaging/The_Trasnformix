@@ -1,0 +1,224 @@
+/* Figma 4619:821 — the centred title and lead over a sideways row of sector
+   cards. The content box is Products' own, so the row starts where Products'
+   copy starts. */
+.section {
+  --line: #e5e7eb;
+  --tile: #dde3f0;
+  padding: 9.6rem 7.6rem;
+  background: var(--bg-main);
+  scroll-margin-top: 12rem;
+}
+
+.inner {
+  width: 129.1rem;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.head {
+  margin-bottom: 6.4rem;
+  text-align: center;
+}
+
+/* The home page paints every h2 navy; this one is the artboard's primary text. */
+.section .title {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 5.6rem;
+  letter-spacing: -0.03rem;
+  color: var(--text-primary);
+}
+
+.lead {
+  margin-top: 1.6rem;
+  font-size: 2rem;
+  line-height: 3.8rem;
+  color: var(--text-secondary);
+}
+
+/* The padding gives a lifted card's shadow room inside the scroller. */
+.rail {
+  display: flex;
+  align-items: stretch;
+  gap: 2rem;
+  margin-block: -2rem;
+  padding-block: 2rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+.rail:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.4rem;
+  border-radius: 2.4rem;
+}
+
+.rail[data-dragging="true"] {
+  scroll-snap-type: none;
+  cursor: grabbing;
+  user-select: none;
+}
+
+.card {
+  display: flex;
+  flex: 0 0 38rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 3.2rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+  scroll-snap-align: start;
+  transition:
+    border-color var(--dur) var(--ease-in-out),
+    box-shadow var(--dur) var(--ease-in-out),
+    transform var(--dur) var(--ease-in-out);
+}
+
+.card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 1.2rem 2.8rem rgba(28, 68, 153, 0.12);
+  transform: translateY(-0.4rem);
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  align-self: stretch;
+}
+
+.tile {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 5.6rem;
+  height: 5.6rem;
+  border-radius: 1.6rem;
+  background: var(--tile);
+  transition: background var(--dur) var(--ease-in-out);
+}
+
+.tile img {
+  width: 2.8rem;
+  height: 2.8rem;
+  transition: filter var(--dur) var(--ease-in-out);
+}
+
+.card:hover .tile {
+  background: var(--primary);
+}
+
+.card:hover .tile img {
+  filter: brightness(0) invert(1);
+}
+
+.cardTitle {
+  flex: 1;
+  min-width: 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 0.6rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 2.4rem;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+.link:focus-visible {
+  border-radius: 0.4rem;
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.2rem;
+}
+
+.arrow {
+  flex: none;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.link:hover .arrow {
+  transform: translateX(-0.4rem);
+}
+
+@media (max-width: 1024px) {
+  .section {
+    padding: 5.6rem var(--gutter);
+  }
+
+  .head {
+    margin-bottom: 4rem;
+  }
+
+  .section .title {
+    font-size: 3.2rem;
+    line-height: 4.4rem;
+  }
+
+  .card {
+    flex-basis: 32rem;
+    padding: 2.4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 4.8rem var(--gutter);
+  }
+
+  .section .title {
+    font-size: 2.6rem;
+    line-height: 3.6rem;
+  }
+
+  .lead {
+    font-size: 1.7rem;
+    line-height: 3rem;
+  }
+
+  .card {
+    flex-basis: 28rem;
+  }
+
+  .cardTitle {
+    font-size: 2rem;
+  }
+
+  .link {
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .tile,
+  .tile img,
+  .arrow {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+
+  .link:hover .arrow {
+    transform: none;
+  }
+}

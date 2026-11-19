@@ -16,21 +16,21 @@ const ACADEMIES = [
     text: "Practical programmes for boards of directors, executive teams and operational teams in digital governance, member management, enterprise systems and AI, applied to cooperative operations.",
     cta: "Explore Cooperatives Academy",
     href: "/en/academy#cooperatives",
-    image: "/images/sectors/cooperatives-1.png",
+    image: "/images/home/academy-cooperatives.jpg",
   },
   {
     title: "Industrial Academy",
     text: "Applied training in manufacturing systems, resource planning, quality management, data analysis, automation and organisational readiness, for industrial, technical and administrative teams.",
     cta: "Explore Industrial Academy",
     href: "/en/academy#industry",
-    image: "/images/sectors/industry-3.png",
+    image: "/images/home/academy-industry.jpg",
   },
   {
     title: "Youth & Digital Skills Academy",
     text: "Practical paths in the fundamentals of enterprise systems, programming, data and AI, with hands-on projects and career mentoring that connect learning to the requirements of technology-related jobs.",
     cta: "Explore Youth Programs",
     href: "/en/academy#vocational",
-    image: "/images/sectors/education-2.png",
+    image: "/images/home/academy-youth.jpg",
   },
 ];
 

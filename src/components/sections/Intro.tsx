@@ -3,15 +3,6 @@ import { Reveal } from "@/components/ui/Reveal";
 import { tajawal } from "@/lib/fonts";
 import styles from "./Intro.module.css";
 
-/* The five labs, in the client's order. */
-const LABS = [
-  "مختبر الذكاء الاصطناعي والبيانات",
-  "مختبر أنظمة المؤسسات",
-  "مختبر هندسة البرمجيات",
-  "المختبر الإبداعي",
-  "مختبر البحث والتطوير والاستشارات",
-];
-
 /** Version 4's editorial introduction, with links kept in version 1. */
 export function Intro() {
   return (
@@ -31,17 +22,6 @@ export function Intro() {
           </Link>
         </Reveal>
       </div>
-      <Reveal as="h3" id="intro-labs-title" className={styles.labsTitle}>
-        مختبراتنا الخمسة
-      </Reveal>
-      <ol className={styles.stats} aria-labelledby="intro-labs-title">
-        {LABS.map((lab, index) => (
-          <Reveal as="li" key={lab} delay={index * 80}>
-            <span className={styles.value} dir="ltr">{String(index + 1).padStart(2, "0")}</span>
-            <h4>{lab}</h4>
-          </Reveal>
-        ))}
-      </ol>
     </section>
   );
 }

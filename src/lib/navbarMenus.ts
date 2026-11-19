@@ -29,7 +29,8 @@ export type NavLink = {
 
 /** A run of links in one column under an optional bold, blue heading. */
 export type NavBlock = {
-  title?: NavLink;
+  /** Without an `href` the heading only labels its column. */
+  title?: { label: string; href?: string };
   links: NavLink[];
   /** Carries on the heading of the column before it, so its first link
       lines up with that column's first link (Figma 4305:4783). */
@@ -120,17 +121,18 @@ const CONSULTING: NavBlock[][] = [
   ],
 ];
 
-/* المنتجات — the agents run on the TX AI Suite. Platforms with a site of
-   their own open it; the rest wait on the products page. */
-const AGENTS: NavBlock = {
+/* المنتجات — the agents run on the TX AI Suite. An agent with a site of its
+   own opens it (المبيعات → فهيم, العمليات → ذكي, المعرفة → عارف,
+   التقارير → نديم); the rest open the suite. */
+const AGENTS_BLOCK: NavBlock = {
   title: { label: "منظومة الوكلاء الأذكياء", href: "/products#ai-agents" },
   links: [
     site("وكيل خدمة العملاء", AI_SUITE_WEBSITE),
-    site("وكيل المبيعات", AI_SUITE_WEBSITE),
+    site("وكيل المبيعات", "https://faheem.app/"),
     site("وكيل الحجوزات", AI_SUITE_WEBSITE),
-    site("وكيل العمليات", AI_SUITE_WEBSITE),
-    site("وكيل المعرفة المؤسسية", AI_SUITE_WEBSITE),
-    site("وكيل التقارير", AI_SUITE_WEBSITE),
+    site("وكيل العمليات", "https://zaki.thetransformix.com/"),
+    site("وكيل المعرفة المؤسسية", "https://aref.thetransformix.com/"),
+    site("وكيل التقارير", "https://nadeem.thetransformix.com/"),
   ],
 };
 
@@ -185,9 +187,10 @@ const ACADEMIES: NavBlock = {
 };
 
 /* الثقة والحوكمة — our ethics, the code of conduct and regulatory compliance
-   (lib/trustNav.ts). The heading opens the first of them. */
+   (lib/trustNav.ts). Its heading and its tab only label the group; each page
+   opens from its own link. */
 const TRUST: NavBlock = {
-  title: { label: TRUST_LABEL, href: trustHref("ethics") },
+  title: { label: TRUST_LABEL },
   links: TRUST_NAV.map(({ slug, label }) => ({ label, href: trustHref(slug) })),
 };
 
@@ -245,7 +248,7 @@ export const NAV_ITEMS: NavItem[] = [
   {
     label: "الخدمات",
     href: "/services",
-    routes: ["/services", "/ventures", "/sectors"],
+    routes: ["/services", "/ventures", "/sectors", "/manufacturing"],
     menu: {
       id: "services",
       overview: [...TECH_SOLUTIONS, ...CONSULTING, [SECTORS]],
@@ -266,12 +269,12 @@ export const NAV_ITEMS: NavItem[] = [
     routes: ["/products"],
     menu: {
       id: "products",
-      overview: [[AGENTS], [PLATFORMS], [MORE_PLATFORMS]],
+      overview: [[AGENTS_BLOCK], [PLATFORMS], [MORE_PLATFORMS]],
       tabs: [
         {
           label: "منظومة الوكلاء الأذكياء",
           href: "/products#ai-agents",
-          columns: [[AGENTS]],
+          columns: [[AGENTS_BLOCK]],
         },
         {
           label: "المنصات والأنظمة",
@@ -284,8 +287,6 @@ export const NAV_ITEMS: NavItem[] = [
   {
     label: "الموارد",
     routes: [
-      "/sectors",
-      "/manufacturing",
       "/academy",
       TRUST_HREF,
       "/works",
@@ -298,7 +299,7 @@ export const NAV_ITEMS: NavItem[] = [
       overview: [[ACADEMIES, TRUST], [COMMUNITY], [COMPANY, KNOWLEDGE]],
       tabs: [
         { label: "الأكاديميات", href: "/academy", columns: [[ACADEMIES]] },
-        { label: TRUST_LABEL, href: trustHref("ethics"), columns: [[TRUST]] },
+        { label: TRUST_LABEL, columns: [[TRUST]] },
         {
           label: "المجتمع",
           href: COMMUNITY_HREF,
@@ -364,7 +365,7 @@ function buildIndex(): NavSearchEntry[] {
         const trail = block.title
           ? `${item.label} · ${block.title.label}`
           : item.label;
-        if (block.title) add(block.title, item.label);
+        if (block.title?.href) add({ label: block.title.label, href: block.title.href }, item.label);
         block.links.forEach((link) => add(link, trail));
       }
     }

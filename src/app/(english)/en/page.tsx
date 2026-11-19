@@ -4,13 +4,15 @@ import { CtaChallenge } from "@/english/components/sections/CtaBanner";
 import { Faq } from "@/english/components/sections/Faq";
 import { Footer } from "@/english/components/sections/Footer";
 import { Hero } from "@/english/components/sections/Hero";
+import { Industries } from "@/english/components/sections/Industries";
 import { Intro } from "@/english/components/sections/Intro";
 import { Navbar } from "@/english/components/sections/Navbar";
 import { Partners } from "@/english/components/sections/Partners";
-import { Process } from "@/english/components/sections/Process";
 import { Products } from "@/english/components/sections/Products";
 import { ServicesGrid } from "@/english/components/sections/ServicesGrid";
+import { Sustainability } from "@/english/components/sections/Sustainability";
 import { Testimonials } from "@/english/components/sections/Testimonials";
+import { TxCommunity } from "@/english/components/sections/TxCommunity";
 import { Works } from "@/english/components/sections/Works";
 import { HomeOpening } from "@/english/components/ui/HomeOpening";
 import { HomeSection, HomeTransitions } from "@/english/components/ui/HomeTransitions";
@@ -41,10 +43,16 @@ export default function Home() {
           <Academies />
         </HomeSection>
         <HomeSection>
-          <Process />
+          <Works />
         </HomeSection>
         <HomeSection>
-          <Works />
+          <Industries />
+        </HomeSection>
+        <HomeSection>
+          <TxCommunity />
+        </HomeSection>
+        <HomeSection>
+          <Sustainability />
         </HomeSection>
         <HomeSection>
           <CtaChallenge />

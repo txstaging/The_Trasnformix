@@ -1,130 +1,307 @@
-/* Version 3's sticky process illustration and numbered rail. */
+/* Figma 4616:957 — the centred title and lead over a services explorer: a
+   numbered list of the nine services beside the detail panel of the one
+   picked. The explorer shares Products' content box, so both start and end on
+   the same edges. */
 .section {
-  max-width: 1600px;
+  --line: #e5e7eb;
+  padding: 9.6rem 7.6rem;
+  background: var(--bg-main);
+  scroll-margin-top: 12rem;
+}
+
+.inner {
+  width: 129.1rem;
+  max-width: 100%;
   margin-inline: auto;
-  padding: 110px clamp(24px, 4.5vw, 80px) 120px;
-  scroll-margin-top: 120px;
-  color: #102544;
-  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
-  font-size: 18px;
-  line-height: 1.65;
 }
 
-.layout {
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 11%;
-  align-items: start;
+.head {
+  margin-bottom: 6.4rem;
+  text-align: center;
 }
 
-.head { margin-bottom: 56px; text-align: center; }
-.label { margin-bottom: 12px; color: var(--primary); font-size: 17px; font-weight: 700; }
-.head h2 { font-size: clamp(38px, 3.4vw, 55px); font-weight: 700; line-height: 1.25; letter-spacing: -1.5px; }
-.lead { max-width: 640px; margin: 18px auto 0; color: #5c6878; font-size: 18px; line-height: 1.75; }
-.aside { position: sticky; top: 130px; }
-/* The client's photos are 16:9 scenes, framed edge to edge. */
-.art { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 20px; background: #0e1a2e; }
-.image { position: absolute; inset: 0; }
-.image img { object-fit: cover; }
-
-.list { list-style: none; margin: 0; padding: 0; }
-.item { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 25px; min-height: 390px; padding-bottom: 54px; }
-.item:last-child { padding-bottom: 0; min-height: 330px; }
-.rail { position: relative; display: flex; justify-content: center; }
-.rail > span {
-  position: absolute;
-  top: 0;
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  font: 12px Arial, sans-serif;
-  background: #fff;
-  border: 1px solid #dce2ea;
-  color: #7e8a9d;
-  z-index: 1;
-  transition: background var(--dur), color var(--dur);
+/* The home page paints every h2 navy; this one is the artboard's primary text. */
+.section .title {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 5.6rem;
+  letter-spacing: -0.03rem;
+  color: var(--text-primary);
 }
-.rail::before, .rail > div {
+
+.lead {
+  margin-top: 1.6rem;
+  font-size: 2rem;
+  line-height: 3.8rem;
+  color: var(--text-secondary);
+}
+
+.explorer {
+  display: flex;
+  align-items: flex-start;
+  gap: 4.8rem;
+  padding: 3.2rem;
+  border: 0.05rem solid #dedede;
+  border-radius: 1.9rem;
+}
+
+/* The list comes first in the markup, so it sits at the reading start. */
+.list {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 1.2rem;
+  width: 50rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.entry + .entry::before {
+  content: "";
+  display: block;
+  height: 0.1rem;
+  margin-bottom: 1.2rem;
+  background: var(--line);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  width: 100%;
+  padding-block: 1.8rem;
+  padding-inline: 2.4rem 2rem;
+  border-radius: 1.6rem;
+  text-align: start;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.item:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.2rem;
+}
+
+.item[data-active="true"] {
+  background: var(--blue-light);
+}
+
+.name {
+  flex: 1;
+  min-width: 0;
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 2.8rem;
+  color: var(--text-primary);
+}
+
+.item[data-active="true"] .name {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.number {
+  flex: none;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.item[data-active="true"] .number {
+  color: var(--primary);
+  opacity: 1;
+}
+
+/* Every row holds the arrow's place; only the picked one shows it. */
+.arrow {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  visibility: hidden;
+}
+
+.item[data-active="true"] .arrow {
+  visibility: visible;
+}
+
+.panel {
+  flex: 1;
+  min-width: 0;
+  min-height: 76.9rem;
+  padding: 5.6rem;
+  border: 0.1rem solid var(--line);
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+  overflow: hidden;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3.2rem;
+}
+
+.picture {
+  position: relative;
+  align-self: stretch;
+  height: 24rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+}
+
+.picture img {
+  object-fit: cover;
+}
+
+.picture::after {
   content: "";
   position: absolute;
-  inset-inline-start: 20px;
-  width: 1px;
-  top: 42px;
-  bottom: -1px;
-  background: #dce2ea;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.27);
 }
-.rail > div { background: var(--primary); transform-origin: top; }
-.item[data-active="true"] .rail > span { color: #fff; background: var(--primary); border-color: var(--primary); }
-.item:last-child .rail::before, .item:last-child .rail > div { display: none; }
 
-.copy h3 { font-size: 29px; font-weight: 700; line-height: 1.35; margin: 3px 0 18px; }
-.copy > p { color: #5c6878; font-size: 18px; line-height: 1.75; }
-.link {
+.detailTitle {
+  font-size: 3.4rem;
+  font-weight: 700;
+  line-height: 4.8rem;
+  letter-spacing: -0.02rem;
+  color: var(--text-primary);
+}
+
+.detailText {
+  font-size: 2rem;
+  line-height: 3.8rem;
+  color: var(--text-secondary);
+}
+
+.cta {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  margin-top: 20px;
-  padding-block: 8px;
-  border-bottom: 1px solid #dce2ea;
-  color: var(--primary);
-  font-size: 16px;
-  transition: gap var(--dur) var(--ease-out);
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.8rem;
+  padding: 1.4rem 2.8rem;
+  border-radius: 2.4rem;
+  background: var(--primary);
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 2.4rem;
+  color: var(--text-inverse);
+  transition: background var(--dur-fast) var(--ease-out);
 }
-.link:hover { gap: 20px; }
-.link > span { color: #05b8d5; font: 20px Arial, sans-serif; }
-.mobileImage { display: none; }
 
-.listColumn { min-width: 0; }
-
-/* Lined up with the copy, past the 42px rail and its 25px gap. */
-.more {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 48px;
-  margin-top: 40px;
-  margin-inline-start: 67px;
-  padding: 10px 26px;
-  border: 1px solid #dce2ea;
-  border-radius: 999px;
-  color: var(--primary);
-  font-size: 16px;
-  font-weight: 500;
-  transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+.cta:hover {
+  background: var(--blue-dark);
 }
-.more:hover { border-color: var(--primary); background: var(--primary); color: #fff; }
-.more:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
-.more svg { width: 18px; height: 18px; transition: transform var(--dur) var(--ease-out); }
-.more[aria-expanded="true"] svg { transform: rotate(180deg); }
 
-@media (max-width: 900px) {
-  .section { padding-block: 80px; }
-  .layout { grid-template-columns: minmax(0, 1fr); gap: 45px; }
-  .aside { display: none; }
-  .head h2 { font-size: 45px; }
-  .item { min-height: auto; padding-bottom: 40px; }
-  .item:last-child { min-height: 0; }
-  .copy { padding-top: 2px; }
-  .copy > p { max-width: 600px; }
-  .mobileImage { display: block; width: 100%; max-width: 520px; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 16px; margin-block: 24px 10px; }
+.cta:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.3rem;
+}
+
+.ctaArrow {
+  flex: none;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.cta:hover .ctaArrow {
+  transform: translateX(-0.4rem);
+}
+
+@media (max-width: 1024px) {
+  .section {
+    padding: 5.6rem var(--gutter);
+  }
+
+  .head {
+    margin-bottom: 4rem;
+  }
+
+  .section .title {
+    font-size: 3.2rem;
+    line-height: 4.4rem;
+  }
+
+  .explorer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3.2rem;
+    padding: 2.4rem;
+  }
+
+  .list {
+    width: 100%;
+  }
+
+  .panel {
+    min-height: 0;
+    padding: 3.2rem;
+  }
 }
 
 @media (max-width: 640px) {
-  .section { padding: 65px 20px; }
-  .head { margin-bottom: 35px; }
-  .head h2 { font-size: 38px; }
-  .lead { font-size: 17px; }
-  .layout { gap: 35px; }
-  .item { grid-template-columns: 32px minmax(0, 1fr); gap: 17px; padding-bottom: 30px; }
-  .rail > span { width: 32px; height: 32px; font-size: 10px; }
-  .rail::before, .rail > div { top: 32px; inset-inline-start: 15px; }
-  .more { margin-top: 30px; margin-inline-start: 49px; }
-  .copy h3 { font-size: 26px; margin-bottom: 16px; }
-  .copy > p { font-size: 16px; }
-  .mobileImage { border-radius: 12px; margin-block: 20px; }
+  .section {
+    padding: 4.8rem var(--gutter);
+  }
+
+  .section .title {
+    font-size: 2.6rem;
+    line-height: 3.6rem;
+  }
+
+  .lead {
+    font-size: 1.7rem;
+    line-height: 3rem;
+  }
+
+  .explorer {
+    padding: 1.2rem;
+    border-radius: 1.6rem;
+  }
+
+  .item {
+    padding-block: 1.4rem;
+    padding-inline: 1.6rem 1.2rem;
+  }
+
+  .name {
+    font-size: 1.6rem;
+  }
+
+  .panel {
+    padding: 2rem;
+  }
+
+  .detail {
+    gap: 2.4rem;
+  }
+
+  .picture {
+    height: 18rem;
+  }
+
+  .detailTitle {
+    font-size: 2.6rem;
+    line-height: 3.6rem;
+  }
+
+  .detailText {
+    font-size: 1.7rem;
+    line-height: 3.2rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rail > span, .link, .more, .more svg { transition: none; }
+  .item,
+  .cta,
+  .ctaArrow {
+    transition: none;
+  }
+
+  .cta:hover .ctaArrow {
+    transform: none;
+  }
 }

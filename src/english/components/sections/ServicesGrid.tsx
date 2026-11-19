@@ -1,11 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useReducedMotion } from "@/english/lib/useReducedMotion";
-import { useLayoutEffect, useRef, useState } from "react";
-import { Reveal, ease } from "@/english/components/v3/Motion";
-import { tajawal } from "@/lib/fonts";
+import { useState } from "react";
+import { Reveal } from "@/english/components/ui/Reveal";
 import { AI_SUITE_WEBSITE, EXTRA_SERVICES, getServiceWebsite } from "@/english/lib/serviceNavigation";
 import styles from "@/english/components/sections/ServicesGrid.module.css";
 
@@ -99,102 +98,80 @@ const SERVICES: { key: string; title: string; text: string; image: string; cta: 
 ];
 
 const number = (index: number) => String(index + 1).padStart(2, "0");
+const ease = [0.65, 0, 0.35, 1] as const;
 
-/* The list opens on the first five; "عرض المزيد" adds the rest. */
-const INITIAL_COUNT = 5;
-
-/** Version 3's process layout, presenting version 1's service content. */
+/** The services explorer (Figma 4616:884): the nine services as a numbered
+    list, and the one picked opening in the detail panel beside it. */
 export function ServicesGrid() {
-  const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
-  const [expanded, setExpanded] = useState(false);
   const reduced = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 35%", "end 75%"] });
-  const visible = expanded ? SERVICES : SERVICES.slice(0, INITIAL_COUNT);
-  /* Folding the list away can leave the last reading past its end. */
-  const current = Math.min(active, visible.length - 1);
-  const moreRef = useRef<HTMLButtonElement>(null);
-  const moreTop = useRef<number | null>(null);
-
-  useMotionValueEvent(scrollYProgress, "change", value => {
-    setActive(Math.max(0, Math.min(visible.length - 1, Math.floor(value * visible.length))));
-  });
-
-  const toggle = () => {
-    if (expanded) moreTop.current = moreRef.current?.getBoundingClientRect().top ?? null;
-    setExpanded(value => !value);
-  };
-
-  /* Folding removes four tall items above the button, so the page is moved
-     to keep the button where the reader pressed it. */
-  useLayoutEffect(() => {
-    if (moreTop.current === null || !moreRef.current) return;
-    window.scrollBy({ top: moreRef.current.getBoundingClientRect().top - moreTop.current, behavior: "instant" });
-    moreTop.current = null;
-  }, [expanded]);
+  const service = SERVICES[active];
+  const external = service.href ? !service.href.startsWith("/") : false;
 
   return (
-    <section id="services" className={`${styles.section} ${tajawal.variable}`} aria-labelledby="services-title" data-flow="outro">
-      <Reveal className={styles.head}>
-        <p className={styles.label}>{"Our services"}</p>
-        <h2 id="services-title">{"Technology solutions tied to your business goals"}</h2>
-        <p className={styles.lead}>{"We design and deliver our solutions around the nature and priorities of each business, with a focus on performance, efficiency and room to grow."}</p>
-      </Reveal>
-      <div ref={ref} className={styles.layout}>
-        <div className={styles.aside}>
-          <div className={styles.art} aria-hidden="true">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                className={styles.image}
-                key={current}
-                initial={reduced ? false : { opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: reduced ? 0 : -12 }}
-                transition={{ duration: reduced ? 0 : 0.25, ease }}
-              >
-                <Image src={SERVICES[current].image} alt="" fill sizes="(max-width: 1200px) 40vw, 540px" />
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-        <div className={styles.listColumn}>
-          <ol id="services-list" className={styles.list}>
-            {visible.map((service, index) => (
-              <li key={service.key} className={styles.item} data-active={current === index}>
-                <div className={styles.rail} aria-hidden="true">
-                  <span>{number(index)}</span>
-                  <motion.div initial={false} animate={{ scaleY: reduced || current >= index ? 1 : 0 }} transition={{ duration: reduced ? 0 : 0.65, ease }} />
-                </div>
-                <Reveal>
-                  <div className={styles.copy}>
-                    <h3>{service.title}</h3>
-                    <p>{service.text}</p>
-                    {service.href && (service.href.startsWith("/") ? (
-                      <a href={service.href} className={styles.link}>
-                        {service.cta} <span aria-hidden="true">↖</span>
-                      </a>
-                    ) : (
-                      <a href={service.href} className={styles.link} target="_blank" rel="noopener noreferrer"
-                        aria-label={`${service.cta} (opens in a new tab)`}>
-                        {service.cta} <span aria-hidden="true">↖</span>
-                      </a>
-                    ))}
-                    <Image className={styles.mobileImage} src={service.image} alt={service.title} width={1672} height={941}
-                      sizes="(max-width: 640px) 90vw, 520px" />
-                  </div>
-                </Reveal>
+    <section id="services" className={styles.section} aria-labelledby="services-title" data-flow="outro">
+      <div className={styles.inner}>
+        <Reveal className={styles.head}>
+          <h2 id="services-title" className={styles.title}>{"Technology solutions tied to your business goals."}</h2>
+          <p className={styles.lead}>{"We design and deliver our solutions around the nature and priorities of each business, with a focus on performance, efficiency and room to grow."}</p>
+        </Reveal>
+
+        <div className={styles.explorer}>
+          <ol className={styles.list}>
+            {SERVICES.map((item, index) => (
+              <li key={item.key} className={styles.entry}>
+                <button
+                  type="button"
+                  className={styles.item}
+                  data-active={active === index}
+                  aria-current={active === index ? "true" : undefined}
+                  aria-controls="services-detail"
+                  onClick={() => setActive(index)}
+                >
+                  <span className={styles.number}>{number(index)}</span>
+                  <span className={styles.name}>{item.title}</span>
+                  <span className={styles.arrow} aria-hidden="true">
+                    <Image src="/icons/home/service-arrow-active.svg" alt="" width={20} height={20} />
+                  </span>
+                </button>
               </li>
             ))}
           </ol>
-          {SERVICES.length > INITIAL_COUNT && (
-            <button ref={moreRef} type="button" className={styles.more} aria-expanded={expanded} aria-controls="services-list"
-              onClick={toggle}>
-              {expanded ? "Show less" : "Show more"}
-              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <path d="m5 8 5 5 5-5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          )}
+
+          <div id="services-detail" className={styles.panel} aria-live="polite">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                className={styles.detail}
+                key={service.key}
+                initial={reduced ? false : { opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: reduced ? 0 : -8 }}
+                transition={{ duration: reduced ? 0 : 0.2, ease }}
+              >
+                <div className={styles.picture}>
+                  <Image src={service.image} alt="" fill sizes="(max-width: 1024px) 90vw, 440px" />
+                </div>
+                <h3 className={styles.detailTitle}>{service.title}</h3>
+                <p className={styles.detailText}>{service.text}</p>
+                {service.href && (
+                  <a
+                    href={service.href}
+                    className={styles.cta}
+                    {...(external
+                      ? {
+                          target: "_blank",
+                          rel: "noopener noreferrer",
+                          "aria-label": `${service.cta} (opens in a new tab)`,
+                        }
+                      : {})}
+                  >
+                    <Image className={styles.ctaArrow} src="/icons/home/arrow-forward-white.svg" alt="" width={20} height={20} aria-hidden />
+                    {service.cta}
+                  </a>
+                )}
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>

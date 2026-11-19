@@ -211,7 +211,7 @@
   padding: 2.4rem;
   border: 0.1rem solid var(--line);
   border-radius: 2.4rem;
-  background: var(--bg-main);
+  background: var(--bg-card);
 }
 
 .modelNumber {

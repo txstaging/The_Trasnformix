@@ -1,0 +1,156 @@
+/* Figma 4620:959 — two equal panels, 24px apart, each 590 tall. The content
+   box is Products' own. */
+.section {
+  --tile: #dde3f0;
+  padding: 9.6rem 7.6rem;
+  background: var(--bg-main);
+  scroll-margin-top: 12rem;
+}
+
+.inner {
+  display: flex;
+  align-items: stretch;
+  gap: 2.4rem;
+  width: 129.1rem;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.panel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3.2rem;
+  min-width: 0;
+  min-height: 59rem;
+  padding: 5.6rem 4.8rem;
+  border: 0.1rem solid #d7d7d9;
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+}
+
+.tile {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 6.4rem;
+  height: 6.4rem;
+  border-radius: 1.8rem;
+  background: var(--tile);
+}
+
+.tile img {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* The home page paints every h2 navy; these are the artboard's primary text. */
+.panel .title {
+  font-size: 3.4rem;
+  font-weight: 700;
+  line-height: 4.8rem;
+  letter-spacing: -0.02rem;
+  color: var(--text-primary);
+}
+
+.text {
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+  color: var(--text-secondary);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 0.6rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 2.4rem;
+  color: var(--primary);
+}
+
+.indented {
+  padding-block: 1.4rem;
+  padding-inline: 2.8rem;
+}
+
+.link:focus-visible {
+  border-radius: 0.4rem;
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.2rem;
+}
+
+.arrow {
+  flex: none;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.link:hover .arrow {
+  transform: translateX(-0.4rem);
+}
+
+@media (max-width: 1024px) {
+  .section {
+    padding: 5.6rem var(--gutter);
+  }
+
+  .panel {
+    min-height: 0;
+    padding: 4rem 3.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .inner {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 4.8rem var(--gutter);
+  }
+
+  .panel {
+    gap: 2.4rem;
+    padding: 3.2rem 2.4rem;
+  }
+
+  .panel .title {
+    font-size: 2.8rem;
+    line-height: 3.8rem;
+  }
+
+  .text {
+    font-size: 1.7rem;
+    line-height: 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow {
+    transition: none;
+  }
+
+  .link:hover .arrow {
+    transform: none;
+  }
+}
+
+/* English reads left to right: the artboard's left-pointing arrows face right. */
+.arrow {
+  transform: scaleX(-1);
+}
+
+.link:hover .arrow {
+  transform: scaleX(-1) translateX(-0.4rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link:hover .arrow {
+    transform: scaleX(-1);
+  }
+}

@@ -96,6 +96,11 @@
   object-position: 0% 50%;
 }
 
+/* The portrait artwork is for the stacked layout only. */
+.imageMobile {
+  display: none;
+}
+
 /* The artwork fades in and settles from a slight zoom. On the Arabic home it
    holds at its first frame behind the opening overlay and plays once the
    overlay has gone. */
@@ -249,13 +254,16 @@
     display: none;
   }
 
-  /* Frame the logo in the narrower crop. */
+  /* The portrait artwork replaces the wide banner here: the logo and its
+     platform sit along the bottom, under the copy. */
   .image {
-    object-position: 92% 50%;
+    display: none;
   }
 
-  .image:dir(rtl) {
-    object-position: 8% 50%;
+  .imageMobile {
+    display: block;
+    object-fit: cover;
+    object-position: 50% 100%;
   }
 
   .stage .title {

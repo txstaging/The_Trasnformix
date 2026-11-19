@@ -167,7 +167,7 @@ export default function SoftwareEngineeringPage() {
           </ul>
         </section>
 
-        <section className={`${kit.section} ${kit.tinted}`} aria-labelledby="software-journey-heading">
+        <section className={kit.section} aria-labelledby="software-journey-heading">
           <Reveal className={styles.introSpaced}>
             <h2 id="software-journey-heading" className={kit.title}>
               كيف نعمل معك؟

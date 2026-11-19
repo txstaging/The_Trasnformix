@@ -112,9 +112,17 @@ function MegaMenu({ title, menu, tab, onTab, onNavigate, pathname }: {
           <div key={`${shownKey}-${index}`} className={styles.column}>
             {column.map((block, blockIndex) => (
               <div key={block.title?.label ?? blockIndex} className={cx(styles.block, block.continues && styles.blockContinues)}>
-                {block.title && (
-                  <MenuLink link={block.title} className={styles.blockTitle} onNavigate={onNavigate} pathname={pathname} />
-                )}
+                {block.title &&
+                  (block.title.href ? (
+                    <MenuLink
+                      link={{ label: block.title.label, href: block.title.href }}
+                      className={styles.blockTitle}
+                      onNavigate={onNavigate}
+                      pathname={pathname}
+                    />
+                  ) : (
+                    <p className={styles.blockTitle}>{block.title.label}</p>
+                  ))}
                 <ul className={styles.blockLinks}>
                   {block.links.map((link) => (
                     <li key={link.label}>

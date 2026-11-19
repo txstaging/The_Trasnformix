@@ -8,29 +8,28 @@ import { tajawal } from "@/lib/fonts";
 import styles from "./Academies.module.css";
 
 /* The three academies, in the client's order. Each opens its track on the
-   academy page; the youth academy is the vocational track there.
-   NOTE: the pictures are the sector screens until the client sends photos. */
+   academy page; the youth academy is the vocational track there. */
 const ACADEMIES = [
   {
     title: "أكاديمية التعاونيات",
     text: "برامج عملية لمجالس الإدارة والفرق التنفيذية والتشغيلية في الحوكمة الرقمية وإدارة الأعضاء والأنظمة المؤسسية والذكاء الاصطناعي، مع تطبيقات ترتبط بإدارة العمل التعاوني.",
     cta: "استكشف أكاديمية التعاونيات",
     href: "/academy#cooperatives",
-    image: "/images/sectors/cooperatives-1.png",
+    image: "/images/home/academy-cooperatives.jpg",
   },
   {
     title: "الأكاديمية الصناعية",
     text: "تدريب تطبيقي في أنظمة التصنيع وتخطيط الموارد وإدارة الجودة وتحليل البيانات والأتمتة والجاهزية المؤسسية، موجه للفرق الصناعية والفنية والإدارية.",
     cta: "استكشف الأكاديمية الصناعية",
     href: "/academy#industry",
-    image: "/images/sectors/industry-3.png",
+    image: "/images/home/academy-industry.jpg",
   },
   {
     title: "أكاديمية الشباب والمهارات الرقمية",
     text: "مسارات عملية في أساسيات الأنظمة المؤسسية والبرمجة والبيانات والذكاء الاصطناعي، مع مشروعات تطبيقية وإرشاد مهني لربط التعلم بمتطلبات الوظائف التقنية.",
     cta: "استكشف برامج الشباب",
     href: "/academy#vocational",
-    image: "/images/sectors/education-2.png",
+    image: "/images/home/academy-youth.jpg",
   },
 ];
 
