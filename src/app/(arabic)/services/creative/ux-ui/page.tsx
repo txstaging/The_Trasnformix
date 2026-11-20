@@ -81,7 +81,7 @@ const SERVICES = [
 ].map((item, index) => ({
   title: item.title,
   text: "outputs" in item ? [item.text, `المخرجات المحتملة: ${item.outputs}`] : item.text,
-  image: `/images/creative/ux-ui/sticky-0${index + 1}.jpg`,
+  image: index === 0 ? "/images/creative/ux-ui/sticky-01.jpg" : `/images/creative/ux-ui/service-0${index + 1}.jpg`,
 }));
 
 /* Figma 4846:7040, in reading order (row by row from the start edge). */

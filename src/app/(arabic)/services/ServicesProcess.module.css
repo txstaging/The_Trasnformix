@@ -7,26 +7,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: .8rem;
-  margin-bottom: 4rem;
+  gap: 1.4rem;
+  margin-bottom: 5.6rem;
   text-align: center;
 }
 
 .eyebrow {
-  padding: .6rem 1.2rem;
+  padding: .6rem 1.4rem;
   border-radius: 99rem;
   background: #e9eef8;
   color: var(--primary);
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   font-weight: 700;
+  line-height: 2.6rem;
 }
 
 .intro h2 {
   margin: 0;
-  color: #202020;
-  font-size: 3rem;
+  color: #1a1a1a;
+  font-size: 3.4rem;
   font-weight: 700;
-  line-height: 1.4;
+  line-height: 1.41;
 }
 
 .controls {
@@ -43,7 +44,7 @@
   border: 0;
   background: transparent;
   color: var(--text-secondary);
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   cursor: pointer;
 }
 
@@ -52,10 +53,10 @@
 .timeline {
   display: grid;
   grid-template-columns: var(--step-columns, 2.8fr .72fr .72fr .72fr);
-  min-height: 40.6rem;
+  min-height: 52rem;
   overflow: hidden;
   border: 1px solid #e5e7eb;
-  border-radius: 1.4rem;
+  border-radius: 1.6rem;
   background: #fcfbfa;
   transition: grid-template-columns 1100ms cubic-bezier(.2, .75, .25, 1);
 }
@@ -67,9 +68,9 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
-  padding: 2.8rem 2.4rem 2.4rem;
+  padding: 2.4rem 1.9rem;
   border: 0;
-  border-inline-start: 1px solid #e9e9e9;
+  border-inline-start: 1px solid #e5e7eb;
   background: transparent;
   color: inherit;
   text-align: right;
@@ -80,17 +81,18 @@
 
 .number {
   color: var(--primary);
-  font: 700 3.4rem/1 Arial, sans-serif;
+  font: 800 4rem/1.65 inherit;
 }
 
 .title {
-  color: #202020;
-  font-size: 1.9rem;
+  color: #1a1a1a;
+  font-size: 2.2rem;
   font-weight: 700;
   line-height: 1.4;
 }
 
-.active .title { font-size: 2.1rem; }
+.active .title { font-size: 2.8rem; line-height: 1.43; }
+.active .number { font-size: 5.2rem; }
 
 .detail {
   display: none;
@@ -110,19 +112,19 @@
 
 .description {
   color: var(--text-secondary);
-  font-size: 1.6rem;
-  line-height: 1.8;
+  font-size: 1.8rem;
+  line-height: 1.89;
 }
 
 .imageWrap {
   position: relative;
   display: block;
   width: 100%;
-  height: 19.6rem;
-  min-height: 19.6rem;
+  height: 27.6rem;
+  min-height: 27.6rem;
   flex: none;
   overflow: hidden;
-  border-radius: 1.2rem;
+  border-radius: 1.6rem;
   background: #eef1f6;
 }
 
@@ -140,7 +142,7 @@
   transition: opacity 250ms ease;
 }
 
-.active .progress { opacity: .8; }
+.active .progress { opacity: 1; }
 
 @keyframes appear {
   from { opacity: 0; transform: translateY(1rem); }
@@ -157,6 +159,7 @@
   .step { padding-inline: 1.6rem; }
   .number { font-size: 2.8rem; }
   .title, .active .title { font-size: 1.6rem; }
+  .active .number { font-size: 3.2rem; }
   .description { font-size: 1.4rem; }
 }
 
@@ -167,7 +170,7 @@
   .timeline { display: flex; min-height: 0; flex-direction: column; }
   .step, .active { min-height: 0; padding: 1.8rem; border-inline-start: 0; border-bottom: 1px solid #e9e9e9; }
   .step:last-child { border-bottom: 0; }
-  .number { font-size: 2.4rem; }
+  .number, .active .number { font-size: 2.4rem; }
   .title, .active .title { font-size: 1.7rem; }
   .detailVisible { gap: 1.4rem; }
   .imageWrap { min-height: 19rem; flex: none; }

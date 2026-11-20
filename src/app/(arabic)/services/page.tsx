@@ -10,18 +10,18 @@ import { SERVICES_INTRO } from "@/lib/serviceNavigation";
 import { SERVICES_OVERVIEW } from "@/lib/servicesOverview";
 import styles from "./page.module.css";
 
-const serviceCards = [
-  { label: "الذكاء الاصطناعي والأتمتة الذكية", text: "حلول متكاملة من الوكلاء الأذكياء الجاهزين للتخصيص وحلول ذكاء اصطناعي متخصصة تُطوّر حسب الطلب.", href: "https://ai.thetransformix.com/" },
-  { label: "علوم البيانات والذكاء الرقمي", text: "تحويل البيانات المتفرقة إلى مؤشرات واضحة تدعم القرار وتكشف فرص التحسين.", href: "/services/data-science" },
-  { label: "هندسة البرمجيات والتطبيقات", text: "نبني تجارب رقمية واضحة وسريعة، ونطوّر حلولًا تلائم طبيعة أعمالك.", href: "/services/software-engineering" },
-  { label: "نظام إدارة المؤسسات", text: "نظم العمليات واربط الإدارات في منظومة مرنة تدعم العمل اليومي.", href: "/services/enterprise-systems" },
-  { label: "خدمات Odoo", text: "تهيئة وتخصيص منظومة Odoo لتطبيقات الأعمال المختلفة، وفق الاحتياج وطريقة التشغيل المناسبة.", href: "/services/odoo" },
-  { label: "التجارة الإلكترونية والأسواق متعددة البائعين", text: "نطوّر متاجر وأسواقًا رقمية متعددة البائعين تجمع إدارة المنتجات والطلبات والمدفوعات والخدمات اللوجستية.", href: "/services/ecommerce" },
-  { label: "منصات الحجوزات والخدمات السياحية", text: "نطوّر منصات إلكترونية للحجوزات والمواعيد والخدمات السياحية، تشمل إدارة التوافر والحجز والتأكيد والدفع.", href: "/services/tourism" },
-  { label: "الإبداع والتسويق الرقمي متعدد القنوات", text: "إدارة الرسالة بالمحتوى والتصميم، ضمن تجربة متسقة عبر القنوات الرقمية.", href: "/services/creative" },
-  { label: "البحث والابتكار", text: "بحث تطبيقي وتجارب تقنية لتطوير منتجات وحلول جديدة، واستكشاف إمكانات التكنولوجيا الناشئة.", href: "/services" },
-  { label: "التعهيد التقني وخدمات الأعمال المُدارة", text: "خبرات تقنية وتشغيلية متخصصة تتيح للأعمال سرعة التنفيذ والاستمرارية، دون الحاجة إلى تأسيس فرق داخلية كاملة.", href: "/services/gbs" },
-  { label: "الشركات الناشئة", text: "نبني الشركات التقنية مع مؤسسيها بشكل منهجي، من الفكرة والتحقق إلى الإطلاق والتوسع.", href: "/ventures" },
+const serviceCards: { label: string; text: string; href: string; image: string; contain?: boolean }[] = [
+  { label: "الذكاء الاصطناعي والأتمتة الذكية", text: "حزمة متكاملة من الوكلاء الأذكياء الجاهزين للتخصيص، وحلول ذكاء اصطناعي متخصصة تُطوّر حسب الطلب.", href: "https://ai.thetransformix.com/", image: "/images/services-hub/card-ai.webp", contain: true },
+  { label: "علوم البيانات والذكاء الرقمي", text: "نحوّل البيانات المتفرقة إلى مؤشرات واضحة تدعم القرار وتكشف فرص التحسين.", href: "/services/data-science", image: "/images/services-hub/card-data.webp" },
+  { label: "هندسة البرمجيات والتطبيقات", text: "نبني تجارب عربية واضحة وسريعة، ونطوّر تطبيقات جوال سلسة وآمنة لنظامي iOS وAndroid.", href: "/services/software-engineering", image: "/images/services-hub/card-software.webp" },
+  { label: "نظام إدارة المؤسسات", text: "ننظم العمليات ونربط الإدارات في منظومة مرنة تدعم العمل اليومي.", href: "/services/enterprise-systems", image: "/images/services-hub/card-erp.webp", contain: true },
+  { label: "خدمات Odoo", text: "تهيئة وتخصيص منظومة Odoo لتطبيقات الأعمال المؤسسية، وفق الإصدار والترخيص وطريقة التشغيل المناسبة.", href: "/services/odoo", image: "/images/services-hub/card-odoo.webp" },
+  { label: "التجارة الإلكترونية والأسواق متعددة البائعين", text: "نطوّر متاجر إلكترونية وأسواقًا رقمية متعددة البائعين تجمع إدارة المنتجات والتجار والطلبات والمدفوعات والخدمات اللوجستية في تجربة تجارية متكاملة.", href: "/services/ecommerce", image: "/images/services-hub/card-ecommerce.webp", contain: true },
+  { label: "منصات الحجوزات والخدمات السياحية", text: "نطوّر منصات إلكترونية للحجوزات والمواعيد والخدمات السياحية، تشمل إدارة التوافر والحجز والتأكيد والدفع.", href: "/services/tourism", image: "/images/services-hub/card-tourism.webp", contain: true },
+  { label: "الإبداع والتسويق الرقمي متعدد القنوات", text: "نربط الرسالة بالمحتوى والتصميم، ضمن تجربة متسقة عبر القنوات الرقمية.", href: "/services/creative", image: "/images/services-hub/card-creative.webp" },
+  { label: "البحث والابتكار", text: "بحث تطبيقي وتجارب تقنية لتطوير منتجات وحلول جديدة، واستكشاف إمكانات التكنولوجيا الناشئة.", href: "/services", image: "/images/services-hub/card-research.webp" },
+  { label: "التعهيد التقني وخدمات الأعمال المُدارة", text: "خبرات تقنية وتشغيلية متخصصة تتيح للأعمال سرعة التنفيذ والاستمرارية، دون الحاجة إلى تأسيس فرق داخلية كاملة.", href: "/services/gbs", image: "/images/services-hub/card-gbs.webp" },
+  { label: "الشركات الناشئة", text: "نبني الشركات الناشئة التقنية مع مؤسسيها بشكل منهجي، من الفكرة والتحقق إلى الإطلاق والتوسع.", href: "/ventures", image: "/images/services-hub/card-ventures.webp" },
 ];
 
 export const metadata: Metadata = {
@@ -52,10 +52,19 @@ export default function ServicesPage() {
                 <Reveal as="a" href={service.href}
                   className={styles.serviceCard} delay={index * 80}
                   aria-label={service.label}>
-                  <span className={styles.number} dir="ltr">0{index + 1}</span>
-                  <h3>{service.label}</h3>
-                  <p>{service.text}</p>
-                  <span className={styles.siteLink}>زيارة الخدمة <span aria-hidden="true">↖</span></span>
+                  <span className={styles.cardBody}>
+                    <h3>{service.label}</h3>
+                    <p>{service.text}</p>
+                    <span className={styles.siteLink}>
+                      زيارة الخدمة
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src="/icons/academy/pill-arrow-light.svg" alt="" width={20} height={20} aria-hidden="true" />
+                    </span>
+                  </span>
+                  <span className={styles.cardImage}>
+                    <Image src={service.image} alt="" fill sizes="(max-width: 640px) 90vw, 600px"
+                      className={service.contain ? styles.contain : undefined} />
+                  </span>
                 </Reveal>
               </li>
             ))}
@@ -70,7 +79,7 @@ export default function ServicesPage() {
             <div className={styles.challengeGrid}>
               {SERVICES_OVERVIEW.challenges.items.map((item, index) => (
                 <Reveal as="article" key={item.title} className={styles.challengeCard} delay={index * 80}>
-                  <Image src={item.icon} alt="" width={24} height={24} />
+                  <Image src={item.icon.endsWith("/workflow.svg") ? "/images/services-hub/icon-link.svg" : item.icon} alt="" width={30} height={30} />
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
                 </Reveal>

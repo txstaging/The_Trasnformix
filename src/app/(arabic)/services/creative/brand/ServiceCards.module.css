@@ -1,0 +1,101 @@
+/* Service cards (Figma 5246:22399, desktop 1440): 1240px cards, 600 x 340
+   photo, 40px gap. Breakpoints match the page: 1024 and 640. */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  padding: 1.6rem;
+  background: #fff;
+  border: 0.15rem solid var(--line, #e5e7eb);
+  border-radius: 2.4rem;
+  box-shadow: 0 0.8rem 1.2rem rgba(31, 64, 153, 0.08);
+}
+
+.media {
+  position: relative;
+  flex: 0 0 60rem;
+  height: 34rem;
+  border-radius: 1.6rem;
+  overflow: hidden;
+}
+
+.photo {
+  object-fit: cover;
+}
+
+.content {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.4rem;
+  padding-inline: 2.4rem 0.8rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 2.8rem;
+  line-height: 4rem;
+  font-weight: 700;
+  color: var(--text-primary, #1a1a1a);
+}
+
+.text {
+  margin: 0;
+  font-size: 2rem;
+  line-height: 3.8rem;
+  color: var(--text-secondary, #57585b);
+}
+
+.action {
+  margin-top: 0.8rem;
+}
+
+@media (max-width: 1024px) {
+  .card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2.4rem;
+  }
+
+  .media {
+    flex: none;
+    height: auto;
+    aspect-ratio: 600 / 340;
+  }
+
+  .content {
+    padding-inline: 0.8rem;
+  }
+
+  .title {
+    font-size: 2.4rem;
+    line-height: 3.4rem;
+  }
+
+  .text {
+    font-size: 1.7rem;
+    line-height: 3rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 1.2rem;
+    border-radius: 2rem;
+  }
+
+  .title {
+    font-size: 2.2rem;
+  }
+}

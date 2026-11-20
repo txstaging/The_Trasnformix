@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { Footer } from "@/components/sections/Footer";
 import { Navbar } from "@/components/sections/Navbar";
+import { ServiceAction } from "@/components/services/ServiceAction";
 import { PillButton } from "@/components/ui/PillButton";
 import {
   kit,
@@ -274,7 +275,7 @@ export default function DataSciencePage() {
           <Reveal className={styles.radar}>
             <div className={styles.radarCopy}>
               <h3 className={`${kit.cardTitle} ${styles.radarTitle}`}>
-                حلقة مستمرة للتقييم والتحسين — <span lang="en">RADAR</span>
+                حلقة مستمرة للتقييم والتحسين
               </h3>
               <p>يعاد التقييم بعد التحسين لبدء حلقة جديدة؛ نراجع النتائج والمنهج والتطبيق بصورة مستمرة.</p>
             </div>
@@ -294,39 +295,20 @@ export default function DataSciencePage() {
 
         <section id="capabilities" className={`${kit.section} ${kit.tinted} ${styles.servicesSection}`} aria-labelledby="data-services-heading">
           <Reveal as="h2" id="data-services-heading" className={styles.servicesHeading}>خدماتنا في علوم البيانات</Reveal>
-          {CAPABILITIES.map((capability) => {
-            const heading = `data-${capability.slug}-heading`;
-            const scope = `data-${capability.slug}-scope`;
-            return (
-              <article key={capability.slug} className={styles.serviceCapability} aria-labelledby={heading}>
-                <Reveal className={styles.serviceCapabilityIntro}>
-                  <h3 id={heading}>{capability.title}</h3>
-                  <p>{capability.text} <strong>متى تحتاج المؤسسة إلى هذه الخدمة؟</strong> {capability.need}</p>
-                  <a href={`#${scope}`}>ناقش احتياجك <span aria-hidden="true">←</span></a>
-                </Reveal>
-
-                <h4 id={scope} className={styles.scopeTitle}>نطاق العمل والقدرات</h4>
-                <ul className={styles.scope}>
-                  {capability.scope.map((item, itemIndex) => (
-                    <Reveal as="li" key={item.title} className={styles.scopeItem} delay={(itemIndex % 2) * 60}>
-                      <span className={styles.scopeIcon} aria-hidden="true">
-                        <Image
-                          src={`/v2/icons/${SCOPE_ICONS[capability.slug]?.[itemIndex] ?? "data-chart"}.svg`}
-                          alt=""
-                          width={20}
-                          height={20}
-                        />
-                      </span>
-                      <div>
-                        <h5>{item.title}</h5>
-                        <p>{item.text}</p>
-                      </div>
-                    </Reveal>
-                  ))}
-                </ul>
-              </article>
-            );
-          })}
+          <ul className={styles.serviceCards}>
+            {CAPABILITIES.map((capability, index) => (
+              <Reveal as="li" key={capability.slug} className={styles.serviceCard} delay={(index % 2) * 60}>
+                <div className={styles.serviceCardCopy}>
+                  <h3>{capability.title}</h3>
+                  <p>{capability.text}</p>
+                  <ServiceAction className={styles.serviceCardButton}>تعرّف على الخدمة</ServiceAction>
+                </div>
+                <div className={styles.serviceCardMedia}>
+                  <Image src={capability.image} alt="" fill sizes="(max-width: 900px) 100vw, 600px" />
+                </div>
+              </Reveal>
+            ))}
+          </ul>
         </section>
 
         <section className={styles.dataClosing} aria-labelledby="data-closing-heading">

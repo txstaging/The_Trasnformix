@@ -11,7 +11,8 @@ import {
   SectorStory,
 } from "@/components/creative/CreativeKit";
 import { EngagementGrid, GoalCards, PlatformsLayout } from "@/components/creative/media-buying/MediaParts";
-import { MediaSticky } from "@/components/creative/media-buying/MediaSticky";
+import Image from "next/image";
+import { ServiceAction } from "@/components/services/ServiceAction";
 import styles from "@/components/creative/media-buying/MediaBuying.module.css";
 import { Reveal } from "@/components/ui/Reveal";
 import { ServiceRequestForm } from "@/components/services/ServiceRequestForm";
@@ -20,6 +21,7 @@ import { Navbar } from "@/components/sections/Navbar";
 import flow from "@/components/ui/SectionFlow.module.css";
 import { tajawal } from "@/lib/fonts";
 import { sector } from "@/components/sectors/SectorKit";
+import page from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "إدارة الحملات الإعلانية والتسويق بالأداء | Transformix",
@@ -73,30 +75,37 @@ const PLATFORMS = [
 const CAPABILITIES = [
   {
     title: "استراتيجية الإعلان وتخطيط الميزانية",
+    image: `${IMG}/capability-1.jpg`,
     text: "نحدد معك هدف الحملة والجمهور والسوق والميزانية، ثم نضع خطة توضح القنوات المقترحة، والرسائل الإعلانية، وتوزيع الإنفاق، ومؤشرات نجاح قابلة للمتابعة.",
   },
   {
     title: "إدارة إعلانات محركات البحث",
+    image: `${IMG}/capability-2.jpg`,
     text: "نعد الحملات على جوجل ومحركات البحث الملائمة، بما يشمل دراسة عبارات البحث، وكتابة الإعلانات، وتنظيم المجموعات الإعلانية، وإدارة الإنفاق، وقياس الاستجابة.",
   },
   {
     title: "إدارة إعلانات وسائل التواصل",
+    image: `${IMG}/capability-3.jpg`,
     text: "نجهز إعلانات إنستجرام وفيسبوك وتيك توك وسناب شات ولينكدإن وفق طبيعة جمهور كل منصة، ونختبر الرسائل والتصاميم، ونتابع الإنفاق والنتائج.",
   },
   {
     title: "حملات جذب العملاء المحتملين",
+    image: `${IMG}/capability-4.jpg`,
     text: "نطور حملات ونماذج تواصل تساعد على جذب استفسارات مرتبطة بنشاطك، مع متابعة جودة الطلبات وتكلفتها وإمكانية تحويلها إلى فرص مبيعات، وليس عددها فقط.",
   },
   {
     title: "حملات إعادة الاستهداف",
+    image: `${IMG}/capability-5.jpg`,
     text: "نواصل التواصل مع الجمهور الذي سبق أن تفاعل مع علامتك أو زار موقعك، عندما تتوافر بيانات صالحة وموافقات مناسبة، برسائل تتوافق مع مرحلة اهتمامه.",
   },
   {
     title: "تحسين الإعلانات والتحويلات",
+    image: `${IMG}/capability-6.jpg`,
     text: "نراجع الاستهداف والإعلانات والميزانيات وصفحات الوصول. نوضح ما نجح، وما يحتاج إلى تغيير، وكيف يمكن توجيه الإنفاق على أساس النتائج الفعلية.",
   },
   {
     title: "تحليلات الأداء والتقارير",
+    image: `${IMG}/capability-7.jpg`,
     text: "نقدم تقارير واضحة عن الإنفاق والوصول والطلبات والتحويلات ومؤشرات العائد عند إمكان قياسها بدقة، مع توصيات عملية للمرحلة التالية.",
   },
 ] as const;
@@ -262,14 +271,20 @@ export default function MediaBuyingPage() {
 
         <section className={academies.section} aria-labelledby="media-capabilities-heading">
           <CreativeIntro id="media-capabilities-heading" title="قدراتنا في إدارة الحملات" />
-          <Reveal>
-            <MediaSticky
-              label="قدراتنا في إدارة الحملات"
-              image={`${IMG}/strategy.jpg`}
-              alt="فريق يناقش استراتيجية إعلانية وخطة الميزانية"
-              items={CAPABILITIES}
-            />
-          </Reveal>
+          <ul className={page.cards}>
+            {CAPABILITIES.map((item) => (
+              <li key={item.title} className={page.card}>
+                <div className={page.cardCopy}>
+                  <h3 className={page.cardTitle}>{item.title}</h3>
+                  <p className={page.cardText}>{item.text}</p>
+                  <ServiceAction className={page.cardAction}>تعرّف على الخدمة</ServiceAction>
+                </div>
+                <div className={page.cardMedia}>
+                  <Image className={page.cardImage} src={item.image} alt="" fill sizes="(max-width: 1024px) 100vw, 620px" />
+                </div>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section id="platforms" className={`${academies.section} ${styles.grey}`} aria-labelledby="media-platforms-heading">

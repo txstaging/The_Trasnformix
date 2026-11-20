@@ -1,67 +1,72 @@
-.main { display: flex; flex-direction: column; gap: 9rem; padding-bottom: 10rem; }
+.main { display: flex; flex-direction: column; gap: 20rem; padding-bottom: 10rem; }
+.hero + section { margin-top: -10rem; }
 .hero {
   position: relative;
   display: flex;
-  min-height: 52rem;
+  min-height: 60rem;
   align-items: center;
   overflow: hidden;
   background-color: #1c4499;
-  background-image: linear-gradient(90deg, rgb(18 39 84 / 8%) 0%, rgb(22 54 116 / 38%) 39%, rgb(28 68 153 / 88%) 72%, #1c4499 100%), url("/images/p15.jpg");
+  background-image: linear-gradient(90deg, rgb(28 68 153 / 0%) 0%, rgb(28 68 153 / 0%) 18%, rgb(28 68 153 / 55%) 40%, rgb(28 68 153 / 90%) 60%, rgb(28 68 153 / 96%) 100%), url("/images/p15.jpg");
   background-position: center;
   background-size: cover;
   color: #fff;
 }
 .heroContent {
   display: flex;
-  width: min(70rem, 52%);
+  width: min(71.1rem, 52%);
   flex-direction: column;
   align-items: flex-start;
-  gap: 2.4rem;
+  gap: 2.8rem;
   margin-inline-start: max(7vw, calc((100vw - 124rem) / 2));
   margin-inline-end: auto;
-  padding-block: 6rem;
+  padding-block: 12rem;
   text-align: right;
 }
-.heroContent h1 { margin: 0; color: #fff; font-size: clamp(3.2rem, 3vw, 4.8rem); font-weight: 700; line-height: 1.3; }
-.heroContent p { max-width: 70rem; margin: 0; color: rgb(255 255 255 / 94%); font-size: 2rem; line-height: 1.8; }
-.heroContent > :last-child { margin-top: 2rem; }
+.heroContent h1 { margin: 0; color: #fff; font-size: 4rem; font-weight: 700; line-height: 1.4; letter-spacing: -.03rem; }
+.heroContent p { max-width: 70rem; margin: 0; color: rgb(255 255 255 / 94%); font-size: 1.8rem; line-height: 1.89; }
+.heroContent > :last-child { margin-top: .8rem; }
 .wrap { width: 124rem; max-width: calc(100% - 2 * var(--gutter)); margin-inline: auto; }
 .heading { margin-bottom: 3.2rem; color: var(--primary); font-size: 3.2rem; font-weight: 700; }
 .eyebrow { margin-bottom: 1.2rem; color: var(--primary); font-size: 1.6rem; }
-.wrap:has(.directory) > .heading { margin-bottom: 2rem; color: #222; text-align: center; font-size: 1.8rem; }
-.directory { display: grid; max-width: 112rem; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; padding: 0; margin: 0 auto; list-style: none; }
+.wrap:has(.directory) > .heading { margin-bottom: 4.8rem; color: #1a1a1a; text-align: center; font-size: 3.4rem; line-height: 1.41; letter-spacing: -.02rem; }
+.directory { display: flex; max-width: 124rem; flex-direction: column; gap: 2.4rem; padding: 0; margin: 0 auto; list-style: none; }
 .directory > li { min-width: 0; }
-.serviceCard { display: flex; min-height: 15.5rem; flex-direction: column; align-items: flex-start; gap: .8rem; height: 100%; padding: 1.2rem 1.6rem 1rem; border: 1px solid #e5e7eb; border-radius: 1.2rem; background: #fcfbfa; text-align: right; }
-.serviceCard:hover { border-color: #c8d5ed; box-shadow: 0 .6rem 1.8rem #1c44990d; }
+.serviceCard { display: flex; align-items: center; gap: 4rem; padding: 1.6rem; border: 1.5px solid #e5e7eb; border-radius: 2.4rem; background: #fff; box-shadow: 0 .8rem 1.2rem rgb(31 64 153 / 8%); text-align: right; }
+.serviceCard:hover { border-color: #c8d5ed; box-shadow: 0 .8rem 2rem rgb(31 64 153 / 14%); }
 .serviceCard:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
-.number { display: inline-flex; align-items: center; justify-content: center; width: 1.8rem; height: 1.8rem; align-self: flex-start; border-radius: 50%; background: #e9eef8; color: #3157a4; font: 500 1rem Arial, sans-serif; }
-.serviceCard h3 { margin: 0; color: var(--primary); font-size: 1.45rem; font-weight: 700; line-height: 1.4; }
+.cardBody { display: flex; min-width: 0; flex: 1; flex-direction: column; align-items: flex-start; gap: 1.4rem; padding: 0 2.4rem 0 .8rem; }
+.cardImage { position: relative; display: block; width: 60rem; height: 34rem; flex: 0 0 60rem; overflow: hidden; border-radius: 1.6rem; }
+.cardImage img { object-fit: cover; }
+.cardImage img.contain { object-fit: contain; }
+.serviceCard h3 { margin: 0; color: #1a1a1a; font-size: 2.8rem; font-weight: 700; line-height: 1.43; }
 .serviceCard p, .challengeCard p, .steps p, .faq p { color: var(--text-secondary); font-size: 1.2rem; line-height: 1.65; }
-.serviceCard p { margin: 0; }
-.siteLink { display: flex; align-items: center; justify-content: space-between; gap: 1rem; align-self: stretch; margin-top: auto; color: var(--primary); font-size: 1.05rem; }
-.siteLink > span { font: 1.5rem Arial, sans-serif; }
+.serviceCard p { margin: 0; font-size: 2rem; line-height: 1.9; }
+.siteLink { display: inline-flex; align-items: center; gap: 1rem; margin-top: .8rem; padding: 1.4rem 2.8rem; border-radius: 2.4rem; background: var(--primary); color: #fff; font-size: 1.8rem; font-weight: 600; line-height: 2.4rem; }
+.siteLink img { width: 2rem; height: 2rem; }
 .guidance { padding-block: 0; background: #fff; }
-.guidance > .wrap > .heading { margin-bottom: 3.6rem; color: #202020; text-align: center; font-size: 2.8rem; }
-.challengeGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem; max-width: 112rem; margin-inline: auto; }
-.challengeCard { display: flex; min-height: 17.2rem; flex-direction: column; align-items: flex-start; gap: 1.2rem; padding: 2.2rem 2.4rem; border: 1px solid #e5e7eb; border-radius: 2rem; background: #fff; text-align: right; }
-.challengeCard h3, .steps h3 { margin: 0; color: #202020; font-size: 1.7rem; font-weight: 700; }
-.challengeCard p { margin: 0; font-size: 1.45rem; line-height: 1.7; }
+.guidance > .wrap > .heading { margin-bottom: 5.6rem; color: #1a1a1a; text-align: center; font-size: 3.4rem; line-height: 1.41; }
+.challengeGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; max-width: 124rem; margin-inline: auto; }
+.challengeCard { display: flex; flex-direction: column; align-items: flex-start; gap: 1.4rem; padding: 3.2rem 2.8rem; border: 1px solid #e5e7eb; border-radius: 2.4rem; background: #fff; text-align: right; }
+.challengeCard h3, .steps h3 { margin: 0; color: #1a1a1a; font-size: 2.2rem; font-weight: 700; line-height: 1.45; }
+.challengeCard img { margin-bottom: .6rem; }
+.challengeCard p { margin: 0; font-size: 1.8rem; line-height: 1.89; }
 .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2.4rem; list-style: none; padding: 0; margin: 0; }
 .steps li { display: flex; flex-direction: column; gap: 1.6rem; padding-top: 2.4rem; border-top: 2px solid var(--blue-light-active); }
 .stepNumber { color: var(--blue-light-active); font: 500 4rem Arial, sans-serif; }
-.faq > .heading { margin-bottom: 3.6rem; color: #202020; text-align: center; font-size: 2.8rem; }
-.faq details { margin-bottom: 1rem; border: 1px solid #ebedf0; border-radius: 1.2rem; background: #fcfbfa; }
-.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 1.8rem 2rem; color: #202020; font-size: 1.6rem; font-weight: 700; cursor: pointer; list-style: none; }
+.faq > .heading { margin-bottom: 5.6rem; color: #1a1a1a; text-align: center; font-size: 3.4rem; line-height: 1.41; }
+.faq details { margin-bottom: 1.2rem; border-bottom: 1px solid #e5e7eb; border-radius: 1.2rem; background: #fcfbfa; }
+.faq summary { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 2.4rem; color: #1a1a1a; font-size: 2.2rem; font-weight: 700; line-height: 1.45; cursor: pointer; list-style: none; }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { display: inline-flex; width: 2.6rem; height: 2.6rem; flex: 0 0 2.6rem; align-items: center; justify-content: center; border-radius: 50%; background-color: var(--primary); background-image: linear-gradient(#fff, #fff), linear-gradient(#fff, #fff); background-position: center, center; background-repeat: no-repeat; background-size: 1rem 2px, 2px 1rem; content: ""; }
+.faq summary::after { display: inline-flex; width: 3.6rem; height: 3.6rem; flex: 0 0 3.6rem; align-items: center; justify-content: center; border-radius: 50%; background-color: var(--primary); background-image: linear-gradient(#fff, #fff), linear-gradient(#fff, #fff); background-position: center, center; background-repeat: no-repeat; background-size: 1rem 2px, 2px 1rem; content: ""; }
 .faq details[open] summary::after { background-size: 1rem 2px, 0 0; }
-.faq details p { padding: 0 2rem 1.8rem; font-size: 1.4rem; }
-.closing { display: flex; min-height: 28rem; align-items: center; justify-content: space-between; gap: 5rem; padding: 3.2rem 4rem; border: 1px solid #e8e9ec; border-radius: 2rem; background: #fcfbfa; }
+.faq details p { margin: 0; padding: 0 2.4rem 2.4rem; font-size: 1.8rem; line-height: 1.89; }
+.closing { display: flex; align-items: center; justify-content: space-between; gap: 5.6rem; padding: 5.6rem; border: 1px solid #e5e7eb; border-radius: 2.4rem; background: #fcfbfa; }
 .closingCopy { display: flex; flex: 1; flex-direction: column; align-items: flex-start; gap: 1.6rem; text-align: right; }
-.closingCopy h2 { margin: 0; color: var(--primary); font-size: 3.2rem; font-weight: 700; line-height: 1.45; }
-.closingCopy p { max-width: 62rem; margin: 0; color: var(--text-secondary); font-size: 1.6rem; line-height: 1.9; }
-.closingCopy > :last-child { margin-top: .8rem; }
-.closingImage { position: relative; display: block; width: min(38%, 40rem); height: 22rem; flex: 0 0 min(38%, 40rem); overflow: hidden; border-radius: 1.6rem; }
+.closingCopy h2 { margin: 0; color: var(--primary); font-size: 3.4rem; font-weight: 700; line-height: 1.41; }
+.closingCopy p { max-width: 62rem; margin: 0; color: var(--text-secondary); font-size: 2rem; line-height: 1.9; }
+.closingCopy > :last-child { margin-top: 0; }
+.closingImage { position: relative; display: block; width: 46rem; height: 34rem; flex: 0 0 46rem; overflow: hidden; border-radius: 2.4rem; }
 .closingImage img { object-fit: cover; }
 
 @media (max-width: 1024px) {
@@ -69,7 +74,13 @@
   .hero { min-height: 46rem; }
   .heroContent { width: min(68rem, 62%); margin-inline-end: var(--gutter); }
   .challengeGrid { grid-template-columns: 1fr; }
-  .directory, .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .serviceCard { gap: 2.4rem; }
+  .cardImage { width: 40%; flex-basis: 40%; height: 28rem; }
+  .serviceCard h3 { font-size: 2.4rem; }
+  .serviceCard p { font-size: 1.8rem; }
+  .closing { padding: 3.2rem; }
+  .closingImage { width: 36%; flex-basis: 36%; }
 }
 
 @media (max-width: 640px) {
@@ -80,13 +91,18 @@
   .heroContent p { font-size: 1.7rem; }
   .heroContent > :last-child { margin-top: 1rem; }
   .heading { font-size: 2.6rem; margin-bottom: 2.4rem; }
-  .directory, .steps { grid-template-columns: 1fr; }
-  .wrap:has(.directory) > .heading { font-size: 1.8rem; }
-  .serviceCard { gap: 1.6rem; padding: 2.4rem; border-radius: 2.4rem; }
-  .serviceCard { min-height: 14rem; }
-  .serviceCard h3 { font-size: 1.6rem; }
-  .serviceCard p { font-size: 1.3rem; }
-  .challengeCard p, .steps p, .faq p { font-size: 1.6rem; }
+  .steps { grid-template-columns: 1fr; }
+  .hero + section { margin-top: -3rem; }
+  .wrap:has(.directory) > .heading, .guidance > .wrap > .heading, .faq > .heading { margin-bottom: 2.4rem; font-size: 2.6rem; }
+  .serviceCard { flex-direction: column-reverse; align-items: stretch; gap: 1.6rem; padding: 1.2rem; border-radius: 2rem; }
+  .cardImage { width: 100%; flex-basis: auto; height: 22rem; }
+  .cardBody { padding: .8rem 1.2rem 1.2rem; }
+  .serviceCard h3 { font-size: 2.2rem; }
+  .serviceCard p { font-size: 1.6rem; }
+  .siteLink { font-size: 1.6rem; }
+  .faq summary { font-size: 1.8rem; }
+  .faq details p { font-size: 1.6rem; }
+  .challengeCard p, .steps p { font-size: 1.6rem; }
   .guidance { padding-block: 4.8rem; }
   .challengeCard { padding: 2.4rem; }
   .faq summary { padding: 1.6rem; font-size: 1.5rem; }

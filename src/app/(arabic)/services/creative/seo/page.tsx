@@ -7,9 +7,10 @@ import {
   creativePage,
   ProcessCards,
   SectorBanner,
-  StickyScrollReveal,
 } from "@/components/creative/CreativeKit";
 import { EngagementGrid, JourneyCard, WhySplit } from "@/components/creative/seo/SeoParts";
+import Image from "next/image";
+import { ServiceAction } from "@/components/services/ServiceAction";
 import { Footer } from "@/components/sections/Footer";
 import { Navbar } from "@/components/sections/Navbar";
 import { Reveal } from "@/components/ui/Reveal";
@@ -215,10 +216,22 @@ export default function SeoCreativePage() {
           />
         </section>
 
-        <section className={academies.section} aria-label="خدمات تحسين الظهور">
-          <Reveal>
-            <StickyScrollReveal label="خدمات تحسين الظهور" items={SERVICES} />
-          </Reveal>
+        <section className={academies.section} aria-labelledby="seo-services-heading">
+          <CreativeIntro id="seo-services-heading" title="خدماتنا في تحسين الظهور الرقمي" />
+          <ul className={page.cards}>
+            {SERVICES.map((service) => (
+              <li key={service.title} className={page.card}>
+                <div className={page.cardCopy}>
+                  <h3 className={page.cardTitle}>{service.title}</h3>
+                  <p className={page.cardText}>{service.text[0]}</p>
+                  <ServiceAction className={page.cardAction}>تعرّف على الخدمة</ServiceAction>
+                </div>
+                <div className={page.cardMedia}>
+                  <Image className={page.cardImage} src={service.image} alt="" fill sizes="(max-width: 1024px) 100vw, 620px" />
+                </div>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <section className={academies.section} aria-labelledby="seo-plan-heading">

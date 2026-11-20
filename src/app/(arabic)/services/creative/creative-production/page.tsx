@@ -100,9 +100,21 @@ const CAPABILITIES_RAW = [
   },
 ] as const;
 
-const CAPABILITIES: readonly StickyItem[] = CAPABILITIES_RAW.map((item) => ({
+const CAPABILITY_IMAGES = [
+  "cap-1.png",
+  "cap-2.jpg",
+  "cap-3.png",
+  "cap-4.jpg",
+  "cap-5.png",
+  "cap-6.png",
+  "cap-7.jpg",
+  "cap-8.jpg",
+  "cap-9.png",
+] as const;
+
+const CAPABILITIES: readonly StickyItem[] = CAPABILITIES_RAW.map((item, i) => ({
   ...item,
-  image: "/images/creative/creative-production/capabilities.jpg",
+  image: `/images/creative/creative-production/${CAPABILITY_IMAGES[i]}`,
 }));
 
 /* Figma 4851:7509, in reading order. */

@@ -5,3 +5,101 @@
     width: 81.7rem;
   }
 }
+
+/* Figma 5246:22309 — service cards: copy on the right, photo on the left. */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  align-items: stretch;
+  gap: 2.4rem;
+  padding: 1rem;
+  border: 0.1rem solid #e6f2fb;
+  border-radius: 2.4rem;
+  background: var(--bg-card);
+  box-shadow:
+    0 0 0.2rem rgba(0, 0, 0, 0.12),
+    0 0.2rem 0.4rem rgba(0, 0, 0, 0.14);
+}
+
+.cardCopy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.2rem;
+  min-width: 0;
+  padding: 2.4rem 3.5rem;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.cardText {
+  flex: 1;
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.9;
+}
+
+.cardAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 2.8rem;
+  border: 0;
+  border-radius: 2.4rem;
+  background: var(--primary);
+  color: var(--text-inverse);
+  font: inherit;
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 1.35;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.cardAction:hover {
+  background: var(--blue-dark);
+}
+
+.cardMedia {
+  position: relative;
+  flex-shrink: 0;
+  width: 52%;
+  min-height: 27rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+}
+
+.cardImage {
+  object-fit: cover;
+}
+
+@media (max-width: 1024px) {
+  .card {
+    flex-direction: column-reverse;
+    gap: 0.8rem;
+  }
+
+  .cardCopy {
+    padding: 1.6rem;
+  }
+
+  .cardMedia {
+    width: 100%;
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+  }
+}

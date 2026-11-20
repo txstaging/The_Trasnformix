@@ -1,6 +1,7 @@
-/* Figma 4354:4739 — e-commerce and multi-vendor marketplaces: a photo hero,
-   the five services, the two business models, the four steps and a closing
-   call. Headings are set in Tajawal, body copy in Noto Kufi Arabic. */
+/* Figma 5226:32488 — e-commerce and multi-vendor marketplaces: a photo banner,
+   an overview, five full-width service cards, the two business models, a
+   four-step accordion and a closing call. Everything is set in Noto Kufi
+   Arabic (V2 type styles). */
 .main {
   display: flex;
   flex-direction: column;
@@ -8,7 +9,7 @@
 }
 
 .inner {
-  width: 124.8rem;
+  width: 124rem;
   max-width: calc(100% - 2 * var(--gutter));
   margin-inline: auto;
 }
@@ -17,35 +18,46 @@
 .heroTitle,
 .introTitle,
 .ctaTitle {
-  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
-  font-size: 3.2rem;
+  font-size: 3.4rem;
   font-weight: 700;
-  line-height: normal;
+  line-height: 4.8rem;
+  letter-spacing: -0.02rem;
 }
 
-.title,
-.introTitle {
+.title {
   color: var(--text-primary);
+  text-align: center;
+}
+
+.introTitle,
+.ctaTitle {
+  color: var(--primary);
 }
 
 .subtitle {
   margin-top: 1.4rem;
-  font-size: 1.6rem;
-  line-height: 1.9;
+  font-size: 2rem;
+  line-height: 3.8rem;
+  text-align: center;
   color: var(--text-secondary);
 }
 
-/* ---- Hero (Figma 4354:4761) ------------------------------------------------ */
+.buttonIcon {
+  flex-shrink: 0;
+  margin-inline-start: 1rem;
+}
+
+/* ---- Banner (Figma 5226:32489) --------------------------------------------- */
 .hero {
   position: relative;
   display: flex;
   width: 100%;
-  min-height: 64rem;
+  min-height: 60rem;
   overflow: hidden;
-  background: #060f21;
-  /* The copy keeps the artboard's 96px right margin, inside a centred 1440
+  background: var(--primary);
+  /* The copy keeps the artboard's 100px right margin, inside a centred 1440
      frame on wider screens. */
-  padding-inline-start: max(9.6rem, calc(50% - 62.4rem));
+  padding: 20rem max(10rem, calc(50% - 62rem)) 12rem;
 }
 
 .heroMedia {
@@ -58,10 +70,12 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    90deg,
-    rgba(6, 15, 33, 0.06),
-    rgba(6, 15, 33, 0.78) 47%,
-    rgba(6, 15, 33, 0.97)
+    270deg,
+    rgba(28, 68, 153, 0.96) 0%,
+    rgba(28, 68, 153, 0.9) 40%,
+    rgba(28, 68, 153, 0.55) 60%,
+    rgba(28, 68, 153, 0) 82%,
+    rgba(28, 68, 153, 0) 100%
   );
 }
 
@@ -74,515 +88,648 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 66rem;
+  gap: 2.8rem;
+  width: 71.1rem;
   max-width: 100%;
-  padding-block: 4rem 7.4rem;
+  margin-block: auto;
   color: var(--text-inverse);
 }
 
-.breadcrumb {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 1.4rem;
-  font-weight: 500;
-  line-height: 1.8;
-}
-
-.breadcrumb li + li::before {
-  content: "/";
-  margin-inline: 0.8rem;
-}
-
-.breadcrumb a {
-  text-underline-offset: 0.4rem;
-}
-
-.breadcrumb a:hover {
-  text-decoration: underline;
-}
-
-.eyebrow {
-  margin-top: 5.8rem;
-  font-size: 1.4rem;
-  font-weight: 500;
-  line-height: 1.8;
-  color: #2ac0d4;
-}
-
 .heroTitle {
-  margin-top: 2rem;
-  font-size: 4.8rem;
+  font-size: 4rem;
+  line-height: 5.6rem;
+  letter-spacing: -0.03rem;
 }
 
 .heroText {
-  width: 62rem;
-  max-width: 100%;
-  margin-top: 3.7rem;
   font-size: 1.8rem;
-  line-height: 1.9;
+  line-height: 3.4rem;
 }
 
 .heroActions {
-  margin-top: 12.2rem;
+  padding-top: 0.8rem;
 }
 
-/* The SectorButton, drawn as the artboard's 340 × 56 primary pill. */
+/* The SectorButton, drawn as the artboard's white primary pill. */
 .heroActions .heroButton {
-  width: 34rem;
-  max-width: 100%;
-  height: 5.6rem;
-  padding: 0 2.4rem;
-  border-radius: 3.2rem;
-  background: var(--primary);
-  font-size: 1.4rem;
-  font-weight: 500;
-  line-height: 1.8;
+  padding: 1.4rem 2.8rem;
+  border-radius: 2.4rem;
+  background: var(--bg-main);
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 2.4rem;
+  color: var(--text-primary);
   filter: none;
 }
 
 .heroActions .heroButton:hover {
-  background: var(--blue-dark);
-  filter: drop-shadow(0 1.2rem 1.6rem rgba(5, 13, 31, 0.4));
+  background: var(--blue-light);
 }
 
 .heroActions .heroButton:focus-visible,
-.ctaCard .ctaButton:focus-visible {
-  outline: 0.2rem solid var(--text-inverse);
+.ctaCard .ctaButton:focus-visible,
+.service .serviceButton:focus-visible {
+  outline: 0.2rem solid var(--primary);
   outline-offset: 0.3rem;
 }
 
-/* ---- Intro (Figma 4354:4762) ----------------------------------------------- */
+/* ---- Overview (Figma 5226:32490) ------------------------------------------- */
 .intro {
-  display: grid;
-  grid-template-columns: 46.4rem 68.8rem;
-  justify-content: space-between;
-  align-items: start;
-  width: 124.8rem;
-  max-width: calc(100% - 2 * var(--gutter));
-  padding-block: 6.4rem 8.2rem;
+  display: flex;
+  align-items: center;
+  gap: 6.4rem;
+  width: 100%;
+  padding: 10rem;
+}
+
+.introCopy {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 2rem;
+  min-width: 0;
 }
 
 .introText {
-  padding-top: 0.1rem;
-  font-size: 1.8rem;
-  line-height: 1.9;
+  font-size: 2rem;
+  line-height: 3.8rem;
   color: var(--text-secondary);
 }
 
-/* ---- Services (Figma 4354:4763) -------------------------------------------- */
+.introVisual {
+  position: relative;
+  flex-shrink: 0;
+  width: 54rem;
+  height: 38rem;
+  overflow: hidden;
+  border-radius: 2.4rem;
+}
+
+.introImage {
+  object-fit: cover;
+}
+
+/* ---- Services (Figma 5246:22297) ------------------------------------------- */
 .services {
   width: 100%;
-  padding-block: 5.4rem 7.8rem;
-  background: #f5f6f8;
+  padding-block: 10rem;
   scroll-margin-top: 6.4rem;
 }
 
-.label {
-  font-size: 1.4rem;
-  font-weight: 500;
-  line-height: 1.8;
-  color: var(--primary);
-}
-
-.label + .title {
-  margin-top: 0.9rem;
-}
-
 .serviceGrid {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 2.4rem;
-  margin: 3.8rem 0 0;
+  margin: 4.8rem 0 0;
   padding: 0;
   list-style: none;
 }
 
 .service {
   display: flex;
-  flex-direction: column;
-  grid-column: span 2;
-  min-height: 42.4rem;
-  overflow: hidden;
-  border: 0.1rem solid #e5e7eb;
-  border-radius: 1.2rem;
+  align-items: center;
+  gap: 4rem;
+  padding: 1.6rem;
+  border: 0.15rem solid #e5e7eb;
+  border-radius: 2.4rem;
   background: var(--bg-main);
-  transition: box-shadow var(--dur) var(--ease-out);
+  box-shadow: 0 0.8rem 1.2rem rgba(31, 64, 153, 0.08);
 }
 
-.service:hover {
-  box-shadow: 0 1.6rem 3.2rem rgba(28, 68, 153, 0.08);
+.serviceBody {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.4rem;
+  min-width: 0;
+  padding-block: 0;
+  padding-inline: 0.8rem 2.4rem;
 }
 
-.serviceWide {
-  grid-column: span 3;
-  min-height: 40rem;
+.serviceTitle {
+  font-size: 2.8rem;
+  font-weight: 700;
+  line-height: 4rem;
+  color: var(--text-primary);
+}
+
+.serviceText {
+  font-size: 2rem;
+  line-height: 3.8rem;
+  color: var(--text-secondary);
+}
+
+.service .serviceButton {
+  margin-top: 0.8rem;
+  padding: 1.4rem 2.8rem;
+  border-radius: 2.4rem;
+  background: var(--primary);
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 2.4rem;
+  filter: none;
+}
+
+.service .serviceButton:hover {
+  background: var(--blue-dark);
 }
 
 .serviceMedia {
   position: relative;
   flex-shrink: 0;
-  height: 17.6rem;
+  width: 60rem;
+  height: 34rem;
   overflow: hidden;
-}
-
-.serviceWide .serviceMedia {
-  height: 20rem;
+  border-radius: 1.6rem;
 }
 
 .serviceImage {
   object-fit: cover;
-  transition: transform var(--dur-slow) var(--ease-out);
 }
 
-.service:hover .serviceImage {
-  transform: scale(1.04);
-}
-
-.serviceBody {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  padding: 2.3rem 2.4rem 2.4rem;
-}
-
-.serviceTitle {
-  font-size: 2.4rem;
-  font-weight: 700;
-  line-height: 1.9;
-  color: var(--text-primary);
-}
-
-.serviceText {
-  font-size: 1.6rem;
-  line-height: 1.9;
-  color: var(--text-secondary);
-}
-
-/* ---- Business models (Figma 4354:4764) ------------------------------------- */
+/* ---- Business models (Figma 5226:32500) ------------------------------------ */
 .models {
   width: 100%;
-  padding-block: 6.4rem 5.6rem;
+  padding-block: 10rem;
 }
 
 .modelGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2.4rem;
-  margin: 3.8rem 0 0;
+  display: flex;
+  gap: 2rem;
+  margin: 4.8rem 0 0;
   padding: 0;
   list-style: none;
 }
 
 .model {
   display: flex;
+  flex: 1 1 0;
   flex-direction: column;
-  min-height: 29rem;
-  padding: 2.4rem 3.2rem;
-  border-radius: 1.2rem;
-  background: #f5f6f8;
-  color: var(--text-primary);
+  align-items: stretch;
+  gap: 1.8rem;
+  min-width: 0;
+  padding: 4rem;
+  border: 0.1rem solid #e5e7eb;
+  border-radius: 2.4rem;
+  background: #fcfbfa;
 }
 
-.modelDark {
+.modelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modelIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5.6rem;
+  height: 5.6rem;
+  border-radius: 50%;
   background: var(--primary);
-  color: var(--text-inverse);
 }
 
 .modelTag {
-  font-size: 1.4rem;
-  font-weight: 500;
-  line-height: 1.8;
+  padding: 0.6rem 1.4rem;
+  border-radius: 99.9rem;
+  background: var(--blue-light);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 2.6rem;
   color: var(--primary);
 }
 
 .modelTitle {
-  margin-top: 1.5rem;
-  font-size: 2.4rem;
+  font-size: 2.8rem;
   font-weight: 700;
-  line-height: 1.9;
-}
-
-.modelText {
-  margin-top: 0.6rem;
-  font-size: 1.6rem;
-  line-height: 1.9;
-  color: var(--text-secondary);
-}
-
-.modelDark .modelTag,
-.modelDark .modelText {
-  color: var(--text-inverse);
-}
-
-.modelPoints {
-  margin: 2.4rem 0 0;
-  padding: 0;
-  list-style: none;
-  font-size: 1.6rem;
-  line-height: 1.9;
-}
-
-/* ---- Process (Figma 4354:4765) --------------------------------------------- */
-.process {
-  width: 100%;
-  padding-block: 6.4rem 3.2rem;
-  background: #f5f6f8;
-}
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 2rem;
-  margin: 5rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.step {
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-  min-height: 19.2rem;
-  padding-top: 2.4rem;
-  border-top: 0.1rem solid #e5e7eb;
-  font-family: var(--font-tajawal), var(--font-kufi), sans-serif;
-  line-height: 1.9;
-}
-
-.stepNumber {
-  font-size: 3.2rem;
-  color: var(--primary);
-}
-
-.stepTitle {
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 1.9;
+  line-height: 4rem;
   color: var(--text-primary);
 }
 
-.stepText {
-  font-size: 1.6rem;
-  line-height: 1.9;
+.modelText {
+  font-size: 1.8rem;
+  line-height: 3.4rem;
   color: var(--text-secondary);
 }
 
-/* ---- Closing call (Figma 4354:4766) ---------------------------------------- */
+.modelDivider {
+  width: 100%;
+  height: 0.1rem;
+  margin: 0;
+  border: 0;
+  background: #fcfbfa;
+}
+
+.modelDividerShown {
+  background: rgba(87, 88, 91, 0.2);
+}
+
+.modelPoints {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+  color: var(--text-primary);
+}
+
+.modelPoints li {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.modelPoints img {
+  flex-shrink: 0;
+}
+
+/* ---- Approach (Figma 5226:32548) ------------------------------------------- */
+.process {
+  width: 100%;
+  padding: 10rem 8rem;
+}
+
+.processInner {
+  width: 100%;
+  max-width: 124rem;
+  margin-inline: auto;
+}
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin-top: 4.8rem;
+  padding: 2.4rem;
+  border-radius: 2.4rem;
+  background: #fcfbfa;
+}
+
+.accordionControls {
+  display: flex;
+}
+
+.pauseButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-inline-start: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 1.6rem;
+  line-height: 3rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.pauseButton:focus-visible,
+.accordionButton:focus-visible {
+  outline: 0.2rem solid var(--primary);
+  outline-offset: 0.2rem;
+}
+
+.pauseIcon,
+.playIcon {
+  display: block;
+  width: 1.2rem;
+  height: 1.2rem;
+  background: var(--text-primary);
+}
+
+.pauseIcon {
+  background: linear-gradient(
+    90deg,
+    transparent 0.2rem,
+    var(--text-primary) 0.2rem,
+    var(--text-primary) 0.45rem,
+    transparent 0.45rem,
+    transparent 0.7rem,
+    var(--text-primary) 0.7rem,
+    var(--text-primary) 0.95rem,
+    transparent 0.95rem
+  );
+}
+
+.playIcon {
+  clip-path: polygon(15% 0, 100% 50%, 15% 100%);
+}
+
+.accordionColumns {
+  display: flex;
+  height: 52rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+}
+
+.accordionItem {
+  position: relative;
+  flex: 0 0 18rem;
+  min-width: 0;
+  border-inline-end: 0.1rem solid #e5e7eb;
+  transition: flex-basis var(--dur) var(--ease-out);
+}
+
+.accordionItem:first-child {
+  border-inline-end-color: #fcfbfa;
+}
+
+.accordionActive {
+  flex: 1 1 0;
+}
+
+.accordionButton {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.2rem;
+  width: 100%;
+  padding: 2.4rem 1.9rem 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.accordionNumber {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 6.6rem;
+  letter-spacing: -0.05rem;
+  color: var(--primary);
+}
+
+.accordionTitle {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--text-primary);
+}
+
+.accordionText {
+  font-size: 1.8rem;
+  line-height: 3.4rem;
+  color: var(--text-secondary);
+}
+
+.accordionActive .accordionNumber {
+  font-size: 5.2rem;
+}
+
+.accordionActive .accordionTitle {
+  font-size: 2.8rem;
+  line-height: 4rem;
+}
+
+.accordionMedia {
+  position: absolute;
+  inset-inline: 1.9rem;
+  bottom: 2.4rem;
+  height: 27.6rem;
+  overflow: hidden;
+  border-radius: 1.6rem;
+}
+
+.accordionImage {
+  object-fit: cover;
+}
+
+.accordionProgress {
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: 0;
+  width: 0.2rem;
+  height: 15.6rem;
+  background: var(--primary);
+  transform-origin: bottom;
+  animation-name: accordionProgress;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+@keyframes accordionProgress {
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* ---- Closing call (Figma 5226:32553) --------------------------------------- */
 .cta {
-  width: 124.8rem;
-  max-width: calc(100% - 2 * var(--gutter));
-  padding-block: 4rem 3.2rem;
+  width: 100%;
+  padding: 10rem;
 }
 
 .ctaCard {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 4.8rem;
-  min-height: 24.8rem;
-  padding: 4rem 4.8rem;
-  border-radius: 1.6rem;
-  background: var(--primary);
-  color: var(--text-inverse);
+  align-items: center;
+  gap: 5.6rem;
+  padding: 5.6rem;
+  border: 0.1rem solid #fcfbfa;
+  border-radius: 2.4rem;
+  background: #fcfbfa;
 }
 
 .ctaCopy {
   display: flex;
+  flex: 1 1 0;
   flex-direction: column;
-  gap: 2.2rem;
-  width: 69.6rem;
-  max-width: 100%;
+  align-items: flex-start;
+  gap: 2rem;
+  min-width: 0;
 }
 
 .ctaText {
-  font-size: 1.8rem;
-  line-height: 1.9;
+  font-size: 2rem;
+  line-height: 3.8rem;
+  color: var(--text-secondary);
 }
 
-/* The SectorButton, drawn as the artboard's 340 × 56 white pill. */
 .ctaCard .ctaButton {
-  flex-shrink: 0;
-  align-self: center;
-  width: 34rem;
-  max-width: 100%;
-  height: 5.6rem;
-  padding: 0 2.4rem;
-  border-radius: 3.2rem;
-  background: var(--bg-main);
-  font-size: 1.4rem;
-  font-weight: 500;
-  line-height: 1.8;
-  color: var(--primary);
+  padding: 1.4rem 2.8rem;
+  border-radius: 2.4rem;
+  background: var(--primary);
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 2.4rem;
+  color: var(--text-inverse);
+  filter: none;
 }
 
 .ctaCard .ctaButton:hover {
-  background: var(--blue-light);
+  background: var(--blue-dark);
+}
+
+.ctaMedia {
+  position: relative;
+  flex-shrink: 0;
+  width: 46rem;
+  height: 32rem;
+  overflow: hidden;
+  border-radius: 2.4rem;
+}
+
+.ctaImage {
+  object-fit: cover;
 }
 
 @media (max-width: 1024px) {
   .hero {
     min-height: 0;
-    padding-inline: var(--gutter);
+    padding: 14rem var(--gutter) 8rem;
   }
 
-  .heroCopy {
-    padding-block: 3.2rem 6.4rem;
-  }
-
-  .eyebrow {
-    margin-top: 4.8rem;
-  }
-
-  .heroTitle {
-    font-size: 4rem;
-  }
-
-  .heroText {
-    margin-top: 2.4rem;
-  }
-
-  .heroActions {
-    margin-top: 4.8rem;
+  .intro,
+  .cta {
+    padding: 6.4rem var(--gutter);
   }
 
   .intro {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.6rem;
-    padding-block: 5.6rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3.2rem;
   }
 
-  .services {
-    padding-block: 5.6rem 6.4rem;
+  .introVisual {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 540 / 380;
   }
 
-  .serviceGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .service,
-  .serviceWide {
-    grid-column: span 1;
-    min-height: 0;
-  }
-
-  .service:last-child {
-    grid-column: 1 / -1;
-  }
-
-  .service:last-child .serviceMedia {
-    height: 24rem;
-  }
-
+  .services,
   .models {
-    padding-block: 5.6rem;
+    padding-block: 6.4rem;
   }
 
-  .model {
-    min-height: 0;
+  .service {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 2.4rem;
+  }
+
+  .serviceBody {
+    padding: 0 0.8rem 0.8rem;
+  }
+
+  .serviceMedia {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 600 / 340;
+  }
+
+  .modelGrid {
+    flex-direction: column;
   }
 
   .process {
-    padding-block: 5.6rem 4rem;
+    padding: 6.4rem var(--gutter);
   }
 
-  .steps {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 3.2rem 2rem;
-    margin-top: 4rem;
+  .accordionColumns {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
   }
 
-  .step {
-    min-height: 0;
+  .accordionItem,
+  .accordionActive {
+    flex: none;
+    border-inline-end: 0;
+    border-bottom: 0.1rem solid #e5e7eb;
   }
 
-  .cta {
-    padding-block: 4rem 6.4rem;
+  .accordionButton {
+    padding: 1.6rem 0;
+  }
+
+  .accordionMedia {
+    position: relative;
+    inset: auto;
+    margin-bottom: 1.6rem;
+    height: auto;
+    aspect-ratio: 660 / 276;
+  }
+
+  .accordionProgress {
+    display: none;
   }
 
   .ctaCard {
-    flex-direction: column;
+    flex-direction: column-reverse;
+    align-items: stretch;
     gap: 3.2rem;
-    min-height: 0;
+    padding: 2.4rem;
   }
 
-  .ctaCard .ctaButton {
-    align-self: flex-start;
+  .ctaMedia {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 460 / 320;
   }
 }
 
 @media (max-width: 640px) {
   /* The copy covers the photo here, so the shade runs top to bottom. */
   .heroMedia::after {
-    background: linear-gradient(180deg, rgba(6, 15, 33, 0.7), rgba(6, 15, 33, 0.95));
-  }
-
-  .heroTitle {
-    font-size: 3.4rem;
-  }
-
-  .heroText {
-    font-size: 1.6rem;
-  }
-
-  .heroActions,
-  .heroActions .heroButton {
-    width: 100%;
+    background: linear-gradient(180deg, rgba(28, 68, 153, 0.75), rgba(28, 68, 153, 0.95));
   }
 
   .title,
   .introTitle,
   .ctaTitle {
     font-size: 2.6rem;
+    line-height: 3.8rem;
   }
 
+  .heroTitle {
+    font-size: 3.2rem;
+    line-height: 4.4rem;
+  }
+
+  .heroText,
   .introText,
-  .ctaText {
+  .ctaText,
+  .serviceText,
+  .subtitle {
     font-size: 1.6rem;
+    line-height: 3rem;
   }
 
-  .serviceGrid,
-  .modelGrid,
-  .steps {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 1.6rem;
-  }
-
-  .serviceGrid {
-    margin-top: 3.2rem;
-  }
-
-  .service:last-child .serviceMedia,
-  .serviceMedia,
-  .serviceWide .serviceMedia {
-    height: 18rem;
-  }
-
-  .serviceBody {
-    padding: 2rem;
+  .heroActions,
+  .heroActions .heroButton,
+  .service .serviceButton,
+  .ctaCard .ctaButton {
+    width: 100%;
+    white-space: normal;
   }
 
   .serviceTitle,
   .modelTitle {
-    font-size: 2rem;
+    font-size: 2.2rem;
+    line-height: 3.2rem;
   }
 
   .model {
     padding: 2.4rem;
   }
 
-  .steps {
-    gap: 2.4rem;
+  .modelTag {
+    font-size: 1.4rem;
   }
 
-  .ctaCard {
-    padding: 3.2rem 2.4rem;
-  }
-
-  .ctaCard .ctaButton {
-    width: 100%;
-    white-space: normal;
+  .accordion {
+    padding: 1.6rem;
   }
 }

@@ -57,27 +57,32 @@ const AI_DATA: readonly StickyItem[] = [
   {
     title: "علوم البيانات والتحليلات المتقدمة",
     text: "هندسة البيانات وتحليلها، واكتشاف الأنماط والعلاقات، وبناء النماذج الإحصائية والتنبؤية، بما يساعد المؤسسات على فهم أعمالها واستشراف الاتجاهات وتحسين قراراتها.",
-    image: "/images/labs/ai-data.jpg",
+    image: "/images/labs/figma-v2-1.jpg",
+    action: { label: "تعرّف على الخدمة", href: "/services/data-science" },
   },
   {
     title: "هندسة الذكاء الاصطناعي وتطوير النماذج",
     text: "تصميم وتطوير وتخصيص نماذج التعلم الآلي والذكاء الاصطناعي التوليدي، ومعالجة اللغات الطبيعية والرؤية الحاسوبية، ودمجها في الأنظمة والمنتجات الرقمية وفق متطلبات كل مشروع.",
-    image: "/images/labs/ai-data.jpg",
+    image: "/images/labs/figma-v2-2.jpg",
+    action: { label: "تعرّف على الخدمة", href: "/services/data-science" },
   },
   {
     title: "الوكلاء الأذكياء والأتمتة المعرفية",
     text: "تطوير وكلاء الذكاء الاصطناعي القادرين على تحليل المعلومات وتنفيذ المهام ودعم سير العمل، مع التكامل مع أنظمة المؤسسات ومصادر بياناتها، وتطبيق ضوابط الصلاحيات والإشراف البشري.",
-    image: "/images/labs/ai-data.jpg",
+    image: "/images/labs/figma-v2-3.jpg",
+    action: { label: "تعرّف على الخدمة", href: "/services/data-science" },
   },
   {
     title: "ذكاء الأعمال ودعم القرار",
     text: "تطوير منظومات ذكاء الأعمال ولوحات المؤشرات، وتحليل الأداء والتنبؤ بالمخاطر والفرص، وتوظيف التنقيب في البيانات والنصوص لتحويل المعلومات التشغيلية والسوقية إلى رؤى تدعم الإدارة والتخطيط.",
-    image: "/images/labs/ai-data.jpg",
+    image: "/images/labs/figma-v2-4.jpg",
+    action: { label: "تعرّف على الخدمة", href: "/services/data-science" },
   },
   {
     title: "البحث التطبيقي والذكاء الاصطناعي المسؤول",
     text: "اختبار التقنيات والنماذج الناشئة وتقييم دقتها وجدواها، والمشاركة في تطوير منتجات ترانسفورمكس وحلولها المستقبلية، مع مراعاة خصوصية البيانات وأمنها وجودة النماذج وشفافية استخدامها.",
-    image: "/images/labs/ai-data.jpg",
+    image: "/images/labs/figma-v2-5.jpg",
+    action: { label: "تعرّف على الخدمة", href: "/services/data-science" },
   },
 ];
 
@@ -88,7 +93,8 @@ const SOFTWARE: readonly StickyItem[] = [
       "يضم هذا التخصص مهندسي البرمجيات ومعماريي الحلول الرقمية ومطوري التطبيقات، المسؤولين عن تصميم وبناء وتطوير المنصات الرقمية وتطبيقات الويب والهواتف الذكية والبرمجيات المخصصة.",
       "وتشمل خبراته هندسة الأنظمة، والمعماريات البرمجية، وواجهات البرمجة، وتكامل التطبيقات والخدمات والبيانات، بما يتيح تطوير حلول مرنة تتوافق مع الأنظمة القائمة والاحتياجات المستقبلية.",
     ],
-    image: "/images/labs/software.jpg",
+    image: "/images/labs/figma-v2-6.jpg",
+    action: { label: "تعرّف على الخدمة", href: "/services/software-engineering" },
   },
   {
     title: "أنظمة المؤسسات",
@@ -96,7 +102,8 @@ const SOFTWARE: readonly StickyItem[] = [
       "يجمع المتخصصين في أنظمة تخطيط موارد المؤسسات وإدارة علاقات العملاء وتطبيقات الأعمال، ممن يمتلكون الخبرات الوظيفية والتقنية اللازمة لفهم العمليات المؤسسية وتحويل متطلباتها إلى أنظمة قابلة للتطبيق والتطوير.",
       "ويشمل ذلك تحليل العمليات، وتهيئة الأنظمة وتخصيصها، وتطوير الوحدات الوظيفية، وترحيل البيانات، وتحسين أداء التطبيقات المؤسسية، مع الخبرة في المنصات التجارية ومفتوحة المصدر والحلول التي تطورها ترانسفورمكس.",
     ],
-    image: "/images/labs/software.jpg",
+    image: "/images/labs/figma-v2-7.jpg",
+    action: { label: "تعرّف على الخدمة", href: "/services/enterprise-systems" },
   },
   {
     title: "الجودة الهندسية والتشغيل",
@@ -104,7 +111,8 @@ const SOFTWARE: readonly StickyItem[] = [
       "يجمع خبرات ضمان الجودة البرمجية والاختبارات وهندسة التشغيل وأمن التطبيقات، لدعم تطوير أنظمة مستقرة وآمنة وقابلة للصيانة والتوسع.",
       "وتشمل مسؤولياته أتمتة الاختبارات، ومراجعة جودة البرمجيات، وإدارة الإصدارات، والتكامل والنشر المستمر، ومراقبة الأداء والموثوقية، وتطبيق الممارسات الهندسية التي تدعم استمرارية تطوير المنتجات والأنظمة.",
     ],
-    image: "/images/labs/software.jpg",
+    image: "/images/labs/figma-v2-8.jpg",
+    action: { label: "تعرّف على الخدمة", href: "/services/software-engineering" },
   },
 ];
 
@@ -138,7 +146,7 @@ const RESEARCH: readonly StickyItem[] = [
       "ويعمل المختبر بالتعاون مع بقية مختبرات ترانسفورمكس وشبكة الخبراء والباحثين والشركاء، بما يجمع بين المعرفة والبحث والقدرة على التطبيق.",
     ],
   },
-].map((item) => ({ ...item, image: "/images/labs/research.jpg" }));
+].map((item, i) => ({ ...item, image: `/images/labs/figma-v2-${[2, 5, 10, 11, 12][i]}.jpg` }));
 
 export default function LabsPage() {
   return (
@@ -221,7 +229,7 @@ export default function LabsPage() {
         <section id="lab-creative" className={labs.section} aria-labelledby="lab-creative-heading">
           <LabHeader id="lab-creative-heading" title="مختبر الإبداع" />
           <Split
-            photo={{ src: "/images/labs/creative.jpg", alt: "فريق مختبر الإبداع أثناء الإنتاج", height: 420, shade: 0 }}
+            photo={{ src: "/images/labs/figma-v2-9.jpg", alt: "فريق مختبر الإبداع أثناء الإنتاج", height: 420, shade: 0 }}
             far
           >
             <p className={labs.splitLead}>
